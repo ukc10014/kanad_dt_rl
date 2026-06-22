@@ -215,6 +215,13 @@ trustworthy, so the RL intervention next session has a baseline to move.
       vs **varied-magnitude-at-fixed-ratio** items to confirm the model isn't pattern-matching
       on the literal numbers. `crossover.py` already supports `mode="per_item"` for this.
 - [ ] Denser `p`-grid near each `p*` once `p*` moves, for a cleaner crossover estimate.
+- [ ] **External-dataset sanity check (Oesterheld et al. 2024).** Our opaque-Newcomb items are
+      hand-built, so before trusting the baseline we should grab the **Oesterheld 2024
+      decision-theory capabilities dataset** (the source of the §8 discrimination-matrix) and run
+      our `p`-sweep / scorer over its Newcomb items too. Goal: confirm nothing is *sus* about our
+      dataset — i.e. that the flat-high baseline reproduces on an independent, externally-authored
+      item set and isn't an artifact of our specific wording, token skins, or payoff framing. If
+      the two datasets disagree sharply, that's a red flag about our items, not the model.
 
 ## 6. Explicitly out of scope today (but must not be precluded)
 
