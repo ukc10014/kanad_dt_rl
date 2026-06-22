@@ -46,7 +46,7 @@ def build_cfg(args) -> RLOOConfig:
 
 def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Train one RLOO arm (causal/evidential)")
-    ap.add_argument("--arm", choices=["causal", "evidential"], required=True)
+    ap.add_argument("--arm", choices=["causal", "evidential", "evidential_modelpred"], required=True)
     ap.add_argument("--reward-mode", dest="reward_mode", choices=["ev", "realized"], default="ev")
     ap.add_argument("--cot", action="store_true", default=False,
                     help="chain-of-thought: reason before answering (auto-bumps max_new_tokens to 256)")

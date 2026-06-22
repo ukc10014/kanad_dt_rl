@@ -28,6 +28,11 @@ from newcomb_eval.scorer import ROLE_CDT, ROLE_INVALID, ROLE_NON_CDT
 
 ARM_EVIDENTIAL = "evidential"
 ARM_CAUSAL = "causal"
+# Model-based predictor (Pivot C): the EVIDENTIAL reward formula, but the accuracy `p` is sourced
+# per-prompt from a *predictor model's* P(non_cdt | prompt) at rollout time (see rloo._predictor_p)
+# instead of the stipulated grid value. The reward function is identical to evidential; only where
+# `p` comes from differs — so it routes through the same branch here.
+ARM_MODELPRED = "evidential_modelpred"
 MODE_EV = "ev"            # deterministic expected value (low variance) — default
 MODE_REALIZED = "realized"  # stochastic realized points (ablation)
 
@@ -100,7 +105,7 @@ def compute_reward(
                     once, independent of the action). Falls back to Bernoulli(q or p) via rng.
     """
     if mode == MODE_EV:
-        if arm == ARM_EVIDENTIAL:
+        if arm in (ARM_EVIDENTIAL, ARM_MODELPRED):
             return evidential_reward_ev(role, p, B, S)
         if arm == ARM_CAUSAL:
             return causal_reward_ev(role, p, B, S, q=q)
@@ -109,7 +114,7 @@ def compute_reward(
     if mode == MODE_REALIZED:
         if role == ROLE_INVALID:
             return INVALID_REWARD
-        if arm == ARM_EVIDENTIAL:
+        if arm in (ARM_EVIDENTIAL, ARM_MODELPRED):
             r = rng or random
             fill = r.random() < evidential_fill_prob(role, p)
         elif arm == ARM_CAUSAL:

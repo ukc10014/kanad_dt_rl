@@ -257,6 +257,36 @@ inclination. **Note the hardware ceiling:** 32B bf16 (~64 GB) does **not** fit t
 inference, so big-model *RL* is off the table here — the realistic scale-up for RL is 7–14B via
 LoRA. Decide whether to scale RL **after** the scaffold sweep locates the capability cliff.
 
+## 5c. Phase-2 committed direction (2026-06-22)
+
+The day-1 finding (`results.md` "Day-1 synthesis"): **outcome RL moves the *intercept* (decision-
+theoretic disposition) but not the *slope* (p-conditional EV competence)**; the competence is
+latent in the base (CoT baseline tracks `p` at slope +0.50) and outcome reward averages over it.
+Three candidate pivots were considered; the **committed Phase-2 build is A → C** (all at 3B on the
+single A40 — no big-model RL):
+
+- **Pivot A — logprob / logit-margin instrument (build first; foundational).** The abstract
+  single-token labels make `P(non_cdt) vs P(cdt)` a renormalized 2-way softmax over the two legal
+  token-ids at the answer position (`rloo.py:_chunk_logprobs` already does the log_softmax). Adds a
+  **continuous K-signal + logit-margin** so we can see whether RL shifts the curve *up* (intercept)
+  or *tilts* it (slope) **below the argmax** — the direct test of the day-1 claim, and a finer
+  handle on "how answers are being changed." New `model.answer_logprobs` + a logprob sweep.
+- **Pivot C — model-based predictor (the committed bet; real correlation / FDT).** Today the
+  "predictor of accuracy `p`" is a *selection-dependent payoff* retro-fit to the realized action
+  (`reward.py:1-13`) — a reward construct, not a prediction process. Replace it with a predictor
+  that **samples from a model's action distribution**: box full iff the predictor-model would have
+  predicted the action the policy actually took. Makes the correlation *mechanistic, not
+  stipulated*; a **frozen-snapshot** predictor yields a genuine FDT self-prediction fixed-point.
+  Nearly free — `rloo.py:120-129` already computes the base distribution every rollout via
+  `disable_adapter()`. Build order: C0 (measure `P_pred`) → C1 (frozen-base arm, emergent accuracy)
+  → C2 (self-snapshot fixed-point).
+
+**Queued (not this build):** Pivot B — SFT (STaR/rejection-sampling on the 3B's own correct CoT) to
+*install* the slope, then causal/evidential RL on a competent base (the clean capability-vs-
+disposition 2×2); and cheap reward-shaping (EV-balanced curriculum + paired-across-`p` reward) to
+test whether existing RL *can* learn the conditional with a fair objective. See the working plan
+`/root/.claude/plans/let-s-get-going-on-adaptive-yeti.md` for the full A→C build detail.
+
 ## 6. Explicitly out of scope today (but must not be precluded)
 
 - LoRA adapter attach + PEFT — seam exists in `ModelWrapper(adapter_path=...)`.

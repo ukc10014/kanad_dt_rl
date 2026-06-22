@@ -6,9 +6,11 @@ Generation uses inference_mode locally, but that is per-call and does not freeze
 """
 from __future__ import annotations
 
+import math
 import threading
 
 import torch
+import torch.nn.functional as F
 
 _DTYPES = {
     "bfloat16": torch.bfloat16,
@@ -104,6 +106,53 @@ class ModelWrapper:
 
     def generate_one(self, prompt: str, max_new_tokens: int = 8, temperature: float = 0.0) -> str:
         return self.generate([prompt], max_new_tokens, temperature)[0]
+
+    # -- answer-logprob measurement (Pivot A: the fine-grained handle) -------
+    @torch.inference_mode()
+    def _continuation_logprob(self, base_text: str, cont: str) -> float:
+        """Sum log P(cont | base_text) over cont's tokens (teacher-forced, one forward).
+
+        ``base_text`` is already chat-templated; we re-tokenise without adding specials (the
+        template's special tokens are literal text the tokeniser maps back to their ids).
+        """
+        base_ids = self.tokenizer(base_text, return_tensors="pt", add_special_tokens=False).input_ids
+        full_ids = self.tokenizer(base_text + cont, return_tensors="pt", add_special_tokens=False).input_ids
+        base_len = base_ids.shape[1]
+        if full_ids.shape[1] <= base_len:  # cont merged into the last base token; nothing to score
+            return float("-inf")
+        full_ids = full_ids.to(self.model.device)
+        logits = self.model(full_ids).logits[0]  # [T, V]
+        logprobs = F.log_softmax(logits.float(), dim=-1)
+        total = 0.0
+        for i in range(base_len, full_ids.shape[1]):  # token i predicted by logits at i-1
+            total += logprobs[i - 1, full_ids[0, i]].item()
+        return total
+
+    def answer_logprobs(
+        self, prompt: str, non_cdt_token: str, cdt_token: str, *, prefix: str = ""
+    ) -> dict:
+        """Renormalised 2-way answer distribution at the decision point.
+
+        Returns ``p_non_cdt`` (= softmax over the two options' continuation logprobs), the raw
+        ``margin`` = logP(non_cdt) − logP(cdt), the two logprobs, and ``is_k`` (argmax == non_cdt).
+        ``prefix`` is optional teacher-forced text before the label (e.g. ``"Answer: "`` for CoT).
+        This is the sub-argmax instrument: the abstract single-token labels make it a clean
+        two-way read of how much mass the policy puts on one-box vs two-box at each ``p``.
+        """
+        with self._lock:
+            base = self._format(prompt) + prefix
+            lp_k = self._continuation_logprob(base, non_cdt_token)
+            lp_c = self._continuation_logprob(base, cdt_token)
+        m = max(lp_k, lp_c)
+        ek, ec = math.exp(lp_k - m), math.exp(lp_c - m)
+        p_non_cdt = ek / (ek + ec) if (ek + ec) > 0 else float("nan")
+        return {
+            "p_non_cdt": p_non_cdt,
+            "margin": lp_k - lp_c,
+            "lp_non_cdt": lp_k,
+            "lp_cdt": lp_c,
+            "is_k": 1.0 if lp_k >= lp_c else 0.0,
+        }
 
     # -- multi-turn generation (scaffolded CoT) ----------------------------
     @torch.inference_mode()

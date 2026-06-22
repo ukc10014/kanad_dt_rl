@@ -17,7 +17,7 @@ import torch.nn.functional as F
 
 from newcomb_eval.scorer import ROLE_CDT, ROLE_NON_CDT, resolve_choice
 
-from .reward import ARM_CAUSAL, MODE_REALIZED, compute_reward
+from .reward import ARM_CAUSAL, ARM_MODELPRED, MODE_REALIZED, compute_reward
 from .rl_config import RLOOConfig
 from .sampler import NewcombSampler
 
@@ -128,6 +128,38 @@ class NewcombRLOO:
                 parts.append(lp * gen_mask[i:i + mb, 1:])
         return torch.cat(parts, 0)
 
+    # -- model-based predictor (Pivot C) -----------------------------------
+    def _first_id(self, token: str) -> int:
+        """Cached first-token id of a label string (labels are single tokens)."""
+        cache = getattr(self, "_tok_id_cache", None)
+        if cache is None:
+            cache = self._tok_id_cache = {}
+        if token not in cache:
+            cache[token] = self.tok(token, add_special_tokens=False).input_ids[0]
+        return cache[token]
+
+    @torch.no_grad()
+    def _predictor_p(self, prompts, enc) -> list[float]:
+        """P_pred(non_cdt | prompt) under the PREDICTOR model, per prompt.
+
+        C1: the predictor is the *base* model — reuse the same ``disable_adapter()`` forward that
+        provides the KL reference (no extra model copy). Left-padding means logits[:, -1] is the
+        next-token distribution after each full prompt; we renormalise over the two legal label
+        tokens. This emergent accuracy then drives the evidential reward (the stated grid `p` is
+        ignored for the modelpred arm).
+        """
+        with self.model.disable_adapter():
+            with self._ac():
+                logits = self.model(enc.input_ids, attention_mask=enc.attention_mask).logits
+        last = logits[:, -1, :].float()
+        ps = []
+        for i, sp in enumerate(prompts):
+            non_cdt = next(t for t, r in sp.token_role.items() if r == ROLE_NON_CDT)
+            cdt = next(t for t, r in sp.token_role.items() if r == ROLE_CDT)
+            two = last[i, [self._first_id(non_cdt), self._first_id(cdt)]]
+            ps.append(torch.softmax(two, dim=-1)[0].item())
+        return ps
+
     # -- rollout -----------------------------------------------------------
     @torch.no_grad()
     def rollout(self):
@@ -135,6 +167,8 @@ class NewcombRLOO:
         prompts = self.sampler.sample(c.P)
         enc = self._prompt_ids([sp.text for sp in prompts])
         Lp = enc.input_ids.shape[1]
+        # Model-based predictor: source per-prompt accuracy from the base model's P(non_cdt).
+        p_model = self._predictor_p(prompts, enc) if c.arm == ARM_MODELPRED else None
         with self._ac():
             gen = self.model.generate(
                 **enc, max_new_tokens=c.max_new_tokens, do_sample=True,
@@ -147,10 +181,12 @@ class NewcombRLOO:
         roles = []
         n_k = n_valid = 0
         for i, sp in enumerate(prompts):
+            # modelpred: reward accuracy = predictor's P(non_cdt); else the stated grid p.
+            p_eff = p_model[i] if p_model is not None else sp.p
             # shared causal fill latent per prompt-group (realized mode only).
             causal_fill = None
             if c.arm == ARM_CAUSAL and c.reward_mode == MODE_REALIZED:
-                causal_fill = self.rng.random() < sp.p
+                causal_fill = self.rng.random() < p_eff
             for j in range(c.K):
                 idx = i * c.K + j
                 role, _tok, valid = resolve_choice(
@@ -158,7 +194,7 @@ class NewcombRLOO:
                 )
                 roles.append(role)
                 rewards[idx] = compute_reward(
-                    role, sp.p, sp.payoff_big, sp.payoff_small,
+                    role, p_eff, sp.payoff_big, sp.payoff_small,
                     arm=c.arm, mode=c.reward_mode, rng=self.rng, causal_fill=causal_fill,
                 )
                 n_valid += int(valid)
@@ -181,6 +217,7 @@ class NewcombRLOO:
             ids=gen, mask=mask, gen_mask=gen_mask, adv=adv, old_lp=old_lp, ref_lp=ref_lp,
             reward=rewards.mean().item(), k_rate=n_k / N, invalid_rate=1.0 - n_valid / N,
             gen_len=gen_mask[:, Lp:].sum(-1).mean().item(),
+            p_model_mean=(sum(p_model) / len(p_model)) if p_model else None,
             sample=(prompts[0].text[-80:], completions[0]),
         )
 
@@ -287,9 +324,11 @@ class NewcombRLOO:
             batch = self.rollout()
             self.learn(batch)
             if step % max(1, c.eval_every) == 0 or step == 1:
+                pm = batch.get("p_model_mean")
+                pm_str = f" p_model={pm:.3f}" if pm is not None else ""
                 print(f"[{c.arm}] step={step} train reward={batch['reward']:.2f} "
                       f"K={batch['k_rate']:.2f} invalid={batch['invalid_rate']:.2f} "
-                      f"gen_len={batch['gen_len']:.1f}", flush=True)
+                      f"gen_len={batch['gen_len']:.1f}{pm_str}", flush=True)
                 if wb:
                     wb.log({"train/reward": batch["reward"], "train/k_rate": batch["k_rate"],
                             "train/invalid": batch["invalid_rate"]}, step=step)
