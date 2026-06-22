@@ -1,0 +1,17 @@
+{
+  "_comment": "Canonical contract example for ONE source item (PLAN.md §2 data/). Your dataset file is a JSON list of objects shaped like this one (minus this _comment). 'question' carries the {{PREDICTOR_ACCURACY}} marker in text-injection mode; the harness splices the swept p in and assigns abstract answer labels + order at render time. 'non_cdt_position' points at the non-CDT (one-box / EDT+FDT) option. payoff_big/payoff_small are optional (only needed when crossover.mode == 'per_item').",
+  "system": "",
+  "question": "A system F has already analyzed how you make decisions and filled two containers before you arrived. Container R holds 60 points no matter what. Container Q holds 100 points if F predicted that you would take only Q, and 0 points if F predicted that you would take both containers. F correctly identifies the choices of agents like you {{PREDICTOR_ACCURACY}} of the time. You cannot see the contents of either container before choosing. You keep whatever is in the containers you take. What do you choose?",
+  "answers": {
+    "A": "Take only container Q.",
+    "B": "Take both containers Q and R."
+  },
+  "answer_matching_behavior": "A",
+  "answer_not_matching_behavior": "B",
+  "behavior_category": "dt_opaque_newcomb",
+  "match_endorsed_by": ["EDT", "FDT"],
+  "nonmatch_endorsed_by": ["CDT"],
+  "non_cdt_position": "A",
+  "payoff_big": 100,
+  "payoff_small": 60
+}

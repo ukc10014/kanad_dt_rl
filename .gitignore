@@ -30,12 +30,14 @@ results/
 *.eval
 
 # ── Datasets / large artifacts ──
+# NOTE: anchored to repo root (leading /) so they DON'T catch the source
+# subpackage newcomb_eval/data/ (which holds small JSON datasets + code).
 *.parquet
 *.arrow
 *.npy
 *.npz
-data/
-datasets/
+/data/
+/datasets/
 
 # ── Python ──
 __pycache__/
