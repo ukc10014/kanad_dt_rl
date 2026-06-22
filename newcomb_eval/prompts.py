@@ -24,6 +24,25 @@ class RenderedPrompt:
     seed_key: str = ""
 
 
+@dataclass
+class ScenarioBlock:
+    """The scenario + options block *without* the closing instruction.
+
+    Shared by ``build_prompt`` (which appends the forced-choice/CoT instruction) and the
+    scaffold runner (which appends its own step prompts). Carries the same seeded
+    ``legal_tokens``/``token_role``/``order`` so a scaffolded completion is scored against
+    exactly the labels the model was shown.
+    """
+
+    text: str                        # ends with a trailing newline (ready to append to)
+    legal_tokens: list[str]
+    token_role: dict
+    order: list[str]
+    p: float
+    item_id: str
+    seed_key: str = ""
+
+
 def _rng(item_id: str, p: float, sweep_seed: int, repeat: int) -> random.Random:
     return random.Random(f"{item_id}|{p:.6f}|{sweep_seed}|{repeat}")
 
@@ -32,7 +51,7 @@ def _format_p(p: float, fmt: str) -> str:
     return fmt.format(p=p)
 
 
-def build_prompt(
+def render_scenario_block(
     item: NewcombItem,
     p: float,
     prompt_cfg: PromptConfig,
@@ -40,13 +59,15 @@ def build_prompt(
     sweep_seed: int = 0,
     repeat: int = 0,
     mode: str = "text_injection",
-) -> RenderedPrompt:
-    """Render one (item, p) into a prompt string + the metadata the scorer needs.
+) -> ScenarioBlock:
+    """Render the scenario + options block (no closing instruction).
 
     Steps (PLAN.md §2):
       - render the scenario and inject the stated predictor accuracy ``p``;
-      - assign a randomised abstract token to each option role and a randomised order;
-      - append the fixed closing instruction (answer with exactly one legal token).
+      - assign a randomised abstract token to each option role and a randomised order.
+
+    The returned ``text`` ends with a trailing newline so a caller can append either the
+    forced-choice instruction (``build_prompt``) or a scaffold step prompt.
     """
     rng = _rng(item.id, p, sweep_seed, repeat)
     p_str = _format_p(p, prompt_cfg.accuracy_format)
@@ -77,17 +98,46 @@ def build_prompt(
     lines = [scenario, ""]
     for tok, text in options:
         lines.append(f"{tok}. {text}")
-    lines.append("")
-    instruction = prompt_cfg.cot_instruction if prompt_cfg.cot else prompt_cfg.instruction
-    legal = sorted(token_role.keys())
-    lines.append(instruction + f" (Valid labels: {', '.join(order)}.)")
+    lines.append("")  # trailing blank => text ends with "\n"
 
-    return RenderedPrompt(
+    return ScenarioBlock(
         text="\n".join(lines),
-        legal_tokens=legal,
+        legal_tokens=sorted(token_role.keys()),
         token_role=token_role,
+        order=order,
         p=p,
         item_id=item.id,
-        order=order,
         seed_key=f"{item.id}|{p:.6f}|{sweep_seed}|{repeat}",
+    )
+
+
+def build_prompt(
+    item: NewcombItem,
+    p: float,
+    prompt_cfg: PromptConfig,
+    *,
+    sweep_seed: int = 0,
+    repeat: int = 0,
+    mode: str = "text_injection",
+) -> RenderedPrompt:
+    """Render one (item, p) into a forced-choice (or CoT) prompt + scorer metadata.
+
+    Thin wrapper over ``render_scenario_block`` that appends the fixed closing instruction
+    (answer with exactly one legal token). Output is byte-identical to the pre-refactor form.
+    """
+    block = render_scenario_block(
+        item, p, prompt_cfg, sweep_seed=sweep_seed, repeat=repeat, mode=mode
+    )
+    instruction = prompt_cfg.cot_instruction if prompt_cfg.cot else prompt_cfg.instruction
+    # block.text ends with "\n"; add one more for the blank line before the instruction.
+    text = block.text + "\n" + instruction + f" (Valid labels: {', '.join(block.order)}.)"
+
+    return RenderedPrompt(
+        text=text,
+        legal_tokens=block.legal_tokens,
+        token_role=block.token_role,
+        p=p,
+        item_id=item.id,
+        order=block.order,
+        seed_key=block.seed_key,
     )

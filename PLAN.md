@@ -223,6 +223,40 @@ trustworthy, so the RL intervention next session has a baseline to move.
       item set and isn't an artifact of our specific wording, token skins, or payoff framing. If
       the two datasets disagree sharply, that's a red flag about our items, not the model.
 
+## 5b. Results so far & the scaffolded-CoT probe (2026-06-22)
+
+Status: MVP spine + RLOO loop built and run; scaffold harness built, base-3B run in progress.
+Full numbers in `results.md`. Headline findings:
+
+- **Baseline (Run 1).** Forced-choice K-rate is flat-high (~0.83), **no `p`-tracking** — but
+  see Run 3: this is a *format/capability artifact*, not a fixed disposition.
+- **RLOO causal vs evidential (Run 2, forced choice).** Causal reward → **clean CDT** (K=0 at
+  all `p`). Evidential reward → **fails to form the EDT step** (lands ~0.5, mildly anti-tracking).
+- **RLOO evidential under CoT (Run 3).** CoT *baseline* tracks `p` (slope +0.50) — the 3B **can**
+  do the EV reasoning. But evidential RL **erodes** that tracking (slope +0.50→+0.10) while
+  raising the floor: it installs a **uniform one-box disposition**, not the conditional EV step.
+- **The asymmetry (the result).** Across both formats: you can cheaply RL a *uniform disposition*
+  (CDT, or "one-box more"), but not cheaply RL the *conditional competence* to track `p`. This is
+  the §8 capability-vs-disposition confound appearing *inside* the RL.
+
+**Scaffolded-CoT three-arm probe** (`newcomb_eval/scaffold.py`, `run_scaffold.py`) — ported from
+the cosmichost_mp experiment into our stack. Three arms over the p-sweep (`no_cot` / `free_cot` /
+`scaffolded` 5-step: parties→options→outcomes→relationship→decision), all scored by the existing
+abstract-token `resolve_choice` (invariant #1 preserved). It **decomposes three signals** the
+above runs conflate:
+- **Capability** — K-rate(p) *slope per arm*: does forced structure unlock the step at `p*`?
+- **Extraction** — the **Step-4 "relationship" response** (choice↔predictor correlation, role of
+  `p`), persisted verbatim per trial for inspection / later judge-grading.
+- **Inclination** — the decision *conditional on a correct Step-4* (the residual disposition).
+
+Model-agnostic (`--model`/`--adapter`): the same tool is the **capability-cliff probe** — run it
+on a bigger model (Qwen2.5-14B bf16 fits the single **A40 (46 GB)** for inference; 32B-4bit for a
+direct cosmichost comparison) to test whether *scale* is the missing ingredient, and re-score the
+RL'd adapters (`causal`/`evidential`/`evidential_cot`) to see whether RL shifted extraction or
+inclination. **Note the hardware ceiling:** 32B bf16 (~64 GB) does **not** fit the A40 even for
+inference, so big-model *RL* is off the table here — the realistic scale-up for RL is 7–14B via
+LoRA. Decide whether to scale RL **after** the scaffold sweep locates the capability cliff.
+
 ## 6. Explicitly out of scope today (but must not be precluded)
 
 - LoRA adapter attach + PEFT — seam exists in `ModelWrapper(adapter_path=...)`.

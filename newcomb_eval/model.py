@@ -104,3 +104,41 @@ class ModelWrapper:
 
     def generate_one(self, prompt: str, max_new_tokens: int = 8, temperature: float = 0.0) -> str:
         return self.generate([prompt], max_new_tokens, temperature)[0]
+
+    # -- multi-turn generation (scaffolded CoT) ----------------------------
+    @torch.inference_mode()
+    def generate_messages(
+        self,
+        messages: list[dict],
+        max_new_tokens: int = 256,
+        temperature: float = 0.0,
+    ) -> str:
+        """Generate the next assistant turn given a full chat history.
+
+        ``messages`` is a list of ``{"role": ..., "content": ...}`` dicts. Unlike
+        ``generate`` (which wraps a single user message), this templates the whole history,
+        so the scaffold can carry prior turns. Returns only the newly generated text.
+        """
+        with self._lock:
+            if self.use_chat_template and getattr(self.tokenizer, "chat_template", None):
+                text = self.tokenizer.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=True
+                )
+            else:
+                # Fallback: concatenate roles plainly (templateless base models).
+                text = (
+                    "\n".join(f"{m['role']}: {m['content']}" for m in messages) + "\nassistant:"
+                )
+            enc = self.tokenizer(text, return_tensors="pt")
+            enc = {k: v.to(self.model.device) for k, v in enc.items()}
+
+            do_sample = temperature and temperature > 0.0
+            gen = self.model.generate(
+                **enc,
+                max_new_tokens=max_new_tokens,
+                do_sample=do_sample,
+                temperature=temperature if do_sample else None,
+                pad_token_id=self.tokenizer.pad_token_id,
+            )
+            new_tokens = gen[:, enc["input_ids"].shape[1]:]
+            return self.tokenizer.batch_decode(new_tokens, skip_special_tokens=True)[0]

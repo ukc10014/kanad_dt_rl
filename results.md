@@ -14,10 +14,15 @@ and interpretation. Raw per-sample transcripts are kept under `results/inspect_l
 ## Run 1 — Baseline: Qwen2.5-3B-Instruct  (2026-06-22)
 
 **Headline:** flat-high K-rate (~0.70–0.95) across the whole `p` range, **no tracking of `p`**,
-slight dip near `p*`. The model one-boxes ~83% of the time *regardless* of the stated accuracy —
-a clean **persona/recitation baseline** (strong prior toward the canonical one-box answer),
-exactly the contamination-relevant signal the harness was built to detect. This is the baseline
-RL is meant to move (flat-high → a curve that switches at `p*`).
+slight dip near `p*`. The model one-boxes ~83% of the time *regardless* of the stated accuracy:
+**no evidence of `p`-tracking in this (forced-choice) setup** — a strong prior toward the
+canonical one-box answer. This is the baseline RL is meant to move (flat-high → a curve that
+switches at `p*`).
+
+> **Updated by Run 3:** do *not* read this flat line as a fixed "persona/disposition." Under CoT
+> the *same base model* tracks `p` (slope +0.50). The forced-choice flatness is a
+> **format/capability artifact** (no room to compute EV in one token), not an inability or
+> unwillingness to condition on `p`. Mechanism here is inferred, not measured.
 
 **Config**
 - Model: `Qwen/Qwen2.5-3B-Instruct` (instruct; chat template on), greedy (`temperature=0`), `max_new_tokens=6`
@@ -112,7 +117,61 @@ python -m newcomb_rl.train_rl --arm evidential --steps 150 --K 8 --P 8
 python -m newcomb_rl.eval_arms --arms causal evidential
 ```
 
+## Run 3 — RLOO evidential **under CoT** (Qwen2.5-3B-Instruct, 2026-06-22)
+
+**Setup.** Same evidential reward as Run 2, but the policy now reasons before answering
+(`--cot`, 128–256 tok), so it *can* compute EV over the stated `p`. K=5/P=5, 60 steps, in-loop
+greedy eval. Adapter: `results/adapters/evidential_cot` (standalone, gitignored). This is the
+decisive capability-vs-disposition test flagged in Run 2's caveats.
+
+**Trajectory (in-loop greedy eval):**
+
+| step | eval mean_K | K@p=0.5 | K@p=0.99 | slope (hi−lo) | train invalid |
+|---|---|---|---|---|---|
+| 0 (CoT baseline) | 0.440 | 0.00 | 0.50 | **+0.50** | — |
+| 1 | — | — | — | — | **0.48** |
+| 20 | 0.400 | 0.40 | 0.20 | −0.20 | 0.00 |
+| 40 | 0.650 | 0.70 | 0.80 | +0.10 | 0.00 |
+| 60 (final) | 0.662 | 0.70 | 0.80 | **+0.10** | 0.00 |
+
+**Result — the same asymmetry, now under CoT.** The CoT *baseline* (step 0) already tracks `p`
+(slope **+0.50**): the 3B can partly do the EV reasoning when given room — so the flat
+forced-choice baseline (Run 1) was a **format/capability artifact, not a fixed disposition**.
+But evidential RL did **not sharpen** that step. It raised overall one-boxing (mean_K 0.44→0.66)
+by lifting the **floor** (K@p=0.5: 0.00→0.70) far more than the **ceiling** (K@p=0.99: 0.50→0.80),
+**eroding the conditional tracking** (slope +0.50→+0.10). RL installed a *more-uniform one-box
+disposition*, not the conditional EV-competence — the exact Run-2 asymmetry, reproduced in a
+second format. (Step-1 `invalid=0.48` flags a fragile CoT parser mid-training — a data-quality
+caveat, see harness note below.)
+
+**Reproduce**
+```bash
+python -m newcomb_rl.train_rl --arm evidential --cot --steps 60 --K 5 --P 5 \
+  --eval-every 20 --eval-items 10
+```
+
+---
+
+## Scaffolded-CoT three-arm harness (built 2026-06-22; base 3B run in progress)
+
+New `newcomb_eval/scaffold.py` + `run_scaffold.py`: a port of cosmichost_mp's scaffolded-CoT
+experiment into our stack. Three arms over the same p-sweep, all scored by the existing
+abstract-token `resolve_choice`: **no_cot** (≡ Run-1 forced choice), **free_cot** (≡ Run-3
+baseline path), **scaffolded** (5 neutral sub-questions: parties→options→outcomes→relationship→
+decision, each its own turn). Purpose: separate **capability** (K-rate(p) slope per arm),
+**extraction** (the Step-4 "relationship" response, persisted verbatim), and **inclination**
+(decision conditional on a correct Step-4). Model-agnostic (`--model`/`--adapter`) so the same
+tool probes the capability cliff on a bigger model (Qwen2.5-14B bf16 fits the A40 for inference;
+32B-4bit for the direct cosmichost comparison) and re-scores the RL'd adapters. Smoke on 0.5B:
+clean pipeline, 0% invalid after the decision-step parser fix (16→48 tok, label-first prompt).
+**Base-3B three-arm result: pending (running).** 52 tests green.
+
 ## Pending / to-run
+- **Scaffold base-3B result** (running) → write up as Run 4: does `scaffolded` form a clean step
+  at p* where `no_cot`/`free_cot` don't? (capability) and what does Step-4 reveal? (extraction).
+- **Capability-cliff probe**: scaffold sweep on Qwen2.5-14B (and/or 32B-4bit) vs 3B — is scale
+  the missing ingredient? Decide whether to scale RL to ~7–14B *after* this (RL on 32B does not
+  fit the single A40; 32B bf16 ≈ 64 GB > 46 GB).
 - **Evidential follow-up** (the open question): CoT reward so the model can reason about p;
   + LR/KL sweep, more steps, balanced/curriculum p-sampling, dense-EV reward.
 - Gemma-2-2b-it baseline (comparability to Tennant et al.; see PLAN.md §2 model-choice note).
