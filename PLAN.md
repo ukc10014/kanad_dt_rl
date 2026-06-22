@@ -76,6 +76,16 @@ newcomb_eval/
   Do **not** wrap the model in anything that blocks gradient flow / PEFT attachment.
 - Keep a single tokeniser/model instance; expose `.model` and `.tokenizer` for reuse.
 
+> **Model choice (decided 2026-06-22): `Qwen2.5-3B-Instruct`.** MVP + RL use Qwen2.5-3B-Instruct
+> as the base policy, chosen over Gemma-2-2b for stronger STEM/reasoning capability
+> (MMLU ~65 vs ~55, GSM8K ~79% vs ~25%). The motivation is the §8 confound: a more capable
+> base means a flat/incoherent K-rate(p) is more credibly *disposition*, not incapacity. It is
+> ungated and already cached on the box, and the instruct variant answers forced-choice cleanly
+> (low invalid rate). **Gemma-2-2b-it remains a model to check** — it is instruct-clean and matches
+> Tennant et al. (*Moral Alignment for LLM Agents*, ICLR 2025), who RL-tuned Gemma-2-2b-it on
+> iterated-Prisoner's-Dilemma moral dilemmas, giving a direct small-model-RL comparability point.
+> Caveat: Qwen2.5-3B specifically ships under the Qwen Research License (research-only).
+
 ### `prompts.py` — prompt construction & `p` injection
 - `build_prompt(item, p, token_map, order, prompt_cfg) -> str`.
 - Responsibilities:

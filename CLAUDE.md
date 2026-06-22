@@ -5,8 +5,10 @@ full spec; this file is the short operational contract. When they conflict, `PLA
 but flag the conflict rather than silently diverging.
 
 ## What this project is
-An **Inspect (`inspect_ai`) eval** measuring whether a small open model (Gemma-small) tracks
-the **stated predictor accuracy `p`** in abstract-token Newcomb problems. Headline output:
+An **Inspect (`inspect_ai`) eval** measuring whether a small open model tracks
+the **stated predictor accuracy `p`** in abstract-token Newcomb problems. Base policy is
+**Qwen2.5-3B-Instruct** (default in `config.py`); Gemma-2-2b-it is an alternative to check
+(see the model-choice note in PLAN.md §2). Headline output:
 a **K-rate (non-CDT selection rate) vs `p`** curve per model, with the theoretical crossover
 `p*` overlaid. Day-one scope is **measurement only** — no weight updates, LoRA, or RLOO.
 

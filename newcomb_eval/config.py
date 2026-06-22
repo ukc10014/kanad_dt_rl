@@ -77,7 +77,7 @@ class CrossoverConfig:
 class ModelConfig:
     """ModelWrapper settings. ``adapter_path`` is the LoRA seam (PLAN.md §2)."""
 
-    model_name: str = "google/gemma-2-2b"
+    model_name: str = "Qwen/Qwen2.5-3B-Instruct"
     adapter_path: str | None = None  # None -> base model; set -> PEFT adapter on top
     max_new_tokens: int = 8
     temperature: float = 0.0  # 0 -> greedy/forced-choice
