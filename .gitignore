@@ -1,0 +1,49 @@
+# ── Secrets / credentials (NEVER commit) ──
+.env
+.env.*
+*.pem
+*.key
+.netrc
+
+# ── Model weights & checkpoints ──
+*.safetensors
+*.pt
+*.pth
+*.bin
+*.ckpt
+*.gguf
+checkpoints/
+checkpoint-*/
+adapters/
+lora/
+*.lora
+
+# ── Experiment tracking / logs ──
+wandb/
+runs/
+tensorboard/
+*.log
+logs/
+
+# ── Datasets / large artifacts ──
+*.parquet
+*.arrow
+*.npy
+*.npz
+data/
+datasets/
+
+# ── Python ──
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# ── OS / editor cruft ──
+.DS_Store
+*.swp
+.vscode/
+.idea/
