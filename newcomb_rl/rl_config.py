@@ -47,6 +47,7 @@ class RLOOConfig:
 
     # --- io ---
     adapter_dir: str = os.path.join(_PKG_DIR, "..", "results", "adapters")
+    tag: str = ""              # suffix on the saved adapter dir (e.g. "cot") to avoid clobbering
     wandb: bool = False
     wandb_project: str = "newcomb-rloo"
 
@@ -66,4 +67,5 @@ class RLOOConfig:
         return c.payoff_big, c.payoff_small
 
     def arm_dir(self) -> str:
-        return os.path.join(self.adapter_dir, self.arm)
+        name = self.arm + (f"_{self.tag}" if self.tag else "")
+        return os.path.join(self.adapter_dir, name)

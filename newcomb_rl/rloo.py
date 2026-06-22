@@ -153,7 +153,9 @@ class NewcombRLOO:
                 causal_fill = self.rng.random() < sp.p
             for j in range(c.K):
                 idx = i * c.K + j
-                role, _tok, valid = resolve_choice(completions[idx], sp.legal_tokens, sp.token_role)
+                role, _tok, valid = resolve_choice(
+                    completions[idx], sp.legal_tokens, sp.token_role, cot=self.cfg.eval.prompt.cot
+                )
                 roles.append(role)
                 rewards[idx] = compute_reward(
                     role, sp.p, sp.payoff_big, sp.payoff_small,
@@ -230,7 +232,8 @@ class NewcombRLOO:
                                               do_sample=False, pad_token_id=self.pad)
                 comp = self.tok.batch_decode(gen[:, enc.input_ids.shape[1]:], skip_special_tokens=True)
                 for rp, ct in zip(rps, comp):
-                    role, _t, valid = resolve_choice(ct, rp.legal_tokens, rp.token_role)
+                    role, _t, valid = resolve_choice(ct, rp.legal_tokens, rp.token_role,
+                                                     cot=c.eval.prompt.cot)
                     by_p[p][2] += 1
                     by_p[p][1] += int(valid)
                     by_p[p][0] += int(role == ROLE_NON_CDT)

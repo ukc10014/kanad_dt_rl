@@ -29,10 +29,18 @@ def build_cfg(args) -> RLOOConfig:
     cfg.reward_mode = args.reward_mode
     for fld in ("lr", "kl_coef", "clip", "lora_rank", "K", "P", "temp", "max_new_tokens",
                 "micro", "steps", "minutes", "eval_every", "eval_items", "seed",
-                "wandb", "fp32_lora"):
+                "wandb", "fp32_lora", "tag"):
         v = getattr(args, fld, None)
         if v is not None:
             setattr(cfg, fld, v)
+    if args.cot:
+        cfg.eval = dataclasses.replace(
+            cfg.eval, prompt=dataclasses.replace(cfg.eval.prompt, cot=True)
+        )
+        if args.max_new_tokens is None:  # CoT needs room to reason before answering
+            cfg.max_new_tokens = 256
+        if not cfg.tag:
+            cfg.tag = "cot"
     return cfg
 
 
@@ -40,6 +48,8 @@ def main(argv=None) -> int:
     ap = argparse.ArgumentParser(description="Train one RLOO arm (causal/evidential)")
     ap.add_argument("--arm", choices=["causal", "evidential"], required=True)
     ap.add_argument("--reward-mode", dest="reward_mode", choices=["ev", "realized"], default="ev")
+    ap.add_argument("--cot", action="store_true", default=False,
+                    help="chain-of-thought: reason before answering (auto-bumps max_new_tokens to 256)")
     ap.add_argument("--model", help="HF model id (default: config Qwen2.5-3B-Instruct)")
     ap.add_argument("--lr", type=float)
     ap.add_argument("--kl-coef", dest="kl_coef", type=float)
@@ -55,6 +65,7 @@ def main(argv=None) -> int:
     ap.add_argument("--eval-every", dest="eval_every", type=int)
     ap.add_argument("--eval-items", dest="eval_items", type=int)
     ap.add_argument("--seed", type=int)
+    ap.add_argument("--tag", help="suffix on the saved adapter dir (default 'cot' when --cot)")
     ap.add_argument("--fp32-lora", dest="fp32_lora", action="store_true", default=None)
     ap.add_argument("--wandb", action="store_true", default=None)
     args = ap.parse_args(argv)
