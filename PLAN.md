@@ -194,6 +194,18 @@ trustworthy, so the RL intervention next session has a baseline to move.
 
 ---
 
+## 5a. Near-term to-do (post-MVP, before the fingerprint eval)
+
+- [ ] **Payoff ablation.** The MVP holds payoffs constant (B=100, S=60 → `p* = 0.8`) so
+      the sweep varies only `p`. Once the spine works, sweep the **payoffs** too: vary the
+      `S/B` ratio to move `p*` across the grid (e.g. `S/B ∈ {0.2, 0.4, 0.6, 0.8}` →
+      `p* ∈ {0.6, 0.7, 0.8, 0.9}`) and check the empirical K-rate crossover **tracks `p*`
+      as it moves**. This is the strong test that the model reasons about the structure
+      rather than keying on a fixed threshold near `p=0.8`. Also compare **constant-payoff**
+      vs **varied-magnitude-at-fixed-ratio** items to confirm the model isn't pattern-matching
+      on the literal numbers. `crossover.py` already supports `mode="per_item"` for this.
+- [ ] Denser `p`-grid near each `p*` once `p*` moves, for a cleaner crossover estimate.
+
 ## 6. Explicitly out of scope today (but must not be precluded)
 
 - LoRA adapter attach + PEFT — seam exists in `ModelWrapper(adapter_path=...)`.
