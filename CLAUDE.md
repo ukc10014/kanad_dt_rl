@@ -30,6 +30,37 @@ a **K-rate (non-CDT selection rate) vs `p`** curve per model, with the theoretic
 7. **Invalid answers are tracked, never coerced.** An unparseable completion → `invalid`,
    never a silent CDT. Report invalid-rate separately.
 
+## Sanity gates — catch confounds before trusting any number
+A metric is only as good as its denominator. Before *interpreting or reporting* a headline number
+(K-rate, slope, reward), check the cheap confounds below — and if one is elevated, **quarantine the
+dependent result: re-run/fix, don't footnote-and-proceed.** (This bit us: Run 3/4's CoT "slope
++0.50" was largely a 38–48%-invalid artifact — flagged as a caveat but reported as a finding
+anyway; robust re-scoring flattened it.)
+- **Invalid / non-parse rate is not neutral noise.** Invalids are scored into a class (here
+  not-K = 0), so a high, `p`-uneven invalid rate **biases the slope**, it doesn't just widen the CI.
+  Heuristic: invalid > ~5% on a cell ⇒ that cell is suspect; > ~20% ⇒ do **not** interpret the
+  slope until the format/parser is fixed.
+- **Truncation.** `gen_len == max_new_tokens` ⇒ the answer may be cut off (the scaffold decision
+  step truncated at 16 tok → 100% invalid). Want `gen_len` well under the cap, or extract the
+  answer structurally (forced `"Answer:"` continuation), not by hoping the label appears inline.
+- **Format mismatch.** The model may emit the option *text* ("take only Q"), not the abstract
+  *label* ("Q") — the actual root cause of the CoT invalids. Don't rely on the label appearing in
+  free text.
+- **Degenerate output.** Empty / prompt-echo / repetition / a constant token regardless of input
+  (base model without a chat template → 100% invalid). A flat metric can be a *broken measurement*,
+  not a real null — rule that out first.
+- **n and noise.** Slopes/CIs from n ≲ 10 per cell are noise (we saw a slope flip +0.5→−0.2 at
+  n=10). State n; don't over-read a single-run slope sign.
+- **Read the raw transcripts, don't just persist them.** A glance at a few generations catches all
+  of the above in seconds — persisting (below) is necessary but not sufficient.
+
+## GPU runs (serial vs. batch)
+Unattended/batch GPU work — sweeps, ablations, self-contained baselines/probes whose results
+*aggregate* and need no human between runs — lives in **`OVERNIGHT.md`**, a living queue with
+smoke-before-batch + memory-safe-default rules. Most work at this stage is **serial** (each result
+informs the next move); only fire-and-forget aggregating runs go overnight. Before stepping away,
+grab candidates from `OVERNIGHT.md`'s "overnight-friendly" list; keep serial experiments attended.
+
 ## File layout
 See `PLAN.md §1`. Core modules under `newcomb_eval/`: `config.py`, `data/{schema,loader}.py`,
 `prompts.py`, `model.py`, `task.py`, `scorer.py`, `crossover.py`, `sweep.py`, `plot.py`,

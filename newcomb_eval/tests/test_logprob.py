@@ -45,6 +45,26 @@ def test_answer_logprobs_argmax_can_be_cdt():
     assert out["margin"] < 0
 
 
+def test_predictor_probe_identity():
+    """P2: the two predictor-probability measurements are mathematically equal for single tokens.
+
+    rloo._predictor_p does softmax over the two label *logits* at the answer position;
+    model.answer_logprobs renormalises over the two *continuation logprobs*. For single-token
+    labels the full-vocab log-softmax normaliser cancels in the 2-way ratio, so they must agree.
+    This guards the predictor probe that C2's self-prediction dynamics will depend on.
+    """
+    import torch
+
+    torch.manual_seed(0)
+    for _ in range(20):
+        logits = torch.randn(2000) * 3.0
+        a, b = 7, 1234
+        two_way_softmax = torch.softmax(logits[[a, b]], dim=-1)[0].item()
+        lp = torch.log_softmax(logits, dim=-1)
+        renorm = (torch.exp(lp[a]) / (torch.exp(lp[a]) + torch.exp(lp[b]))).item()
+        assert abs(two_way_softmax - renorm) < 1e-6
+
+
 def test_aggregate_logprobs_means_and_krate():
     rows = [
         {"p": 0.5, "p_non_cdt": 0.6, "margin": 1.0, "is_k": 1.0},

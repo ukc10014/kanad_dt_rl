@@ -43,9 +43,7 @@ class NewcombSampler:
         # Pre-compute crossover (p*, B, S) per item under the configured mode.
         self._xover = {it.id: crossover_for_item(it, cfg.eval.crossover) for it in self.items}
 
-    def _one(self) -> SampledPrompt:
-        item = self.rng.choice(self.items)
-        p = self.rng.choice(self.train_p)
+    def _render(self, item, p: float) -> SampledPrompt:
         draw = self._draw
         self._draw += 1
         rp = build_prompt(
@@ -65,5 +63,32 @@ class NewcombSampler:
             draw=draw,
         )
 
+    def _one(self) -> SampledPrompt:
+        return self._render(self.rng.choice(self.items), self.rng.choice(self.train_p))
+
     def sample(self, n: int) -> list[SampledPrompt]:
         return [self._one() for _ in range(n)]
+
+    def sample_paired(self, n_pairs: int) -> list[SampledPrompt]:
+        """EV-balanced paired draw: 2*n_pairs prompts, each consecutive pair the *same item* at a
+        p_low < p* and a p_high > p* (Lever 1b).
+
+        This makes each rollout batch balanced below/above the crossover, so a p-independent policy
+        earns ~0 net advantage — the only way to win is to *condition on p* (one-box high, two-box
+        low). Pairing on the same item isolates the difference to `p`. If an item's train grid has
+        no value on one side of p* (degenerate payoff), fall back to two distinct train-p draws.
+        """
+        out = []
+        for _ in range(n_pairs):
+            item = self.rng.choice(self.items)
+            p_star = self._xover[item.id].p_star
+            lows = [p for p in self.train_p if p < p_star]
+            highs = [p for p in self.train_p if p > p_star]
+            if lows and highs:
+                p_low, p_high = self.rng.choice(lows), self.rng.choice(highs)
+            else:  # degenerate split — just take two distinct train-p values
+                a, b = sorted(self.rng.sample(self.train_p, k=min(2, len(self.train_p))))
+                p_low, p_high = a, b
+            out.append(self._render(item, p_low))
+            out.append(self._render(item, p_high))
+        return out

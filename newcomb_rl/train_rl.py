@@ -29,10 +29,14 @@ def build_cfg(args) -> RLOOConfig:
     cfg.reward_mode = args.reward_mode
     for fld in ("lr", "kl_coef", "clip", "lora_rank", "K", "P", "temp", "max_new_tokens",
                 "micro", "steps", "minutes", "eval_every", "eval_items", "seed",
-                "wandb", "fp32_lora", "tag"):
+                "wandb", "fp32_lora", "tag", "paired", "train_p_min", "train_p_max"):
         v = getattr(args, fld, None)
         if v is not None:
             setattr(cfg, fld, v)
+    if args.lora_where:  # attn-vs-MLP localization ablation
+        attn = ("q_proj", "k_proj", "v_proj", "o_proj")
+        mlp = ("gate_proj", "up_proj", "down_proj")
+        cfg.lora_targets = {"attn": attn, "mlp": mlp, "all": attn + mlp}[args.lora_where]
     if args.cot:
         cfg.eval = dataclasses.replace(
             cfg.eval, prompt=dataclasses.replace(cfg.eval.prompt, cot=True)
@@ -50,6 +54,14 @@ def main(argv=None) -> int:
     ap.add_argument("--reward-mode", dest="reward_mode", choices=["ev", "realized"], default="ev")
     ap.add_argument("--cot", action="store_true", default=False,
                     help="chain-of-thought: reason before answering (auto-bumps max_new_tokens to 256)")
+    ap.add_argument("--paired", action="store_true", default=None,
+                    help="EV-balanced curriculum: each rollout draws items at a p_low<p* and p_high>p* (Lever 1b)")
+    ap.add_argument("--train-p-min", dest="train_p_min", type=float,
+                    help="restrict TRAIN p-grid to p >= this (per-p ablation)")
+    ap.add_argument("--train-p-max", dest="train_p_max", type=float,
+                    help="restrict TRAIN p-grid to p <= this (per-p ablation)")
+    ap.add_argument("--lora-where", dest="lora_where", choices=["all", "attn", "mlp"],
+                    help="which projections LoRA adapts (attn-vs-MLP localization ablation)")
     ap.add_argument("--model", help="HF model id (default: config Qwen2.5-3B-Instruct)")
     ap.add_argument("--lr", type=float)
     ap.add_argument("--kl-coef", dest="kl_coef", type=float)

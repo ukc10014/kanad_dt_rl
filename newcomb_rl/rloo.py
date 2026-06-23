@@ -15,7 +15,7 @@ import time
 import torch
 import torch.nn.functional as F
 
-from newcomb_eval.scorer import ROLE_CDT, ROLE_NON_CDT, resolve_choice
+from newcomb_eval.scorer import ROLE_CDT, ROLE_INVALID, ROLE_NON_CDT, resolve_choice
 
 from .reward import ARM_CAUSAL, ARM_MODELPRED, MODE_REALIZED, compute_reward
 from .rl_config import RLOOConfig
@@ -78,8 +78,7 @@ class NewcombRLOO:
 
         lora = LoraConfig(
             r=cfg.lora_rank, lora_alpha=2 * cfg.lora_rank, lora_dropout=0.0,
-            target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
-                            "gate_proj", "up_proj", "down_proj"],
+            target_modules=list(cfg.lora_targets),
         )
         self.model = get_peft_model(base, lora)
 
@@ -112,10 +111,13 @@ class NewcombRLOO:
 
     # -- log-probs ---------------------------------------------------------
     def _chunk_logprobs(self, ids, mask):
+        # Memory-efficient: logprob(target) = target_logit - logsumexp(all logits). Avoids
+        # materialising the full-vocab log_softmax output (a second [B,T,V] float tensor) — the
+        # difference between fitting and OOM on long CoT sequences over Qwen's 152k vocab.
         with self._ac():
-            logits = self.model(ids, attention_mask=mask).logits[:, :-1]
-        lp = F.log_softmax(logits.float(), dim=-1)
-        return lp.gather(-1, ids[:, 1:, None]).squeeze(-1)
+            logits = self.model(ids, attention_mask=mask).logits[:, :-1].float()
+        tgt = logits.gather(-1, ids[:, 1:, None]).squeeze(-1)
+        return tgt - torch.logsumexp(logits, dim=-1)
 
     @torch.no_grad()
     def _seq_logprobs(self, ids, mask, gen_mask, adapters: bool):
@@ -160,11 +162,37 @@ class NewcombRLOO:
             ps.append(torch.softmax(two, dim=-1)[0].item())
         return ps
 
+    # -- robust CoT answer extraction (P1) ---------------------------------
+    @torch.no_grad()
+    def _forced_answer_roles(self, prompt_texts, completions, legal_list, role_list,
+                             cue: str = "\nAnswer:") -> list[str]:
+        """Resolve a role per (reasoning) completion via a forced 'Answer:' continuation.
+
+        Free-form CoT often reasons in prose and never emits the abstract label, so scoring the
+        raw completion gives a huge invalid rate (Run 4: 38%). Instead we append a fixed cue to the
+        assistant turn and greedily generate a few tokens — the model reliably completes the cue
+        with a label (the scaffold's dedicated decision turn validated this: ~1% invalid). The
+        policy gradient is unaffected: it stays on the stage-1 reasoning tokens; this is a no_grad
+        read used only to assign reward. Resolution uses the abstract-token ``resolve_choice`` (no
+        natural-language string-matching; invariant #1 preserved).
+        """
+        texts = [self._wrap(pt) + comp + cue for pt, comp in zip(prompt_texts, completions)]
+        enc = self.tok(texts, return_tensors="pt", padding=True,
+                       add_special_tokens=False).to(self.device)
+        with self._ac():
+            gen = self.model.generate(**enc, max_new_tokens=4, do_sample=False, pad_token_id=self.pad)
+        ans = self.tok.batch_decode(gen[:, enc.input_ids.shape[1]:], skip_special_tokens=True)
+        roles = []
+        for a, legal, role_map in zip(ans, legal_list, role_list):
+            role, _tok, valid = resolve_choice(a, legal, role_map, cot=False)
+            roles.append(role if valid else ROLE_INVALID)
+        return roles
+
     # -- rollout -----------------------------------------------------------
     @torch.no_grad()
     def rollout(self):
         c = self.cfg
-        prompts = self.sampler.sample(c.P)
+        prompts = self.sampler.sample_paired(c.P // 2) if c.paired else self.sampler.sample(c.P)
         enc = self._prompt_ids([sp.text for sp in prompts])
         Lp = enc.input_ids.shape[1]
         # Model-based predictor: source per-prompt accuracy from the base model's P(non_cdt).
@@ -176,6 +204,16 @@ class NewcombRLOO:
                 pad_token_id=self.pad,
             )
         completions = self.tok.batch_decode(gen[:, Lp:], skip_special_tokens=True)
+
+        # CoT: resolve each completion's action via a forced 'Answer:' continuation (P1) so prose
+        # reasoning that never emits a label isn't scored invalid; forced-choice scores directly.
+        cot = self.cfg.eval.prompt.cot
+        cot_roles = None
+        if cot:
+            ptxt = [sp.text for sp in prompts for _ in range(c.K)]
+            legl = [sp.legal_tokens for sp in prompts for _ in range(c.K)]
+            rolm = [sp.token_role for sp in prompts for _ in range(c.K)]
+            cot_roles = self._forced_answer_roles(ptxt, completions, legl, rolm)
 
         rewards = torch.zeros(c.P * c.K, dtype=torch.float)
         roles = []
@@ -189,9 +227,13 @@ class NewcombRLOO:
                 causal_fill = self.rng.random() < p_eff
             for j in range(c.K):
                 idx = i * c.K + j
-                role, _tok, valid = resolve_choice(
-                    completions[idx], sp.legal_tokens, sp.token_role, cot=self.cfg.eval.prompt.cot
-                )
+                if cot:
+                    role = cot_roles[idx]
+                    valid = role != ROLE_INVALID
+                else:
+                    role, _tok, valid = resolve_choice(
+                        completions[idx], sp.legal_tokens, sp.token_role, cot=False
+                    )
                 roles.append(role)
                 rewards[idx] = compute_reward(
                     role, p_eff, sp.payoff_big, sp.payoff_small,
@@ -268,12 +310,20 @@ class NewcombRLOO:
                     gen = self.model.generate(**enc, max_new_tokens=c.max_new_tokens,
                                               do_sample=False, pad_token_id=self.pad)
                 comp = self.tok.batch_decode(gen[:, enc.input_ids.shape[1]:], skip_special_tokens=True)
-                for rp, ct in zip(rps, comp):
-                    role, _t, valid = resolve_choice(ct, rp.legal_tokens, rp.token_role,
-                                                     cot=c.eval.prompt.cot)
-                    by_p[p][2] += 1
-                    by_p[p][1] += int(valid)
-                    by_p[p][0] += int(role == ROLE_NON_CDT)
+                if c.eval.prompt.cot:  # P1: forced-answer extraction (same as rollout)
+                    e_roles = self._forced_answer_roles(
+                        [rp.text for rp in rps], comp,
+                        [rp.legal_tokens for rp in rps], [rp.token_role for rp in rps])
+                    for role in e_roles:
+                        by_p[p][2] += 1
+                        by_p[p][1] += int(role != ROLE_INVALID)
+                        by_p[p][0] += int(role == ROLE_NON_CDT)
+                else:
+                    for rp, ct in zip(rps, comp):
+                        role, _t, valid = resolve_choice(ct, rp.legal_tokens, rp.token_role, cot=False)
+                        by_p[p][2] += 1
+                        by_p[p][1] += int(valid)
+                        by_p[p][0] += int(role == ROLE_NON_CDT)
         self.model.train()
         out = {}
         for p, (nk, nv, nt) in by_p.items():

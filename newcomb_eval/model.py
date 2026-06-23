@@ -154,6 +154,36 @@ class ModelWrapper:
             "is_k": 1.0 if lp_k >= lp_c else 0.0,
         }
 
+    @torch.inference_mode()
+    def answer_2way(self, text: str, non_cdt_token: str, cdt_token: str) -> dict:
+        """Merge-safe 2-way next-token readout over two labels at the end of ``text``.
+
+        ``text`` must be fully assembled (chat-wrapped prompt + any reasoning + the ``Answer:`` cue).
+        We resolve each label's *context-aware* first token (re-tokenising ``text + label`` and
+        taking the first id that diverges from ``text`` — this handles space-prefix / boundary
+        merges that break a naive continuation-logprob read), then compare those two logits at the
+        final position. Returns ``p_non_cdt`` (2-way softmax), ``margin``, and ``is_k``.
+        """
+        with self._lock:
+            ctx = self.tokenizer(text, add_special_tokens=False).input_ids
+
+            def first_id(label):
+                full = self.tokenizer(text + label, add_special_tokens=False).input_ids
+                i = 0
+                while i < len(ctx) and i < len(full) and ctx[i] == full[i]:
+                    i += 1
+                return full[i] if i < len(full) else None
+
+            ik, ic = first_id(non_cdt_token), first_id(cdt_token)
+            ids = torch.tensor([ctx], device=self.model.device)
+            logits = self.model(ids).logits[0, -1].float()
+        if ik is None or ic is None:
+            return {"p_non_cdt": float("nan"), "margin": float("nan"), "is_k": float("nan")}
+        lk, lc = logits[ik].item(), logits[ic].item()
+        m = max(lk, lc)
+        ek, ec = math.exp(lk - m), math.exp(lc - m)
+        return {"p_non_cdt": ek / (ek + ec), "margin": lk - lc, "is_k": 1.0 if lk >= lc else 0.0}
+
     # -- multi-turn generation (scaffolded CoT) ----------------------------
     @torch.inference_mode()
     def generate_messages(

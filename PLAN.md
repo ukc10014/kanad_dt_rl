@@ -287,6 +287,61 @@ disposition 2×2); and cheap reward-shaping (EV-balanced curriculum + paired-acr
 test whether existing RL *can* learn the conditional with a fair objective. See the working plan
 `/root/.claude/plans/let-s-get-going-on-adaptive-yeti.md` for the full A→C build detail.
 
+## 5d. Phase-3 (2026-06-23): give RL a fair shot at the *slope*
+
+Goal: **try to break the intercept-vs-slope result** (or pin down why it holds). Driven by an
+external review (which independently re-derived ~90% of the day-1 synthesis) and a decisive reframe.
+
+**Reframe:** Run 5 shows the p-conditional signal is **not latent in the single-token forced-choice
+distribution** (flat logit margin). So *no* forced-choice RL objective can elicit a slope — only an
+intercept move. The slope lives **only under CoT**, so all slope-installation work runs under CoT.
+
+**Confound correction first.** Run 3/4's CoT "slope +0.50" was substantially a **38–48%-invalid
+artifact** (invalids scored as not-K, p-uneven, fabricating a slope). Robust re-scoring is therefore
+a prerequisite, not a nicety. (General lesson now recorded in `CLAUDE.md` "Sanity gates": gate
+headline metrics on invalid-rate/truncation/degenerate-output; quarantine, don't footnote.)
+*Early/preliminary:* clean-scored CoT baseline slope looks ≈ 0 (n=8), not +0.50 — to be confirmed
+by the runs; if it holds it flips "competence latent under CoT, RL erodes it" → the cleaner-negative
+"model doesn't track p in any format measured."
+
+**Committed build today (A→C done in Phase-2; this is the reward/scoring work):**
+- **P1 — robust CoT scoring (done).** Two-stage: generate reasoning (graded), then teacher-force a
+  `"Answer:"` continuation and `resolve_choice` the label (no-grad reward readout). `rloo.
+  _forced_answer_roles`, wired into `rollout` + `evaluate`. Invalid 38–48% → ~0–8%.
+- **P2 — predictor-probe equality (done).** Unit test that `_predictor_p` (2-way softmax of logits)
+  == `answer_logprobs` (renorm of continuation logprobs) for single-token labels; gates C2.
+- **Lever 1a — higher-KL CoT-evidential (running).** `--cot --kl-coef {0.02,0.05,0.1}` (0.02 is the
+  re-baseline with the fixed scoring). Does stronger anchoring *preserve* whatever CoT slope is real?
+- **Lever 1b — EV-balanced / paired sampler (built; queued to run).** `sampler.sample_paired` +
+  `--paired`: each rollout draws the same item at a p_low<p* and p_high>p*, so a p-independent
+  policy earns ~0 net advantage and only conditioning on p (the slope) wins. Run under CoT.
+- **Memory-efficiency fix (done).** `rloo._chunk_logprobs` now uses `logsumexp` instead of full
+  log_softmax (the first CoT sweep OOM'd on long sequences × 152k vocab).
+
+**Scoring design note (avoidance of doubt): CoT RL is OUTCOME-ONLY — we do not score reasoning
+quality.** The reward comes solely from the forced-`Answer:` readout (`rloo._forced_answer_roles`)
+→ `compute_reward(role, …)`; the gradient reinforces the reasoning *tokens*, but the reward is
+**blind to the reasoning *content***. This is a deliberate, pragmatic choice for this step: we accept
+the CoT time cost because the post-reasoning answer is better than the single-token one, but we are
+explicitly **not** rewarding *how* the model reasons. Consequences, accepted for now:
+(a) "good CoT" = a CoT whose *implied answer* is EV-optimal, not a well-reasoned one — two traces
+reaching the same answer get identical reward; (b) a CoT↔answer mismatch (reasoning argues X, forced
+answer emits Y) is neither detected nor penalized — the `newcomb_eval/cot_inspect` viewer + the
+answer **margin** surface it for human inspection (near-0 margin = non-committal readout), but
+nothing acts on it. Rewarding the reasoning itself is the queued **process-reward** lever (grade the
+Step-3/Step-4 EV arithmetic against the stated p + payoffs), explicitly out of scope this step.
+
+**Payoff ablation = co-requirement, deferred-until-needed.** A paired-reward slope can be
+threshold-memorized ("0.8 is special"); the only clean defense is varying p\* via S/B so the
+empirical crossover *follows* p\*. Needs payoff-parametrised prompts (templated payoffs, not just
+the reward's S/B) — build it **only if a slope appears** (no point validating a null).
+
+**Queued (not today):** Lever 2 (SFT/STaR competence install → RL 2×2); per-p ablations; LoRA
+capacity sweep (rank × KL); attention-only vs MLP-only LoRA localization; C2 self-snapshot
+predictor. Timebox: if Lever 1 + Lever 2 (payoff-ablation-validated) fail to produce a slope, the
+**negative result is the paper**. Full build detail in
+`/root/.claude/plans/let-s-get-going-on-adaptive-yeti.md`.
+
 ## 6. Explicitly out of scope today (but must not be precluded)
 
 - LoRA adapter attach + PEFT — seam exists in `ModelWrapper(adapter_path=...)`.

@@ -23,12 +23,21 @@ class RLOOConfig:
     # --- experiment arm ---
     arm: str = ARM_EVIDENTIAL          # "evidential" | "causal"
     reward_mode: str = MODE_EV          # "ev" | "realized"
+    paired: bool = False                # EV-balanced curriculum: each rollout = items drawn at a
+    #                                     p_low<p* AND a p_high>p* (equal below/above pressure, so
+    #                                     a p-independent policy gets ~0 net advantage; Lever 1b)
+    # Restrict the TRAIN p-grid (per-p ablation): keep only train p in [train_p_min, train_p_max].
+    train_p_min: float | None = None
+    train_p_max: float | None = None
 
     # --- RLOO / optimisation (defaults follow common single-GPU LoRA-RL practice) ---
     lr: float = 1e-4
     kl_coef: float = 0.02
     clip: float = 0.2
     lora_rank: int = 16
+    # Which projections the LoRA adapts (attn-vs-MLP localization ablation).
+    lora_targets: tuple = ("q_proj", "k_proj", "v_proj", "o_proj",
+                           "gate_proj", "up_proj", "down_proj")
     K: int = 8                          # samples per prompt (RLOO group size)
     P: int = 8                          # prompts per rollout
     temp: float = 1.0                   # rollout sampling temperature
@@ -55,7 +64,9 @@ class RLOOConfig:
     @property
     def train_p_grid(self) -> tuple[float, ...]:
         hold = set(self.eval.sweep.holdout_p)
-        return tuple(p for p in self.eval.sweep.p_grid if p not in hold)
+        lo = self.train_p_min if self.train_p_min is not None else float("-inf")
+        hi = self.train_p_max if self.train_p_max is not None else float("inf")
+        return tuple(p for p in self.eval.sweep.p_grid if p not in hold and lo <= p <= hi)
 
     @property
     def model_name(self) -> str:
