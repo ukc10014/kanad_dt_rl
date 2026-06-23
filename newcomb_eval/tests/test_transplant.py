@@ -59,16 +59,20 @@ def test_transplant_blocks_are_ordered_interventions():
     )
     assert transplant_block("none", **kwargs) == ""
     variables = transplant_block("variables", **kwargs)
-    assert "Stated accuracy p = 0.5" in variables
-    assert "EV(label" not in variables
+    assert "Stated accuracy = 0.5" in variables
+    assert "conditional_amount = 100" in variables and "guaranteed_amount = 60" in variables
+    assert "`K`" in variables and "EV for label" not in variables
+    # collision-proof: no bare single-letter payoff variables in the aid
+    assert "= p ×" not in variables and "reward B =" not in variables and "reward S =" not in variables
     formulas = transplant_block("formulas", **kwargs)
-    assert "EV(label K) = p × B" in formulas
+    assert "EV for label `K` = accuracy × conditional_amount" in formulas
     assert "50 points" not in formulas
     numeric = transplant_block("numeric_evs", **kwargs)
-    assert "EV(label K) = 50 points" in numeric
-    assert "p × B" not in numeric
+    assert "EV for label `K` = 50 points" in numeric
+    assert "accuracy × conditional_amount" not in numeric
     full = transplant_block("full", **kwargs)
-    assert "p × B" in full and "50 points" in full and "higher expected-value label is M" in full
+    assert ("accuracy × conditional_amount" in full and "50 points" in full
+            and "higher expected-value label is `M`" in full)
     assert "equal expected value" in transplant_block("comparison", **{**kwargs, "optimal_token": "tie"})
 
 
@@ -80,7 +84,7 @@ def test_build_transplant_prompt_preserves_abstract_labels_and_records_optimal_r
     assert tp.optimal_role == ROLE_CDT
     assert tp.optimal_token == tp.cdt_token
     assert "Helpful calculation aid:" in tp.text
-    assert f"The higher expected-value label is {tp.cdt_token}" in tp.text
+    assert f"The higher expected-value label is `{tp.cdt_token}`" in tp.text
     assert "Valid labels:" in tp.text
 
 

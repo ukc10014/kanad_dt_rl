@@ -106,28 +106,29 @@ def transplant_block(
     if condition == "none":
         return ""
 
+    # Collision-proof wording: no single-letter variable names (p/B/S collide with abstract
+    # answer labels like S, B, P), and labels are backtick-quoted to set them apart.
     p_pct = f"{100 * p:.0f}%"
     variables = (
         "Helpful calculation aid:\n"
-        f"- Stated accuracy p = {_fmt_num(p)} ({p_pct}).\n"
-        f"- Conditional reward B = {_fmt_num(B)} points.\n"
-        f"- Guaranteed reward S = {_fmt_num(S)} points.\n"
-        f"- Label {non_cdt_token} is the option that takes only the conditional reward.\n"
-        f"- Label {cdt_token} is the option that takes both the conditional reward and the "
-        "guaranteed reward.\n"
+        f"- Stated accuracy = {_fmt_num(p)} ({p_pct}).\n"
+        f"- conditional_amount = {_fmt_num(B)} points.\n"
+        f"- guaranteed_amount = {_fmt_num(S)} points.\n"
+        f"- Label `{non_cdt_token}` takes only the conditional amount.\n"
+        f"- Label `{cdt_token}` takes both the conditional amount and the guaranteed amount.\n"
     )
     formulas = (
-        f"- EV(label {non_cdt_token}) = p × B.\n"
-        f"- EV(label {cdt_token}) = S + (1 - p) × B.\n"
+        f"- EV for label `{non_cdt_token}` = accuracy × conditional_amount.\n"
+        f"- EV for label `{cdt_token}` = guaranteed_amount + (1 − accuracy) × conditional_amount.\n"
     )
     numeric = (
-        f"- EV(label {non_cdt_token}) = {_fmt_num(ev_non_cdt_value)} points.\n"
-        f"- EV(label {cdt_token}) = {_fmt_num(ev_cdt_value)} points.\n"
+        f"- EV for label `{non_cdt_token}` = {_fmt_num(ev_non_cdt_value)} points.\n"
+        f"- EV for label `{cdt_token}` = {_fmt_num(ev_cdt_value)} points.\n"
     )
     if optimal_token == "tie":
         comparison = "- The two labels have equal expected value.\n"
     else:
-        comparison = f"- The higher expected-value label is {optimal_token}.\n"
+        comparison = f"- The higher expected-value label is `{optimal_token}`.\n"
 
     pieces = [variables]
     if condition == "variables":

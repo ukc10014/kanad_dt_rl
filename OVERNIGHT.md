@@ -48,14 +48,35 @@ overnight bucket is mainly the ablations we'd run regardless.
 - **C2 self-snapshot predictor** — watch for instability / bistability.
 - **Process-reward over the scaffold** — needs reward-design decisions.
 
+## Batch-2 — auto-chains after batch-1 tonight (existing tools, low autonomous risk)
+Launched by the assistant when batch-1 (`bz5e6ccds`) frees the GPU. No new code — extends Run 9.
+- [ ] **Transplant on the RL'd / SFT'd adapters** — `transplant --adapter results/adapters/{causal,
+      evidential,evidential_paired_cot,sft_star}`. Does the *disposition* change how the model uses
+      supplied EV (e.g. does causal-CDT resist the aid harder at high p)? Directly extends Run 9.
+- [ ] **Threshold-local psychophysics** — `cot_inspect --temperature 0 --limit 20 -n 2
+      --p-grid 0.72 0.74 0.76 0.78 0.8 0.82 0.84 0.86 0.88` on base (+ sft_star). Local sensitivity
+      near p\* — does anything peak at the crossover, or is it flat through the threshold?
+
+## New-code ideas (morning, WITH user — need a build + design choices; do not build solo overnight)
+Highest-value first (the other model's "second line", reordered for our current dominance-override finding):
+- **Anti-Newcomb camouflage (Idea 9)** ⭐ — isomorphic items (same `A pays pB, B pays S+(1-p)B` math)
+  with the Newcomb/container/predictor story stripped (medical test, packet cache, insurance…). If
+  the model tracks `p` in camouflage but not in containers → it's the **Newcomb prior/story**, not
+  EV competence. The single most informative new build given Run 9.
+- **Equation-only RL environment (Idea 7)** ⭐ — RL on bare `A pays pB / B pays S+(1-p)B, choose`,
+  no semantics. Learns the slope → bottleneck is extraction/framing; fails → small-model RL capacity.
+- **Subskill unit-tests (Idea 6)** — tiny arithmetic/formula/mapping battery, base vs RL adapters →
+  did RL damage general arithmetic? Cheap once built.
+- **CoT counterfactual swap (Idea 2) / delayed-answer commitment (Idea 8)** — does the answer
+  causally track the numeric `p`, or a pre-formed story / a pre-anchored label? Both cheap inference.
+
 ## Not-ready (need a code/data build before they can be queued)
 - payoff-parametrised (templated-payoff) dataset → payoff ablation
-- `newcomb_rl/sft.py` → STaR/SFT
-- `target_modules` flag in `rl_config` → attn/MLP ablation
-- train-p restriction flag → per-p ablations
 - C2 snapshot-predictor mechanism in `rloo`
 - Oesterheld dataset acquisition → external-dataset sanity check
 
 ## Now running (do not disturb)
-- **Lever 2 STaR SFT** (3B, harvest 12 items + 3 SFT epochs) — `results/run_sft_star.log`,
-  adapter → `results/adapters/sft_star`. (Lever 1a KL sweep + Lever 1b paired-CoT: done, see Run 7.)
+- **Batch-1** (`bz5e6ccds`, ~5–6 h) → `results/overnight.log`: [1] clean transplant ✓ →
+  [2] bigger SFT (`sft_star_big`) + de-noised eval → [3] 14B scale probe (cot_inspect + transplant) →
+  [4] paired-CoT seeds 1,2. **Batch-2 auto-chains when this frees the GPU.**
+- Done today: Lever 1a KL sweep, Lever 1b paired (Run 7), STaR-SFT (Run 8), transplant (Run 9).

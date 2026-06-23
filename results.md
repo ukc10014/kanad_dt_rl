@@ -65,6 +65,56 @@ finding. Either way, today built the measurement scaffolding to tell the differe
 
 ---
 
+## Day-2 update (2026-06-23) — natural-language synthesis
+
+**How the pieces connect (RL + SFT + transplant = one wall, hit three ways).** All three probe the
+gap between a model *knowing* the EV math and *acting* on it:
+- **RL** (reward the EV-optimal choice): moves the model's overall *lean* easily (we can make it a
+  confident defector), but **cannot install the conditional rule** — it shifts the *intercept*,
+  never the *slope* (Runs 2/5/6/7).
+- **SFT** (train on its *own* correct reasoning traces): even shown itself getting it right,
+  **didn't learn to condition** either — no clean slope (Run 8).
+- **Transplant** (skip training; *hand it the answer* at inference): even told "EV is 99 vs 61,
+  pick the higher one," it **still won't pick the EV-optimal action at high accuracy**, because that
+  means walking away from a guaranteed reward (Run 9).
+
+The transplant is the capstone: it removes the escape hatch by showing the wall **isn't "can't
+compute"** (we did the computation *for* it and it still failed) — it's a **disposition at the
+commitment step** (a CDT-flavoured "don't leave the guaranteed box" pull) that outcome-reward and
+self-imitation don't reach. That reframes the RL result: RL didn't fail because RL is weak or the
+math is too hard; it failed because what blocks EV-following is an inclination, not a missing skill.
+
+**Relayable update (TL;DR):** We're studying whether a small model *reasons* about a Newcomb-style
+decision (does it change its choice based on the predictor's stated accuracy?) and whether RL can
+install that reasoning. It doesn't reason about it, and RL can't make it — not because the model
+can't do the math, but because it has a stubborn gut preference for the "guaranteed" option that
+overrides the math **even when you spell the math out for it.**
+
+**Relayable update (fuller):** The model has a fixed habit — it picks the same answer regardless of
+the stated accuracy (a flat line where a reasoner would show a step). RL moved the model's *overall
+lean* very easily but could **not** teach the *conditional* rule ("cooperate only when the predictor
+is reliable"). Fine-tuning it on its own correct reasoning didn't install the rule either. The
+sharpest test: we *handed* the model the full calculation at decision time — the numbers, the
+comparison, and "this option is higher-value" — and it *still* wouldn't choose the better option in
+the cases where choosing it means giving up a guaranteed reward. So the bottleneck isn't arithmetic
+or comprehension; it's a **disposition** (a "don't leave guaranteed points on the table" pull) at
+the moment of commitment that overrides explicit reasoning. The gap is between *knowing* the
+expected value and *acting* on it.
+
+**Caveats / what's next:** small (3B) model; several early "effects" were measurement noise that
+dissolved under de-noising, so we state only what survives. The big open question is **scale** —
+small-model quirk or general LLM property? A 14B is running tonight on the same "hand it the
+calculation" test: if it *acts* on the EV, the story is "small models can't act on EV against the
+dominance pull, larger ones can"; if it *also* resists, it's a deeper property.
+
+**Audience notes (which line to lead with):**
+- For **decision-theory / RL** audiences: lead with *"RL moves the lean but not the rule"* — the
+  intercept-vs-slope separation is the most pointed framing.
+- For **everyone else**: lead with *"we handed it the answer and it still wouldn't act on it"* — the
+  knowing-vs-acting gap lands without any decision-theory background.
+
+---
+
 ## Tomorrow — concrete todos (pick up in the morning)
 
 Goal for tomorrow: **try to break the intercept-vs-slope result** (or pin down exactly why it
@@ -553,6 +603,70 @@ python -m newcomb_eval.item_analysis --tag base3b
 ```
 Artifacts: `results/item_analysis/{item_slopes,rl_vs_base_per_item,scaffold_item_arms,cot_content_tags}.csv`,
 `slope_hist_by_arm.png`, `slope_level_shift.png`.
+
+---
+
+## Run 8 — Lever 2: STaR-SFT competence install (Qwen2.5-3B-Instruct, 2026-06-23)
+
+**Setup.** Harvest the 3B's *own* correct+confident CoT traces (forced-`Answer:` readout, keep iff
+EV-optimal AND `|margin|≥1`), balance across p, SFT a LoRA on (prompt → CoT + `Answer:<optimal>`).
+Harvest yield was **healthy**: ~35–49% correct at *every* p (incl. p=0.7), 162 balanced examples
+(27/p), SFT loss 0.48→0.28 over 3 epochs. Adapter `results/adapters/sft_star` (gitignored).
+
+**De-noised eval (greedy, 20 items × 2 renderings, n=40/p):**
+
+| | LOW p<0.8 | HIGH p>0.8 | slope-contrast |
+|---|---|---|---|
+| base | 0.49 [0.40,0.58] | 0.53 [0.42,0.63] | **+0.03** |
+| SFT (STaR) | 0.42 [0.33,0.51] | 0.49 [0.38,0.60] | **+0.07** |
+
+**Result — SFT did NOT install the slope.** The SFT contrast (+0.07) is statistically
+indistinguishable from base (+0.03); within SFT the LOW/HIGH CIs overlap. SFT produced at most a
+tiny *uniform* downshift (~0.05, within noise), **not conditioning**. So even training directly on
+the model's own correct conditional traces doesn't make the 3B reliably condition on `p` — its
+occasional-correct answers weren't backed by a *transferable* EV procedure.
+
+> **Process note (de-noising mattered):** intermediate small-n reads produced phantom effects — a
+> "+0.16 weak slope" and a "0.75→0.54 level drop" — both dissolved here. The de-noised base is
+> ~0.50 (not 0.75), flat. Trust the contrast (n=120/80), not the per-cell wiggles.
+
+**Verdict:** neither RL (any arm, Run 7) nor STaR-SFT installs the p-conditional slope → strong
+**capability-ceiling** support. Caveat: one SFT config (162 ex, 3 epochs); "data-limited" not fully
+ruled out → bigger-SFT + 14B-scale probe queued.
+
+**Reproduce:** `python -m newcomb_rl.sft --limit 12 --samples-per-cell 6 --oversample-low 3
+--max-new-tokens 128 --epochs 3 --tag star` ; eval via `cot_inspect --adapter …/sft_star
+--temperature 0 --limit 20 -n 2`.
+
+## Run 9 — Computation-transplant diagnostic (Qwen2.5-3B-Instruct, 2026-06-23)
+
+**Setup.** Inference-time causal probe (`newcomb_eval/transplant.py`): supply increasing amounts of
+the EV calculation externally (none → variables → formulas → numeric_evs → comparison → full) and
+read the 2-way answer distribution. `hi-lo` = P(optimal @p=0.99) − P(optimal @p=0.5).
+
+| condition | mean P(optimal) | hi-lo |
+|---|---|---|
+| none | 0.384 | +0.33 |
+| variables | 0.438 | −0.30 |
+| formulas | 0.432 | −0.31 |
+| numeric_evs | 0.516 | −0.50 |
+| comparison | 0.569 | −0.19 |
+| full | 0.695 | −0.20 |
+
+**Result.** Aids raise the *mean* (0.38→0.70) but **flip the slope negative** — they help at low p
+(where EV-optimal = take-both/dominant) and *hurt* at high p (where EV-optimal = one-box, forgoing
+the guaranteed box). Even the **full** aid (numbers + "the higher-EV label is T") yields only ~0.46–0.65
+optimal at high p: **the model is told the EV and still won't act on it when acting means leaving
+the guaranteed box.** Bottleneck = **action-commitment vs the dominance intuition**, not arithmetic
+(numeric_evs supplied → still 0.516) — a *disposition overriding supplied calculation*.
+
+**Confound checked & refuted.** The aid wording reuses single letters `p/B/S` as variable names,
+which collide with abstract labels (~24% of renderings have an S/B label). Tested against the data:
+colliding-label rows have **equal-or-higher** optimal rate (high-p collide 0.59 vs no-collide 0.46),
+so the collision is **not** driving the result. (Clean-wording rerun queued as hygiene, not a fix.)
+
+**Caveat:** single run, n=20/p. Diagnostic, not final. Corroborates Runs 7–8: the locus is
+inclination/commitment, not (only) capability to compute.
 
 ---
 
