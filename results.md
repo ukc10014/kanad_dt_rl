@@ -107,10 +107,12 @@ slight dip near `p*`. The model one-boxes ~83% of the time *regardless* of the s
 canonical one-box answer. This is the baseline RL is meant to move (flat-high → a curve that
 switches at `p*`).
 
-> **Updated by Run 3:** do *not* read this flat line as a fixed "persona/disposition." Under CoT
-> the *same base model* tracks `p` (slope +0.50). The forced-choice flatness is a
-> **format/capability artifact** (no room to compute EV in one token), not an inability or
-> unwillingness to condition on `p`. Mechanism here is inferred, not measured.
+> **Updated by Runs 3→7 (corrected):** Run 3 first read this flat line as a mere *format* artifact
+> ("under CoT the model tracks `p` at +0.50") — but that +0.50 was a **scoring confound** (38–48%
+> invalid). Robust-scored (Run 7), the base is **≈ flat under CoT too**, and RL can't install the
+> conditional step even with a fair objective — so the flatness reflects a **capability ceiling**
+> (the 3B does EV on *some* items but not reliably), not merely a single-token format limit.
+> Mechanism inferred, not fully measured. SFT (Run 8) tests whether the competence can be installed.
 
 **Config**
 - Model: `Qwen/Qwen2.5-3B-Instruct` (instruct; chat template on), greedy (`temperature=0`), `max_new_tokens=6`
@@ -207,6 +209,11 @@ python -m newcomb_rl.eval_arms --arms causal evidential
 
 ## Run 3 — RLOO evidential **under CoT** (Qwen2.5-3B-Instruct, 2026-06-22)
 
+> **⚠️ Corrected by Run 7.** The numbers below were scored with the pre-P1 CoT parser (step-1
+> `invalid=0.48`), which scored prose-without-a-label as not-K and **manufactured the +0.50 baseline
+> slope**. Robust re-scoring (Run 7) shows the clean CoT-evidential baseline slope is ≈ 0 and RL
+> stays flat. Read this entry as historical; the corrected picture is Run 7.
+
 **Setup.** Same evidential reward as Run 2, but the policy now reasons before answering
 (`--cot`, 128–256 tok), so it *can* compute EV over the stated `p`. K=5/P=5, 60 steps, in-loop
 greedy eval. Adapter: `results/adapters/evidential_cot` (standalone, gitignored). This is the
@@ -255,6 +262,11 @@ clean pipeline, 0% invalid after the decision-step parser fix (16→48 tok, labe
 Base-3B three-arm result: **Run 4** below. 59 tests green.
 
 ## Run 4 — Scaffolded-CoT three arms (Qwen2.5-3B-Instruct, 2026-06-22)
+
+> **⚠️ Corrected by Run 7.** `free_cot` here hit **38% invalid** under the pre-P1 parser; its
+> **+0.51 slope is largely that artifact** (invalids scored as not-K, uneven in `p`). The
+> *scaffolded* arm (1.2% invalid) and the qualitative extraction finding stand; the free-CoT slope
+> does not. Robust-scored CoT is ≈ flat (Run 7).
 
 | p | no_cot | free_cot | scaffolded |
 |---|---|---|---|
@@ -405,6 +417,66 @@ self-prediction fixed-point dynamics — the version that could actually move.
 python -m newcomb_rl.train_rl --arm evidential_modelpred --steps 150 --K 8 --P 8 --eval-every 25
 python -m newcomb_eval.logprob_sweep --adapter results/adapters/evidential_modelpred --tag modelpred
 ```
+
+---
+
+## Run 7 — Phase-3: robust CoT scoring + the "fair shot" at the slope (Qwen2.5-3B-Instruct, 2026-06-23)
+
+This phase tried to *break* the intercept-vs-slope finding by (a) fixing a scoring confound and
+(b) giving RL an objective that *requires* conditioning. Headline: **the finding holds, and a key
+prior result was a measurement artifact.**
+
+**(0) Confound correction — the old CoT "slope" was largely a scoring artifact.** Runs 3–4 scored
+CoT by hunting for the abstract label in free prose, which failed 38–48% of the time (the model
+writes "take only container Q", not "Q"); invalids were scored as not-K and clustered unevenly in
+`p`, **manufacturing a +0.50/+0.51 slope**. Fix (**P1**): after the reasoning, teacher-force an
+`Answer:` continuation and read the label (`rloo._forced_answer_roles`) → invalid 38–48% → ~0–8%.
+**Re-scored, the CoT-evidential *baseline* slope is ≈ 0**, not +0.50. (Lesson recorded in CLAUDE.md
+"Sanity gates"; this is the morning's confound discipline applied to our own headline.)
+
+**(1) KL sweep (Lever 1a) — flat at every KL.** Clean-scored CoT-evidential RL, kl ∈ {0.02,0.05,0.10}:
+final slope **+0.12 / +0.00 / +0.00** (mean_K ~0.54–0.59, n=8). KL anchoring is **ruled out** as a
+lever; the intercept-vs-slope result holds under robust CoT scoring.
+
+**(2) Paired / EV-balanced (Lever 1b) — the fair objective did not unlock the slope.** Paired
+sampling (same item at a `p_low<p*` and `p_high>p*` per rollout) makes a p-independent policy earn
+~0 net advantage, so *only conditioning on p* wins. Result (n=15 eval): final slope **+0.17** but
+**unstable** across checkpoints (+0.07→0.00→−0.07→+0.17), and the transcript read shows one-boxing
+dropped roughly *uniformly* (incl. wrongly at high p) — a weak intercept nudge, **not a clean step**.
+So we've now *given RL its fair shot* and it still doesn't form the conditional rule → the
+"underdetermined objective" caveat **closes**; the diagnosis shifts to a **capability ceiling**.
+
+**(3) Reading the CoTs (`cot_inspect`) — partial, item-dependent conditioning, drowned in noise.**
+The aggregate "flat" hid real structure (one-box rate, n=8/p, same 4 items):
+
+| model | p=0.5 | p=0.8 | p=0.99 |
+|---|---|---|---|
+| base | 0.75 | 0.75 | 0.75 (flat — no conditioning) |
+| evidential-CoT kl=0.02 | 0.50 | 0.75 | 0.75 |
+| paired-CoT | 0.50 | 0.63 | 0.63 |
+
+The base one-boxes ~0.75 *flat*; the RL'd models lower one-boxing at low p (toward correct
+two-boxing) on *some* items, and the CoTs there show genuine EV math (*"F is correct 50% of the
+time, so taking Q gives 50 points on average"* → two-box). So it is **not** "no impact" — it's
+**weak, partial, item-dependent conditioning** that an n=8 aggregate is too coarse to resolve.
+
+**Bottom line.** Outcome RL — even with a fair (conditioning-only) objective and clean CoT scoring —
+does **not** install the p-conditional step; it produces at most a weak, noisy, partial tilt. The
+3B *can* do the EV reasoning on some items but not reliably → **capability ceiling**. Next: **SFT
+(STaR)** to install the competence (Run 8, in progress), and a **seed-confirmation** (2–3 seeds ×
+more steps) to firm up whether the weak +0.17 is real or noise.
+
+**Reproduce**
+```bash
+for kl in 0.02 0.05 0.1; do PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True \
+  python -m newcomb_rl.train_rl --arm evidential --cot --kl-coef $kl --steps 60 --K 5 --P 5 \
+    --eval-every 20 --eval-items 8 --max-new-tokens 128 --micro 8 --tag cot_kl${kl/./}; done
+PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True python -m newcomb_rl.train_rl --arm evidential \
+  --cot --paired --kl-coef 0.02 --steps 60 --K 5 --P 6 --eval-every 20 --eval-items 15 \
+  --max-new-tokens 128 --micro 8 --tag paired_cot
+python -m newcomb_eval.cot_inspect --adapter results/adapters/evidential_paired_cot --tag paired
+```
+Artifacts: `results/run_cot_kl*.log`, `results/run_paired_cot.log`, `results/cot_inspect/cot_*.{jsonl,html}`.
 
 ---
 

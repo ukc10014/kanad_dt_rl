@@ -20,6 +20,10 @@ overnight bucket is mainly the ablations we'd run regardless.
 - Don't launch a batch onto a GPU already running a primary experiment — check `pgrep -f train_rl`.
 
 ## Overnight-friendly (fire-and-forget; read in the morning)
+- [ ] **Seed-confirmation of the paired-CoT slope** *(runnable now; queued after STaR)* — the Lever-1b
+      `+0.17` slope is from one noisy 60-step run. Re-run paired-CoT at **2–3 seeds × more steps**
+      (e.g. `--steps 120 --eval-items 15`) and check whether the slope stabilizes, grows, or vanishes.
+      Settles whether "fair objective ≈ plain objective" is real. (`--seed 0/1/2 --paired --cot`.)
 - [ ] **LoRA capacity sweep** *(runnable now)* — rank ∈ {4,8,16,32,64} × kl ∈ {0.005,0.02,0.05},
       CoT-evidential. Localizes "optimization/anchoring vs representational" bottleneck. Flags
       `--lora-rank --kl-coef` already exist.
@@ -53,4 +57,5 @@ overnight bucket is mainly the ablations we'd run regardless.
 - Oesterheld dataset acquisition → external-dataset sanity check
 
 ## Now running (do not disturb)
-- Lever 1a CoT-evidential KL sweep (kl ∈ {0.02,0.05,0.10}) — see `results/run_cot_kl*.log`.
+- **Lever 2 STaR SFT** (3B, harvest 12 items + 3 SFT epochs) — `results/run_sft_star.log`,
+  adapter → `results/adapters/sft_star`. (Lever 1a KL sweep + Lever 1b paired-CoT: done, see Run 7.)
