@@ -102,10 +102,13 @@ the moment of commitment that overrides explicit reasoning. The gap is between *
 expected value and *acting* on it.
 
 **Caveats / what's next:** small (3B) model; several early "effects" were measurement noise that
-dissolved under de-noising, so we state only what survives. The big open question is **scale** —
-small-model quirk or general LLM property? A 14B is running tonight on the same "hand it the
-calculation" test: if it *acts* on the EV, the story is "small models can't act on EV against the
-dominance pull, larger ones can"; if it *also* resists, it's a deeper property.
+dissolved under de-noising, so we state only what survives. The big open question was **scale** —
+small-model quirk or general LLM property? **Answered (Run 10): it's not a small-model quirk.** A
+14B given the full EV calculation *still* refuses to one-box at high accuracy (0–15% vs the 3B's
+20–53%) — the bigger, better calculator is a *more* committed two-boxer. So the story is the
+stronger one: **a genuine decision-theoretic disposition (causal "don't forgo the guaranteed box")
+that overrides explicit EV and *strengthens* with scale**, not a capability gap. (Open: does the
+14B track p when it reasons *itself*, vs when handed the EV — the recovered free-CoT eval, pending.)
 
 **Audience notes (which line to lead with):**
 - For **decision-theory / RL** audiences: lead with *"RL moves the lean but not the rule"* — the
@@ -667,6 +670,62 @@ so the collision is **not** driving the result. (Clean-wording rerun queued as h
 
 **Caveat:** single run, n=20/p. Diagnostic, not final. Corroborates Runs 7–8: the locus is
 inclination/commitment, not (only) capability to compute.
+
+---
+
+## Run 10 — Overnight: the scale answer (14B) + confirmations (2026-06-23, autonomous)
+
+**★ Headline — scaling to 14B does NOT fix EV-following; it *sharpens* the dominance-override.**
+Computation-transplant on **Qwen2.5-14B-Instruct** (collision-proof wording), P(optimal):
+
+| condition | p=0.5 | p=0.7 | p=0.9 | p=0.99 | (3B `full` for ref) |
+|---|---|---|---|---|---|
+| none | 0.53 | 0.59 | 0.43 | 0.55 | |
+| variables | 0.71 | 0.77 | 0.15 | 0.17 | |
+| formulas | 0.92 | 0.93 | 0.05 | 0.00 | |
+| numeric_evs | **1.00** | 1.00 | 0.32 | **0.00** | |
+| comparison | 0.92 | 0.92 | 0.96 | 0.59 | |
+| full | **1.00** | 1.00 | 0.78 | **0.15** | 3B: 0.72→0.53 |
+
+Three things, and they reframe the whole project:
+1. **The 14B is a flawless calculator where EV agrees with grabbing the guaranteed box** (low p:
+   numeric_evs/full = **1.00**). So it is *not* capability-limited at the arithmetic.
+2. **It refuses the EV-optimal action where EV says *forgo* the guaranteed box** (high p): handed
+   "EV(one-box)=99 > EV(two-box)=61," it one-boxes **0%** at p=0.99 (numeric) / **15%** (full) —
+   *worse* than the 3B (0.20 / 0.53). The "don't leave the guaranteed box" disposition is **robust
+   to scale and amplified by it** — the bigger, better reasoner is a *more confident two-boxer*.
+3. **Spelling out the EV math makes it WORSE than just stating the conclusion.** `comparison`
+   ("the higher-EV label is T", no numbers) → 0.96/0.59 at p=0.9/0.99; `numeric_evs`/`formulas`
+   (which spell out "two-box = guaranteed + …") → 0.32/0.00 and 0.05/0.00. **Showing the breakdown
+   surfaces the guaranteed reward it's loath to forgo, *activating* the dominance pull.**
+
+**This converts the project's conclusion from "small-model capability ceiling" to "a real
+decision-theoretic disposition (causal dominance / don't-forgo-guaranteed) that overrides explicit
+EV, present at 3B and 14B and *stronger* at 14B."** It's the CDT two-boxing intuition, and a more
+capable model holds it more confidently.
+
+**Confirmations (the other 3 overnight stages):**
+- **Clean transplant (3B, collision-proof wording):** none 0.384 / full 0.661, same negative-slope
+  pattern as Run 9 → **the S/B symbol confound was minor; Run 9 holds.**
+- **Paired-CoT seed-confirmation (seeds 0/1/2):** final slopes **+0.17 / −0.13 / +0.13** (mean ≈ 0,
+  high variance; seed 1 even collapsed to mean_K 0.158) → **the Run-7 "+0.17" was noise; the fair
+  objective definitively did not unlock the slope, and the CoT-evidential RL is *unstable* across
+  seeds.**
+- **Bigger SFT (3B, relaxed margin 0.3, 16 items, 5 epochs):** harvested 228 examples (loss
+  0.47→0.18), adapter `sft_star_big` saved — but its de-noised eval **failed on a script bug**
+  (a `--p-grid $VAR` that didn't word-split; the 14B *free-CoT* eval failed the same way). Both are
+  **re-running in batch-2** with inline p-grids. (The 14B *transplant* above was unaffected — it
+  doesn't take `--p-grid`.)
+
+**Caveats:** 14B transplant is one run, n=12/p (but the 0/12 cells at p=0.99 are a strong signal,
+consistent across formulas+numeric). The 14B *free-CoT* slope (does it track p when reasoning
+itself, vs being handed EV?) is the recovered eval pending in batch-2.
+
+**Reproduce**
+```bash
+python -m newcomb_eval.transplant --model Qwen/Qwen2.5-14B-Instruct --limit 12 --tag base14b_clean
+```
+Artifacts: `results/transplant/transplant_by_condition_p_base14b_clean.csv`, `results/overnight.log`.
 
 ---
 

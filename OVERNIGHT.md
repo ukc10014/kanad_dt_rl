@@ -76,7 +76,11 @@ Highest-value first (the other model's "second line", reordered for our current 
 - Oesterheld dataset acquisition → external-dataset sanity check
 
 ## Now running (do not disturb)
-- **Batch-1** (`bz5e6ccds`, ~5–6 h) → `results/overnight.log`: [1] clean transplant ✓ →
-  [2] bigger SFT (`sft_star_big`) + de-noised eval → [3] 14B scale probe (cot_inspect + transplant) →
-  [4] paired-CoT seeds 1,2. **Batch-2 auto-chains when this frees the GPU.**
-- Done today: Lever 1a KL sweep, Lever 1b paired (Run 7), STaR-SFT (Run 8), transplant (Run 9).
+- **Batch-2** (`baqm9zirs`, ~1.75 h) → `results/overnight2.log`: [A] recover bigger-SFT eval →
+  [B] recover 14B free-CoT → [C] transplant on causal/evidential/paired/sft adapters →
+  [D] dense-p psychophysics. (Batch-1 done; two evals there died on a `--p-grid $VAR` word-split
+  bug — recovered here with inline grids.)
+- **Batch-1 done & written up as Run 10:** ★ 14B transplant = scale *sharpens* the dominance-override
+  (14B one-boxes 0–15% at p=0.99 even handed the EV) → "decision-theoretic disposition, not capability
+  ceiling"; clean transplant confirmed Run 9; paired seeds (+0.17/−0.13/+0.13) confirmed +0.17 was noise.
+- Done: Lever 1a KL sweep, Lever 1b paired (Run 7), STaR-SFT (Run 8), transplant (Run 9), overnight (Run 10).
