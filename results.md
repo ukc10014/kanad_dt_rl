@@ -729,6 +729,54 @@ Artifacts: `results/transplant/transplant_by_condition_p_base14b_clean.csv`, `re
 
 ---
 
+## Run 11 — Overnight batch-2: ceiling confirmed + "explicit EV hurts" + RL-lock (2026-06-23, autonomous)
+
+Four diagnostics (recovered the two batch-1 evals a `--p-grid $VAR` word-split bug had killed).
+
+**(A) Bigger SFT is NOT data-limited — the 3B ceiling is real.** Scaled STaR-SFT (relaxed margin
+0.3, 16 items, **228** examples, **5** epochs, loss→0.18) → de-noised contrast **+0.03** (one-box
+LOW 0.42 / HIGH 0.45), *identical to base and to the smaller SFT (Run 8)*. More demonstration data
+did **not** install the slope → Run 8's "capability/disposition ceiling" is confirmed, not a
+data artefact.
+
+**(B) 14B free-CoT weakly tracks p — and explicit EV *hurts* it (the key contrast).** Reasoning
+*itself* (no aid), the 14B one-box rate rises 0.46→0.67 across p, **contrast +0.09** (LOW
+0.51[0.40,0.63] / HIGH 0.60[0.46,0.73] — weak, CIs overlap). But when **handed** the explicit EV
+(Run 10 transplant), the same 14B *refuses* one-boxing at high p (0–15%). So **spelling out the EV
+calculation pushes the 14B the *wrong* way** — it surfaces the guaranteed reward and activates the
+dominance pull, overriding the model's own (mildly correct) free-reasoning tendency. "Show your
+work" is counterproductive here. (Matches the within-transplant `comparison` > `numeric_evs` at
+high p.)
+
+**(C) Transplant on the RL'd/SFT'd adapters — disposition *tunes* EV-use; RL-to-CDT = total lock.**
+mean P(optimal), `none`→`full`:
+
+| adapter | none | full | reads as |
+|---|---|---|---|
+| **causal** (RL'd to two-box) | 0.498 | **0.500** | **ignores the aid entirely** — full calc moves it 0.00 |
+| evidential | 0.462 | 0.512 | barely moved by the aid |
+| sft_star | 0.455 | 0.596 | aid helps, base-like |
+| evidential_paired_cot | 0.432 | 0.664 | most aid-responsive (≈ base) |
+
+The causal-CDT model is **immune to the full calculation** (full ≈ none ≈ 0.50, strong −0.7 slope
+= always two-box) → **RL can install a disposition that ignores explicit EV outright.** The others
+sit on a spectrum. So "disposition overrides supplied EV" is itself dispositionally tunable.
+
+**(D) Dense-p psychophysics (base 3B, p∈0.72…0.88) — no threshold-local sensitivity.** One-box
+rate is noisy-flat (~0.53, range 0.42–0.70) with **no step/peak at p\*=0.8** — if the model did
+graded EV comparison, uncertainty/flips should concentrate near p\*; they don't. Consistent with a
+*qualitative heuristic*, not EV computation, near the crossover.
+
+**Net:** batch-2 strengthens the Run-10 reframe on three fronts — the 3B failure is a true ceiling
+(not data), the disposition is *tunable by RL* (causal→EV-immune), and explicit EV is *counter-
+productive* at the conflict point. **Caveats:** 14B n=12/p (free-CoT contrast not significant); dense
+n=40/p single-repeat.
+
+**Artifacts:** `results/overnight2.log`, `results/cot_inspect/cot_{sft_big_dn,base14b_dn,dense_base}.{jsonl,html}`,
+`results/transplant/transplant_by_condition_p_adapter_*.csv`.
+
+---
+
 ## Day-1 synthesis — what is RL actually adding, and where next (2026-06-22)
 
 > **Partly executed since:** the logprob diagnostic (#1 below) is **Run 5** and the model-based
