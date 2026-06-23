@@ -480,6 +480,82 @@ Artifacts: `results/run_cot_kl*.log`, `results/run_paired_cot.log`, `results/cot
 
 ---
 
+## Per-item conditioning analysis — is the flat aggregate "all flat" or "cancellation"? (2026-06-23)
+
+**What.** A CPU-only re-analysis (`newcomb_eval/item_analysis.py`, no GPU, reads only persisted
+`results/*`) that hardens two soft spots in the headline: (1) every prior "slope" was an eyeballed
+hi-minus-lo difference with no error bars — here each per-item slope is a proper **OLS fit with
+analytic CI**, aggregated by an **item-bootstrap** mean; (2) the "item-dependent conditioning"
+claim (Run 7) was never measured. A flat *aggregate* `P(non_cdt)` slope could be *every item flat*
+(capability ceiling) **or** *some track + some anti-track, cancelling* (heterogeneity). We classify
+each item {tracks / flat / anti} by whether its slope CI excludes 0. (Invariant #1 preserved: the
+choice was resolved upstream via abstract tokens; this module never re-scores a choice. Part-D tags
+annotate reasoning *content* only.)
+
+**Sanity gate passed.** Per-item mean *levels* reconcile **exactly** with Run 5/6's published
+margins (base +3.46, causal −18.16, evidential −0.51, modelpred +8.36) and P(non_cdt) (0.805 /
+0.000 / 0.457 / 0.718) — confirms correct files + orientation (tracking = positive slope in `p`).
+
+**Result A — at the logit level the base is genuinely flat *per item*, not cancellation.**
+Per-item margin~`p` slope distribution (n=20 items, continuous logprob signal):
+
+| arm | tracks | flat | anti | mean per-item slope [item-bootstrap 95% CI] |
+|---|---|---|---|---|
+| base3b | 0 | 18 | 2 | −3.77 [−7.24, −0.40] |
+| causal | 0 | 19 | 1 | (saturated — see note) |
+| evidential | 0 | 20 | 0 | −4.52 [−13.57, +5.18] |
+| modelpred | 0 | 18 | 2 | (saturated — see note) |
+
+**Zero tracking items in any forced-choice arm.** The flat aggregate is *real per-item flatness*,
+**not** a positive subset hidden by cancellation — this is a clean answer to the open question and
+firms up the "capability ceiling, not just averaging" reading (Run 7). (Note: for the *saturated*
+arms causal/modelpred the margin is clipped at ±18, so the margin-slope is dominated by a few
+extreme items and is unreliable; the bounded `P(non_cdt)` signal is the trustworthy one there — both
+are in `item_slopes.csv`.)
+
+**Result B — RL moved each item's *level*, not its *slope* (the per-item paired test).** Joining
+base↔RL on `item_id` (Δ = RL−base on the margin fit, item-bootstrap 95% CI):
+
+| arm | Δ level (intercept) | Δ slope |
+|---|---|---|
+| causal | **−21.6 [−22.8, −20.4]** | +0.85 [−3.30, +4.54] (CI ∋ 0) |
+| evidential | **−4.0 [−5.9, −2.1]** | −0.74 [−9.12, +7.90] (CI ∋ 0) |
+| modelpred | **+4.9 [+2.6, +7.1]** | −23.5 [−43, −3.8] — *margin-saturation artifact* |
+
+Every arm has a **large, CI-significant *level* shift**; the *slope* Δ is **CI-indistinguishable
+from 0** for causal and evidential. modelpred's apparent slope-Δ is the saturation artifact (its
+bounded P(non_cdt) slope stays ≈ flat), not a real conditional. The per-item scatter
+(`slope_level_shift.png`) shows points clustering on `y=x` for *slope* and a clean offset for
+*level* — the aggregate intercept-not-slope claim now holds **item-by-item**, far stronger than
+comparing two means.
+
+**Result C — the heterogeneity that *does* exist is binary-sampling noise, not a continuous subset.**
+The coarse scaffold K-slope (binary, single-repeat, hi-lo across `p*`) *does* spread items across
+tracks/flat/anti (e.g. free_cot: 6 tracks / 10 flat / 3 anti; no_cot: 5/8/7) — but this lives only
+in the noisy binary readout and **vanishes in the clean continuous margin** (Result A). So Run 7's
+"partial, item-dependent conditioning, drowned in noise" is, on this evidence, the *noise itself*:
+the free-CoT "+0.51" came from a modest tracks−anti imbalance in single Bernoulli draws, not a
+stable per-item EV competence. (`scaffold_item_arms.csv`.)
+
+**Result D — CoT EV-arithmetic is rare and RL didn't add it (n=4 items, thin).** Heuristic
+content-tag rate of explicit EV arithmetic in the reasoning: base 25%, kl002 4%, paired 8% — RL did
+**not** raise the rate of EV computation; consistent with "installs a disposition, not the
+algorithm." (Thin: 4 items × 3 `p` × 2 samples; flagged.) (`cot_content_tags.csv`.)
+
+**Caveat.** Scaffold/logprob CSVs are single-repeat, so cross-seed item stability is only partially
+observable; a 2–3-repeat confirmatory re-sweep is the GPU follow-up (queued to `OVERNIGHT.md`). The
+Part-D content tags are a heuristic, not a judge.
+
+**Reproduce**
+```bash
+python -m pytest newcomb_eval/tests/test_item_analysis.py -q   # 13 tests, no GPU
+python -m newcomb_eval.item_analysis --tag base3b
+```
+Artifacts: `results/item_analysis/{item_slopes,rl_vs_base_per_item,scaffold_item_arms,cot_content_tags}.csv`,
+`slope_hist_by_arm.png`, `slope_level_shift.png`.
+
+---
+
 ## Day-1 synthesis — what is RL actually adding, and where next (2026-06-22)
 
 > **Partly executed since:** the logprob diagnostic (#1 below) is **Run 5** and the model-based
