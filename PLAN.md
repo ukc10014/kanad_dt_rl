@@ -342,6 +342,36 @@ predictor. Timebox: if Lever 1 + Lever 2 (payoff-ablation-validated) fail to pro
 **negative result is the paper**. Full build detail in
 `/root/.claude/plans/let-s-get-going-on-adaptive-yeti.md`.
 
+## 5e. Intervention note (2026-06-23): second-agent diagnostic track
+
+**Context.** The previous agent checkpointed at `c351a32` mid-work. I am intervening on a
+separate, lightweight diagnostic track rather than overwriting the ongoing SFT/STaR / paired-RL
+thread. Goal: add inference-time probes that decompose *where* Newcomb EV competence fails, then
+report item-by-item so we can iterate before starting the next probe.
+
+**Order of work (one item at a time, with a check-in after each):**
+1. **Computation-transplant diagnostic (build first).** Externally insert increasingly explicit EV
+   help into the prompt — variables only, formulas, numeric EVs, comparison, and full calculation —
+   then read the two-way answer distribution. This asks whether the bottleneck is variable
+   extraction, formula/arithmetic, comparison→label mapping, or an inclination overriding even a
+   supplied calculation. No training; no process reward; just a causal inference-time probe.
+2. **Equation-only EV task.** Strip away Newcomb prose and train/evaluate the same EV decision
+   primitive (`A=pB`, `B=S+(1-p)B`). If the model/RL can learn the primitive there but not in prose,
+   the bottleneck is extraction/transfer; if it fails there too, the bottleneck is lower-level
+   numeric/conditional competence.
+3. **CoT counterfactual-swap probe.** Generate reasoning at one `p`, then counterfactually ask for
+   the forced answer under another `p` while holding some or all of the reasoning fixed. This tests
+   whether the final answer is causally controlled by the stated accuracy or by a qualitative story
+   already formed in the CoT.
+4. **Narrative/camouflage controls.** Run isomorphic EV/Newcomb-like problems under different
+   skins and valence framings to measure whether Newcomb priors / moralized wording overwhelm the
+   numeric EV structure.
+
+**Non-overlap with current mainline.** This track deliberately avoids duplicating the active
+SFT/STaR competence-install, paired-RL, process-reward, self-snapshot predictor, and generic
+rank/KL-capacity sweeps. Its outputs should be small CSV/plot artifacts under `results/` and should
+not require modifying the core RLOO loop unless a diagnostic clearly justifies doing so.
+
 ## 6. Explicitly out of scope today (but must not be precluded)
 
 - LoRA adapter attach + PEFT — seam exists in `ModelWrapper(adapter_path=...)`.
