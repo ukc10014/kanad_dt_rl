@@ -57,3 +57,6 @@ env/
 *.swp
 .vscode/
 .idea/
+
+# generated mechanism-credibility dataset variants (regenerate: python -m newcomb_eval.gen_mechanism_dataset)
+newcomb_eval/data/dataset_mech_*.json

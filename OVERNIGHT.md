@@ -20,6 +20,22 @@ overnight bucket is mainly the ablations we'd run regardless.
 - Don't launch a batch onto a GPU already running a primary experiment — check `pgrep -f train_rl`.
 
 ## Overnight-friendly (fire-and-forget; read in the morning)
+- [ ] **Credence ladder — represented-but-unused, across the Qwen2.5 family** ⭐ *(STAGED; runnable
+      now when GPU free)* — `bash results/credence/run_credence_ladder.sh`. Does the model *represent*
+      the action↔box evidential dependence (credence gap → `2p−1`) even where its *action* stays flat
+      CDT? Rungs **3B / 7B / 14B (bf16) + 32B (4-bit)**, each a separate process (clean GPU release);
+      runs `logprob_sweep` (action margin) + `credence_probe --variant outcome prediction direct`
+      per rung, then `credence_ladder` (CPU) → `results/credence/ladder_signature.{csv,json,png}`.
+      **Headline to look for:** representation slope *rising* with scale while action slope stays ~0
+      (divergence grows) ⇒ comprehension orthogonal to disposition ⇒ EDT-lean isn't a capability
+      artifact. **Gates:** read `resolvability` per rung first — low ⇒ that rung is *unreadable*
+      (saturation), not a real null; and `gap@0.5≈0` (symmetry control). Coherence cols (variant
+      agreement, monotonicity) flag an EDT *answer* without an EDT *world model*.
+      Caveats logged: 7B (~15 GB) + 32B (~65 GB) **download** on first run (disk+time); 32B has no
+      action-margin (logprob_sweep has no quant path — action trend comes from the bf16 rungs);
+      32B 4-bit injects a quantization confound. CPU-smoked (logic + plumbing); GPU-gated behind
+      the other instance's `selfplay`. Module: `newcomb_eval/credence_probe.py` + `credence_ladder.py`;
+      tests `newcomb_eval/tests/test_credence_probe.py` (18, CPU, green).
 - [ ] **Seed-confirmation of the paired-CoT slope** *(runnable now; queued after STaR)* — the Lever-1b
       `+0.17` slope is from one noisy 60-step run. Re-run paired-CoT at **2–3 seeds × more steps**
       (e.g. `--steps 120 --eval-items 15`) and check whether the slope stabilizes, grows, or vanishes.
@@ -40,6 +56,22 @@ overnight bucket is mainly the ablations we'd run regardless.
       marginal.
 - [ ] **Attn-only vs MLP-only LoRA** *(needs tiny build: expose `target_modules` in rl_config)* —
       two runs. Attn helps slope ⇒ routing/access-to-p; MLP ⇒ computation.
+- [ ] **Self-snapshot one-box-basin probe — completes the C2 hysteresis** ⭐ *(runnable now; reuses
+      `newcomb_rl/selfplay.py`, which now has `--kl-ref/--kl-coef`)* — Day-4 C2 found the **two-box
+      basin is a strong self-fulfilling attractor** (causal-seed locks K=0 / margin ≈ −18, robust to
+      KL-ref *and* EMA; `p_model`↔K move in lockstep), but **base-seed rolls *down* into it**
+      (base self-prediction ~0.69–0.80 sits on the `p*`=0.8 separatrix ⇒ drifts 0.80→0.25). The
+      one-box basin is **untested** — no seed started clearly above `p*`. Fix: **seed from a committed
+      one-boxer** (oracle p=1 adapter, K=1.0 ⇒ self-prediction ~1.0 ≫ 0.8) and check it **stays**:
+      `python -m newcomb_rl.selfplay --seed-adapter results/adapters/evidential_oracle_p1_base
+      --kl-ref seed --p 0.8 --snapshot-every 10 --steps 150 --K 8 --P 8 --eval-every 15
+      --tag hyst_onebox_seedref` (optionally also `evidential_oracle_p1_causal`), then
+      `python -m newcomb_eval.logprob_sweep --adapter
+      results/adapters/evidential_modelpred_hyst_onebox_seedref --tag ep_hyst_onebox_seedref`.
+      **Headline:** K stays ~1 & `p_model` stays high ⇒ one-box basin is *also* self-fulfilling ⇒
+      asymmetric **bistability confirmed** (two attractors, separatrix at `p*`). If it *also* decays
+      to two-box ⇒ two-box is the *only* attractor at these payoffs (report honestly). **Smoke** 0.5B
+      first; **memory** one 3B job (~38 GB), serial; watch invalid-rate (collapse) + `p_model`↔K lockstep.
 
 ## Serial / needs-eyes (run attended; each informs the next move)
 - **Lever 1b paired-CoT** — primary experiment; read it and decide next.

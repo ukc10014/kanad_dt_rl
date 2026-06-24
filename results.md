@@ -166,6 +166,89 @@ discipline is now baked into CLAUDE.md "Sanity gates".
 
 **Status:** all 11 runs committed (`eb6d6f8`→`86d6529`→`9c7ff11`); GPU idle; nothing running.
 
+**Day-4 oracle-anchor update (2026-06-24)** — *calibration of the RL loop; full writeup in the Day-4
+summary directly below.* Evidential arm with the predictor accuracy **pinned** to extreme values
+(B=100, S=60, p\*=0.8), base 3B, **greedy** K (start→end): **p=1.0** (perfect) 1.00→1.00 · **p=0.5**
+(useless coin) 0.85→0.00 · **p=0.0** (inverted) 0.65→0.00 — the loop drives one-boxing only when it
+is EV-optimal (p>p\*) and two-boxing otherwise, **reversing even the base's own ~0.8 one-box lean**
+(Run 1). Causal-seeded (the RL'd two-boxer, margin ≈ −18) at p=1: **0.00→1.00 by step 40** — flipped
+back to one-boxing, *but* most likely via the **KL-to-base** reference (which one-boxes), not the
+oracle reward (margin −18/temp 1.3 ⇒ P(one-box)≈1e-6 ⇒ ~0 exploration); a `kl_coef=0` control is
+needed to attribute. **Key caveat:** the one-box-leaning *start* is the base's shallow forced-choice
+*reflex* (flat in p ≠ EV competence, Run 1); the "stubborn two-boxer / dominance-override" picture is
+the reasoning-engaged (CoT / explicit-EV) and 14B regime — same model, two formats.
+
+---
+
+## Day-4 summary (2026-06-24) — oracle anchors + the capability-vs-disposition reconciliation
+
+**What we ran & why.** A zero-new-code "oracle anchor" *calibration* of the RLOO loop before trusting
+it on the harder self-snapshot (C2) experiment: the evidential arm with the stated predictor accuracy
+**pinned** to extreme, known values, to check the loop does the obviously-correct thing. Standalone
+driver (`scratchpad/oracle_anchor.py`, imports `newcomb_rl`, edits nothing under it); forced-choice,
+greedy in-loop eval; payoffs B=100, S=60 ⇒ p\*=0.8. One run per (predictor setting, seed).
+
+**The dial** (EV per pinned p; the predictor's reliability sets which action wins):
+
+| p (predictor) | meaning | one-box EV | two-box EV | EV-optimal |
+|---|---|---|---|---|
+| 1.0 | perfect (fill iff one-box) | 100 | 60 | **one-box** |
+| 0.5 | useless (coin; fill ⊥ action) | 50 | 110 | **two-box** |
+| 0.0 | inverted (fill iff two-box) | 0 | 160 | **two-box** |
+
+**Results** — greedy K (deterministic eval, averaged over the 20 items), start → end of training:
+
+| run | seed | K start | K end | trajectory |
+|---|---|---|---|---|
+| p=1.0 | base | 1.00 | 1.00 | flat (already one-boxing) |
+| p=0.5 | base | 0.85 | 0.00 | monotone down |
+| p=0.0 | base | 0.65 | 0.00 | monotone down |
+| p=1.0 | **causal** (RL'd two-boxer) | 0.00 | 1.00 | 0.00→0.75 (step 20)→1.00 (step 40), pinned |
+
+**(1) The loop is a validated instrument.** It drives one-boxing iff one-boxing is EV-optimal (p>p\*)
+and two-boxing otherwise — in **both** directions, and **against the base's own disposition**: base 3B
+forced-choice *leans one-box* (~0.83 flat, Run 1; greedy 0.85/0.65 here), yet the loop trained it
+*down* to full two-boxing at p=0.5 and p=0. The machinery moves the policy wherever the payoff points
+→ green light for C2.
+
+**(2) Capability-vs-disposition reconciliation (resolves an apparent contradiction).** The project
+headline is "the model is a committed two-boxer that can't see past CDT dominance" — yet these runs
+*start* one-box-leaning. Both are true, in **different regimes**:
+- **Bare forced-choice** (single-char answer, no CoT, no EV spelled out): the 3B defaults to
+  **one-boxing ~0.80, FLAT in p** (Run 1; logit P(non_cdt) ≈ 0.805, Run 5). This is a *shallow
+  reflex*, **not** competence — flat in p ⇒ it is *not* computing the EV; it just emits the canonical
+  one-box label.
+- **Reasoning engaged** (CoT or EV spelled out) and/or **scaled to 14B**: the dominance argument
+  surfaces and **overrides** the reflex → two-boxing (Runs 9/10/11; 14B one-boxes 0–15% at p=0.99
+  *even handed the EV*; spelling out the EV makes it *worse*).
+
+So "leans one-box" (reflex-only) and "stubborn two-boxer" (reasoning-engaged / scaled) are the **same
+model in two formats**. The one-box start in the oracle runs is the *predicted* shallow reflex, **not a
+stochastic artifact**: step-0 eval is greedy (deterministic) and averaged over 20 items (0.85 = 17/20),
+not a lucky first sample.
+
+**(3) The causal flip — striking but probably a KL artifact, flagged not banked.** The RL'd two-boxer
+(`causal` adapter) under the perfect-predictor payoff flipped to one-boxing in ~40 steps. Tempting to
+read as "the oracle payoff dissolves the trained-in disposition" — but the arithmetic refutes the
+on-policy story: at margin ≈ −18 / temp 1.3, P(one-box) ≈ 1e-6, so of the ~64 rollout samples/step
+(~1,300 by step 20) essentially **zero** are one-box; reward can't move a policy it never samples. The
+plausible driver is the **KL-to-base reference** (`disable_adapter` → base, which one-boxes at p=1):
+the KL term pushes logits toward base on *every* token regardless of sampling, eroding the two-box
+margin until one-boxing becomes samplable, after which reward snowballs it. **Disambiguator (deferred
+GPU run): a `kl_coef=0` control** — still flips ⇒ reward-driven; stalls at K=0 ⇒ KL-to-base did it.
+
+**Also built today (CPU-validated, GPU-deferred behind the Oesterheld external-dataset run):** **C2 —
+the self-snapshot predictor** (`newcomb_rl/selfplay.py`; new file, no edits to existing `newcomb_rl`):
+a second *frozen* PEFT adapter that lags the live policy and supplies the evidential `p` (vs the
+frozen-*base* C1 of Run 6 — the version results.md flagged as "the one that could actually move"). PEFT
+multi-adapter mechanics (add/set adapter, snapshot copy, predictor forward, trainable-restore)
+unit-tested on CPU. **Next:** the **hysteresis** run — seed from base (one-box-leaning) vs the causal
+adapter (two-box-leaning) and test whether the *initial disposition selects the self-prediction fixed
+point* (one-box vs two-box basin / bistability).
+
+**Artifacts:** `results/oracle/{oracle_p1_base,oracle_p1_causal,oracle_p0_base,oracle_p05_base}.log`;
+adapters `results/adapters/evidential_oracle_*`; C2 code `newcomb_rl/selfplay.py`.
+
 ---
 
 ## Tomorrow — concrete todos (pick up in the morning)
@@ -982,3 +1065,105 @@ whether *lean* tracks size **in-family**. That is the apples-to-apples test of t
 claim. The capabilities run (this section's sibling, `newcomb_eval/newcomblike_oesterheld.py`) measures
 *correctness*, a different axis — useful as a competence yardstick but it does **not** by itself settle
 the EDT-lean question.
+
+---
+
+## Oesterheld external reality-check — 3B vs 14B on his dataset (2026-06-24)
+
+Ran **Qwen2.5-3B & -14B** on the **Oesterheld 2024** Newcomb-like dataset (arXiv 2411.10588; data
+`github.com/casparoe/newcomblike_questions_dataset`, pw `onebox`) — both axes, faithful port of his
+`FINAL ANSWER:` grading (invariant #1 intact: letters only, no string-match). Module
+`newcomb_eval/newcomblike_oesterheld.py` (+18 CPU tests); 20 items × 3 shuffled repeats, seed 0.
+**Full writeup: `results/newcomblike/SUMMARY.md`** (gitignored, like all results/).
+
+**Numbers** (item-level bootstrap CI; "lenient" = case-insensitive re-score recovering the 3B's
+miscased-but-committed answers — faithful ≈ lenient, so robust):
+
+| axis | 3B | 14B | random-guess baseline |
+|---|---|---|---|
+| **Capabilities** (accuracy) | 0.35 [0.18, 0.53] | **0.69** [0.51, 0.87] | **0.44** (subset is 15/20 binary, not 0.33!) |
+| **Attitudes** EDT-rate | 0.52 [0.33, 0.70] | 0.43 [0.25, 0.62] | 0.52 EDT / 0.50 CDT |
+
+**Three reads:**
+1. **Capability: 3B at/below chance (0.38 vs 0.50 on binary items), 14B well above.** External
+   corroboration of the **competence ceiling**, and it closes the "our hand-built items are *sus*"
+   loophole (PLAN §5a's original purpose for this check).
+2. **Attitude lean ≈ balanced for both — but NOT noise.** Aggregate EDT-rate sits on the chance
+   baseline, yet greedy 3-shuffle repeats agree on **14/20 items** (chance ≈ 5/20) → **determinate,
+   order-robust stances that split ~evenly across scenarios** (3B 11 EDT/8 CDT items; 14B 8/11). A
+   *real but balanced* disposition. 14B tilts **slightly more CDT** (n.s.) → **no capability→EDT
+   in-family** (same direction as Run 10). Caveat: 6/20 items flip with option order (position bias).
+3. **Cross-setup gap (the one genuinely additive thing):** balanced on *generic* attitude questions
+   vs **hard CDT in our opaque-Newcomb** → the override is **framing-driven**, not a global CDT prior.
+
+**Verdict — control, not finding.** Mostly re-confirms our own results; the core mechanism (dominance
+overrides *explicit* EV) is entirely ours and Oesterheld's dataset can't probe it (no explicit-`p` /
+guaranteed-box / transplant). Its real value is two *controls*: (a) external validity on the 3B
+competence ceiling; (b) the neutral-disposition baseline that lets us attribute the CDT override to
+our framing. Worth ~2 sentences in a writeup (preempts the "toy items" critique). To make the attitude
+axis *actually test* capability→EDT would need a wider in-family ladder (0.5B→32B × seeds) — likely
+**breaks** the correlation given everything points to "scale sharpens CDT, doesn't buy EDT," but that's
+a real GPU spend, only if we want to flag-plant on Oesterheld's correlation directly.
+
+---
+
+## Credence probe + the mechanism-credibility pivot (2026-06-24)
+
+**Why.** Every action probe shows the *choice* is flat in `p` (disposition, not conditioning). The
+**credence probe** asks the prior question: does the model even **represent** the action↔box
+evidential dependence — `P(box full | my action)` → `2p−1` — *separately* from acting on it?
+("represented-but-unused".) Teacher-force a committed action, read the credence the conditional prize
+is full, sweep `p`, fit the gap to the `2p−1` ideal. Scoring via `answer_2way` (invariant #1 intact).
+Modules: `newcomb_eval/credence_probe.py` (+ family ladder `credence_ladder.py`). Three elicitations:
+`outcome` (named prize "holds 100/0"), `prediction` (abstract-label True/False), `direct` (free-form
+numeric).
+
+**Ladder result (3B/7B/14B bf16; 32B disk-skipped) — the forced-token probe is CONFOUNDED; the
+representation-scales story is UNPROVEN.** Resolvability 1.0 (no two-sided saturation), **but the
+symmetry control fails:** `gap@0.5 ≈ +0.71` (outcome) / `+0.74` (prediction) on 14B where it must be
+~0. The forced `outcome` read is **one-sidedly saturated** — `P(full|one-box)=1.0 at every p incl.
+0.5`. So the 14B reads its *committed choice* as near-certain evidence about the box **independent of
+the stated `p`** — the credence-space echo of "disposition, not conditioning" (it over-applies "my
+choice ⇒ box state", `p`-blind). The clean `repr_slope→2p−1` signature did **not** appear; quarantine
+those slopes.
+
+**What survives (and points the way):**
+1. **Free-form (`direct`) is far less contaminated** (`gap@0.5 ≈ 0.19`) and **genuinely rises with
+   `p` at 14B** (gap 0.19→0.66 over p=0.5→0.9, then an anomalous collapse at 0.99 — raw persisted,
+   needs a transcript read). When asked to *state a number* rather than having a token forced, the
+   14B's credence partially tracks `p`. **Instrument matters: free-form > forced-token.**
+2. **Coherence scales:** variant agreement (outcome↔prediction) 3B 0.11 / 7B −0.04 / **14B 0.68** —
+   only the 14B holds an internally consistent belief across elicitations.
+3. Action margins are single-run / noisy (3B −1.31 / 7B +3.39 / 14B +0.45) → divergence column
+   unreliable.
+
+**Instrument fix (shipped).** `gap_adj = gap(p) − gap(0.5)` baseline-subtracts the `p`-independent
+pedestal (isolates the `p`-modulation — the trustworthy slope); a **one-sided-saturation gate** (the
+forced-token failure the two-sided degeneracy gate missed); `direct` promoted to primary; an in-probe
+`action` margin variant so one invocation yields both axes.
+
+**NEW THREAD — mechanism-credibility / less-abstract prompt (follow this later).** Hypothesis (user):
+our abstract predictor — *"identifies the choices of agents like you X% of the time"* — is a
+**reference-class statistic**, the *least binding* framing; a causal/deterministic world-model can
+**rightly** treat a population base rate as non-binding on its individual choice and default to
+dominance. The abstract framing didn't just hide the Newcomb-ness, it swapped a *binding* predictor
+for a *statistical* one. Fix: hold payoff + abstract labels fixed, vary **only the predictor-mechanism
+clause** across a credibility ladder — **m0** statistical → **m0pad** length-placebo → **m1**
+individual model of your reasoning → **m2** scan-and-run-forward → **m3** *exact copy of your decision
+procedure* (FDT-strong: the forecast **is** your procedure's output, so the correlation has a credible
+common cause and dominance reasoning *itself* can favour one-boxing). Run on **14B** (comprehends → a
+null is meaningful) with the de-confounded probe (`direct` credence + `action`).
+- **Read:** one-box rate and/or credence `gap_adj` **rise m0→m3** (placebo stays at m0) ⇒ the
+  incredible predictor was *suppressing* EDT ⇒ **framing artifact, not a fixed disposition**. **Flat
+  even at exact-copy** ⇒ dominance disposition robust to credibility (a strong, quotable result).
+- Reframes the "14B two-boxes on ours but looks EDT on Oesterheld" puzzle: 14B is **comprehension-high**
+  (Oesterheld capability 0.69) but **disposition-CDT everywhere** (Oesterheld attitude 0.43 EDT,
+  balanced; our opaque-Newcomb strongly CDT). The experiment tests whether a *credible* predictor
+  converts that comprehension into EDT *action*.
+
+Built & staged (not yet run): `gen_mechanism_dataset.py`, `credence_mechanism.py`,
+`results/credence/run_credence_mechanism.sh` (14B, 5 rungs, fail-soft, guarded);
+`OVERNIGHT.md` lead item. Tests `newcomb_eval/tests/test_credence_probe.py` (21, CPU, green).
+Caveats to chase: mechanism clauses differ in length (m0pad placebo controls it); the p=0.99 `direct`
+anomaly; FDT and EDT aren't separated here (both favour one-box — this tests *credibility/bindingness*,
+not FDT specifically; a twin-PD / transparent-box variant would isolate FDT).

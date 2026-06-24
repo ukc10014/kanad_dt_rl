@@ -1,3 +1,14 @@
+> # ⚠️ HISTORICAL — this is the **day-1 build spec** (2026-06-22). Largely superseded.
+> This file is the original MVP/architecture plan and the early-phase running notes (§5b–5e:
+> Phase-1→Phase-3, 2026-06-22/23). It is kept for provenance — file layout, invariants, and the
+> deferred "fingerprint" eval (§8) are still accurate — but it is **not the current state of the
+> project**. For everything from Run 1 onward (findings, the consolidated synthesis, the discussion
+> sections, and the live agenda) see **`results.md`**, which is the authoritative, up-to-date record.
+> The active per-task working plan lives at `/root/.claude/plans/`. When this file and `results.md`
+> disagree, **`results.md` wins.**
+
+---
+
 # Spec — Newcomb predictor-accuracy eval (MVP, measurement spine)
 
 **Status:** day-one MVP. Measurement only — no weight updates, no LoRA, no RLOO.

@@ -1,4 +1,4 @@
-"""C2 — self-snapshot predictor (the version that can actually move).
+"""C2 — self-snapshot predictor (the version that can actually move) + KL-to-seed reference.
 
 Run 6 (`evidential_modelpred`, ``rloo._predictor_p``) used the *frozen base* as the predictor
 (C1): per-prompt ``p_model`` cannot move because the base never changes, so it is "not a true
@@ -13,11 +13,22 @@ self-reinforces (snapshot predicts two-box → one-box pays 0). So CDT and EDT a
 fixed points; which basin you fall into is set by the *initial disposition* + the snapshot lag —
 the hysteresis the experiment probes (seed from base vs from the causal adapter).
 
-Implementation: a second, **frozen** PEFT adapter ``predictor`` is attached to the same frozen base
-(no second model copy). It holds a lagging copy of the live ``default`` adapter, refreshed every
-``snapshot_every`` steps (or by EMA). ``_predictor_p`` activates ``predictor`` for a no-grad forward
-and restores ``default`` — everything else (rollout, RLOO, the disable_adapter→base KL reference)
-is inherited unchanged. No edits to ``rloo.py`` / ``reward.py`` (collision-safe).
+**KL reference (the confound fix).** The inherited KL penalty is computed against the frozen *base*
+(`rloo._seq_logprobs(adapters=False)` → ``disable_adapter()``), which one-boxes. For a saturated
+causal (two-boxer) seed that never samples one-box, the reward gradient ≈0 and that base-pull
+dominates → it would drag the policy back to one-boxing, erasing the bistability. ``kl_ref="seed"``
+re-references the KL to a **frozen copy of the initial seeded policy** (the ``seed_ref`` adapter), so
+the regularizer pulls each run toward *its own* starting disposition, letting each basin hold.
+``kl_ref="base"`` keeps the inherited base reference — the labelled negative control.
+
+Implementation: up to three adapters share the one frozen base (no extra model copy):
+  - ``default``   — the live, trainable policy (the only trainable adapter).
+  - ``predictor`` — a frozen, *lagging* copy of the policy (refreshed every ``snapshot_every`` steps
+    or by EMA); supplies the evidential ``p``.
+  - ``seed_ref``  — a frozen copy of the *initial* seeded policy, never refreshed; the KL reference
+    when ``kl_ref="seed"``.
+``_predictor_p`` / ``_seq_logprobs`` activate the relevant frozen adapter for a no-grad forward and
+always restore ``default``. No edits to ``rloo.py`` / ``reward.py`` (collision-safe).
 
 Invariant #1 preserved: the snapshot's prediction is read as a softmax over the two *legal abstract
 tokens* via ``token_role`` (no natural-language matching), exactly like ``_predictor_p``.
@@ -36,8 +47,9 @@ from .reward import ARM_MODELPRED
 from .rl_config import RLOOConfig
 from .rloo import NewcombRLOO
 
-PREDICTOR_ADAPTER = "predictor"
 DEFAULT_ADAPTER = "default"
+PREDICTOR_ADAPTER = "predictor"
+SEED_REF_ADAPTER = "seed_ref"
 
 
 @torch.no_grad()
@@ -67,32 +79,43 @@ def snapshot_copy(model, *, ema: float | None,
 
 
 class SnapshotRLOO(NewcombRLOO):
-    """RLOO with the evidential reward sourced from a *lagging snapshot of the policy*."""
+    """RLOO with the evidential reward sourced from a *lagging snapshot of the policy*, and an
+    optional KL reference re-pointed at the *seed* policy (vs the inherited base)."""
 
     def __init__(self, cfg: RLOOConfig, *, seed_adapter: str | None = None,
-                 snapshot_every: int = 10, snapshot_ema: float = 0.0):
+                 snapshot_every: int = 10, snapshot_ema: float = 0.0, kl_ref: str = "seed"):
+        if kl_ref not in ("seed", "base"):
+            raise ValueError(f"kl_ref must be 'seed' or 'base', got {kl_ref!r}")
         # Force the model-based-predictor reward path; only the *source* of the prediction differs.
         cfg.arm = ARM_MODELPRED
         super().__init__(cfg)
 
         self.snapshot_every = snapshot_every
         self.snapshot_ema = snapshot_ema  # >0 => EMA every step; 0 => hard copy every snapshot_every
+        self.kl_ref = kl_ref
         self._rollout_count = 0
 
-        # 1) seed the *live* (default) policy BEFORE snapshotting, so the snapshot reflects the seed.
+        # 1) seed the *live* (default) policy BEFORE snapshotting, so both frozen copies reflect it.
         if seed_adapter:
             self._load_into_default(seed_adapter)
 
-        # 2) attach a frozen predictor adapter and initialise it to the (seeded) live policy.
-        self._add_predictor_adapter()
-        self.model.set_adapter(DEFAULT_ADAPTER)  # training/KL operate on 'default'
-        self._update_snapshot(ema=None)          # snapshot := current policy
+        # 2) attach the frozen predictor (lagging) and, for kl_ref="seed", the frozen seed reference.
+        self._add_frozen_adapter(PREDICTOR_ADAPTER)
+        if kl_ref == "seed":
+            self._add_frozen_adapter(SEED_REF_ADAPTER)
+        self.model.set_adapter(DEFAULT_ADAPTER)  # training operates on 'default'
+
+        # 3) initialise the frozen copies to the (seeded) live policy.
+        self._update_snapshot(ema=None)                       # predictor := current policy
+        if kl_ref == "seed":
+            snapshot_copy(self.model, ema=None,
+                          src=DEFAULT_ADAPTER, dst=SEED_REF_ADAPTER)  # frozen seed reference
 
         # sanity: training must still have trainable params on 'default'
         n_train = sum(p.requires_grad for p in self.model.parameters())
         if n_train == 0:
-            raise RuntimeError("no trainable params after attaching predictor adapter")
-        print(f"[snapshot] every={snapshot_every} ema={snapshot_ema} "
+            raise RuntimeError("no trainable params after attaching frozen adapters")
+        print(f"[snapshot] every={snapshot_every} ema={snapshot_ema} kl_ref={kl_ref} "
               f"seed_adapter={seed_adapter} trainable_tensors={n_train}", flush=True)
 
     # -- adapter plumbing --------------------------------------------------
@@ -108,17 +131,18 @@ class SnapshotRLOO(NewcombRLOO):
         print(f"[seed] default <- {adapter_dir}: sum|lora_B| {before:.3f} -> "
               f"{self._lora_b_norm(DEFAULT_ADAPTER):.3f}", flush=True)
 
-    def _add_predictor_adapter(self):
+    def _add_frozen_adapter(self, name: str):
+        """Attach a second/third LoRA adapter and freeze it (only 'default' is ever trained)."""
         from peft import LoraConfig
 
         lora = LoraConfig(
             r=self.cfg.lora_rank, lora_alpha=2 * self.cfg.lora_rank, lora_dropout=0.0,
             target_modules=list(self.cfg.lora_targets),
         )
-        self.model.add_adapter(PREDICTOR_ADAPTER, lora)
+        self.model.add_adapter(name, lora)
         for n, p in self.model.named_parameters():
-            if f".{PREDICTOR_ADAPTER}." in n:
-                p.requires_grad_(False)  # predictor is never trained; it only lags the policy
+            if f".{name}." in n:
+                p.requires_grad_(False)
 
     def _lora_b_norm(self, adapter: str) -> float:
         return sum(p.float().norm().item()
@@ -128,6 +152,24 @@ class SnapshotRLOO(NewcombRLOO):
     def _update_snapshot(self, *, ema: float | None):
         """Refresh the predictor adapter from the live (default) adapter (see ``snapshot_copy``)."""
         snapshot_copy(self.model, ema=ema, src=DEFAULT_ADAPTER, dst=PREDICTOR_ADAPTER)
+
+    # -- KL reference = seed policy (not base) when kl_ref="seed" -----------
+    @torch.no_grad()
+    def _seq_logprobs(self, ids, mask, gen_mask, adapters: bool):
+        """Sequence log-probs. ``adapters=True`` → the live policy (inherited). ``adapters=False``
+        is the KL reference: inherited (base, via ``disable_adapter``) when ``kl_ref="base"``, else
+        the frozen ``seed_ref`` adapter (the initial policy)."""
+        if adapters or self.kl_ref == "base":
+            return super()._seq_logprobs(ids, mask, gen_mask, adapters)
+        self.model.set_adapter(SEED_REF_ADAPTER)
+        try:
+            parts, mb = [], self.cfg.micro
+            for i in range(0, ids.shape[0], mb):
+                lp = self._chunk_logprobs(ids[i:i + mb], mask[i:i + mb])
+                parts.append(lp * gen_mask[i:i + mb, 1:])
+            return torch.cat(parts, 0)
+        finally:
+            self.model.set_adapter(DEFAULT_ADAPTER)  # restore the trainable policy
 
     # -- predictor = snapshot, not base -----------------------------------
     @torch.no_grad()
@@ -170,6 +212,11 @@ def main(argv=None) -> int:
     ap.add_argument("--p", type=float, default=None,
                     help="pin the *stated* prompt accuracy to this constant (reward uses the snapshot, "
                          "not this). Default: sweep the config grid (modelpred-comparable).")
+    ap.add_argument("--kl-ref", dest="kl_ref", choices=["seed", "base"], default="seed",
+                    help="KL reference: 'seed' (frozen initial policy; the fix) or 'base' (inherited; "
+                         "the negative control).")
+    ap.add_argument("--kl-coef", dest="kl_coef", type=float, default=None,
+                    help="KL penalty coefficient (default: config 0.02).")
     ap.add_argument("--snapshot-every", dest="snapshot_every", type=int, default=10)
     ap.add_argument("--snapshot-ema", dest="snapshot_ema", type=float, default=0.0)
     ap.add_argument("--steps", type=int, default=150)
@@ -195,11 +242,13 @@ def main(argv=None) -> int:
     cfg.P = args.P
     if args.temp is not None:
         cfg.temp = args.temp
+    if args.kl_coef is not None:
+        cfg.kl_coef = args.kl_coef
     cfg.eval_every = args.eval_every
     cfg.seed = args.seed
     cfg.tag = args.tag
 
-    trainer = SnapshotRLOO(cfg, seed_adapter=args.seed_adapter,
+    trainer = SnapshotRLOO(cfg, seed_adapter=args.seed_adapter, kl_ref=args.kl_ref,
                            snapshot_every=args.snapshot_every, snapshot_ema=args.snapshot_ema)
     trainer.train()
     return 0
