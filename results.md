@@ -118,6 +118,56 @@ that overrides explicit EV and *strengthens* with scale**, not a capability gap.
 
 ---
 
+## Day-3 consolidated state — where the project stands (2026-06-24)
+
+*Supersedes the Day-2 update as the current top-level synthesis (Runs 1–11 + a 14B scale probe).*
+
+**The result.** A small-to-mid LLM does not track the stated predictor accuracy in Newcomb
+problems, and the reason is **not** an inability to compute expected value — it's a
+**decision-theoretic disposition** (causal "don't forgo the guaranteed box" / two-boxing dominance)
+that **overrides explicit EV at the moment of commitment**. This disposition is **robust to scale
+(3B→14B), to RL, and to SFT**, and is even **amplified by spelling out the calculation**.
+
+**Evidence chain (everything converges on the same wall):**
+- **RL** moves the model's *lean* (intercept) easily, any direction, but never installs the
+  *conditional rule* (slope) — confirmed at the logit level and **per-item** (Runs 2/5/6 +
+  item-analysis), under CoT (Run 7), with a fair/paired objective (Run 7 + seed-confirm Run 10:
+  slopes +0.17/−0.13/+0.13 = noise), and with a real model-based predictor (Run 6).
+- **SFT** on the model's *own* correct traces doesn't install the slope either, and a 4×-bigger SFT
+  set doesn't help → a **true ceiling, not data-limited** (Runs 8, 11A).
+- **Computation transplant** (hand it the full EV at inference) is the capstone: told
+  "EV(one-box)=99 > EV(two-box)=61, pick one-box," it still **refuses to one-box at high p** because
+  that means forgoing the guaranteed box (Run 9).
+- **Scale (14B) sharpens, not fixes:** flawless where EV agrees with grabbing the guaranteed box
+  (1.00 at low p) but one-boxes **0–15% at p=0.99 even handed the EV** — *worse* than the 3B. The
+  bigger, better reasoner is a *more confident* two-boxer (Run 10).
+- **Two mechanism clues:** (a) spelling out the EV breakdown is *worse* than just stating the
+  conclusion — it surfaces the guaranteed reward and activates the dominance pull (Runs 10, 11B);
+  (b) RL can install a disposition that ignores explicit EV outright (causal arm: full calc moves it
+  **0.00**, Run 11C).
+
+**Headline framings (audience-dependent):**
+- DT/RL: *"RL moves the lean, not the rule"* (intercept vs slope).
+- General: *"we handed it the answer and it still wouldn't act on it."*
+- The sharp one: *"showing a more capable model the EV calculation makes it* less *likely to follow
+  it — because the calculation surfaces the guaranteed reward it won't give up."*
+
+**Honest caveats.** Abstract-token opaque-Newcomb only; 14B is n=12/p single-run (strong but
+unconfirmed); the 14B free-CoT tracking is weak/non-significant; de-noising dissolved several phantom
+intermediate effects (the +0.50 CoT slope, the "+0.16 SFT slope", the "base 0.75 level") — that
+discipline is now baked into CLAUDE.md "Sanity gates".
+
+**Open agenda — the two highest-value next builds (need design *with* the user):**
+- **Anti-Newcomb camouflage** ⭐ — same EV math, Newcomb story stripped (medical test, packet cache,
+  insurance…). Decisively disambiguates: is the override the *Newcomb prior* (story-triggered) or a
+  genuine EV-action failure? If the model tracks p in camouflage but not in containers → it's the prior.
+- **Equation-only RL env** ⭐ — RL on bare `A pays pB / B pays S+(1−p)B, choose`. Learns the slope →
+  bottleneck is extraction/framing; fails → small-model RL capacity. (Both are in `OVERNIGHT.md`.)
+
+**Status:** all 11 runs committed (`eb6d6f8`→`86d6529`→`9c7ff11`); GPU idle; nothing running.
+
+---
+
 ## Tomorrow — concrete todos (pick up in the morning)
 
 Goal for tomorrow: **try to break the intercept-vs-slope result** (or pin down exactly why it
