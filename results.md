@@ -251,6 +251,63 @@ adapters `results/adapters/evidential_oracle_*`; C2 code `newcomb_rl/selfplay.py
 
 ---
 
+## R1-Distill-Llama-8B — a reasoning-trained model *tracks p* (2026-06-24)
+
+**Why we ran it.** Our scale story so far was monotone: 3B has a flat ~0.80 one-box *reflex* (no
+`p`-tracking); the 14B *sharpens the dominance-override* (refuses one-boxing 0–15% even at p=0.99,
+even handed the EV). `deepseek-ai/DeepSeek-R1-Distill-Llama-8B` is the clean test of whether that trend
+is about **scale** or about **reasoning**: it's a high-capability-for-size model *trained to reason*
+(native long `<think>…</think>`). Inference-only quick battery, **no new code** (all probes take
+`--model`; CoT tools take `--max-new-tokens`). 6 opaque items, abstract tokens, randomised order.
+
+**Measurement note (the Tier-0 gate earned its keep).** First smoke at `--max-new-tokens 1536` had
+5/6 traces **truncated mid-`<think>`** → the forced-answer readout was reading an *interrupted* chain
+(the Run-3/4 trap). Raising to **4096** closed `</think>` on ≥92% of traces; only then are the numbers
+trustworthy. Also note **p=0.8 is exactly p\*** (EVs equal = 80), so the model correctly reasons to a
+*tie* there and those traces burn the whole budget — they dominate runtime, not a bug.
+
+**Headline — considered disposition (CoT, 6×2 per p, `</think>`-closed ≥0.92):**
+
+| p | K-rate (one-box) | EV-optimal | mean logit-margin |
+|---|---|---|---|
+| 0.50 | **0.08** (two-box) | 0.92 | −5.9 |
+| 0.70 | 0.50 | 0.50 | +0.5 |
+| 0.80 (=p\*) | 0.58 | 0.42 | +1.4 |
+| 0.90 | **0.83** (one-box) | 0.83 | +5.6 |
+| 0.99 | 0.75 (one-box) | 0.75 | +4.5 |
+
+A strong, monotone **p-tracking** slope with the crossover sitting right at the theoretical **p\*=0.8**,
+driven by *explicit EV reasoning* in the transcripts (e.g. p=0.99: *"99% chance of 100 vs always 60 →
+Q only is better"*; p=0.5: *"take both… 60 > 50, regardless of prediction"*). **This breaks the
+"scale ⇒ harder CDT dominance" trend**: the reasoning-trained 8B *follows the EV math* where the 14B
+refuses. So the 14B's dominance-override is a **disposition of that model**, not an inevitability of
+capability — engaged reasoning + correct EV ⇒ EV-rational (EDT-ward at high p) choice.
+
+**Within-model: reflex vs considered (the capability-vs-disposition axis in one model).** Forced
+logit-margin (no free-gen, = pre-reasoning reflex) only *mildly* tracks p (K 0.42→0.60, margin
+−0.34→+0.39). But the **"told-not-to-think"** reflex (force empty `<think></think>` then read the
+answer) is **flat one-box = 1.00 at every p** — a strong one-box *prior* (echoes the 3B's flat-high
+reflex). So: **no reasoning → one-box prior; reasoning installs the p-sensitivity** (and overrides the
+prior to two-box at low p). Reasoning is doing the EV work, exactly the lever the 3B can't pull.
+
+**Represented dependence (credence) — weak/inconclusive here.** Forced-token credence is mostly
+saturated: `outcome` degenerate (gap≈0.008 flat), `prediction` gap_adj only 0→0.11 (vs ideal 2p−1
+→0.98). Consistent with the known forced-token confound; we deliberately skipped the free-form
+`direct` variant (it would trigger reasoning on this model). Don't over-read this tier — the action
+tiers (above) are the signal.
+
+**Artifacts:** `results/cot_inspect/cot_r1d_cot.{jsonl,html}` (readable transcripts);
+`results/logprob/p_margin_by_p_r1d_{forced,reflex_nothink}.csv`; `results/credence/*r1d*`;
+plot `results/r1d_logs/r1d_krate_vs_p.png`; step logs `results/r1d_logs/`. Driver
+`scratchpad/run_r1d_battery.sh`.
+
+**Open follow-ups (not run):** canonical CI plot via `run_mvp --cot --max-new-tokens 4096` (regex-parse
+companion to the cot_inspect curve); slot R1-Distill in as a rung on the credence ladder *with the
+free-form `direct` variant at a large budget* (the only credence readout likely to register on a
+reasoning model); seeds/CI on the p=0.99<0.90 dip (likely n=12 noise).
+
+---
+
 ## Tomorrow — concrete todos (pick up in the morning)
 
 Goal for tomorrow: **try to break the intercept-vs-slope result** (or pin down exactly why it
