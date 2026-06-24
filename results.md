@@ -939,3 +939,46 @@ it's *confined* to it.
 - Gemma-2-2b-it baseline (comparability to Tennant et al.; PLAN.md §2 model-choice note).
 - Oesterheld 2024 capabilities-dataset sanity check (PLAN.md §5a) — confirm our hand-built dataset
   isn't "sus" before over-trusting the baseline/RL.
+
+---
+
+## Discussion — what this does (and doesn't) say about "EDT-lean = capability/pretraining" (2026-06-24)
+
+A natural critique: *"You're just reproducing Oesterheld's capability→EDT correlation — small models
+can do the EV arithmetic but naively grab the dominant (CDT) option, perhaps without even keying
+into the prediction structure."* Three responses, kept for the writeup.
+
+**1. We are not simply reproducing the capability→EDT correlation — our scale result points the
+other way.** Oesterheld's finding is *more capable → more EDT-lean*. Within Qwen2.5, our 14B is
+*more* CDT than the 3B (sharper override: 0–15% one-boxing at p=0.99 *even handed the EV*, Run 10).
+Caveats: different axis (he measures *attitude/preference*; we measure *one-box rate* on a specific
+opaque-Newcomb with explicit `p`), different stimuli, and our 14B is a single n≈12/p run. But "just
+reproducing his correlation" doesn't hold — the direction is wrong for it.
+
+**2. The "didn't notice / didn't key into the prediction" confound is the serious one, and only
+*mostly* closed.** If the model never engages the evidential structure, its CDT choice is
+*non-engagement*, not *disposition overriding EV*. Main defense: the **transplant** *hands* it the EV
+(removing the need to notice/compute) and it still two-boxes — worse, at 14B (Runs 9–11). Two gaps
+remain: (a) supplying "EV(one-box)=99" doesn't force the model to *credit* the evidential framing;
+(b) only ~25% of base CoTs show explicit EV arithmetic, so for the rest we can't rule out
+non-engagement. Where the model *does* show its work it does the predictor reasoning and *still*
+two-boxes — the strongest form of the claim, but not universal. This is exactly what the
+**comprehension-gate** and **anti-Newcomb camouflage** builds are for.
+
+**3. Disentangle two deflationary stories — we weaken one, not the other.**
+- *(a) "EDT-lean is just doing the arithmetic"* (anyone who can compute EV picks EV-max). **Weakened:**
+  the 3B *can* do the EV arithmetic (sometimes explicitly in its own CoT) yet goes CDT → EDT-lean is
+  **not reducible to compute capability**; a capable/thinking model that answers EDT is adding
+  something *beyond* arithmetic (crediting the correlational stance). This is the valid kernel.
+- *(b) "EDT-lean is a pretraining/RLHF-absorbed bias."* **Not weakened.** A pretrained stance can be
+  **capability-gated** (needs capacity to express), so "absent in the small model" is fully
+  consistent with "absorbed bias surfacing only with scale." Our setup is essentially **silent on the
+  origin** of EDT-lean because our models don't *exhibit* EDT-lean here — they exhibit CDT-default.
+  You can't infer where a thing comes from when your instrument never produces it.
+
+**The experiment that would directly engage the critique** is the deferred **attitude half**: run the
+Oesterheld *attitude* (EDT-vs-CDT preference) questions across 3B / 14B (ideally + a 32B-4bit) and see
+whether *lean* tracks size **in-family**. That is the apples-to-apples test of the capability→EDT
+claim. The capabilities run (this section's sibling, `newcomb_eval/newcomblike_oesterheld.py`) measures
+*correctness*, a different axis — useful as a competence yardstick but it does **not** by itself settle
+the EDT-lean question.

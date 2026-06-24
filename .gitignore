@@ -38,6 +38,10 @@ results/
 *.npz
 /data/
 /datasets/
+# external Oesterheld Newcomb-like dataset (own LICENSE — do not commit; see
+# newcomb_eval/newcomblike_oesterheld.py docstring for the one-line download)
+newcomb_eval/data/oesterheld/
+*.zip
 
 # ── Python ──
 __pycache__/
