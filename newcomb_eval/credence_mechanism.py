@@ -31,13 +31,18 @@ from .gen_mechanism_dataset import LEVELS
 
 
 def _read(path: str) -> list[dict]:
+    from .credence_probe import parse_probability
     rows = []
     with open(path) as fh:
         for r in csv.DictReader(fh):
-            try:
-                r["credence_full"] = float(r.get("credence_full", "") or "nan")
-            except ValueError:
-                r["credence_full"] = float("nan")
+            if r.get("variant") == "direct" and r.get("raw"):  # apply the parse fix to persisted raw
+                pp = parse_probability(r["raw"])
+                r["credence_full"] = pp if pp is not None else float("nan")
+            else:
+                try:
+                    r["credence_full"] = float(r.get("credence_full", "") or "nan")
+                except ValueError:
+                    r["credence_full"] = float("nan")
             try:
                 r["margin"] = float(r.get("margin", "") or "nan")
             except ValueError:

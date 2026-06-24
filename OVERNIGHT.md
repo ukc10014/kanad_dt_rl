@@ -20,8 +20,23 @@ overnight bucket is mainly the ablations we'd run regardless.
 - Don't launch a batch onto a GPU already running a primary experiment — check `pgrep -f train_rl`.
 
 ## Overnight-friendly (fire-and-forget; read in the morning)
-- [ ] **Credence ladder — represented-but-unused, across the Qwen2.5 family** ⭐ *(STAGED; runnable
-      now when GPU free)* — `bash results/credence/run_credence_ladder.sh`. Does the model *represent*
+- [ ] **Mechanism-credibility ladder on 14B — is the abstract predictor *incredible*?** ⭐⭐ *(STAGED;
+      runnable now when GPU free)* — `bash results/credence/run_credence_mechanism.sh`. Our abstract
+      predictor ("identifies agents like you X% of the time") is a **reference-class statistic** — the
+      least binding framing; a causal world-model can rightly treat it as non-binding → dominance.
+      Vary ONLY the predictor-mechanism clause across **m0 statistical → m0pad length-placebo → m1
+      individual-model → m2 process-scan → m3 exact-copy (FDT-strong)**, payoff + abstract labels
+      fixed. 14B only (comprehends → null is meaningful), de-confounded probe (`direct` free-form
+      credence + `action` margin). **Read:** one-box rate and/or credence `gap_adj` **rise m0→m3**
+      (placebo stays at m0) ⇒ incredible predictor was *suppressing* EDT ⇒ framing artifact, not fixed
+      disposition; **flat even at exact-copy** ⇒ dominance robust to credibility (quotable). Outputs
+      `results/credence/mechanism_signature.{csv,json,png}`. Built+CPU-smoked; `gen_mechanism_dataset.py`,
+      `credence_mechanism.py`; tests green (21). Caveats: clause-length confound (m0pad controls it);
+      FDT≠EDT not isolated. See results.md "mechanism-credibility pivot (2026-06-24)".
+- [x] **Credence ladder — represented-but-unused, across the Qwen2.5 family** ⭐ *(RAN 2026-06-24 —
+      forced-token probe CONFOUNDED: `gap@0.5≈0.7`, `outcome` one-sided-saturated; free-form `direct`
+      partially tracks p at 14B; coherence scales (14B agree 0.68). Instrument fixed (gap_adj +
+      saturation gate). See results.md.)* — `bash results/credence/run_credence_ladder.sh`. Does the model *represent*
       the action↔box evidential dependence (credence gap → `2p−1`) even where its *action* stays flat
       CDT? Rungs **3B / 7B / 14B (bf16) + 32B (4-bit)**, each a separate process (clean GPU release);
       runs `logprob_sweep` (action margin) + `credence_probe --variant outcome prediction direct`

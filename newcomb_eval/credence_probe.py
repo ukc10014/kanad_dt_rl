@@ -181,14 +181,20 @@ _NUM_RE = re.compile(r"(\d+(?:\.\d+)?)")
 
 
 def parse_probability(text: str) -> float | None:
-    """First number in ``text`` -> probability in [0,1]. '85'/'85%'->0.85; '0.85'->0.85."""
+    """First number in ``text`` -> probability in [0,1]. '85'/'85%'->0.85; '0.85'->0.85; '1%'->0.01.
+
+    A trailing '%' means percentage REGARDLESS of magnitude (so '1%' -> 0.01, not 1.0 — the bug that
+    corrupted the p=0.99 two-box credence). Without '%', >1 is read as a percentage ('99'->0.99) and
+    <=1 as an already-formed probability ('0.8'->0.8).
+    """
     if not text:
         return None
     m = _NUM_RE.search(text)
     if not m:
         return None
     v = float(m.group(1))
-    if v > 1.0:
+    is_pct = text[m.end():m.end() + 1] == "%"
+    if is_pct or v > 1.0:
         v = v / 100.0
     return max(0.0, min(1.0, v))
 

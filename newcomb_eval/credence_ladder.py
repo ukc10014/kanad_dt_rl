@@ -76,14 +76,20 @@ def series_agreement(a: dict, b: dict) -> float:
 # per-model + cross-model aggregation
 # --------------------------------------------------------------------------------------
 def _read_samples(path: str) -> list[dict]:
+    from .credence_probe import parse_probability
     rows = []
     with open(path) as fh:
         for r in csv.DictReader(fh):
-            cf = r.get("credence_full", "")
-            try:
-                r["credence_full"] = float(cf)
-            except (TypeError, ValueError):
-                r["credence_full"] = float("nan")
+            # re-derive direct credence from the persisted raw text so the parse_probability fix
+            # ('1%'->0.01) applies without a GPU re-run; other variants keep their stored value.
+            if r.get("variant") == "direct" and r.get("raw"):
+                pp = parse_probability(r["raw"])
+                r["credence_full"] = pp if pp is not None else float("nan")
+            else:
+                try:
+                    r["credence_full"] = float(r.get("credence_full", "") or "nan")
+                except (TypeError, ValueError):
+                    r["credence_full"] = float("nan")
             r["p"] = float(r["p"])
             r["is_degenerate"] = str(r.get("is_degenerate", "")).strip().lower() in ("1", "true", "1.0")
             rows.append(r)
@@ -112,13 +118,16 @@ def analyse_model(results_dir: str, tag: str, params: float, *, p_star: float = 
     rows = _read_samples(path)
     variants = sorted({r["variant"] for r in rows})
 
-    gaps, slopes = {}, {}
+    gaps, slopes, sat = {}, {}, {}
     for v in variants:
         vrows = [r for r in rows if r["variant"] == v]
         gaps[v] = _gap_by_p(vrows, p_star)
-        slopes[v] = credence_headline(vrows, p_star=p_star)["fit_slope_gap_on_2pm1"]
+        hl = credence_headline(vrows, p_star=p_star)
+        slopes[v] = hl["fit_slope_gap_adj_on_2pm1"]   # pedestal-removed (the trustworthy number)
+        sat[v] = hl["onesided_saturation"]
 
-    repr_slope = slopes.get("outcome", slopes.get("prediction", float("nan")))
+    # headline the CLEAN free-form 'direct' read, not the saturated forced-token 'outcome'.
+    repr_slope = slopes.get("direct", slopes.get("prediction", slopes.get("outcome", float("nan"))))
     action_slope = _action_slope(results_dir, tag)
     token_gap = gaps.get("outcome") or gaps.get("prediction")
     agree_op = series_agreement(gaps.get("outcome", {}), gaps.get("prediction", {}))

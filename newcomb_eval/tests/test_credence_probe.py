@@ -212,6 +212,10 @@ def test_parse_probability_forms():
     assert parse_probability("0.7") == pytest.approx(0.7)
     assert parse_probability("100") == pytest.approx(1.0)
     assert parse_probability("250") == pytest.approx(1.0)        # clamped
+    assert parse_probability("1%") == pytest.approx(0.01)        # % => pct regardless of magnitude
+    assert parse_probability("0%") == pytest.approx(0.0)
+    assert parse_probability("100%") == pytest.approx(1.0)
+    assert parse_probability("99\n\nHowever, given") == pytest.approx(0.99)  # trailing reasoning
     assert parse_probability("no number here") is None
     assert parse_probability("") is None
 

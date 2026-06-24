@@ -1118,29 +1118,53 @@ Modules: `newcomb_eval/credence_probe.py` (+ family ladder `credence_ladder.py`)
 `outcome` (named prize "holds 100/0"), `prediction` (abstract-label True/False), `direct` (free-form
 numeric).
 
-**Ladder result (3B/7B/14B bf16; 32B disk-skipped) — the forced-token probe is CONFOUNDED; the
-representation-scales story is UNPROVEN.** Resolvability 1.0 (no two-sided saturation), **but the
-symmetry control fails:** `gap@0.5 ≈ +0.71` (outcome) / `+0.74` (prediction) on 14B where it must be
-~0. The forced `outcome` read is **one-sidedly saturated** — `P(full|one-box)=1.0 at every p incl.
-0.5`. So the 14B reads its *committed choice* as near-certain evidence about the box **independent of
-the stated `p`** — the credence-space echo of "disposition, not conditioning" (it over-applies "my
-choice ⇒ box state", `p`-blind). The clean `repr_slope→2p−1` signature did **not** appear; quarantine
-those slopes.
+**Two instruments, opposite verdicts — the elicitation method dominates.**
+- **Forced-token (`outcome`/`prediction`) is CONFOUNDED — quarantine.** Resolvability 1.0, but the
+  symmetry control fails hard: `gap@0.5 ≈ +0.71`/`+0.74` on 14B where it must be ~0; `outcome` is
+  **one-sidedly saturated** (`P(full|one-box)=1.0` at *every* p incl. 0.5). Forcing the credence token
+  lets the committed action's evidential rationale dominate, `p`-blind. Do not read these slopes.
+- **Free-form (`direct`) is CLEAN — and inverts the scale expectation.** Headlining `direct + gap_adj`
+  (the de-confounded number), the p-conditioned dependence is **represented near-perfectly at the
+  small/mid rungs and DEGRADES with scale:** repr-slope **3B +0.96, 7B +0.94, 14B +0.21**. The **7B is
+  a near-textbook evidential reasoner** — `P(full|1box)=p`, `P(full|2box)=1−p` essentially exactly
+  across the whole grid, **symmetric at p=0.5** (gap 0.000). **3B** tracks cleanly too (gap@0.5 +0.03).
+  **14B is the muddiest:** a pedestal (gap@0.5 +0.19) *and* a real p=0.99 wobble (it reasons
+  "99…however" into the number). So **representation does NOT need scale — it's strongest at 3B/7B and
+  worst at 14B** (the big model over-thinks even the free-form credence).
 
-**What survives (and points the way):**
-1. **Free-form (`direct`) is far less contaminated** (`gap@0.5 ≈ 0.19`) and **genuinely rises with
-   `p` at 14B** (gap 0.19→0.66 over p=0.5→0.9, then an anomalous collapse at 0.99 — raw persisted,
-   needs a transcript read). When asked to *state a number* rather than having a token forced, the
-   14B's credence partially tracks `p`. **Instrument matters: free-form > forced-token.**
-2. **Coherence scales:** variant agreement (outcome↔prediction) 3B 0.11 / 7B −0.04 / **14B 0.68** —
-   only the 14B holds an internally consistent belief across elicitations.
-3. Action margins are single-run / noisy (3B −1.31 / 7B +3.39 / 14B +0.45) → divergence column
-   unreliable.
+| rung | **repr-slope (direct, gap_adj)** | repr (outcome, *saturated — ignore*) | action margin hi-lo |
+|---|---|---|---|
+| 3B  | **+0.96** | −0.00 | −1.31 |
+| 7B  | **+0.94** | +0.00 | +3.39 |
+| 14B | **+0.21** | +0.04 | +0.45 |
+
+*7B exemplar (direct, parse-fixed) — a near-textbook evidential reasoner:*
+| p | 0.50 | 0.60 | 0.70 | 0.75 | 0.80 | 0.85 | 0.90 | 0.99 |
+|---|---|---|---|---|---|---|---|---|
+| P(full \| 1-box) | .50 | .60 | .70 | .75 | .80 | .85 | .90 | .99 |
+| P(full \| 2-box) | .50 | .41 | .30 | .25 | .20 | .15 | .10 | .11 |
+| gap (ideal 2p−1) | .00 (.00) | .19 (.20) | .40 (.40) | .50 (.50) | .60 (.60) | .70 (.70) | .80 (.80) | .88 (.98) |
+
+Artifacts: `results/credence/ladder_signature.{csv,json,png}`,
+`credence_gap_by_p_base{3b,7b,14b}.csv` (filter `variant==direct`), `..._direct.png`, `ladder.log`.
+
+**This sharpens represented-but-unused.** The action stays flat/CDT at every scale (margins single-run,
+noisy: 3B −1.31 / 7B +3.39 / 14B +0.45), yet **even the 3B states the correct p-conditioned credence**
+and the 7B does so near-perfectly — and they two-box anyway. So the evidential dependence is *present
+and faithfully p-conditioned*, just **not action-guiding**. The bottleneck is **usage, not
+representation, and not capability/scale.**
+
+**Bug found + fixed (parse).** The 7B "p=0.99 collapse" was OUR bug: conditioned on two-boxing at
+p=0.99 the 7B correctly answers **`"1%"`** (box ~1% full) but `parse_probability` read "1%" as 1.0
+(only divided by 100 when >1, ignoring `%`). Fixed (`%`⇒percentage regardless of magnitude); the
+ladder/mechanism readers **re-derive `direct` credence from the persisted `raw`**, so the fix applied
+**without a GPU re-run**. (14B's p=0.99 wobble is *separate* — genuine: it appends reasoning despite
+"only the number".)
 
 **Instrument fix (shipped).** `gap_adj = gap(p) − gap(0.5)` baseline-subtracts the `p`-independent
-pedestal (isolates the `p`-modulation — the trustworthy slope); a **one-sided-saturation gate** (the
-forced-token failure the two-sided degeneracy gate missed); `direct` promoted to primary; an in-probe
-`action` margin variant so one invocation yields both axes.
+pedestal; a **one-sided-saturation gate** (the forced-token failure the two-sided degeneracy gate
+missed); `direct` promoted to primary; `credence_ladder` now headlines `direct + gap_adj` (was the
+saturated `outcome`); an in-probe `action` margin variant so one invocation yields both axes.
 
 **NEW THREAD — mechanism-credibility / less-abstract prompt (follow this later).** Hypothesis (user):
 our abstract predictor — *"identifies the choices of agents like you X% of the time"* — is a
