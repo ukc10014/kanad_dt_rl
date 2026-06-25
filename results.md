@@ -158,7 +158,8 @@ intermediate effects (the +0.50 CoT slope, the "+0.16 SFT slope", the "base 0.75
 discipline is now baked into CLAUDE.md "Sanity gates".
 
 **Open agenda — the two highest-value next builds (need design *with* the user):**
-- **Anti-Newcomb camouflage** ⭐ — same EV math, Newcomb story stripped (medical test, packet cache,
+- **Anti-Newcomb camouflage** ⭐ — *does the model react to the Newcomb **costume** or compute the EV
+  on the **numbers**?* Same EV math, Newcomb story stripped (medical test, packet cache,
   insurance…). Decisively disambiguates: is the override the *Newcomb prior* (story-triggered) or a
   genuine EV-action failure? If the model tracks p in camouflage but not in containers → it's the prior.
 - **Equation-only RL env** ⭐ — RL on bare `A pays pB / B pays S+(1−p)B, choose`. Learns the slope →
@@ -305,6 +306,61 @@ plot `results/r1d_logs/r1d_krate_vs_p.png`; step logs `results/r1d_logs/`. Drive
 companion to the cot_inspect curve); slot R1-Distill in as a rung on the credence ladder *with the
 free-form `direct` variant at a large budget* (the only credence readout likely to register on a
 reasoning model); seeds/CI on the p=0.99<0.90 dip (likely n=12 noise).
+
+---
+
+## Day-5 (2026-06-25) — kl-control closes the causal-flip; the 3B is a clean null (intercept movable, slope stuck)
+
+**(1) The Day-4 causal→one-box flip was the KL leash, not the reward — confirmed.** Reconstructed the
+lost oracle driver (`scratchpad/oracle_kl_control.py`: seed the policy from an adapter, pin the predictor
+accuracy, run evidential RLOO; seeding mirrors `selfplay._load_into_default`) and ran the *same* driver
+at two KL settings, seeded from the `causal` two-boxer at pinned p=1.0:
+
+| run (same driver, only `kl_coef` differs) | K @ step 150 | reads as |
+|---|---|---|
+| `kl=0.02` (matched baseline) | **1.00** | flips to one-box — reproduces Day-4 |
+| `kl=0` (control) | **0.00** | never moves |
+
+With the KL-to-base leash cut, the oracle reward cannot budge the trained two-boxer (margin ≈ −18 ⇒ ~0
+one-box samples ⇒ reward can't move an action it never explores). The Day-4 flip was the **KL-to-base
+reference** (base one-boxes at p=1) eroding the two-box margin until one-boxing became samplable — not the
+reward dissolving the disposition. Logs: `results/oracle/run_oracle_klctl_kl{00,002}.log`; plot
+`results/dynamics_klcontrol.png`.
+
+**(2) "Does RL just keep the 3B in whatever mode it's in?" — no; it moves the *lean* freely, it just
+can't install the *rule*.** "Keeps it in whatever mode" only holds where there's **no gradient**. With a
+clear EV gradient, RL moves the 3B hard, *against its own prior*: the base 3B leans one-box (~0.85), yet
+p=0.5/p=0 oracle reward drives it to **0.00, full two-box** — and it does that *against the KL anchor too*
+(KL pulls toward the one-boxing base; reward beat it; see `dynamics_3b.png` Panel B). So RL is **not**
+conservative on the 3B. The precise statement is the project headline:
+
+> **RL moves the 3B's *lean* (intercept) freely — any direction, even against its prior — but cannot
+> install the conditional *rule* (slope).**
+
+The word "mode" is the **intercept**, and the intercept is the *cheap, movable* thing; the stuck thing is
+the **slope**.
+
+**Why the iterated game (`dynamics_3b.png` Panel A) *looks* inert:** it pins p at exactly p\*=0.8 (the
+tie → no gradient), and the 3B predictor is **p-blind**, so the self-referential loop can only ever
+reinforce the *lean* — and at the tie there isn't even a lean signal. The dynamics are degenerate because
+the **substrate** is degenerate (a p-blind reflex), not because RL is inherently sticky. The `kl=0` result
+(1) makes the 3B *more* of a null: even the one apparently-interesting dynamic ("reward dissolves a trained
+disposition") was an artifact — the trained modes are if anything **stickier** than we thought; reward
+alone won't dislodge a saturated disposition.
+
+**Synthesis — the 3B is essentially done, and that's the point.** The interesting object was never the 3B
+itself — it is the **intercept-vs-slope decomposition** the 3B let us nail down (movable disposition,
+un-installable competence; a clean null on the slope at every lever: RL / SFT / transplant / fair
+objective). The *interesting dynamics* we actually want — hysteresis that **tracks p**, a **conditional**
+self-fulfilling fixed point — **require a predictor that conditions on p**, and the 3B fundamentally
+**cannot be one**. R1-Distill can (it tracks p when it reasons). So "the 3B is boring" is not a dead end —
+it is the correct conclusion that **points directly at R1** as the next move. That move is gated only on
+the R1 iterated-game **cost** (timing benchmark `scratchpad/r1_timing.py` → `results/r1_timing.log`): R1
+carries a p-signal only *through* its reasoning, so both policy and predictor must emit full `<think>`
+chains — the open question is wall-clock, not whether the dynamics could be interesting.
+
+**Artifacts:** `results/dynamics_3b.png`, `results/dynamics_klcontrol.png`, `scratchpad/oracle_kl_control.py`,
+`scratchpad/plot_3b_dynamics.py`, `scratchpad/r1_timing.py`.
 
 ---
 
@@ -1281,6 +1337,20 @@ confounded (`gap@0.5`≈0.8) — trust `direct` + `action`. Artifacts:
 `results/credence/mechanism_signature.{csv,png}`, `mechanism.log`.
 
 ### (2) Self-snapshot one-box-basin probe — **BISTABILITY CONFIRMED**
+
+**Plain-language (and how the "dynamical basin" relates to the "iterated game" — they are the *same
+thing*):** this *is* the iterated game. The predictor that decides the box-fill is a **lagging snapshot
+of the policy itself**, so the model trains against its own shadow. That makes one-boxing and two-boxing
+each **self-fulfilling**: commit to one and your shadow predicts it, so the payoff rewards continuing →
+two stable attractors ("basins"), and the **starting disposition picks which one**. The ridge between
+them sits at p\*=0.8 (where the two actions tie) — the "separatrix". So the dynamical basin is not a
+separate experiment from the iterated game; it is the *result we got from* the (3B) iterated game.
+**The limitation that motivates the R1 version:** on the 3B the snapshot predicts via the *forced-token
+reflex*, which is **flat in p** — so only the overall *lean* can self-fulfill, giving two **p-flat**
+basins, not a *conditional* fixed point. An R1 predictor that **reasons** (hence tracks p) is the bet
+that the same loop can instead settle into the **conditional rule** (one-box above p\*, two-box below) —
+the competence nothing else (RL/SFT/transplant) has installed. The R1 aspect *is* the whole difference.
+
 Seeded from the committed one-boxer (`evidential_oracle_p1_base`, K=1.0), `--kl-ref seed`, p=0.8, 150
 steps. **K stayed locked at 1.000 / p_model=1.000 for the entire run** (reward 100, invalid 0, gen_len
 2.0 — clean). Endpoint logprob sweep: `P(non_cdt)=1.0` at every p, margin ≈ **+25**, slope flat.
@@ -1288,8 +1358,11 @@ Combined with Day-4's result that the **two-box basin** is also a stable attract
 K=0, margin ≈ **−18**), this confirms **two stable self-fulfilling attractors with the separatrix at
 p\*=0.8** — the starting disposition selects the basin. **Nuance:** both committed seeds are *saturated
 wells* (margin +25 / −18, negligible exploration) so they trivially hold; only the base seed (sitting
-*on* the separatrix at self-prediction ~0.8) drifts (0.80→0.25, Day-4). So bistability is real, but the
-attractors are deep commitments, not gently-attracting regions. Log:
+*on* the separatrix at self-prediction ~0.8) moves at all — and it settles at **indifference (0.80→0.50,
+dip to 0.35)**, *not* a roll into the two-box basin (the logged `seedref`/`baseref` base-seed runs are
+byte-identical at 0.50; at p=p\* there is no basin gradient, so the uncommitted base just goes to ~0.5).
+So bistability is real for *committed* seeds, but the attractors are deep commitments, not
+gently-attracting regions, and the on-separatrix base does not get pulled in. Log:
 `results/run_hyst_onebox_seedref.log`, `results/logprob/p_margin_by_p_ep_hyst_onebox_seedref.csv`.
 
 ### (3) LoRA extras — SMOKE-FAILED (CUDA OOM), correctly skipped

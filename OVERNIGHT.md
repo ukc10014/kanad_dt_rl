@@ -74,8 +74,9 @@ overnight bucket is mainly the ablations we'd run regardless.
 - [ ] **Self-snapshot one-box-basin probe — completes the C2 hysteresis** ⭐ *(runnable now; reuses
       `newcomb_rl/selfplay.py`, which now has `--kl-ref/--kl-coef`)* — Day-4 C2 found the **two-box
       basin is a strong self-fulfilling attractor** (causal-seed locks K=0 / margin ≈ −18, robust to
-      KL-ref *and* EMA; `p_model`↔K move in lockstep), but **base-seed rolls *down* into it**
-      (base self-prediction ~0.69–0.80 sits on the `p*`=0.8 separatrix ⇒ drifts 0.80→0.25). The
+      KL-ref *and* EMA; `p_model`↔K move in lockstep), but **base-seed settles at indifference** (base
+      self-prediction ~0.69–0.80 sits on the `p*`=0.8 separatrix ⇒ drifts 0.80→0.50, dip to 0.35 — *not*
+      a roll into the two-box basin; at p=p\* there is no basin gradient). The
       one-box basin is **untested** — no seed started clearly above `p*`. Fix: **seed from a committed
       one-boxer** (oracle p=1 adapter, K=1.0 ⇒ self-prediction ~1.0 ≫ 0.8) and check it **stays**:
       `python -m newcomb_rl.selfplay --seed-adapter results/adapters/evidential_oracle_p1_base
