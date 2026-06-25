@@ -1248,3 +1248,51 @@ Built & staged (not yet run): `gen_mechanism_dataset.py`, `credence_mechanism.py
 Caveats to chase: mechanism clauses differ in length (m0pad placebo controls it); the p=0.99 `direct`
 anomaly; FDT and EDT aren't separated here (both favour one-box — this tests *credibility/bindingness*,
 not FDT specifically; a twin-PD / transparent-box variant would isolate FDT).
+
+---
+
+## Overnight batch results — mechanism-credibility + one-box-basin (2026-06-24, RAN)
+
+Unattended batch (`results/overnight/run_tonight.sh`, watchdog-guarded). Both priority jobs **DONE**.
+
+### (1) Mechanism-credibility ladder (14B) — credibility *modestly but consistently* lifts EDT
+Vary ONLY the predictor-mechanism clause (m0 statistical → m3 exact-copy/FDT), payoff + abstract
+labels fixed; de-confounded probe (`direct` credence + `action` margin); **m0pad = length-matched
+placebo**.
+
+| level | one-box rate | one-box margin | **credence gap_adj (direct)** | gap@0.5 |
+|---|---|---|---|---|
+| m0 statistical | 0.59 | 3.29 | **0.21** | 0.19 |
+| m0pad placebo | 0.59 | 2.75 | **0.18** | 0.24 |
+| m1 indiv-model | 0.61 | 3.55 | **0.19** | 0.24 |
+| m2 process-scan | 0.63 | 3.67 | **0.30** | 0.10 |
+| m3 exact-copy | **0.69** | 3.79 | **0.31** | 0.13 |
+
+**Result — the user's "incredible predictor" hypothesis holds, directionally.** Across m0→m3 all three
+move the right way: one-box rate **0.59→0.69**, one-box margin **3.29→3.79**, and credence p-tracking
+`gap_adj` **0.21→0.31** (the credible conditions m2/m3 ≈0.30 vs the statistical/abstract m0/m1 ≈0.18–0.21),
+while the bias pedestal `gap@0.5` shrinks (0.19→0.10/0.13). **Crucially the length placebo m0pad sits at
+the m0 level on every axis** → it's the predictor's *credibility*, not verbosity. So the abstract
+"agents like you X%" reference-class framing **was partly suppressing both EDT action and clean
+p-conditioning**; a binding predictor (process-scan, exact-copy) recovers some one-boxing and a cleaner
+evidential credence. **Caveats:** effects are *modest* (not a flip — `gap_adj` stays well below the 1.0
+ideal, dominance softened not dissolved); single seed; the `prediction` (forced-token) variant stays
+confounded (`gap@0.5`≈0.8) — trust `direct` + `action`. Artifacts:
+`results/credence/mechanism_signature.{csv,png}`, `mechanism.log`.
+
+### (2) Self-snapshot one-box-basin probe — **BISTABILITY CONFIRMED**
+Seeded from the committed one-boxer (`evidential_oracle_p1_base`, K=1.0), `--kl-ref seed`, p=0.8, 150
+steps. **K stayed locked at 1.000 / p_model=1.000 for the entire run** (reward 100, invalid 0, gen_len
+2.0 — clean). Endpoint logprob sweep: `P(non_cdt)=1.0` at every p, margin ≈ **+25**, slope flat.
+Combined with Day-4's result that the **two-box basin** is also a stable attractor (causal seed locks
+K=0, margin ≈ **−18**), this confirms **two stable self-fulfilling attractors with the separatrix at
+p\*=0.8** — the starting disposition selects the basin. **Nuance:** both committed seeds are *saturated
+wells* (margin +25 / −18, negligible exploration) so they trivially hold; only the base seed (sitting
+*on* the separatrix at self-prediction ~0.8) drifts (0.80→0.25, Day-4). So bistability is real, but the
+attractors are deep commitments, not gently-attracting regions. Log:
+`results/run_hyst_onebox_seedref.log`, `results/logprob/p_margin_by_p_ep_hyst_onebox_seedref.csv`.
+
+### (3) LoRA extras — SMOKE-FAILED (CUDA OOM), correctly skipped
+The trimmed LoRA sweep OOM'd in its 2-step smoke (`rloo.py:_chunk_logprobs`; CoT training × 152k vocab
+— the documented "CoT-OOM"). The smoke-gate did its job: the full runs were skipped, no wasted GPU
+time. Re-run later with memory-safe CoT defaults (`--micro 8`, capped `--max-new-tokens`).
