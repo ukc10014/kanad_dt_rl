@@ -93,7 +93,9 @@ python -m newcomb_rl.selfplay_cot --tag r1_smoke --steps 2 --eval-every 2 \
 
 # Stage-2/3a — trimmed calibration from base R1 (~3-4 h), then plot the trajectory
 python -m newcomb_rl.selfplay_cot --tag r1_calib --steps 30 --eval-every 10 --eval-items 4 \
-  --K 4 --P 4 --micro 8 --max-new-tokens 2048 --drop-pstar --snapshot-every 10 --kl-ref seed
+  --K 4 --P 4 --micro 8 --max-new-tokens 2048 --p-grid 0.5 0.6 0.9 0.99 --snapshot-every 10 --kl-ref seed
+# coarse grid: 2 clean low (two-box optimal) + 2 clean high (one-box optimal); drops the noisy,
+# longest-reasoning near-p* mid band (0b: mid cells ~2700-3400 tok & only 33-67% </think>-closed).
 ```
 **Smoke watch-list (the things CPU couldn't check):** no OOM (lower `--micro` to 4/2 if so); predictor
 `</think>`-closed rate high (printed at end; raise `--max-new-tokens` if low); `p_model` varies across

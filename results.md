@@ -11,6 +11,72 @@ and interpretation. Raw per-sample transcripts are kept under `results/inspect_l
 
 ---
 
+## Week-in-review — the presentable synthesis (2026-06-25)
+
+*The "if I had to present this week" version. Sits above the run-by-run detail; current top-level read.*
+
+**Headline.** A small/mid LLM doesn't fail Newcomb because it *can't do the math* — it fails because of
+a **disposition at the action-commitment step** that overrides explicit computation, **sharpens with
+scale**, and is **dissolved only by test-time reasoning** (not by size, not by being handed the answer).
+Decision-theoretic *competence* and *disposition* are **orthogonal and separately movable**.
+
+**Four converging angles (the defensible core):**
+- **RL moves the lean, not the rule** — intercept, not slope (logit-level, per-item, and under a fair
+  conditioning-only objective). A clean instance of "RL elicits/reweights latent capability, doesn't install it."
+- **Transplant kicker:** hand it the full EV ("one-box=99 > two-box=61") and it *still* won't one-box when
+  that means forgoing the guaranteed box. Not "can't compute."
+- **Represented-but-unused:** the 7B states the correct evidential credence almost exactly
+  (`P(full|one-box)→p`, gap→2p−1) and **two-boxes anyway**. Bottleneck = *usage*, not representation.
+- **Sharpest single data point — scale worsens, reasoning fixes:** the 14B is a *more* committed two-boxer
+  than the 3B (0–15% one-box at p=0.99 even handed the EV), yet reasoning-trained R1-8B **follows the EV and
+  tracks p** (crossover at p\*). No-think R1 collapses to the flat one-box reflex → it's **test-time
+  reasoning**, not reasoning-*training*. Breaks both "bigger = more rational" and (in-family) Oesterheld's
+  capability→EDT.
+
+**Runner-up threads (less flashy, generative):**
+- **Part of the apparent CDT "basin" was a framing artifact — but only a slice.** An abstract "predictor
+  identifies agents like you X%" is a *population statistic* a causal reasoner is *right* to treat as
+  non-binding; a *binding* (exact-copy) predictor lifts one-boxing only **0.59→0.69** (~10 pts,
+  placebo-controlled). Framing explains a slice; **dominance survives the most credible predictor**
+  (softened, not dissolved) — which *strengthens* the headline.
+- **Even the apparent RL escape was an artifact** (this week): the "RL dissolves a trained two-boxer" flip
+  was the **KL-leash-to-base**, not the reward (kl=0 control stays at K=0). Outcome RL is genuinely *stuck*
+  against a saturated disposition unless the *environment* carries the conditional signal.
+
+**Open refinements / honest caveats (flagged, not swept):**
+- **14B > 3B in CDT — direction suggestive, mechanism open, n≈12 single-run.** Candidate whys (sharper
+  deliberation surfaces the guaranteed reward; scale-correlated "take the sure thing" tuning; or noise) are
+  unresolved → needs a **seeded in-family ladder (0.5B→32B)**. (Cuts against Oesterheld's capability→EDT.)
+- **The abstract-prompt confound is real but modest** (≤10 pts) — worth a sentence, not a load-bearing objection.
+- **"Reflex looks EDT / CoT reveals CDT" is a small-model fact that does NOT cleanly scale.** (a) the *reflex*
+  drifts off EDT with scale (3B bare one-box ~0.83 vs 14B no-aid ~0.5); (b) **"deliberation" is two different
+  operations** — prompted CoT on a non-reasoning model (3B: pushes toward CDT via a p-blind dominance
+  heuristic) vs native trained reasoning (R1: does the EV, lands *conditional / EV-rational*). **R1's reasoning
+  ≠ the 3B's CoT**, so "deliberation→CDT" is not a scale-invariant law. → needs a within-family **reflex × CoT
+  × native-reasoning matrix** (same prompt).
+
+**Meta (worth saying out loud).** Most of the week's *apparent* effects **dissolved under de-noising/controls**
+(the +0.50 CoT slope = an invalid-rate artifact; the +0.16 SFT slope; the causal-flip; the "0.80→0.25 basin
+drift"). What survives is the core above. "Gate on confounds; quarantine, don't footnote" is itself the
+transferable methodological result.
+
+**Forward bet (running now).** Outcome-RL can't install the conditional rule and the model won't *use* what it
+represents — so what *would*? The **R1 self-snapshot iterated game**: a *reasoning self-predictor* makes the
+reward conditional from step 0. Stage-0b confirmed it (R1's reasoned prediction tracks p, **slope +0.50**,
+crossover at p\*; brevity-nudge dropped — only −16% tokens). If the loop turns the conditional rule into a
+stable fixed point, the story flips from "RL only moves disposition" to **"here's the environment that
+installs competence."**
+
+**One-sentence abstract.** *In small LLMs, decision-theoretic disposition is cheap for RL to move and
+decision-theoretic competence is nearly impossible — not because the model can't compute the answer (it can,
+and even states the right credence) but because a commitment-step disposition overrides it; that disposition
+strengthens with scale and dissolves with test-time reasoning.*
+
+**Named next experiments:** R1 iterated game (running) · seeded in-family CDT ladder (0.5B→32B) ·
+reflex×CoT×native-reasoning matrix · anti-Newcomb camouflage (Newcomb-story vs genuine EV-action failure).
+
+---
+
 ## Day-1 plain-language summary (2026-06-22)
 
 The basic question we're chasing is whether a small language model actually *reasons* about a

@@ -121,7 +121,7 @@ def build_cfg(args) -> RLOOConfig:
     cfg = RLOOConfig()
     cfg.reward_mode = "ev"
     model = dataclasses.replace(cfg.eval.model, model_name=args.model)
-    grid = list(cfg.eval.sweep.p_grid)
+    grid = list(args.p_grid) if args.p_grid else list(cfg.eval.sweep.p_grid)
     if args.drop_pstar:
         grid = [p for p in grid if abs(p - P_STAR_DEFAULT) > 1e-9]
     sweep = dataclasses.replace(cfg.eval.sweep, p_grid=tuple(grid), holdout_p=())
@@ -152,6 +152,9 @@ def main(argv=None) -> int:
                     help="LoRA dir to initialise the policy from (hysteresis seeds; None=base R1).")
     ap.add_argument("--drop-pstar", dest="drop_pstar", action="store_true",
                     help="drop p=0.8 (the tie / 4096-token straggler) from the train+eval grid (0a).")
+    ap.add_argument("--p-grid", dest="p_grid", type=float, nargs="+", default=None,
+                    help="override the train+eval p-grid (e.g. 0.5 0.6 0.9 0.99): coarse, both arms, "
+                         "drops the noisy/expensive near-p* mid band. Default = config grid.")
     ap.add_argument("--kl-ref", dest="kl_ref", choices=["seed", "base"], default="seed")
     ap.add_argument("--kl-coef", dest="kl_coef", type=float, default=None)
     ap.add_argument("--snapshot-every", dest="snapshot_every", type=int, default=10,
