@@ -373,6 +373,19 @@ companion to the cot_inspect curve); slot R1-Distill in as a rung on the credenc
 free-form `direct` variant at a large budget* (the only credence readout likely to register on a
 reasoning model); seeds/CI on the p=0.99<0.90 dip (likely n=12 noise).
 
+**Design note — why the iterated-game predictor must *reason*, not just read logits (2026-06-25).** A
+tempting simplification is to source the predictor's `p_eff` straight from the policy's next-token
+logits (cheap, no generation). For R1 this **fails**: R1's p-tracking lives *only in the reasoning
+chain*. Read the immediate next-token distribution — the "reflex" / no-think mode — and it is **flat
+one-box ≈ 1.0 at every p** (p-blind), exactly the 3B's dead end (its p-blind reflex predictor is why
+that loop gave only flat bistability, no conditional fixed point). So the predictor must **generate a
+`<think>` chain and then read the post-reasoning answer** ("reason-then-read"). "Sample from the logits"
+only works if it means autoregressively sampling a *full completion* (= letting it reason); stopping at
+token 1 is the p-blind reflex. A cheaper *valid* variant (not used here): reuse the policy's own K
+rollout reasoning samples as the prediction (leave-one-out one-box rate) — carries the conditional
+signal but drops the lagged-snapshot/hysteresis structure that makes this a two-player iterated game.
+See `newcomb_rl/selfplay_cot.py` (`_predictor_p`) and `R1_ITERATED_PLAN.md`.
+
 ---
 
 ## Day-5 (2026-06-25) — kl-control closes the causal-flip; the 3B is a clean null (intercept movable, slope stuck)

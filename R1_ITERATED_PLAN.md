@@ -93,7 +93,10 @@ python -m newcomb_rl.selfplay_cot --tag r1_smoke --steps 2 --eval-every 2 \
 
 # Stage-2/3a — trimmed calibration from base R1 (~3-4 h), then plot the trajectory
 python -m newcomb_rl.selfplay_cot --tag r1_calib --steps 30 --eval-every 10 --eval-items 4 \
-  --K 4 --P 4 --micro 8 --max-new-tokens 2048 --p-grid 0.5 0.6 0.9 0.99 --snapshot-every 10 --kl-ref seed
+  --K 4 --P 4 --micro 1 --max-new-tokens 2048 --p-grid 0.5 0.6 0.9 0.99 --snapshot-every 10 --kl-ref seed
+# micro=1 REQUIRED: micro≥4 OOMs the learn-step backward on R1-8B (validated 2026-06-25). eval-items=4
+# (eval-items=1 → nan when a single truncated item fails to parse). If K=4/P=4 OOMs in *generation*,
+# drop to --K 4 --P 2 or --max-new-tokens 1536.
 # coarse grid: 2 clean low (two-box optimal) + 2 clean high (one-box optimal); drops the noisy,
 # longest-reasoning near-p* mid band (0b: mid cells ~2700-3400 tok & only 33-67% </think>-closed).
 ```
