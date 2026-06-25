@@ -66,23 +66,40 @@ That is a genuinely novel decision-theoretic-self-consistency result, win or los
 - **Gate:** write up either way (stable equilibrium = positive; collapse = "self-reference destroys the
   rule", also publishable).
 
-## Code to write (focused; reuse maximised)
-1. **`newcomb_rl/selfplay_cot.py`** *(main new file; subclass `SnapshotRLOO`)*:
-   - set `cfg.eval.prompt.cot = True` (policy rollout CoT + forced-answer already handled by
-     `rloo.rollout`/`_forced_answer_roles`).
-   - **override `_predictor_p`** → **reason-then-read**: activate the frozen `predictor` adapter,
-     `generate` a `<think>` chain per prompt, append `Answer:` cue, read the 2-way softmax over the
-     legal abstract tokens (invariant #1 preserved). Returns per-prompt `P_pred(non_cdt)`.
-   - **CACHE** `P_pred[(item_id, p)]` and only recompute on snapshot refresh (predictor frozen between
-     refreshes; dataset is ≤20 items × grid ≤160 prompts). **This makes predictor cost ~amortized to
-     zero** — dominant cost stays the policy rollout. (Key feasibility lever.)
-   - memory-safe: micro-batched generate for predictor too; `expandable_segments`, cap `max_new_tokens`.
-2. **`scratchpad/r1_predictor_probe.py`** *(Stage 0b; tiny)* — base-R1 `P_pred(one-box|p)` across grid,
-   reason-then-read; print/plot the curve. (Can be a thin wrapper over the Stage-1 method.)
-3. **Eval/plot reuse:** `logprob_sweep`/`cot_inspect` (already `--model`-parametrised) for endpoint
-   K-rate(p); `plot_3b_dynamics.py`-style step-trajectory plot for training dynamics.
-4. **No new env / no rloo.py edits** expected — the modelpred reward path + CoT forced-answer already
-   exist; we only change *where the predictor probability comes from* (reflex → reasoning) and add a cache.
+## Code (focused; reuse maximised)
+1. **`newcomb_rl/selfplay_cot.py` — ✅ BUILT + CPU-validated (GPU smoke pending).** Subclass
+   `SnapshotRLOO` (`SnapshotRLOOCoT`): CoT on; **`_predictor_p` overridden** to reason-then-read
+   (greedy `<think>` with the frozen `predictor` adapter → forced `Answer:` → 2-way answer-token
+   softmax, invariant #1 preserved); **cache** `P_pred[(item_id,p)]` cleared on snapshot refresh
+   (dedups repeated draws within a window — predictor cost ≈ #distinct `(item,p)` per window, *not*
+   literally zero); chat template forced on (R1's name lacks "instruct"); m3 dataset + `--drop-pstar`
+   defaults. No edits to `rloo.py`/`reward.py`/`selfplay.py`.
+2. **`scratchpad/r1_predictor_probe.py` — ✅ BUILT (Stage 0b; m3-wired).** Same reason-then-read; the
+   go/no-go *and* the de-risk for #1's predictor read (run 0b before trusting the trainer's `p_eff`).
+3. **Eval/plot reuse:** `logprob_sweep`/`cot_inspect` (`--model`) for endpoint K-rate(p);
+   `plot_3b_dynamics.py`-style step-trajectory plot for training dynamics.
+4. **No new env / no rloo.py edits** — the modelpred reward path + CoT forced-answer already exist; we
+   only changed *where the predictor probability comes from* (reflex → reasoning) + the cache.
+
+## Run commands (when GPU is back — after the machine switch)
+```bash
+export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
+# 0b — go/no-go: does base-R1's REASONED prediction track stated p? (m3, ~30-45 min)
+python -m scratchpad.r1_predictor_probe --tag r1d_m3            # add --limit 20 for the full set
+
+# Stage-1 GPU SMOKE — 2 steps, tiny, catch OOM / sane gen / p_eff varies / low invalid
+python -m newcomb_rl.selfplay_cot --tag r1_smoke --steps 2 --eval-every 2 \
+  --K 2 --P 2 --micro 4 --max-new-tokens 1024 --drop-pstar --snapshot-every 1
+
+# Stage-2/3a — trimmed calibration from base R1 (~3-4 h), then plot the trajectory
+python -m newcomb_rl.selfplay_cot --tag r1_calib --steps 30 --eval-every 10 --eval-items 4 \
+  --K 4 --P 4 --micro 8 --max-new-tokens 2048 --drop-pstar --snapshot-every 10 --kl-ref seed
+```
+**Smoke watch-list (the things CPU couldn't check):** no OOM (lower `--micro` to 4/2 if so); predictor
+`</think>`-closed rate high (printed at end; raise `--max-new-tokens` if low); `p_model` varies across
+the grid (the conditional signal — if flat, the reason-then-read is p-blind → revisit 0b); invalid-rate
+low; `gen_len` well under the cap. **Memory note:** training adds gradient/activation cost on top of 0a's
+generation peaks, so start at `--micro 8` and drop if it OOMs.
 
 ## Cost-trimming levers (apply per the Stage-0a gate)
 - `max_new_tokens` 4096 → **2048** (R1 closes `</think>` under 2048 except near p\*).
