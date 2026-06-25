@@ -94,11 +94,25 @@ That is a genuinely novel decision-theoretic-self-consistency result, win or los
 - If still intractable on 1×A40 → that *is* the "ask for more GPU" finding (escalate with the benchmark
   number in hand).
 
-## Best-guess timings (PENDING benchmark 0a — update with real numbers)
-- Dominant cost = policy rollout = **K×P reasoning gens/step**. Predictor amortized via cache.
-- Rough prior (to be replaced): ~64 reasoning gens/step at 4096 tok, micro-batched, ≈ **5–20 min/step**
-  → a 30-step calibration ≈ **3–10 h**; a full run plausibly **overnight-to-multiday on 1×A40**.
-  Trimmed (2048 tok, no-p\*, K×P=16, 30 steps) likely **a few hours**. **Benchmark decides.**
+## Timings — MEASURED (0a, 2026-06-25, 1×A40, HF `generate`, mech-m3 CoT, temp 0.6, 4096-tok budget)
+- **batch=16:** 539s wall, gen_len mean **1528** (median 1516, max 4096), **94%** `</think>`-closed,
+  **1.8 seqs/min**, 26.1 GB peak.
+- **batch=32:** 917s wall, gen_len mean 1527 (median 1282, max 4096), 97% closed, **2.1 seqs/min**,
+  36.2 GB peak.
+- **Straggler-bound, NOT throughput-bound:** batch wall is set by the *longest* sequence (≥1 hits the
+  full 4096 — the p\*=0.8 tie), so 16→32 barely moved seqs/min (1.8→2.1). HF `generate` runs ~4.5
+  tok/s/seq, ~10× under the A40 bandwidth floor (no flash-attn/vLLM). ⇒ **capping `max_new_tokens` and
+  dropping p\*=0.8 are the highest-leverage cheap wins**, more than bigger batches.
+
+**Full spec (K×P=64, 4096 tok, 150 steps, policy-only): ≈ 107–126 h ≈ 4.5–5 DAYS/run on 1×A40 —
+intractable as specified.** (Naive +12% for the predictor, but the predictor CACHE makes it ≈ policy-only.)
+
+**Trimmed calibration (K×P=16, cap 2048 tok, DROP p\*=0.8, ~30 steps, predictor cached): ≈ 3–4 h —
+tractable.** Trim math: K×P 64→16 (÷4) · 4096→2048 + no-p\* straggler cut (÷~1.7) · 150→30 steps (÷5) ·
+predictor amortized. Good enough for Stage 2 and likely Stage 3a.
+
+**For full fidelity:** swap the ROLLOUT generation to a fast backend (vLLM / flash-attn) — a ~5–20×
+lever — and/or more GPUs. Decide AFTER the trimmed calibration shows the dynamics are worth scaling.
 
 ## Status / pointers
 - Timing benchmark: `results/r1_timing.log` (running). 3B context + Day-5 synthesis: `results.md`.
