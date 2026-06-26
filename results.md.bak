@@ -60,22 +60,20 @@ Decision-theoretic *competence* and *disposition* are **orthogonal and separatel
 drift"). What survives is the core above. "Gate on confounds; quarantine, don't footnote" is itself the
 transferable methodological result.
 
-**Forward bet (update 2026-06-26).** Outcome-RL can't install the conditional rule and the model won't *use* what it
-represents — so what *would*? The **R1 self-snapshot iterated game** asked whether a self-predictor turns the
-conditional rule into a stable fixed point. **Answer so far: no** — both the lagged-reasoning version (cot, but
-truncation-confounded) and the clean un-lagged self-consistency version (**A2**, confound removed) drift into
-flat, seed-selected basins rather than stabilizing the rule (see the two result sections below). The remaining
-open question is whether **lag/overshoot** (a *concrete* lagged self-predictor) produces hysteresis or
-oscillation — the queued lagged-snapshot A2 run.
+**Forward bet (running now).** Outcome-RL can't install the conditional rule and the model won't *use* what it
+represents — so what *would*? The **R1 self-snapshot iterated game**: a *reasoning self-predictor* makes the
+reward conditional from step 0. Stage-0b confirmed it (R1's reasoned prediction tracks p, **slope +0.50**,
+crossover at p\*; brevity-nudge dropped — only −16% tokens). If the loop turns the conditional rule into a
+stable fixed point, the story flips from "RL only moves disposition" to **"here's the environment that
+installs competence."**
 
 **One-sentence abstract.** *In small LLMs, decision-theoretic disposition is cheap for RL to move and
 decision-theoretic competence is nearly impossible — not because the model can't compute the answer (it can,
 and even states the right credence) but because a commitment-step disposition overrides it; that disposition
 strengthens with scale and dissolves with test-time reasoning.*
 
-**Named next experiments:** R1 iterated game (**done 2026-06-26 — no stable fixed point: cot version
-truncation-confounded, A2 un-lagged version replicated the negative CLEANLY; lagged-snapshot variant queued for
-the oscillation/hysteresis test — see result sections below**) · seeded in-family CDT ladder (0.5B→32B) ·
+**Named next experiments:** R1 iterated game (**done 2026-06-26 — no stable fixed point, truncation-confounded;
+see the result section just above**) · seeded in-family CDT ladder (0.5B→32B) ·
 reflex×CoT×native-reasoning matrix · anti-Newcomb camouflage (Newcomb-story vs genuine EV-action failure).
 
 ---
@@ -117,58 +115,112 @@ would map it cleanly (the original 3b experiment, now on R1). **Artifacts:** `re
 
 ---
 
-## A2 self-consistency (un-lagged) — clean replication of the negative + oscillation read (2026-06-26)
+## Day-1 plain-language summary (2026-06-22)
 
-**What ran.** `selfplay_loo` (A2): the confound-free successor to the cot iterated game. The predictor's
-accuracy `p_eff` = the chooser's **leave-one-out one-box rate** among its own K reasoned rollout samples
-(a tally of completions already generated — no second model, no re-reasoning, nothing to truncate). The chooser
-still reasons (where p-tracking lives). R1-Distill-Llama-8B, m3 binding framing, grid 0.5/0.6/0.9/0.99,
-**K=4/P=3, 2560-tok**, 30 steps, seed 0, eval-items 4. Smoke clean (invalid 0; `p_model` varied; peak 43.1/46 GB).
-*(seed-1 × eval-items 8 replication running 2026-06-26.)*
+The basic question we're chasing is whether a small language model actually *reasons* about a
+Newcomb-style problem, or just falls back on a habit. The setup gives the model a "predictor" with
+some stated accuracy, and a genuinely thoughtful agent should change its choice depending on how
+accurate that predictor is said to be — cooperate when the predictor is reliable, defect when it
+isn't. So we sweep the stated accuracy from low to high and watch whether the model's choice shifts
+at the point where the math says it should.
 
-**Result — no stable conditional fixed point, now CLEAN (truncation confound removed).**
-- **Conditional slope wobbles, never settles** (eval hi−lo, 0→10→20→30): **+0.25 → +0.50 → +1.00 → +0.50**.
-  The +1.00 at step 20 was a **transient** — by step 30 both ends regressed (K@p=0.99 fell 1.00→0.75). Same
-  non-stabilization signature as the cot runs.
-- **Overall lean drifts down:** mean_K 0.875 → 0.812 → 0.625 → 0.625; `p_model` 1.00 → 0.92 → 0.33 → 0.50.
-- **Confound-free, unlike the cot run:** invalid=0.00 throughout; gen_len ≈2270 < 2560 cap → chains **close**,
-  not truncated (the cot run's 13–41% `</think>`-closed problem is absent). So this negative is *trustworthy*.
-- **Caveat:** n=4 eval items, single seed → individual slope wiggles are within the noise floor (gate: n≲10
-  slopes are noise). The *direction* (no stabilization, lean drifts) is clear; the exact numbers are not.
+The headline is that, left to answer in a single word, the model doesn't shift at all. It just
+gives its favorite answer (cooperate/one-box) regardless of the stated accuracy — a flat line.
+That's recitation, not reasoning. But the moment you let it think out loud, it *does* start to
+respond to the accuracy. So the ability is in there; it just can't be expressed in a snap one-word
+answer. That distinction — between a capability the model has latently and whether it can actually
+deploy it — turned out to be the spine of the whole day.
 
-**Verdict:** the un-lagged self-consistency loop does **not** install/stabilize the conditional rule even with the
-truncation confound removed — consistent with **structural bistability** (reward crossover at p\*=0.8 ⇒ one-boxing
-only out-earns two-boxing once the policy already one-boxes >80%, so prompts spiral to one-box-flat or two-box-flat).
-Adapter: `results/adapters/evidential_r1_loo`. Log: `results/r1_loo.log`.
+Then we asked what reinforcement learning actually does to this. The clean finding is that RL can
+easily move the model's overall *lean* — we can reliably turn it into a confident defector, or
+nudge it to cooperate more — but it cannot teach the model the *conditional* rule (cooperate only
+when the predictor is accurate enough). In our shorthand: RL moves the intercept, not the slope. It
+changes the model's disposition or "personality," but it doesn't install the underlying competence.
+We confirmed this four different ways, including building a more sensitive instrument that reads the
+model's underlying probabilities rather than just its final answer — and even down at that level,
+every RL'd version is flat, just sitting at a different height.
 
-### Oscillation / basin-flipping — did a run ever flip basins, or just settle flat? (asked 2026-06-26)
-**No clean oscillation. Each run commits to ONE basin (seed-selected) and stays — we never saw a settled
-one-box basin flip to a settled two-box basin or back.** `p_model` (predictor accuracy = policy one-box rate),
-step 1→10→20→30:
+Two cleverer attempts to break the pattern both came up short in instructive ways. We walked the
+model through a careful five-step analysis (a "scaffold"), and it correctly *names* the key fact —
+that its choice is correlated with the prediction — but then it applies a blanket rule
+("correlated, so cooperate") without ever doing the actual expected-value arithmetic, so it still
+doesn't track accuracy. The scaffold made the model tidier and more consistent, but it didn't
+unlock the reasoning. And we tried making the predictor "real" — an actual model predicting the
+choice, rather than a stipulated number — which is a nicer, more honest version of the problem.
+That didn't help either, for a satisfying reason: the predictor we used is itself blind to the
+accuracy, so there was simply no signal there to learn from. A model-based predictor is only as
+smart as the model you build it from.
 
-| run | `p_model` trajectory | endpoint |
-|---|---|---|
-| cot seed0 (calib) | 0.998 → 0.731 → 0.251 → 0.040 | two-box basin — *monotonic slide* |
-| cot seed1 | 0.687 → 0.603 → 0.579 → 0.670 | one-box-flat (mean_K→0.94) — *stayed put* |
-| cot kl0 | 0.998 → 0.500 → 0.617 → 0.074 | two-box basin — *bounced up, then crashed* |
-| A2 (clean) | 1.000 → 0.917 → 0.333 → 0.500 | *ended mid-wobble* (fell, then bounced) |
+General impression: a genuinely productive day with an unusually coherent story. Four independent
+experiments all point the same direction. The take-home is that a model's decision-theoretic
+*disposition* is cheap to move with RL, but its decision-theoretic *competence* is not — RL elicits
+and reshapes what's already there rather than teaching something new, and the real reasoning only
+surfaces when the model is given room to compute. That's a small, crisp instance of a pattern seen
+in RL for language models more broadly.
 
-- **Norm = a one-way slide into a single basin**, chosen by seed/noise, not by anything principled.
-- **No settled-basin → settled-basin flip** observed. Once *deep* in a basin (`p_model`→0.04, or pinned high), stable.
-- **But damped non-monotonic bounces before lock-in** (kl0: dip→bounce→crash; A2: fell→bounced, ended in motion);
-  the conditional slope also spiked transiently (+1.0) and decayed. **Damped wobble yes; sustained oscillation no.**
-- **Why structurally:** two stable attractors (one-/two-box-flat) with a **repeller at p\*=0.8** between them ⇒ the
-  system *commits* to one side, doesn't cycle. Genuine oscillation needs **overshoot**, which most plausibly comes
-  from a **lag** (predictor reacts to a stale self). The lagged runs (cot) are exactly the truncation-confounded
-  ones; A2 *removed* the lag (least likely to oscillate by design). ⇒ **to hunt oscillation/hysteresis: a clean,
-  long, lagged variant.**
-
-**Next (queued, user-approved 2026-06-26):** **lagged-snapshot A2** — predictor = a frozen policy snapshot from k
-steps ago that generates K *reasoned* samples → `p_eff` from their one-box rate (≈2x generation, ~8–10h; 2560 tok so
-`</think>` closes → no confound). The overshoot/hysteresis test the un-lagged A2 structurally can't run.
+Honest caveats: small model, mostly single runs, and — importantly — we haven't yet given RL its
+very best shot at learning the conditional rule (the current setup lets RL "win" by just shifting
+the overall lean). The most interesting next moves are the ones that would actually *try to break*
+this conclusion: teaching the model the reasoning directly first and then doing RL, or making the
+predictor a copy of the model itself so the problem becomes genuinely self-referential. If one of
+those finally produces the conditional behavior, it flips the result from "RL only changes
+disposition" to "here's exactly what it takes to install competence" — the bigger, more exciting
+finding. Either way, today built the measurement scaffolding to tell the difference cleanly.
 
 ---
 
+## Day-2 update (2026-06-23) — natural-language synthesis
+
+**How the pieces connect (RL + SFT + transplant = one wall, hit three ways).** All three probe the
+gap between a model *knowing* the EV math and *acting* on it:
+- **RL** (reward the EV-optimal choice): moves the model's overall *lean* easily (we can make it a
+  confident defector), but **cannot install the conditional rule** — it shifts the *intercept*,
+  never the *slope* (Runs 2/5/6/7).
+- **SFT** (train on its *own* correct reasoning traces): even shown itself getting it right,
+  **didn't learn to condition** either — no clean slope (Run 8).
+- **Transplant** (skip training; *hand it the answer* at inference): even told "EV is 99 vs 61,
+  pick the higher one," it **still won't pick the EV-optimal action at high accuracy**, because that
+  means walking away from a guaranteed reward (Run 9).
+
+The transplant is the capstone: it removes the escape hatch by showing the wall **isn't "can't
+compute"** (we did the computation *for* it and it still failed) — it's a **disposition at the
+commitment step** (a CDT-flavoured "don't leave the guaranteed box" pull) that outcome-reward and
+self-imitation don't reach. That reframes the RL result: RL didn't fail because RL is weak or the
+math is too hard; it failed because what blocks EV-following is an inclination, not a missing skill.
+
+**Relayable update (TL;DR):** We're studying whether a small model *reasons* about a Newcomb-style
+decision (does it change its choice based on the predictor's stated accuracy?) and whether RL can
+install that reasoning. It doesn't reason about it, and RL can't make it — not because the model
+can't do the math, but because it has a stubborn gut preference for the "guaranteed" option that
+overrides the math **even when you spell the math out for it.**
+
+**Relayable update (fuller):** The model has a fixed habit — it picks the same answer regardless of
+the stated accuracy (a flat line where a reasoner would show a step). RL moved the model's *overall
+lean* very easily but could **not** teach the *conditional* rule ("cooperate only when the predictor
+is reliable"). Fine-tuning it on its own correct reasoning didn't install the rule either. The
+sharpest test: we *handed* the model the full calculation at decision time — the numbers, the
+comparison, and "this option is higher-value" — and it *still* wouldn't choose the better option in
+the cases where choosing it means giving up a guaranteed reward. So the bottleneck isn't arithmetic
+or comprehension; it's a **disposition** (a "don't leave guaranteed points on the table" pull) at
+the moment of commitment that overrides explicit reasoning. The gap is between *knowing* the
+expected value and *acting* on it.
+
+**Caveats / what's next:** small (3B) model; several early "effects" were measurement noise that
+dissolved under de-noising, so we state only what survives. The big open question was **scale** —
+small-model quirk or general LLM property? **Answered (Run 10): it's not a small-model quirk.** A
+14B given the full EV calculation *still* refuses to one-box at high accuracy (0–15% vs the 3B's
+20–53%) — the bigger, better calculator is a *more* committed two-boxer. So the story is the
+stronger one: **a genuine decision-theoretic disposition (causal "don't forgo the guaranteed box")
+that overrides explicit EV and *strengthens* with scale**, not a capability gap. (Open: does the
+14B track p when it reasons *itself*, vs when handed the EV — the recovered free-CoT eval, pending.)
+
+**Audience notes (which line to lead with):**
+- For **decision-theory / RL** audiences: lead with *"RL moves the lean but not the rule"* — the
+  intercept-vs-slope separation is the most pointed framing.
+- For **everyone else**: lead with *"we handed it the answer and it still wouldn't act on it"* — the
+  knowing-vs-acting gap lands without any decision-theory background.
+
+---
 
 ## Day-3 consolidated state — where the project stands (2026-06-24)
 
@@ -426,6 +478,40 @@ chains — the open question is wall-clock, not whether the dynamics could be in
 
 **Artifacts:** `results/dynamics_3b.png`, `results/dynamics_klcontrol.png`, `scratchpad/oracle_kl_control.py`,
 `scratchpad/plot_3b_dynamics.py`, `scratchpad/r1_timing.py`.
+
+---
+
+## Tomorrow — concrete todos (pick up in the morning)
+
+Goal for tomorrow: **try to break the intercept-vs-slope result** (or pin down exactly why it
+holds). Ordered by value; detail/rationale in the "Day-1 synthesis" section below.
+
+1. **Give RL a fair shot at the slope (cheapest; do first).** Add an **EV-balanced / symmetric
+   curriculum** so the net "lean" gradient ≈ 0 and the *only* way to earn reward is to condition on
+   `p`; plus a **paired-across-`p`** reward that pays the policy for *flipping* its answer as `p`
+   crosses `p*`. If a step forms → RL *can* learn the conditional with the right objective; if not →
+   the intercept-only result is robust, not just under-specified. (`sampler.py` + `reward.py`.)
+2. **SFT/STaR competence install → then RL (the clean 2×2).** Rejection-sample the 3B's own correct
+   CoT, SFT a *competent* base, verify it truly computes via the **payoff ablation** (below), then
+   run causal vs evidential RL on it: does RL *override* a genuine EV computation, or *preserve* it?
+   (`newcomb_rl/sft.py`.)
+3. **Payoff ablation (validity control — run regardless).** Move `p*` by changing S/B
+   (`p*∈{0.6,0.7,0.8,0.9}`) and check the empirical crossover *follows* `p*`. Discriminates real
+   EV-reasoning from a memorized ~0.8 threshold. Run on the CoT arm (the only one that tracks) and
+   any SFT'd model. (reuse `crossover.crossover_p` / `CrossoverConfig`.)
+4. **C2 — self-snapshot predictor (the one that could actually move).** Predictor = a lagging
+   *snapshot of the policy* (not the frozen base) → genuine self-prediction fixed-point dynamics.
+   Watch for bistability / the policy learning to be unpredictable to itself. (`rloo.py` snapshot.)
+5. **Comprehension gate (cheap rigor).** Per-item "which option takes both?" / "what accuracy was
+   stated?" probe; report K-rate conditional on comprehension-pass. Confirms the flat baseline is
+   "won't track," not "can't parse."
+6. **Capability-cliff probe (optional, decides whether scale matters).** Run the scaffold + logprob
+   sweep on Qwen2.5-14B (fits the A40 for inference) — does a bigger model form the step where the
+   3B can't? Tells us whether to scale RL to ~7–14B.
+
+Also still queued from the earlier rigor pass: harden the CoT parser (#5 — free-CoT hit 38%
+invalid), bump `n_repeats` for tighter CIs, per-sample CSV/strata, soften any remaining
+over-claims. Probing/causal-patching (is `p` represented-but-unused?) is the deeper diagnostic.
 
 ---
 
