@@ -72,8 +72,46 @@ decision-theoretic competence is nearly impossible — not because the model can
 and even states the right credence) but because a commitment-step disposition overrides it; that disposition
 strengthens with scale and dissolves with test-time reasoning.*
 
-**Named next experiments:** R1 iterated game (running) · seeded in-family CDT ladder (0.5B→32B) ·
+**Named next experiments:** R1 iterated game (**done 2026-06-26 — no stable fixed point, truncation-confounded;
+see the result section just above**) · seeded in-family CDT ladder (0.5B→32B) ·
 reflex×CoT×native-reasoning matrix · anti-Newcomb camouflage (Newcomb-story vs genuine EV-action failure).
+
+---
+
+## R1 self-snapshot iterated game — RESULT: no stable conditional fixed point (2026-06-26)
+
+**The bet & what ran.** Three 30-step runs from base R1-Distill-8B (`selfplay_cot`, m3 binding framing,
+coarse grid 0.5/0.6/0.9/0.99, K=4/P=4, **2048-tok** budget): **calib** (seed0, kl0.02), **seed1**
+(replication), **kl0** (kl-coef=0). Hope: a *reasoning* predictor (lagged snapshot) makes `p_eff` track p,
+so the loop could **stabilize** the conditional rule (one-box high p / two-box low p) that outcome-RL never installed.
+
+**Result — it does NOT stabilize. The loop drifts into the SAME flat self-fulfilling basins as the 3B,
+seed-selected.** (plot: `results/r1_calib_dynamics.png`)
+- **Conditional slope wobbles, never settles** (eval hi−lo, 0→10→20→30): calib +.25→**+1.0**→+.5→+.75;
+  seed1 +.25→0→+.25→**0**; kl0 +.25→+.5→+.75→+.25. The calib **+1.0 at step 10 was a transient**, not a
+  fixed point — by step 30 the three disagree (+.75 / 0 / +.25). *(My mid-run "the bet may be paying off"
+  over-read that single eval — corrected; classic "don't over-read one n=4 eval".)*
+- **Overall lean diverges to basins:** **seed1 → one-box-flat** (mean_K 0.94, K@0.5→1.0, slope 0; predictor
+  `p_model` holds ~0.6 → self-fulfilling one-box). **seed0 runs (calib, kl0) → two-box-ward** (mean_K
+  0.31/0.50; `p_model` collapses 0.998→0.04/0.07 → self-fulfilling two-box). The predictor's `p_model` and
+  the policy's lean **co-move into a basin** — exactly the 3B self-fulfilling-attractor mechanism, with
+  seed/noise picking which. **kl=0 behaves like kl=0.02 seed0 → not a KL artifact.**
+- So the **reasoning predictor did NOT change the qualitative outcome** vs the 3B: the conditional rule is at
+  best a transient/separatrix; the loop collapses to one-box-flat or two-box-flat.
+
+**⚠ MAJOR CONFOUND — quarantine, don't bank.** The predictor's reasoning closed `</think>` only **13–41%**
+at the 2048 budget (calib 25%, seed1 13%, kl0 41%) — so `p_eff` is read off *mostly-truncated* chains (the
+Run-3/4 trap); the reward signal is degraded and this run does **not cleanly test the premise**. The 2048
+trim was too aggressive (0a: R1 on m3 reasons ~2500–3000 tok, closes <58% even at 4096). **Verdict:
+PRELIMINARY / INCONCLUSIVE.** Clean reading: "with a truncation-degraded predictor the loop behaves like the
+3B (drifts to seed-selected flat basins)"; whether a *properly-reasoning* predictor stabilizes the rule is **still open.**
+
+**Next (teed up, NOT run — GPU idle; needs the user).** (1) Re-run at a budget where the predictor closes
+`</think>` — `--max-new-tokens 3584`/4096 (predictor-cache makes it affordable; ~1.5–2× per-step, ~8–10h/run).
+(2) `--eval-items` ↑ for less-noisy slopes. (3) **Hysteresis now has direct motivation** — seed1 vs seed0
+*already* fell into different basins, so the basin structure is real; a committed one-/two-boxer-seed sweep
+would map it cleanly (the original 3b experiment, now on R1). **Artifacts:** `results/r1_calib.log`,
+`results/run_r1_{seed1,kl0}.log`, `results/r1_calib_dynamics.png`, adapter `results/adapters/evidential_modelpred_r1_calib`.
 
 ---
 

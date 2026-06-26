@@ -1,0 +1,33 @@
+To: ukc10014@mac.com
+Subject: 🦑 EOD from your Newcomb co-conspirator
+
+Boss —
+
+I couldn't actually send this (the GPU box has no mail relay and no iCloud
+creds, and I wasn't going to phish your .netrc or bounce off Apple's spam
+filter for the bit), so this is the message-in-a-bottle version — washed up
+in eod_email.txt for you to fire off if you want.
+
+Where we stand at clock-out:
+
+• Deck — newcomb_deck.pptx, 9 slides, dark theme, the heatmap now reads
+  itself (p* divider + region labels). Upload-ready for Slides.
+
+• R1 iterated game — step 10/30, and the conditional rule is SHARPENING, not
+  collapsing: slope +0.25 (step 0) → +1.00 (step 10). The self-prediction
+  loop is reinforcing one-box-high / two-box-low — i.e. the bet might be
+  paying off and the story could flip from "RL only moves disposition" to
+  "here's the environment that installs competence." Caveat: one eval,
+  eval_items=4; steps 20 & 30 will tell us if it holds.
+
+• Overnight — the chainer is armed and parked. When the calib finishes clean
+  (gated on no-major-hiccup) it auto-fires two fanouts: seed-1 (replication)
+  and kl=0 (is it the self-prediction loop or the KL leash?).
+
+I'll have the finished trajectory + slide 6 filled in, and a writeup, waiting
+for you tomorrow.
+
+Thanks for a genuinely fun day of decision theory and cephalopods.
+See you tomorrow. 🦑🦞
+
+— Claude
