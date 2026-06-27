@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the gradient "smears" across the CoT (RLOO outcome-RL)</title>
+<script>
+  MathJax = { tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']] } };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+<style>
+  :root{ --fg:#1a1d24; --mut:#5c6675; --acc:#2563c9; --bg:#fbfbfd; --card:#fff; --line:#e3e6ec;
+         --hl:#fff6da; --hlbd:#e9c84a; --code:#0d1117; --codefg:#e6edf3; }
+  *{box-sizing:border-box}
+  body{font:16px/1.6 -apple-system,Segoe UI,Roboto,sans-serif;color:var(--fg);background:var(--bg);
+       margin:0;padding:2.2rem 1rem 4rem}
+  main{max-width:820px;margin:0 auto}
+  h1{font-size:1.5rem;line-height:1.25;margin:0 0 .3rem}
+  .sub{color:var(--mut);margin:0 0 1.8rem;font-size:1.02rem}
+  h2{font-size:1.12rem;margin:2rem 0 .6rem;padding-bottom:.3rem;border-bottom:2px solid var(--line)}
+  p{margin:.6rem 0}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:.2rem 1.1rem;margin:1rem 0}
+  .smear{background:var(--hl);border:1px solid var(--hlbd);border-radius:10px;padding:.8rem 1.1rem;margin:1.2rem 0}
+  .smear b{color:#9a7400}
+  code{background:#eef1f6;padding:.08em .35em;border-radius:4px;font-size:.92em}
+  pre{background:var(--code);color:var(--codefg);padding:1rem 1.1rem;border-radius:10px;overflow:auto;
+      font:13px/1.55 SFMono-Regular,Consolas,monospace}
+  pre .c{color:#7d8590} pre .k{color:#ff9b72} pre .hl{background:#3a2c12;display:block;border-radius:4px}
+  ul{margin:.5rem 0 .8rem;padding-left:1.2rem} li{margin:.35rem 0}
+  table{border-collapse:collapse;width:100%;margin:1rem 0;font-size:.97rem}
+  th,td{border:1px solid var(--line);padding:.55rem .8rem;text-align:left;vertical-align:top}
+  th{background:#f1f4f9}
+  .tag{display:inline-block;font-size:.78rem;color:var(--mut);border:1px solid var(--line);
+       border-radius:20px;padding:.05rem .6rem;margin-left:.4rem}
+  .note{color:var(--mut);font-size:.92rem}
+</style>
+</head>
+<body>
+<main>
+  <h1>How the gradient “smears” across the chain-of-thought<span class="tag">RLOO outcome-RL</span></h1>
+  <p class="sub">Why outcome reward touches every token equally — and how that differs from process supervision. Grounded in <code>newcomb_rl/rloo.py</code>.</p>
+
+  <h2>1 · A completion’s probability factorizes per token</h2>
+  <p>A completion \(y=(y_1,\dots,y_T)\) — the whole CoT <b>plus</b> the final answer token — is generated autoregressively, so its log-probability is a <i>sum of one term per token</i>:</p>
+  <div class="card">$$\log \pi_\theta(y\mid x)=\sum_{t=1}^{T}\log \pi_\theta\!\left(y_t\mid x,\,y_{<t}\right)$$</div>
+  <p>Each \(\log\pi_\theta(y_t\mid\cdot)\) is just the log-softmax over the vocabulary at position \(t\).</p>
+
+  <h2>2 · One scalar reward → one scalar advantage per completion</h2>
+  <p>The reward \(R_i\) is computed <b>once</b> for completion \(i\) (the Newcomb payoff for its resolved action). RLOO turns the \(K\) rewards in a prompt-group into an advantage by <i>leave-one-out</i>:</p>
+  <div class="card">$$A_i \;=\; R_i-\frac{1}{K-1}\sum_{j\ne i}R_j$$</div>
+  <p><b>One number per completion — not per token.</b></p>
+
+  <h2>3 · The gradient — and exactly where the “smear” is</h2>
+  <p>Vanilla policy gradient (clipping set aside for a second):</p>
+  <div class="card">$$\nabla_\theta J=\frac{1}{N}\sum_i A_i\,\nabla_\theta\log\pi_\theta(y_i\mid x_i)=\frac{1}{N}\sum_i\sum_{t=1}^{T_i} \;\underbrace{A_i}_{\text{same for all }t}\;\nabla_\theta\log\pi_\theta\!\left(y_{i,t}\mid x_i,y_{i,<t}\right)$$</div>
+  <div class="smear">
+    <b>This is the smear, stated precisely.</b> Look at the inner sum over \(t\): the <i>same</i> scalar \(A_i\) multiplies the gradient of <i>every</i> token — reasoning tokens and the answer token, identically. The per-token coefficient is <b>constant in \(t\)</b>. The reward isn’t <i>allocated</i> (split) across tokens; it’s <b>broadcast</b> (copied) — every token sees the full \(A_i\).
+  </div>
+
+  <h2>4 · Your questions, answered directly</h2>
+  <ul>
+    <li><b>Are you upweighting each token in the trace?</b> Yes. If \(A_i>0\), the step raises \(\log\pi_\theta(y_{i,t}\mid\cdot)\) for all \(t\) — it makes the whole sequence (CoT + answer) more probable next time. If \(A_i<0\), it lowers them all.</li>
+    <li><b>Is a separate derivative computed per token?</b> Yes — \(\nabla_\theta\log\pi_\theta(y_{i,t}\mid\cdot)\) is a distinct quantity per token (ordinary backprop through the sequence). What’s <i>shared</i> is the scalar \(A_i\) in front of each.</li>
+    <li><b>How is the reward allocated across tokens?</b> It is <b>not</b> allocated — it’s broadcast. No credit assignment happens; each token gets the full \(A_i\).</li>
+    <li><b>How much do you upweight by?</b> Token \(t\)’s contribution is \(\propto A_i\) (identical for all \(t\) in the completion) \(\times\) learning rate, divided by the total token count (it’s a mean over tokens).</li>
+  </ul>
+
+  <h2>5 · In <i>this</i> code (RLOO + PPO-clipped surrogate + KL)</h2>
+  <p class="note"><code>rloo.py</code> lines 279–286 — the highlighted line is the smear made literal:</p>
+<pre><span class="c"># per-token logπ_θ(y_t) for the generated tokens   →  shape [mb, T-1]</span>
+new_lp  = chunk_logprobs(ids, mask) * gi
+<span class="hl">adv_tok = adv[sl, <span class="k">None</span>] * gi          <span class="c"># ← THE SMEAR: scalar A_i broadcast to every token</span></span>
+ratio   = exp(new_lp - old_lp)        <span class="c"># per-token ratio r_t = π_θ(y_t)/π_θ_old(y_t)</span>
+surr    = min(ratio*adv_tok, clip(ratio, 1±ε)*adv_tok)   <span class="c"># per-token clipped surrogate</span>
+kl      = exp(d) - d - 1              <span class="c"># per-token KL-to-base penalty</span>
+loss    = -(surr.sum() - β*kl.sum()) / total   <span class="c"># sum over ALL tokens, ÷ total token count</span></pre>
+  <p><code>adv</code> is <code>[mb]</code> (one scalar per completion); <code>adv[:, None]</code> is <code>[mb, 1]</code>, broadcast across the <code>[mb, T-1]</code> token grid → the same \(A_i\) sitting on <i>every</i> token position. The resulting per-token loss is</p>
+  <div class="card">$$L_{i,t} \;=\; -\min\!\Big(r_{i,t}\,A_i,\;\operatorname{clip}(r_{i,t},\,1{\pm}\epsilon)\,A_i\Big)\;+\;\beta\,\mathrm{KL}_{i,t}$$</div>
+  <p>with \(A_i\) identical for all \(t\). Clipping and KL are per-token gates on <i>step size / divergence</i> — but the <b>reward signal</b> riding through is still the one constant \(A_i\).</p>
+
+  <h2>6 · The precise contrast with process supervision</h2>
+  <p>Write the advantage with a token index, \(A_{i,t}\). The entire “smeared vs. process-based” distinction is one question: <b>is the advantage a function of \(t\), or constant in \(t\)?</b></p>
+  <table>
+    <tr><th></th><th>Outcome RLOO (what we run)</th><th>Process supervision</th></tr>
+    <tr><td><b>advantage</b></td><td>\(A_{i,t}=A_i\) — <b>constant in \(t\)</b></td><td>\(A_{i,t}\) <b>varies with \(t\)</b></td></tr>
+    <tr><td><b>credit</b></td><td>the whole trace moves up/down as a block, by whether the <i>final action</i> paid off</td><td>each reasoning <i>step</i> is scored on its own (e.g. a process reward model / verifier)</td></tr>
+    <tr><td><b>consequence</b></td><td>correct-reasoning→correct-answer and fluky-reasoning→correct-answer get the <i>same</i> \(A_i\); it can’t tell which token was “the good part”</td><td>a valid derivation step gets a different coefficient than a fluky one, <i>independently of the final answer</i></td></tr>
+  </table>
+  <p class="note">So outcome-RL can only ever push the <i>whole</i> trace’s probability up or down by one number. It has no lever to reward the reasoning <i>as reasoning</i> — which is exactly why it nudges disposition but doesn’t install the conditional rule.</p>
+</main>
+</body>
+</html>

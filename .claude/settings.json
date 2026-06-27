@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(nvidia-smi --query-gpu=*)",
+      "Bash(nvidia-smi --query-compute-apps=*)",
+      "Bash(python -m newcomb_eval.payoff_ablation *)",
+      "Bash(python -m newcomb_eval.comprehension_gate *)"
+    ]
+  }
+}

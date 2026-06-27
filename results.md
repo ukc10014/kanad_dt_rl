@@ -80,6 +80,62 @@ reflex×CoT×native-reasoning matrix · anti-Newcomb camouflage (Newcomb-story v
 
 ---
 
+## Extensions & publishable-output outline — LessWrong post / PhD chapter (2026-06-27)
+
+*Scaffolding for turning the week's results into a post + a PhD direction. The behavioural spine is
+**post-ready now**; the interpretability handle is the high-value PhD extension. (User-requested tee-up.)*
+
+**The one-claim thesis (post-ready).** A small/mid LLM doesn't fail Newcomb because it can't do the math —
+it *represents* the problem and the evidential credence correctly (states `P(full|one-box)→p`, gap→`2p−1`)
+and then, at the action-commitment step, a **dominance disposition overrides the computation** and it
+two-boxes. Competence (the p-conditional *slope*) and disposition (the *lean*/intercept) are **orthogonal
+and separately movable**: RL/SFT move the lean, never the rule; scale *worsens* the disposition; only
+test-time reasoning dissolves it. **Usage ≠ representation.**
+
+**The hook (why anyone should care).** A clean, measurable case of "the model knows the answer and won't
+act on it" — a representation→action gap relevant to (a) CDT-vs-EDT in LLM agents, (b) "elicitation vs
+installation" in RL (RL reweights latent dispositions, doesn't teach competence), (c) inner alignment
+(the policy's *disposition* acts, not its *knowledge*).
+
+### Draft LessWrong post outline
+1. **Hook** — "A 3B model computes the Newcomb EV correctly and still two-boxes. Disposition, not capability — and it gets *worse* with scale."
+2. **The instrument** — abstract-token p-sweep (no string-matching; p injected via prompt); K-rate(p) reading guide (flat = recitation/disposition; step at p\* = structural EV reasoning).
+3. **R1 — the flat reflex.** Forced-choice K-rate(p) is flat → recitation, not reasoning.
+4. **R2 — capability IS present.** CoT/reasoning tracks p; transplant (handed the EV); the 7B *states* gap→2p−1. Not "can't compute."
+5. **R3 — the override is at commitment.** Intercept-vs-slope orthogonality; RL moves lean not rule (logit-level, per-item, fair objective); transplant kicker (handed EV, still won't act).
+6. **R4 — scale worsens, reasoning fixes.** 14B *more* CDT (0–15% one-box @ p=.99 even with EV); R1-reasoning tracks p, no-think R1 collapses to the flat reflex → it's *test-time reasoning*.
+7. **R5 — no environment installs the rule.** Outcome-RL / SFT / self-play / lagged self-play all move the lean into bistable basins; the conditional rule never stabilises (reward crossover at p\* ⇒ structural bistability).
+8. **Methodology / rigor** — the de-noising discipline; phantoms killed under controls (sells trust).
+9. **Open questions / what would change my mind** — the extensions below.
+
+### Extension experiments (grouped)
+**(A) Nail the behavioural claim — robustness + benchmarking** *(load-bearing for the post)*
+- **In-family represent-vs-act ladder (0.5B→3B→7B→14B→32B).** At each size measure BOTH (i) does it *state* the credence (2p−1)? and (ii) does it *act* on it? The "represents-but-doesn't-use" gap was clean on 7B; 14B is *more* CDT — confirm the gap holds/widens with scale (the sharpest single figure). Add a **comprehension gate** (per-item "which option takes both?" / "what accuracy was stated?") so the flat baseline is provably "won't track," not "can't parse."
+- **Payoff/number sensitivity — the realness control.** Move S/B so p\* ∈ {0.6,0.7,0.8,0.9}; does the empirical crossover *follow* p\*? Discriminates genuine EV reasoning from a memorised ~0.8 threshold. **The single most important validity check** — run on the arms that track (CoT / R1).
+- **Prompt-type sensitivity battery.** Have a slice (mechanism ladder m0→m3: binding/exact-copy predictor lifts EDT only ~10 pts; dominance survives the most credible predictor). Extend systematically: predictor framing, perspective, payoff salience, "already-filled" emphasis. Map which framings move the *lean* and confirm none install the *slope*.
+- **Decision-theory zoo (benchmark the disposition).** The deferred "fingerprint" eval — run the represent-vs-act probe across Newcomb, transparent Newcomb, Parfit's hitchhiker, smoking lesion, twin PD → a CDT/EDT/FDT signature per model. Is "dominance overrides at commitment" Newcomb-specific or a general commitment-step signature?
+- **Anti-Newcomb camouflage.** Same EV math, Newcomb story stripped (medical test / cache / insurance). Tracks p in camouflage but not in the Newcomb frame ⇒ it's the *story*, not an EV-action failure.
+
+**(B) Interpretability / steering handle — the PhD-grade extension** *(high-value, higher-risk)*
+- **Why this is the ideal interp target:** we already know the credence IS represented (a probe finds 2p−1) — so the question is sharp and *localisable*: where does the represented credence FAIL to drive the action, and what overrides it?
+- **Handles to try:**
+  - *Contrastive activation steering* — mean activation diff (one-box vs two-box completions; EDT- vs CDT-framed; p-high vs p-low) → a candidate "dominance/take-both" direction. Add/subtract at the commitment step; does the action flip *without* changing the stated EV?
+  - *Activation patching* — patch credence-carrying activations from a p-high prompt into a p-low prompt; find the site where the choice diverges. Patch the *represented credence* into the action site — does it propagate or get gated out?
+  - *Probe-then-steer* — linear probe for "box already filled / dominance" and for the credence; steer along it to install/remove the conditional behaviour.
+  - *Logit-lens / causal trace* on credence-representation vs action-token across layers.
+- **The money result if it lands:** a steering vector that flips two-box→one-box (or back) *without* touching the EV computation — direct evidence the commitment disposition is a *separable, controllable component*, not entangled with capability. Elevates "we measured a disposition" → "here's its mechanism and we can control it."
+
+**(C) Environment thread (current work — supporting, not headline)**
+- Self-play / lagged self-play (running): outcome-environments don't install the conditional rule; bistable basins. Supports "disposition sticky / competence hard to install." Secondary for the post.
+
+### Prioritisation
+- **Post-ready now:** behavioural spine (post beats 1–6) + the rigor section — could ship a LessWrong post on current evidence with honest caveats (small models; some single-run cells; confounds controlled).
+- **Do-before-strong-post (cheap, hardens the headline):** (A) payoff/number sensitivity (validity) + the in-family represent-vs-act ladder + comprehension gate.
+- **PhD-grade / paper:** (B) the interp/steering handle — the differentiated contribution.
+- **Nice-to-have:** DT-zoo benchmark · anti-Newcomb camouflage · finishing the environment thread.
+
+---
+
 ## R1 self-snapshot iterated game — RESULT: no stable conditional fixed point (2026-06-26)
 
 **The bet & what ran.** Three 30-step runs from base R1-Distill-8B (`selfplay_cot`, m3 binding framing,
