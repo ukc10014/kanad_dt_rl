@@ -169,6 +169,35 @@ steps ago that generates K *reasoned* samples → `p_eff` from their one-box rat
 
 ---
 
+## Lagged-snapshot A2 (lag=3, regenerating predictor) — PRELIMINARY: lag doesn't change the story; confound recurred (2026-06-27)
+
+**What ran.** `selfplay_lag` (`--tag r1_lag`): predictor = a *concrete frozen snapshot* of the policy from **3 steps
+ago** that **regenerates** its own K reasoned samples per prompt (CoT) → `p_eff` = their one-box rate (≈2x generation
+vs A2's leave-one-out reuse). R1-Distill-8B, m3, grid 0.5/0.6/0.9/0.99, **K=4/P=3, lag=3, 2560-tok**, **40 steps**,
+eval-every 10, eval-items 8, seed 0. ~13.5h. Adapter: `results/adapters/evidential_r1_lag`; log `results/r1_lag.log`.
+
+**Result — same basin-drift as A2, no stable rule; the lag added at most a damped wobble (and a confound).**
+- **Slope never stabilizes** (eval, 0→10→20→30→40): +0.50 → +0.45 → +0.50 → **+0.00** → +0.45 — wobbles around the
+  base R1 level, never climbs/holds. No conditional rule installed.
+- **Lean slides toward the two-box basin:** mean_K 0.812 → 0.638 → 0.646 → 0.464 → 0.424; `p_model` (= lagged
+  snapshot's one-box rate) 0.917 → 0.750 → 0.333 → **0.500** → 0.194.
+- **Overshoot?** Mild — `p_model`/chooser-K bounce *up* at step 30 (0.333→0.500) then resume the slide. **But this
+  exact 0.333→0.500 bounce also appears in un-lagged A2** ⇒ it may be loop/sampling noise, *not* the lag. No sustained
+  oscillation, no demonstrated hysteresis. Qualitatively: drift into a basin, same as A2 and the cot runs.
+
+**⚠ CONFOUND RECURRED — quarantine the late steps.** Reasoning **lengthened during training** and overran the budget:
+gen_len 1851 → 2372 → **2560 (CAP)** → 2555 → 2522, with **invalid 0.17** at steps 20 & 40 (2560 was tuned on A2,
+where gen_len peaked ~2270). 17% invalid is in the "suspect" band (>5%); the step-30 bounce sits inside the truncated
+region → **do not bank the overshoot read.** Steps 0–10 are clean and already show the slope not climbing.
+
+**Verdict: PRELIMINARY / consistent-with-spine but oscillation question still open.** Even a concrete lagged
+self-predictor doesn't install/stabilize the rule (robust across lag-0 and lag-3); but the *interesting* late-step
+dynamics are truncation-degraded, AND lag was changed simultaneously with reuse→regenerate / eval-items / step-count,
+so any lag-specific effect is unattributable. **Clean follow-up (running 2026-06-27): lag=0-regen control + lag=3,
+both at `--max-new-tokens 3072`** — isolates regeneration from lag and removes the truncation cap.
+
+---
+
 
 ## Day-3 consolidated state — where the project stands (2026-06-24)
 

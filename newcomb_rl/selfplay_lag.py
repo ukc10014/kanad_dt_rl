@@ -46,7 +46,7 @@ class LagSnapshotRLOO(NewcombRLOO):
         super().__init__(cfg)
         if getattr(self.tok, "chat_template", None):
             self.is_instruct = True       # R1's name lacks 'instruct' → force the chat template on
-        self.lag = max(1, lag)
+        self.lag = max(0, lag)        # lag=0 ⇒ predictor = CURRENT weights, but REGENERATED (control)
         # ring buffer of CPU snapshots of the trainable (LoRA) params; predictor = the oldest entry
         self._buf: deque = deque(maxlen=self.lag + 1)
         if seed_adapter:

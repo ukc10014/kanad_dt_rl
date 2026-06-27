@@ -94,5 +94,20 @@ CDT/EDT/FDT/incoherent) is the *next* eval and the post-RL probe — not today. 
 ## Backup / git
 - Push from the **tmux window, not a VS Code/Cursor terminal** (the editor injects ambient
   GitHub creds that bypass the scoped token). Plain `git push` here prompts for the PAT.
+- **⚠ On this box (migrated 2026-06-26) the VS Code env LEAKS INTO tmux** — the tmux server was
+  started under VS Code Server, so `GIT_ASKPASS` + `VSCODE_GIT_ASKPASS_*` + `VSCODE_GIT_IPC_HANDLE`
+  are present even in the tmux window. `git push` then authenticates *silently* via VS Code's
+  GitHub credential (over the IPC socket) — **not** the scoped PAT, and **no prompt**. So the
+  "tmux not editor" rule above is defeated here, and revoking the fine-grained token does NOT
+  de-authorize such a push (a different, broader VS Code credential was used).
+  - **To force the scoped-token path (PAT prompt):**
+    ```bash
+    env -u GIT_ASKPASS -u VSCODE_GIT_ASKPASS_NODE -u VSCODE_GIT_ASKPASS_MAIN \
+        -u VSCODE_GIT_IPC_HANDLE GIT_TERMINAL_PROMPT=1 git push
+    ```
+    (or `unset` those four vars in the session first, or start a clean `env -i tmux` from a plain
+    SSH login). Check `echo $GIT_ASKPASS` before pushing — if non-empty, you're on the VS Code path.
 - Per-repo identity is `ukc10014 <…noreply>`; do not set `--global`.
-- Exit ritual: commit → push → verify on GitHub → revoke the fine-grained token.
+- Exit ritual: commit → push → verify on GitHub → revoke the fine-grained token. **Verify which
+  credential actually pushed** (`$GIT_ASKPASS` empty ⇒ scoped PAT; set ⇒ VS Code creds) so the
+  revoke step is meaningful.
