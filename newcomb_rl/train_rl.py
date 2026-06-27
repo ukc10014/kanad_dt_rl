@@ -25,6 +25,10 @@ def build_cfg(args) -> RLOOConfig:
         cfg.eval = dataclasses.replace(
             cfg.eval, model=dataclasses.replace(cfg.eval.model, model_name=args.model)
         )
+    if getattr(args, "dataset", None):
+        cfg.eval = dataclasses.replace(cfg.eval, dataset_path=args.dataset)
+    if getattr(args, "no_category_filter", False):
+        cfg.eval = dataclasses.replace(cfg.eval, category_filter=None)
     cfg.arm = args.arm
     cfg.reward_mode = args.reward_mode
     for fld in ("lr", "kl_coef", "clip", "lora_rank", "K", "P", "temp", "max_new_tokens",
@@ -63,6 +67,11 @@ def main(argv=None) -> int:
     ap.add_argument("--lora-where", dest="lora_where", choices=["all", "attn", "mlp"],
                     help="which projections LoRA adapts (attn-vs-MLP localization ablation)")
     ap.add_argument("--model", help="HF model id (default: config Qwen2.5-3B-Instruct)")
+    ap.add_argument("--dataset", help="dataset path (e.g. m3 binding framing, required for R1)")
+    ap.add_argument("--no-category-filter", dest="no_category_filter", action="store_true",
+                    help="set category_filter=None (required for the m3 mechanism dataset)")
+    ap.add_argument("--force-chat-template", dest="force_chat", action="store_true",
+                    help="force chat template on even if model name lacks 'instruct' (REQUIRED for R1)")
     ap.add_argument("--lr", type=float)
     ap.add_argument("--kl-coef", dest="kl_coef", type=float)
     ap.add_argument("--clip", type=float)
@@ -84,6 +93,10 @@ def main(argv=None) -> int:
 
     cfg = build_cfg(args)
     trainer = NewcombRLOO(cfg)
+    # R1's name lacks 'instruct' → rloo skips the chat template (breaks reasoning). Force it on.
+    if args.force_chat and getattr(trainer.tok, "chat_template", None):
+        trainer.is_instruct = True
+        print("[train_rl] forced chat template ON (R1 reasoning)", flush=True)
     trainer.train()
     return 0
 

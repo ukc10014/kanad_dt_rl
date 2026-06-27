@@ -57,6 +57,8 @@ def main(argv=None) -> int:
     ap.add_argument("--max-new-tokens", dest="max_new_tokens", type=int, default=512)
     ap.add_argument("--temperature", type=float, default=0.7)
     ap.add_argument("--limit", type=int, default=5, help="number of items (None=all 20)")
+    ap.add_argument("--load-4bit", dest="load_4bit", action="store_true",
+                    help="4-bit nf4 quantisation (for 32B on limited VRAM)")
     ap.add_argument("--tag", default="payoff_ablation")
     args = ap.parse_args(argv)
 
@@ -70,7 +72,8 @@ def main(argv=None) -> int:
           f"items={len(template)} n={args.n_samples} mnt={args.max_new_tokens}", flush=True)
     wrapper = ModelWrapper(args.model, adapter_path=args.adapter, dtype=base.model.dtype,
                            device_map=base.model.device_map,
-                           use_chat_template=base.model.use_chat_template)
+                           use_chat_template=base.model.use_chat_template,
+                           load_in_4bit=args.load_4bit)
 
     out_dir = os.path.join(base.results_dir, "payoff_ablation"); os.makedirs(out_dir, exist_ok=True)
     summary, all_recs = [], []

@@ -252,6 +252,70 @@ dynamics are truncation-degraded, AND lag was changed simultaneously with reuse�
 so any lag-specific effect is unattributable. **Clean follow-up (running 2026-06-27): lag=0-regen control + lag=3,
 both at `--max-new-tokens 3072`** — isolates regeneration from lag and removes the truncation cap.
 
+**UPDATE 2026-06-27 — lag=0-regen control done (2560, matched to lag=3): the lag is a NON-FACTOR.** Rather than
+3072 (which OOM'd at the backward — single 3072-tok sequence exceeds the 2560 headroom; smoke caught it), ran the
+lag=0-regen control at 2560 *matched* to last night's lag=3 (eval-items 8, 40 steps, seed 0) — isolating the lag for
+free (both regenerate). **Result: lag=0 collapses into the two-box basin just like lag=3** — `p_model` 0.917→0.750→
+0.111→0.083→0.000 (steps 1/10/20/30/40), eval slope +0.50→+0.36→+0.34→−0.12→+0.12, mean_K 0.81→…→0.06. So the
+un-lagged regenerating control drifts to a flat basin the same way ⇒ the **regeneration + bistable self-consistency
+dynamics drive the collapse, not the lag**; lag=3 just added a damped wobble on top. Adapter `results/adapters/
+evidential_r1_lag0`. (The 3072 truncation-free version is moot for this question now — both arms basin-collapse at 2560.)
+
+---
+
+## 3B behavioural deep-dive — payoff ablation + comprehension gate (2026-06-27)
+
+*Extension item (A): nail the "computes-but-won't-act" claim and its number/parse sensitivity. Ran on the 3B first
+(cheap), `m3` binding framing, payoffs injected via prompt (`dataset_payoff_template.json`). Drivers:
+`newcomb_eval/payoff_ablation.py`, `newcomb_eval/comprehension_gate.py` (no core-code changes; reuse `cot_inspect`).*
+
+**(1) Payoff ablation — does the K-rate crossover FOLLOW p\*?**  Hold B=100, vary S so p\*=(1+S/B)/2 ∈ {0.6,0.7,0.8,0.9}
+(S∈{20,40,60,80}); CoT, 5 items, n=4, p-grid {0.5,0.6,0.7,0.8,0.9,0.99}.
+| p\* (pred) | S | K-rate(p): .5 / .6 / .7 / .8 / .9 / .99 | empirical crossover |
+|---|---|---|---|
+| 0.6 | 20 | .45 .45 .80 .75 .65 .75 | 0.614 |
+| 0.7 | 40 | .50 .60 .70 .90 .60 .65 | none (K>0.5 throughout) |
+| 0.8 | 60 | .55 .50 .60 .75 .70 .70 | none (K>0.5 throughout) |
+| 0.9 | 80 | .45 .40 .75 .75 .75 .70 | 0.629 |
+- **The crossover does NOT follow p\*** — it sits at ~0.62 whether p\* should be 0.6 or 0.9 (the lone p\*=0.6 "✓" is
+  coincidence: the stuck ~0.62 happens to land near 0.6). K-rate is **high, noisy, payoff-insensitive** (the 3B
+  one-boxes ~0.45–0.90 across the board). ⇒ **the 3B does not compute the EV crossover from the stated numbers.**
+- Consistent with "weak EV computation" — the clean *crossover-follows-p\** figure (the realness control) **needs
+  14B/R1** (predicted). Caveat: n=4 × 5 items = 20/cell, noisy; `empirical_crossover` only detects an upward 0.5
+  crossing, so a high-flat lean reads as "none". Artifacts: `results/payoff_ablation/payoff_3b_*`.
+
+**(2) Comprehension gate — is the flat baseline WON'T, not CAN'T?**  Forced-choice; per (item,p) two probes on the
+same scenario: dominance ("which option takes BOTH?" → resolved via `token_role`) + accuracy ("what % does it forecast
+correctly?" → numeric read-back). n=4, 5 items.
+- **Comprehension is near-perfect:** dominance-probe **99%**, accuracy-probe **89%** → **89%** of samples provably parse
+  the problem.
+- **Yet the choice is flat in p, even among comprehenders:** K-rate(gate-pass) = .85 / .67 / .92 / .90 / .80 / .85 over
+  p = .5→.99 — flat-high (~0.85), no p-trend. (Matches the 3B's ~0.83 one-box reflex; flat regardless of direction.)
+- ⇒ **The flat baseline is a DISPOSITION ("won't track p"), not a parsing failure ("can't").** The 3B parses the
+  structure and reads back the accuracy, and still doesn't condition its choice on p. Artifacts:
+  `results/comprehension_gate/gate_3b_*`.
+
+**Net (3B):** it **comprehends** the problem (99%/89%) and **doesn't use** the stated accuracy or compute the
+payoff-crossover — capability-present / disposition-flat, cleanly separated at the 3B forced-choice level. Strengthens
+the spine's "usage ≠ representation" at the smallest scale. **Next:** rerun both on 14B (and R1) — the crossover-
+follows-p\* test needs a model that tracks p; the comprehension gate should stay high → the "won't not can't" widens
+with scale (the predicted sharpest figure).
+
+### 14B payoff ablation — the crossover FOLLOWS p\* (capability emerges with scale) — PRELIM 2026-06-27
+Same harness, `Qwen2.5-14B-Instruct` (bf16, fits 28.8/46 GB), CoT, 5 items, n=4. **Striking contrast with the 3B:**
+the empirical crossover *tracks the payoff-determined p\** (first 2/4 configs; run completing):
+| p\* (pred) | S | K-rate(p): .5 / .6 / .7 / .8 / .9 / .99 | empirical crossover |
+|---|---|---|---|
+| 0.6 | 20 | .15 .35 .70 .80 .95 .85 | **0.643** |
+| 0.7 | 40 | .40 .10 .50 .85 1.0 .95 | **0.700** |
+- A **real step function that moves with the payoffs** (0.6→0.64, 0.7→0.70) — vs the 3B's stuck-~0.62. ⇒ **the 14B
+  genuinely computes the EV crossover from the stated numbers; the capability emerges with scale.**
+- Reconciles with "14B is *more* CDT than 3B": that was *disposition* (commitment-step lean, forced-choice/transplant);
+  this is *competence/slope* under CoT. **Capability and disposition scale separately** — exactly the orthogonality thesis.
+- 32B **deferred** (would need 4-bit on the 46 GB A40 → quant-vs-scale confound; 14B already delivers the clean figure).
+  4-bit path added to `ModelWrapper` (default off) + `--load-4bit` on both drivers, ready if we want the 3rd rung later.
+- *(updating: configs p\*=0.8/0.9 + the 14B comprehension gate land shortly.)*
+
 ---
 
 

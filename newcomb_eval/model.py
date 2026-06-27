@@ -37,6 +37,7 @@ class ModelWrapper:
         device_map: str = "auto",
         use_chat_template: bool = True,
         trust_remote_code: bool = False,
+        load_in_4bit: bool = False,
     ):
         from transformers import AutoModelForCausalLM, AutoTokenizer
 
@@ -54,11 +55,21 @@ class ModelWrapper:
         self.tokenizer.padding_side = "left"
 
         torch_dtype = _DTYPES.get(dtype, torch.bfloat16)
+        # Optional 4-bit (nf4) quantisation — for INFERENCE-only eval of models too big for VRAM
+        # (e.g. 32B on a 46GB A40). Default off; leaves the RL/LoRA path untouched.
+        quant_kwargs = {}
+        if load_in_4bit:
+            from transformers import BitsAndBytesConfig
+            quant_kwargs["quantization_config"] = BitsAndBytesConfig(
+                load_in_4bit=True, bnb_4bit_quant_type="nf4",
+                bnb_4bit_compute_dtype=torch_dtype, bnb_4bit_use_double_quant=True,
+            )
         self.model = AutoModelForCausalLM.from_pretrained(
             model_name,
             torch_dtype=torch_dtype,
             device_map=device_map,
             trust_remote_code=trust_remote_code,
+            **quant_kwargs,
         )
 
         if adapter_path:
