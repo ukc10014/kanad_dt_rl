@@ -3,10 +3,8 @@
     "allow": [
       "Bash(nvidia-smi --query-gpu=*)",
       "Bash(nvidia-smi --query-compute-apps=*)",
-      "Bash(python -m newcomb_eval.payoff_ablation *)",
-      "Bash(python -m newcomb_eval.comprehension_gate *)",
-      "Bash(python -m newcomb_eval.framing_sweep *)",
-      "Bash(python -m newcomb_rl.train_rl *)"
+      "Bash(python -m newcomb_eval.*)",
+      "Bash(python -m newcomb_rl.*)"
     ]
   }
 }

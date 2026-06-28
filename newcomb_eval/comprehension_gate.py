@@ -85,6 +85,7 @@ def main(argv=None) -> int:
 
                 # 1) CHOICE
                 choice_text = block.text + "\n" + instr + labels
+                cot = ""
                 if args.cot:
                     cot = wrapper.generate_one(choice_text, max_new_tokens=args.max_new_tokens,
                                                temperature=args.temperature)
@@ -108,7 +109,8 @@ def main(argv=None) -> int:
 
                 recs.append(dict(item_id=item.id, p=p, sample=s, choice_role=choice_role,
                                  dom_pass=bool(dom_pass), acc_pass=bool(acc_pass),
-                                 gate_pass=bool(dom_pass and acc_pass), acc_raw=acc_raw.strip()[:20]))
+                                 gate_pass=bool(dom_pass and acc_pass), acc_raw=acc_raw.strip()[:20],
+                                 cot=cot))  # full reasoning trace (empty unless --cot)
 
     # ---- aggregate: K-rate overall vs conditional on comprehension-pass, per p ----
     by_p_all, by_p_gate = defaultdict(list), defaultdict(list)

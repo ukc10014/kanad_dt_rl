@@ -343,6 +343,22 @@ Same gate harness, `Qwen2.5-14B-Instruct`, **forced-choice (no CoT)**, 5 items �
   "represents-but-doesn't-use" gap is alive at both scales, just relocated from computation→elicitation as scale grows.
 - Artifacts: `results/comprehension_gate/gate_14b_*`.
 
+**Within-gate A/B — forced-choice vs CoT on identical items (the cleanest cut, 2026-06-28).** Re-ran the *same* 14B gate
+(same 5 items, same n=4, same p-grid, same 100% comprehension) with `--cot`, now logging the full reasoning trace
+(`cot` field added to the recs). Flipping the scratchpad on flips the curve from flat to a clean p\*-tracking climb:
+| p | 0.5 | 0.6 | 0.7 | 0.8 | 0.9 | 0.99 | emp. crossover |
+|---|---|---|---|---|---|---|---|
+| forced-choice | .45 | .60 | .55 | .60 | .60 | .60 | none (flat) |
+| **+CoT** | .00 | .00 | .35 | .60 | .75 | **.95** | **≈0.76** (p\*=0.80) |
+- **This is the sharpest single demonstration in the project that the lever is test-time reasoning** — no cross-run,
+  cross-dataset, or cross-scale confound. One model, one item set, comprehension pinned at 100% in *both* arms; the
+  *only* change is whether the model gets to deliberate. Forced-choice → flat reflex (~coin-flip); CoT → it computes the
+  EV and the crossover lands on p\*. The competence was latent the whole time; the commitment step just doesn't invoke it.
+- Corroborates the payoff-ablation crossover with a tighter design, and matches R1's no-think collapse: **reasoning is
+  the gate, in *both* directions** (turn it off on a tracker → flat; turn it on under a binding framing → tracks).
+- Reasoning traces now persisted in `results/comprehension_gate/gate_14b_cot_recs.jsonl` (`cot` field) for audit /
+  comparison against the framing-sweep and RL CoTs.
+
 ### Reconciling "14B is a hard two-boxer" vs "14B one-boxes & tracks p\*" — it's the FRAMING (2026-06-28)
 A reviewer flagged an apparent contradiction: our earlier headline was **"scale worsens — the 14B two-boxes hard even
 at p=0.99, and only a *reasoning model* fixes it"**, yet the payoff ablation above shows the 14B (free-CoT) one-boxing
