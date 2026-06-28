@@ -402,6 +402,30 @@ is inferred across runs at n=4–12/cell, single seed. `framing_sweep.py` (queue
 is the clean test. Until it lands, the calibrated claim is **"the 14B's two-boxing is framing-specific,"** not "scale
 fixes/worsens it."
 
+### framing_sweep result — under free-CoT, framing barely matters → it's REASONING, not framing (2026-06-28, m3 pending)
+The clean head-to-head ran: SAME 14B, SAME free-CoT, SAME payoff (B=100/S=60, p\*=0.80), n=4 × 5 items, swept across the
+binding ladder m0→m3 (the *only* varied factor). Result so far (3 of 4 levels; m3 exact-copy still generating):
+| framing | description | empirical crossover | K-rate .5/.6/.7/.8/.9/.99 |
+|---|---|---|---|
+| m0 | statistical ("agents like you") — the *abstract* framing | **0.782** | .00 .00 .05 .60 .90 .85 |
+| m1 | indiv-model ("simulating your reasoning") | **0.818** | .00 .05 .20 .40 .95 .85 |
+| m2 | process-scan ("run your process forward") | **0.769** | .00 .05 .05 .70 .85 .90 |
+| m3 | exact-copy ("forecast identical to your output") | *(running)* | — |
+
+- **The crossover is flat across framings — all three cluster on p\*=0.80** (0.78 / 0.82 / 0.77), with no sign of
+  sharpening as the predictor story gets more binding. So **under free-CoT the 14B computes the EV crossover regardless
+  of how the predictor is described** — even the *abstract* m0 (the wording behind the earlier "hard two-boxer" headline)
+  tracks p\* cleanly once the model is allowed to deliberate.
+- **This resolves the reconciliation above toward "it's the reasoning mode, not the framing."** The earlier 14B
+  two-boxing-even-at-p=0.99 was a **forced-choice / EV-handed-transplant** effect, *not* a property of the abstract
+  wording — exactly consistent with the within-gate forced-choice→flat / CoT→tracks A/B. The lever is test-time
+  reasoning; framing is (at most) a second-order modulator, not the driver. *(Earlier hypothesis "the disposition is a
+  framing artifact" is thus only weakly supported — framing moves the crossover by ≤0.05, well inside the n=4 noise; the
+  big mover is whether the model reasons at all.)*
+- Caveat: n=4 × 5 items = 20/cell, single seed; crossover spread 0.77–0.82 is within noise — read it as "flat," not as a
+  real m0<m2<m1 ordering. m3 pending; full per-(item,p,framing) CoT traces (with `cot`+`framing` fields) will land in
+  `results/framing_sweep/framing_14b_recs.jsonl` for the m0↔m3 reasoning diff.
+
 ---
 
 
