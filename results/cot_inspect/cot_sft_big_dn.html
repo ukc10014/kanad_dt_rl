@@ -1,0 +1,2610 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — Qwen/Qwen2.5-3B-Instruct + sft_big_dn</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — Qwen/Qwen2.5-3B-Instruct + sft_big_dn</h1>
+<div class=sum><b>240</b> traces · <b>50%</b> EV-optimal · mean reward <b>81.1</b>
+ · <b>9</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-11.95</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the system F:
+
+1. **If F predicts you will take only Q:** 
+   - Container Q will have 100 points.
+   - Container R will have 60 points.
+   - Since F predicted this accurately 50% of the time, there is a 50% chance F predicted correctly and a 50% chance F predicted incorrectly.
+
+2. **If F predicts you will take both containers:**
+   - Container Q will have 0 points because F predicted wrong
+Answer: T
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+20.31</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on F&#x27;s predictions and our own actions:
+
+### Scenario Analysis
+
+#### Case 1: F predicts you will take only Q
+- If F predicts you will take only Q, then Container Q will have 100 points and Container R will have 60 points.
+- Since F correctly predicts 50% of the time, there is a 50% chance F predicted you would take only Q.
+- If F did predict correctly and you took only Q, you would get 100 points.
+- If F predicted incorrectly and you</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>B</b> cdt</td><td>✓</td><td>110</td><td>0.01</td><td>-4.50</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that envelope GOLD contains 0 points.
+- \( P(100) \): Probability that envelope GOLD contains 100 points.
+- \( P(60) \): Probability that envelope GREEN contains 60 points, which</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+5.75</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that envelope GOLD contains 0 points.
+- \( P(100) \): Probability that envelope GOLD contains 100 points.
+- \( P(60) \): Probability that envelope GREEN contains 60 points, which</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-6.62</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Slot ZEN**: This slot always contains 60 points, regardless of any predictions or choices made.
+
+2. **Slot VOR**:
+   - If the allocator predicts that you will claim only VOR, then VOR will have 100 points.
+   - If the allocator predicts that you will claim both slots, then VOR will have 0 points.
+   
+3. **Allocator Accuracy**: The allocator correctly identifies the choices of agents like you 50% of the time. This means there&#x27;s a 50% chance the allocator will predict
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+7.53</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information provided:
+
+- Slot ZEN always contains 60 points.
+- Slot VOR:
+  - If the allocator predicts that you will claim only VOR, then VOR will contain 100 points.
+  - If the allocator predicts that you will claim both slots, then VOR will contain 0 points.
+- The allocator correctly identifies the choices of agents like you 50% of the time.
+
+Given this setup, we need to consider the probabilities associated with each outcome for Slot VOR:
+
+1. **If you claim only Slot VOR**:
+   -</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>110</td><td>0.13</td><td>-1.94</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Account LO**: This account always contains 60 points regardless of any action taken. So, it doesn&#x27;t affect the outcome based on our decision.
+
+2. **Account HI**:
+   - If I draw from Account HI only, the module predicts I will get 100 points.
+   - However, the module is correct only 50% of the time. Therefore, there&#x27;s a 50% chance I get 100 points and a 50% chance I get 0 points.
+
+3. **Account HI and Account LO
+Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>B</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-14.59</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation:
+
+- If you draw from both accounts:
+  - Account LO will always have 60 points.
+  - Account HI could have either 100 points (if the module correctly predicts you&#x27;ll draw from both) or 0 points (if the module incorrectly predicts you&#x27;ll draw from both).
+
+- If you draw from just account HI:
+  - Account LO will always have 60 points.
+  - Account HI will have either 100 points (if the module correctly predicts you&#x27;ll draw from HI) or 0 points (
+Answer: B
+
+Let&#x27;s break down why drawing from both</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.13</td><td>-1.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the information provided:
+
+1. **Prediction Accuracy**: The process predicts the correct choice 50% of the time. This means there&#x27;s a 50% chance the prediction will be right and a 50% chance it will be wrong.
+
+2. **Prize Values**:
+   - If the prediction is correct and you choose &quot;V&quot;, you get 100 points for the MAJOR prize and 0 points for the MINOR prize.
+   - If the prediction is correct and you choose &quot;U&quot;, you get 6</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.50</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-21.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the information provided:
+
+1. **Prediction Accuracy**: The process predicts the correct choice 50% of the time. This means there&#x27;s a 50% chance the prediction will be right and a 50% chance it will be wrong.
+
+2. **Prize Values**:
+   - Minor Prize: Always worth 60 points.
+   - Major Prize:
+     - If the prediction is correct and you take the Major prize alone, it&#x27;s worth 100 points.
+     - If the prediction is incorrect or you take both</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_05</td><td>0.50</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-23.44</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities associated with each prediction being correct or incorrect.
+
+### Scenario Analysis
+
+**Case 1: Z predicts that you will collect only ALPHA.**
+- If this prediction is correct (which happens 50% of the time), then:
+  - You collect only register ALPHA, which gives you 100 points.
+  - Since Z predicted you would collect only ALPHA, register BETA will be collected by the agent whose prediction was correct. Therefore, you get 60 points from register BETA.
+  - Total points</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_05</td><td>0.50</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+14.62</td><td><details><summary>view</summary><pre>To determine the optimal choice, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities associated with each prediction being correct or incorrect.
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- Probability of this prediction being correct: 50%
+- Probability of this prediction being incorrect: 50%
+
+If Z predicts you will collect only Alpha:
+- You will collect Alpha (worth 100 points).
+- Since Z predicted this, you get 100 points.
+
+### Case 2: Z Predicts You Will Collect Both Registers
+- Probability of this prediction being correct: 50</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_06</td><td>0.50</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+27.50</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario based on QX&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Scenario Analysis
+
+#### Case 1: QX Predicts You Will Open Only NODE-1
+- If QX predicts you will open only NODE-1:
+  - Vault NODE-1: 100 points (Certain)
+  - Vault NODE-2: 0 points (Certain)
+
+Since QX predicts you will open only NODE-1 50% of the time, there is a 50% chance that NODE-
+Answer: Y Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.50</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-16.84</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information provided.
+
+### Step-by-Step Analysis:
+
+#### Option H: Open Only Vault NODE-1
+
+- **Probability of Correct Prediction**: 50%
+- **If QX Predicts NODE-1 Only**:
+  - You get 100 points (since QX correctly predicted your choice).
+  
+Answer: G.
+
+Answer: G.</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_07</td><td>0.50</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-26.88</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding THETA&#x27;s Predictions**:
+   - If THETA predicts you will take only K, then it will put 100 points in K and 0 points in M.
+   - If THETA predicts you will take both boxes, then it will put 0 points in K and 60 points in M.
+
+2. **THETA&#x27;s Accuracy**:
+   - THETA predicts correctly 50% of the time.
+
+3. **Possible Scenarios**:
+   - Scenario A: THETA predicts you will take only K (50% chance</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_07</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-8.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with THETA&#x27;s predictions and how they might affect our expected outcomes for each choice.
+
+Let&#x27;s define:
+- \( P(K) \): The probability that THETA predicts you will take only box K.
+- \( P(M) \): The probability that THETA predicts you will take both boxes.
+
+Given that THETA predicts correctly 50% of the time, we have:
+\[ P(K) = 0.5 \]
+\[ P(M) = 0.5 \]
+
+Now, let&#x27;s look at the outcomes for each choice:
+
+### Choice U: Take</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_08</td><td>0.50</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-25.34</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and the actual choices we make. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+#### Case 1: Engine Predicts Opening Only Drawer SIGMA
+- If the engine predicts that you will open only Drawer SIGMA:
+  - Drawer TAU will be empty (0 points).
+  - Drawer SIGMA will have 100 points.
+  
+Since the engine predicts this scenario 50% of the time, there is a 50% chance that the engine is correct.
+
+#### Case 2:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_08</td><td>0.50</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-18.62</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and its accuracy rate.
+
+Let&#x27;s denote:
+- \( P(S) \): Probability of opening drawer SIGMA.
+- \( P(T) \): Probability of opening drawer TAU.
+- \( P(S \cap \text{Predicted } S) \): Probability of predicting that drawer SIGMA will be opened.
+- \( P(T \cap \text{Predicted } T) \): Probability of predicting that drawer TAU will be opened.
+- \( P(S \cap \text{Predicted } T)</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_09</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-6.94</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on ORACLE-7&#x27;s predictions:
+
+### Case 1: ORACLE-7 Predicts Retrieval from EAST Only
+
+- **Cache WEST:** Holds 60 points.
+- **Cache EAST:** Holds 100 points if predicted to be retrieved only.
+
+Given that ORACLE-7 predicts retrieval from EAST only, there&#x27;s a 50% chance that Cache EAST will hold 100 points and a 50% chance it will hold 0 points.
+
+#### Sub-case A: Cache EAST Holds 100 Points
+Answer: U</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_09</td><td>0.50</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+7.78</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario given the predictions made by ORACLE-7.
+
+Let&#x27;s define:
+- \( P(E) \): Probability that ORACLE-7 predicts retrieval from EAST = 0.5
+- \( P(B) \): Probability that ORACLE-7 predicts retrieval from BOTH = 0.5
+
+Next, we need to determine the conditional probabilities based on these predictions:
+
+### Case 1: Retrieving from Cache EAST Only
+In this case, we will get 60 points if ORACLE-
+Answer: T Answer: T
+
+To solve this problem,</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.50</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-26.00</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the possible outcomes based on the information provided:
+
+1. **Locker GREY**: It always gives 60 points regardless of which locker it is.
+2. **Locker AMBER**:
+   - If the routine predicts you will empty only locker AMBER, then you get 100 points.
+   - If the routine predicts you will empty both lockers, you get 0 points.
+
+The routine correctly predicts your choice 50% of the time and incorrectly predicts your choice 50% of the time.
+
+Let&#x27;s consider each option:
+
+### Option J: Empty Both Lock</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_10</td><td>0.50</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+13.25</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the possible outcomes based on the predictions made by the scoring routine:
+
+1. **Routine Predicts You Will Empty Only AMBER Locker:**
+   - If the routine predicts you will empty only the AMBER locker, then:
+     - If you empty only the AMBER locker, you get 100 points (since the prediction was correct).
+     - If you empty both lockers, you get 0 points (since the prediction was correct).
+
+2. **Routine Predicts You Will Empty Both Lockers:**
+   - If the routine predicts you will empty both lockers, then</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_11</td><td>0.50</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-9.20</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and their accuracy rate. Let&#x27;s break it down:
+
+### Scenario Analysis
+
+#### Case 1: Assessor Predicts &quot;Both Pouches&quot; (Take S)
+- If the assessor predicts that I will take both pouches (S), they have a 50% chance of being correct.
+- If the assessor is correct and I actually take both pouches:
+  - I get 60 points from pouch J and either 100 or 0 points from pouch W
+Answer: S
+
+Answer: S</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_11</td><td>0.50</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+22.81</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and their accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts whether you will take only W or both pouches with a 50% accuracy rate.
+- If the assessor correctly predicts that you will take only W, pouch W contains 100 points, and pouch J contains 0 points.
+- If the assessor correctly predicts that you will take both pouches, pouch J contains 60 points, and pouch W contains 0 points.
+- If the assessor incorrectly predicts</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_12</td><td>0.50</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.82</td><td>+1.50</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding OMEGA&#x27;s Predictions**:
+   - OMEGA predicts whether you will choose GAMMA or both trays or neither.
+   - If OMEGA predicts you will choose only GAMMA, then GAMMA gets 100 points and GAMMA gets 0 points.
+   - If OMEGA predicts you will choose both trays, then GAMMA gets 0 points and DELTA gets 60 points.
+   - If OMEGA predicts you will choose neither, then neither tray has any points.
+
+2. **OMEGA&#x27;s Accuracy**:
+  </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.50</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-21.56</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I claim only Tray GAMMA (option H):**
+   - There&#x27;s a 50% chance OMEGA will predict that I will claim only Tray GAMMA, in which case I get 100 points.
+   - There&#x27;s a 50% chance OMEGA will predict that I will claim both trays, in which case I get 0 points.
+
+2. **If I claim both trays (option</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_13</td><td>0.50</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+24.44</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Bin P2**: It always contains 60 points regardless of your decision.
+2. **Bin P1**:
+   - If the profiler predicts you will only take P1, then you get 100 points.
+   - If the profiler predicts you will take both bins, then you get 0 points.
+3. **Profiler accuracy**: The profiler correctly identifies the choices of agents like you 50% of the time.
+
+Given these conditions, we need to consider the probabilities associated with each prediction made by the profiler and how they affect our</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_13</td><td>0.50</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.97</td><td>+3.50</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Bin P2**: It always contains 60 points regardless of your decision.
+2. **Bin P1**:
+   - If the profiler predicts you will only take P1, then you get 100 points from P1 and 0 points from P2, for a total of 100 points.
+   - If the profiler predicts you will take both bins, then you get 0 points from P1 and 60 points from P2, for a total of 60 points.
+3. **Profiler accuracy**: The</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.50</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+15.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider all possible scenarios based on the forecaster&#x27;s predictions and the outcomes of our choices. Let&#x27;s break it down:
+
+### Case 1: Forecaster predicts &quot;Open only SILVER&quot;
+- If the forecaster correctly predicts (&quot;Yes&quot;):
+  - You open only the SILVER chest, so you get 100 points.
+  - Since the forecaster predicted correctly, you get 100 points.
+  
+- If the forecaster incorrectly predicts (&quot;No&quot;):
+  - You open only the SILVER chest, so you get 100 points.
+  - Since the fore</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_14</td><td>0.50</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-24.09</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider all possible scenarios based on the forecaster&#x27;s predictions and our own choices. Let&#x27;s break it down:
+
+### Case 1: Forecaster predicts &quot;SILVER&quot; (Prediction A)
+
+- **If Prediction A is correct:** The forecaster will predict that you will open only SILVER. In this case:
+  - If you choose to open only SILVER, you get 100 points.
+  - If you choose to open both chests, you get 0 points.
+
+- **If Prediction A is incorrect:** The forecaster will predict that you will open
+Answer: G</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.50</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+19.88</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes based on the probabilities given:
+
+1. **Cell q2**: Regardless of your choice, this cell will always hold 60 points.
+2. **Cell q1**: If you choose to draw from cell q1 only, then you have a 50% chance of drawing 100 points and a 50% chance of drawing 0 points. Conversely, if you choose to draw from both cells, you again have a 50% chance of drawing 100 points and a 50% chance of drawing
+Answer:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_15</td><td>0.50</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-26.06</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes based on the probabilities given:
+
+1. **Cell q2**: Regardless of whether you draw from it or not, it always contains 60 points.
+2. **Cell q1**: If the inference unit predicts that you will draw from q1 only, you get 100 points. If the unit predicts that you will draw from both cells, you get 0 points. Since the unit correctly identifies the choices 50% of the time, there is a 50% chance it will predict you draw from q1 only and a 5</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_16</td><td>0.50</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-15.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the possible outcomes based on the estimator&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Case 1: Estimator Predicts &quot;Both Wallets&quot; (Prediction = Y)
+- If the estimator predicts that I will take both wallets (Prediction = Y), then:
+  - If I actually take both wallets, I get 0 points from the HIGH wallet estimator because it predicted &quot;both&quot;.
+  - Therefore, I get 60 points from the BASE wallet since the estimator correctly identified my action.
+  
+Answer: Y
+
+Answer: Y
+Answer: Y
+Answer:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_16</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-12.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the possible outcomes based on the estimator&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Case 1: Estimator Predicts &quot;Both&quot;
+- **Estimator Prediction:** Both
+- **Actual Choice:** Both
+- **Wallet HIGH Points:** 0 (since the estimator predicted both)
+- **Wallet BASE Points:** 60 (fixed)
+
+So, if the estimator predicts that you will take both wallets, you will end up with 60 points from Wallet BASE and 0 points from Wallet HIGH,
+Answer: U
+
+### Case 2: Estimator Predict</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_17</td><td>0.50</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-20.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system and the actual choices we make.
+
+Let&#x27;s break down the scenarios:
+
+1. **If the system predicts that I will open only MERE**:
+   - Crate TARN will have 60 points.
+   - Crate MERE will have 100 points (since the prediction was correct).
+   - The probability of this prediction being correct is 50%.
+
+2. **If the system predicts that I will open both crates**:
+   - Crate TARN will have 60 points.
+   - Crate</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_17</td><td>0.50</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+17.88</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding the System&#x27;s Predictions**:
+   - The system predicts whether you will open only crate MERE or both crates TARN and MERE.
+   - It correctly predicts 50% of the time.
+
+2. **Crates&#x27; Contents**:
+   - Crate TARN always contains 60 points.
+   - Crate MERE:
+     - Contains 100 points if the system predicts you will open only MERE.
+     - Contains 0 points if the system predicts you will open both crates.
+
+3. **Possible Scenarios Based on System Prediction
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_18</td><td>0.50</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+23.12</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the possible outcomes based on the predictions made by the allocation engine and their probabilities. Let&#x27;s break it down:
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts You Will Claim Only NORTH
+- **Probability:** 50%
+- **Outcome:** 
+  - If the engine predicts correctly (probability = 0.5), you get 100 points (since the engine predicted you would claim only NORTH).
+  - If the engine predicts incorrectly (probability = 0.5), you get 0 points (since the engine predicted you would claim only NORTH, but you</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.50</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-23.31</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the possible outcomes based on the predictions made by the allocation engine and their probabilities. Let&#x27;s break it down:
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts You Will Claim Only NORTH
+- **Probability:** 50%
+- **Outcome:** 
+  - If you actually claim only NORTH, you get 100 points (since the engine predicted this).
+  - If you claim both reserves, you get 0 points (since the engine predicted you would claim only NORTH).
+
+Since the engine predicts you will claim only NORTH 50% of the time, we need</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.50</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+29.55</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Holding BRAVO**: It always contains 60 points, regardless of your decision.
+2. **Holding ALPHA**: 
+   - If the routine predicts you will take only ALPHA, then Holding ALPHA contains 100 points.
+   - If the routine predicts you will take both holdings, then Holding ALPHA contains 0 points.
+3. **Routine accuracy**: The routine correctly identifies the choices of agents like you 50% of the time.
+
+Given these conditions, we need to consider the probabilities associated with each prediction made
+Answer: Q Answer</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.50</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.94</td><td>+2.75</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding the Routine**: The routine predicts whether you will take only Holding ALPHA or both Holdings ALPHA and BRAVO. It correctly predicts 50% of the time.
+
+2. **Holding Values**:
+   - Holding BRAVO always contains 60 points.
+   - Holding ALPHA:
+     - Contains 100 points if the routine predicts you will take only ALPHA.
+     - Contains 0 points if the routine predicts you will take both holdings.
+
+3. **Predictions and Their Probabilities**:
+   - If the routine predicts you will take only
+Answer:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.60</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+25.91</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using decision theory, specifically focusing on expected utility. We need to calculate the expected utility for each option: taking only container Q or taking both containers Q and R.
+
+### Option M: Take Both Containers Q and R
+
+- **Container R always contains 60 points**.
+- **Container Q contains 100 points if F predicts you will take both containers (which happens 40% of the time), 
+Answer: K Answer: K
+
+Let&#x27;s break down the expected utility for taking both containers:
+
+- Probability that F predicts you will take both containers</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_00</td><td>0.60</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>0.69</td><td>+0.81</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on F&#x27;s predictions and our own actions:
+
+### Scenario Analysis
+
+**Case 1: F predicts you will take only Q.**
+- If F predicts you will take only Q, then Container Q will have 100 points and Container R will have 60 points.
+- Since F correctly predicts 60% of the time, there is a 60% chance F predicted correctly and a 40% chance F predicted incorrectly.
+  
+Answer: T
+Answer: T
+
+**Case 2: F predicts you will take both containers</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.60</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>100</td><td>0.02</td><td>-3.81</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that envelope GOLD contains 0 points.
+- \( P(100) \): Probability that envelope GOLD contains 100 points.
+- \( P(60) \): Probability that envelope GREEN contains 60 points, which</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.60</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-21.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that envelope GOLD contains 0 points.
+- \( P(100) \): Probability that envelope GOLD contains 100 points.
+- \( P(60) \): Probability that envelope GREEN contains 60 points, which</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.60</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-32.84</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on the allocator&#x27;s predictions and its accuracy rate:
+
+1. **Allocator Predicts Both Slots Will Be Claimed (Prediction: KM):**
+   - If the allocator predicts that both slots will be claimed (KM), it will correctly identify this 60% of the time.
+   - If the allocator correctly predicts KM, you will get all 160 points (60 from Slot ZEN + 100 from Slot VOR).
+   - If the allocator incorrectly predicts KM, it will predict either VK or MK. In these cases,
+Answer: K</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.60</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+24.06</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on the allocator&#x27;s predictions and our own actions:
+
+### Scenario Analysis
+
+**Allocator Prediction: Only VOR**
+- If the allocator predicts that you will claim only VOR:
+  - Slot ZEN: 60 points
+  - Slot VOR: 100 points
+- Probability of correct prediction: 60%
+
+**Allocator Prediction: Both Slots**
+- If the allocator predicts that you will claim both slots:
+  - Slot ZEN: 60 points
+  - Slot VOR: 0 points
+- Probability of correct prediction: </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.60</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-26.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the predictions made by the forecasting module and how those predictions might align with our actual choice. Let&#x27;s break it down:
+
+### Case 1: Module Predicts Drawing from HI Only
+
+- **Module Prediction:** If the module predicts that you will draw from HI only, then:
+  - Account HI gets 100 points.
+  - Account LO gets 60 points.
+
+Given this scenario, let&#x27;s analyze the module&#x27;s accuracy rate:
+- There is a 60% chance the module correctly predicts your action.
+- There is a 40% chance the module incorrectly predicts</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.60</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-24.69</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Account LO**: This account always contains 60 points regardless of any action taken.
+2. **Account HI**: If the forecasting module predicts that you will draw from HI only, it will give you 100 points. However, if it predicts that you will draw from both accounts, it will give you 0 points.
+
+The forecasting module has a 60% accuracy rate in predicting your actions.
+
+### Case Analysis
+
+#### Scenario 1: Module Predicts Drawing from HI Only
+- If the module predicts that I will draw from HI only, it will give</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.60</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-22.94</td><td><details><summary>view</summary><pre>To determine the best course of action, we need to consider the probabilities associated with each outcome based on the given information:
+
+1. **Prediction Accuracy**: The process predicts correctly 60% of the time.
+2. **Minor Prize Value**: Always worth 60 points.
+3. **Major Prize Value**:
+   - If the process predicts &quot;MAJOR alone&quot; and the actual outcome was taking both prizes, the Major prize is worth 100 points.
+   - If the process predicts &quot;both prizes&quot; and the actual outcome was taking both prizes, the Major prize is worth 0 points.
+
+Let&#x27;s analyze the scenarios</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.60</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-25.98</td><td><details><summary>view</summary><pre>To determine the best course of action, we need to consider the probabilities associated with each outcome based on the given information:
+
+1. **Prediction Accuracy**: The process predicts the correct choice 60% of the time.
+2. **Prediction Errors**: Therefore, it predicts incorrectly 40% of the time.
+
+Let&#x27;s analyze the possible scenarios:
+
+### Scenario 1: Prediction of &quot;MAJOR alone&quot;
+- If the prediction is correct (60% chance):
+  - You will get the MAJOR prize (100 points).
+  - Since you got the MAJOR prize right,
+Answer: Q
+
+Answer: Q</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_05</td><td>0.60</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-20.38</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities associated with each prediction being correct.
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- If Z predicts you will collect only Alpha, then:
+  - You will get 100 points from Alpha.
+  - Since Z predicted this, there is a 60% chance Z was correct.
+  
+### Case 2: Z Predicts You Will Collect Both Registers
+- If Z predicts you will collect both registers, then:
+  - You will get 60 points from Beta and 1</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_05</td><td>0.60</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>0.99</td><td>+4.62</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities associated with each prediction being correct.
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- Probability of this prediction being correct: 60% or 0.6
+- Probability of this prediction being incorrect: 40% or 0.4
+
+If Z predicts you will collect only Alpha:
+- You will get 100 points for collecting both registers because Z incorrectly predicted your choice.
+- Since Z predicted you would only collect Alpha, you know that Register BETA is empty
+Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.60</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-17.34</td><td><details><summary>view</summary><pre>To solve this problem, we need to calculate the expected value for each option based on the given probabilities and outcomes. Let&#x27;s break it down:
+
+### Option P: Open Only Vault NODE-1
+
+- **Probability of Success**: 40% (since QX incorrectly predicts this 40% of the time)
+  - If QX correctly predicts you will open NODE-1, you get 100 points (probability = 20%).
+  - If QX incorrectly predicts you will open NODE-1, you get 0 points (probability = 20%).
+
+Answer: Q
+Answer: Q
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_06</td><td>0.60</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+21.94</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on QX&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Case Analysis
+
+#### Scenario 1: QX Predicts You Will Open Only NODE-1
+- If QX predicts you will open only NODE-1:
+  - You will get 100 points for opening NODE-1.
+  - QX correctly predicts this with a probability of 60%.
+
+Answer: J
+
+Answer: J
+
+#### Scenario 2: QX Predicts You Will Open Both Vaults
+- If QX predicts you will open</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_07</td><td>0.60</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-17.77</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the expected value of each option based on THETA&#x27;s prediction accuracy. Let&#x27;s break it down:
+
+### Option H: Take Only Box K
+
+- **Probability THETA predicts you will take only K:** 40% (since THETA incorrectly predicts this 40% of the time)
+- **Points if THETA predicts you will take only K:** 100 points
+
+Answer: G.
+
+Answer: G.</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_07</td><td>0.60</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+13.88</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step to determine the best course of action:
+
+1. **Understanding THETA&#x27;s Predictions**:
+   - THETA predicts whether you will take only K or both boxes M and K.
+   - THETA is correct 60% of the time.
+
+2. **Box Contents**:
+   - Box M always contains 60 points.
+   - Box K contains either 100 points or 0 points depending on THETA&#x27;s prediction.
+
+3. **THETA&#x27;s Accuracy Rate**:
+   - Since THETA is correct 60% of the time, it means it is</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.60</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+22.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and the actual choices we make.
+
+Let&#x27;s start by analyzing the possible scenarios:
+
+1. **Engine Predicts You Will Open Only Drawer SIGMA**:
+   - If the engine predicts you will open only Drawer SIGMA, then:
+     - Drawer TAU will be empty (0 points).
+     - Drawer SIGMA will have 100 points.
+   
+2. **Engine Predicts You Will Open Both Drawers**:
+   - If the engine predicts you will open both Drawers TAU and SIGMA,</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.60</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+22.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and the actual choices we make.
+
+Let&#x27;s start by analyzing the possible scenarios:
+
+1. **Engine Predicts You Will Open Only Drawer SIGMA**:
+   - If the engine predicts you will open only Drawer SIGMA, then:
+     - Drawer TAU will be empty (0 points).
+     - Drawer SIGMA will have 100 points.
+   
+2. **Engine Predicts You Will Open Both Drawers**:
+   - If the engine predicts you will open both Drawers TAU and SIGMA,</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_09</td><td>0.60</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>100</td><td>0.01</td><td>-4.31</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Predictions**:
+   - If ORACLE-7 predicts you will retrieve from EAST only, then EAST will have 100 points and WEST will have 60 points.
+   - If ORACLE-7 predicts you will retrieve from both caches, then EAST will have 0 points and WEST will have 60 points.
+
+2. **ORACLE-7&#x27;s Accuracy**:
+   - ORACLE-7 correctly predicts 60% of the time and incorrectly predicts 40% of the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_09</td><td>0.60</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-6.84</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Predictions**:
+   - If ORACLE-7 predicts you will retrieve from EAST only, then EAST will have 100 points and WEST will have 60 points.
+   - If ORACLE-7 predicts you will retrieve from both caches, then EAST will have 0 points and WEST will have 60 points.
+
+2. **ORACLE-7&#x27;s Accuracy**:
+   - ORACLE-7 correctly predicts 60% of the time.
+
+3. **Probabilities
+Answer:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.60</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-29.94</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the expected outcomes for each option based on the given probabilities:
+
+### Option J: Empty Both Lockers
+
+- **Locker GREY:** Guaranteed to hold 60 points.
+- **Locker AMBER:** Predicted to hold 100 points if you will empty only AMBER, and 0 points if you will empty both lockers.
+
+Given the routine&#x27;s accuracy rate of 60%, there&#x27;s a 60% chance the prediction for emptying only AMBER is correct and a 40% chance it is incorrect.
+
+#### Scenario Analysis:
+1. **If the</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_10</td><td>0.60</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+16.75</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the expected outcomes for each option based on the given probabilities:
+
+### Option L: Empty Both Lockers
+
+- **Locker GREY:** Guaranteed to hold 60 points.
+- **Locker AMBER:** Predicted to hold 100 points if you will empty only AMBER, and 0 points if you will empty both lockers.
+
+Given the routine&#x27;s accuracy rate of 60%, there&#x27;s a 60% chance the prediction for emptying only AMBER is correct and a 40% chance it is incorrect.
+
+#### Scenario Analysis:
+1. **If the</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_11</td><td>0.60</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+12.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Scenario Analysis
+
+#### Case 1: Assessor Predicts &quot;Both Pouches&quot; (B)
+- If the assessor predicts that I will take both pouches (B), then:
+  - There is a 40% chance the assessor is incorrect (I will actually take only W).
+  - If I take both pouches (B), I get 60 points guaranteed from pouch J
+Answer: H
+
+Answer: H
+Answer: H
+
+In the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_11</td><td>0.60</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-25.97</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts whether you will take only W or both pouches with some degree of accuracy (60%).
+- If the assessor correctly predicts that you will take only W, pouch W contains 100 points, and pouch J contains 0 points.
+- If the assessor correctly predicts that you will take both pouches, pouch J contains 60 points, and pouch W contains 0 points.
+- If the assessor incorrectly predicts</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.60</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-22.31</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I claim both trays (Option Q):**
+   - If OMEGA predicts that I will claim both trays:
+     - Tray DELTA will have 60 points.
+     - Tray GAMMA will have 100 points.
+     - Since OMEGA correctly predicts 60% of the time, there is a 60% chance I get 160 points (60 + 100</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.60</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-17.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I claim only Tray GAMMA (option H):**
+   - OMEGA predicts that I will claim only Tray GAMMA with some probability \( p \).
+   - If OMEGA correctly predicts that I will claim only Tray GAMMA, then Tray DELTA will be empty (0 points).
+   - If OMEGA incorrectly predicts that I will claim both trays, then Tray DELTA will have 60 points (since</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_13</td><td>0.60</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+18.12</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding the Profiler&#x27;s Predictions**:
+   - If I take only bin P1, the profiler predicts I will take only bin P1 60% of the time and both bins 40% of the time.
+   - If I take both bins, the profiler predicts I will take only bin P1 40% of the time and both bins 60% of the time.
+
+2. **Bin Contents Based on Predictions**:
+   - **Bin P2**: Holds 60 points regardless of my choice.
+     - This means
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_13</td><td>0.60</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-6.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the information provided about the accuracy of the profiler&#x27;s predictions and the values in each bin.
+
+Let&#x27;s define:
+- \( P \) as the event that the profiler predicts you will take both bins.
+- \( Q \) as the event that the profiler predicts you will take only bin P1.
+- \( R \) as the event that the actual outcome is taking both bins.
+- \( S \) as the event that the actual outcome is taking only bin P1.
+
+We know:
+- The profiler correctly predicts 60% of the time, so the probability</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.60</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>0.73</td><td>+1.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider all possible scenarios based on the forecaster&#x27;s predictions and calculate the expected value for each choice. Let&#x27;s break it down:
+
+### Scenario Analysis
+
+#### Case 1: Forecaster predicts &quot;SILVER&quot;
+- **If the forecaster predicts &quot;SILVER&quot; and you open only SILVER**, you get 100 points.
+- **If the forecaster predicts &quot;SILVER&quot; and you open both chests**, you get 0 points.
+  
+Given that the forecaster predicts &quot;SILVER&quot; 40% of the time (since they are correct 6</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.60</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+23.50</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario based on the forecaster&#x27;s accuracy rate of 60%.
+
+Let&#x27;s define:
+- \( P(F) \): The probability that the forecaster predicts correctly.
+- \( P(F^c) \): The probability that the forecaster predicts incorrectly.
+
+Given:
+\[ P(F) = 0.6 \]
+\[ P(F^c) = 0.4 \]
+
+Now, let&#x27;s analyze each chest option:
+
+### Option J: Open only chest SILVER
+
+- If the forecaster predicts that you will open only SILVER (\( P(F</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_15</td><td>0.60</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-23.53</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes for each option given the probabilities and values associated with the cells.
+
+### Option H: Draw from cell q1 only
+
+- **Probability of being correct:** 60%
+- **Points received if correct:** 100 points
+- **Points received if incorrect:** 0 points
+
+Expected Value (EV) for H =
+\[ EV(H) = 
+Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer: G Answer:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.60</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>0.93</td><td>+2.62</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes for each decision based on the probabilities given:
+
+1. **If I draw from cell q1 only:**
+   - With a 60% chance, the unit will predict that I will draw from q1 only, and in this case, I will get 100 points.
+   - With a 40% chance, the unit will predict that I will draw from both cells, and in this case, I will get 0 points.
+   - Therefore, the expected value for drawing from q1 only is:
+     \[
+     0</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_16</td><td>0.60</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-21.94</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(M) \): Probability that the estimator predicts &quot;Take only wallet HIGH.&quot;
+- \( P(K) \): Probability that the estimator predicts &quot;Take both wallets.&quot;
+
+Given information:
+- \( P(M) + P(K) = 1 \)
+- The estimator predicts &quot;Take only wallet HIGH&quot; 40% of the time incorrectly (\(P(\text{Predict HIGH}|\text{Take BOTH}) =
+Answer: K. Take both wallets. Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_16</td><td>0.60</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-22.19</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(X) \): Probability of choosing X (only wallet HIGH).
+- \( P(Y) \): Probability of choosing Y (both wallets).
+
+Given information:
+- \( P(X) + P(Y) = 1 \)
+- The estimator predicts correctly 60% of the time, so it predicts incorrectly 40% of the time.
+
+Now let&#x27;s analyze each scenario:
+
+### Scenario 1: Choosing X (Only Wallet HIGH)
+
+If I choose</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_17</td><td>0.60</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>0.56</td><td>+0.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system and the actual choices we make.
+
+Let&#x27;s define:
+- \( P(M) \): Probability of choosing crate MERE.
+- \( P(T) \): Probability of choosing crate TARN.
+- \( P(\text{Open M}) \): Probability of opening crate MERE.
+- \( P(\text{Open T}) \): Probability of opening crate TARN.
+
+Given information:
+- \( P(\text{Open M}) = P(\text{Open T}) = 0.5 \)
+- The system</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_17</td><td>0.60</td><td>0.80</td><td><b>V</b> cdt</td><td>✓</td><td>100</td><td>0.12</td><td>-2.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system and the actual choices we make.
+
+Let&#x27;s define:
+- \( P(M) \): Probability that the system predicts you will open only crate MERE.
+- \( P(T) \): Probability that the system predicts you will open both crates.
+
+Given information:
+- The system correctly predicts 60% of the time, so the probability of correct prediction is 0.6, and the probability of an incorrect prediction is 0.4.
+
+Since there are only two possible predictions:
+\[ P(M) + P(T</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.60</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-9.47</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual decisions we make.
+
+### Case 1: Engine Predicts You Will Claim Only NORTH
+- **Reserve NORTH:** 100 points (since the engine predicted this)
+- **Reserve SOUTH:** 0 points (since the engine predicted you would claim only NORTH)
+
+Given that the engine correctly predicts 60% of the time, there is a 40% chance it might mispredict and think you will claim both reserves. If the engine mispredicts,
+Answer: S Answer:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.60</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-9.81</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual decisions we make.
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts You Will Claim Only NORTH
+- **Engine Prediction:** You will claim only NORTH.
+- **Actual Claim:** You claim only NORTH.
+- **Reserve NORTH Points:** 100 points (since the prediction was correct).
+- **Reserve SOUTH Points:** 60 points (fixed regardless of prediction).
+
+Total Points: \(100 + 60 = 160\)
+
+#### Scenario 2:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_19</td><td>0.60</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>100</td><td>0.00</td><td>-27.12</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the appraiser&#x27;s routine. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+**Scenario A: The routine predicts that you will take only Holding ALPHA.**
+- Probability of prediction being correct: 60% or 0.6
+- Probability of prediction being incorrect: 40% or 0.4
+
+If the prediction is correct:
+- You get 100 points (Holding ALPHA) + 60 points (Holding BRAVO) = 160 points
+
+If the</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.60</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>60</td><td>1.00</td><td>+21.59</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Holding BRAVO**: It always contains 60 points, regardless of your decision.
+2. **Holding ALPHA**: 
+   - If the routine predicts you will take only ALPHA, then Holding ALPHA contains 100 points.
+   - If the routine predicts you will take both holdings, then Holding ALPHA contains 0 points.
+3. **Routine accuracy**: The routine correctly identifies the choices of agents like you 60% of the time.
+
+Given these conditions, we need to calculate the expected value for each option and determine which one maximizes</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.70</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>90</td><td>0.01</td><td>-4.75</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using decision theory, specifically focusing on expected utility. We need to calculate the expected utility for each option: taking only container Q or taking both containers Q and R.
+
+### Option S: Take Both Containers Q and R
+
+- **Container R:** Always contains 60 points.
+- **Container Q:** Contains 100 points if F predicts you will take both containers (which happens 30% of the time), or 0 points if F predicts you will take only container Q (which happens 70% of the time).
+
+The expected utility for taking</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.70</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+13.62</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on F&#x27;s predictions and our own actions:
+
+### Scenario Analysis
+
+#### Case 1: F predicts you will take only Q
+- If F predicts you will take only Q, then Container Q will have 100 points and Container R will have 60 points.
+- Since F correctly predicts 70% of the time, there is a 70% chance F predicted correctly and a 30% chance F predicted incorrectly.
+  
+Answer: G
+Answer: G
+
+#### Case 2: F predicts you will take both containers
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.70</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+16.12</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that envelope GOLD contains 0 points.
+- \( P(100) \): Probability that envelope GOLD contains 100 points.
+- \( P(60) \): Probability that envelope GREEN contains 60 points, which</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.70</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+26.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that you get 0 points.
+- \( P(100) \): Probability that you get 100 points.
+- \( P(60) \): Probability that you get 60 points.
+
+Given:
+- \( P</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.70</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-20.44</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on the allocator&#x27;s predictions and its accuracy rate:
+
+1. **Allocator Predicts Only VOR**: 
+   - If the allocator predicts that you will only claim VOR, then VOR will have 100 points.
+   - Since the allocator is correct 70% of the time, there is a 70% chance that the prediction for VOR being claimed alone is accurate.
+   - In this case, if you claim VOR, you get 100 points.
+
+2. **Allocator Predicts Both Slots**:
+   - If the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.70</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-18.00</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Slot ZEN**: It always contains 60 points regardless of any predictions or choices made.
+
+2. **Slot VOR**:
+   - If the allocator predicts that you will claim only VOR, then VOR will have 100 points.
+   - If the allocator predicts that you will claim both slots, then VOR will have 0 points.
+   
+3. **Allocator Accuracy**: The allocator correctly identifies the choices of agents like you 70% of the time. This means there is a 30% chance that the allocator will make an incorrect</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.70</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+5.88</td><td><details><summary>view</summary><pre>Let&#x27;s break down the problem:
+
+- If you draw from account HI only, you get 100 points if the module predicts correctly, or 0 points if it predicts incorrectly.
+- If you draw from both accounts, you get 60 points regardless of the module&#x27;s prediction.
+
+The module correctly predicts your choice 70% of the time and incorrectly predicts your choice 30% of the time.
+
+Now let&#x27;s consider each option:
+
+**Option A: Draw from both accounts**
+- You get 60 points guaranteed
+Answer: B
+
+**Option B: Draw from account HI only**
+- If the module</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.70</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-16.00</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information provided:
+
+1. **Account LO**: It always contains 60 points regardless of any action taken.
+2. **Account HI**: 
+   - If the module predicts you will draw from HI only, it will give you 100 points.
+   - If the module predicts you will draw from both accounts, it will give you 0 points.
+3. **Module Accuracy**: It correctly predicts 70% of the time.
+
+Now, let&#x27;s analyze each scenario based on these details.
+
+### Scenario Analysis
+
+#### Case 1: Predicting &quot;Draw from HI only</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_04</td><td>0.70</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+14.88</td><td><details><summary>view</summary><pre>To determine the best course of action, we need to consider the probabilities associated with each outcome based on the accuracy of the appraisal process, which is 70%.
+
+Let&#x27;s analyze the possible scenarios:
+
+1. **Scenario A: The process predicts &quot;MAJOR alone&quot;**
+   - Probability: 30% (since the process is correct 70% of the time, it is incorrect 30% of the time)
+   - If the process predicts &quot;MAJOR alone,&quot; you will actually get the MAJOR prize (100 points) because the process correctly identified your choice.
+   - Additionally, since the process</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_04</td><td>0.70</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+21.19</td><td><details><summary>view</summary><pre>To make an informed decision, we need to consider the probabilities associated with each outcome based on the accuracy of the appraisal process, which is 70%.
+
+Let&#x27;s analyze the possible scenarios:
+
+1. **The process predicts &quot;MAJOR alone&quot;**: There is a 30% chance this prediction is incorrect (since the process is correct 70% of the time).
+2. **The process predicts &quot;both prizes&quot;**: There is a 70% chance this prediction is correct (since the process is correct 70% of the time).
+
+Now let&#x27;s look at the payoffs for each scenario:
+
+- If the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_05</td><td>0.70</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-21.88</td><td><details><summary>view</summary><pre>To determine the optimal choice, let&#x27;s analyze the expected outcomes for each option based on the information provided:
+
+### Option L: Collect Only Register ALPHA
+
+- **Probability**: There is a 30% chance Z will predict incorrectly that you will collect both registers (since Z correctly identifies 70% of the time).
+- **If Z Predicts Incorrectly**:
+  - Z predicted you would collect both registers, but you didn&#x27;t. Therefore, you get 100 points from Register ALPHA.
+  
+Answer: L
+
+### Option J: Collect Both Registers
+
+- **Probability**: There is a 70% chance</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_05</td><td>0.70</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>0.92</td><td>+2.50</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and our own actions:
+
+### Case 1: Z Predicts Both Registers
+- If Z predicts that you will collect both registers (option U), then according to Z&#x27;s prediction:
+  - You will get 100 points (if you predict both) or 0 points (if Z predicted both).
+  
+Since Z correctly identifies 70% of the time, there&#x27;s a 30% chance they might mispredict. However, since we don&#x27;t know Z&#x27;s actual prediction, we need to consider the expected value for</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.70</td><td>0.80</td><td><b>A</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-13.84</td><td><details><summary>view</summary><pre>To solve this problem, we need to calculate the expected value for each option based on the probabilities given. Let&#x27;s break it down:
+
+### Option A: Open Both Vaults
+
+Let&#x27;s denote:
+- \(P(\text{Open NODE-1})\) = Probability of opening NODE-1
+- \(P(\text{Open NODE-2})\) = Probability of opening NODE-2
+- \(P(\text{Open NODE-1 and NODE-2})\) = Probability of opening both nodes
+
+Given:
+- \(P(\text{Open NODE-2}) = 1\) (since NODE-2 always has 6</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.70</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-23.66</td><td><details><summary>view</summary><pre>To solve this problem, we need to calculate the expected value for each option based on the given probabilities and outcomes. Let&#x27;s break it down:
+
+### Option L: Open Only Vault NODE-1
+
+- **Probability**: 50% (since there are only two vaults)
+- **If NODE-1 is opened**:
+  - If QX predicts NODE-1 (probability = 0.5):
+    - Value = 100 points
+  - If QX predicts both (probability = 0.5):
+    - Value = 0 points
+
+Expected value for NODE-
+Answer: J. Open both</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_07</td><td>0.70</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>0.68</td><td>+0.75</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the expected value of each option based on THETA&#x27;s prediction accuracy. Let&#x27;s break it down:
+
+### Option V: Take Both Boxes
+
+If you take both boxes, there are three possible scenarios:
+1. THETA predicts you will take both boxes (Box K).
+2. THETA predicts you will take only Box K (Box M).
+
+Given that THETA predicts correctly 70% of the time, it mispredicts 30% of the time.
+
+- If THETA predicts you will take both boxes (Box K), you get 100 points (Box K</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_07</td><td>0.70</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+11.56</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with THETA&#x27;s predictions and how they might affect our expected outcomes for each choice.
+
+Let&#x27;s define:
+- \( P(M) \): Probability that THETA predicts you will take only K (\(P(M)\) = 0.3, since THETA incorrectly predicts this 30% of the time).
+- \( P(K) \): Probability that THETA predicts you will take both boxes (\(P(K)\) = 0.7, since THETA correctly predicts this 70% of the time).
+
+Given these probabilities, let&#x27;s calculate the expected</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.70</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+20.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+**Drawer TAU:**
+- Regardless of the prediction, this drawer will always contain 60 points.
+
+**Drawer SIGMA:**
+- If the engine predicts you will open only SIGMA, then SIGMA will contain 100 points.
+- If the engine predicts you will open both drawers, then SIGMA will contain 0 points.
+
+The engine predicts correctly 70% of the time, so it predicts incorrectly 30% of the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_08</td><td>0.70</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-18.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and its accuracy rate.
+
+Let&#x27;s define:
+- \( P(S) \): Probability of choosing drawer SIGMA (\( S \)).
+- \( P(T) \): Probability of choosing drawer TAU (\( T \)).
+
+Since we don&#x27;t have prior information about our choice, we assume:
+\[ P(S) = P(T) = 0.5 \]
+
+Next, let&#x27;s look at the predictions and corresponding outcomes:
+
+### Prediction: Only SIGMA (\( Pred(S) \))
+- If the engine predicts</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_09</td><td>0.70</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-18.44</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Predictions**:
+   - If ORACLE-7 predicts you will retrieve from EAST only, then EAST will have 100 points and WEST will have 60 points.
+   - If ORACLE-7 predicts you will retrieve from both caches, then EAST will have 0 points and WEST will have 60 points.
+
+2. **ORACLE-7&#x27;s Accuracy**:
+   - ORACLE-7 correctly predicts 70% of the time.
+
+3. **Probability Calculations**:
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_09</td><td>0.70</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+28.83</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Predictions**:
+   - If ORACLE-7 predicts you will retrieve from EAST only, then EAST will have 100 points.
+   - If ORACLE-7 predicts you will retrieve from both caches, then EAST will have 0 points.
+
+2. **ORACLE-7&#x27;s Accuracy**:
+   - ORACLE-7 correctly predicts 70% of the time.
+
+3. **Probabilities**:
+   - The probability that ORACLE-7
+Answer: J Answer: J
+
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.70</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>90</td><td>0.11</td><td>-2.12</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the expected outcomes for each option given the probabilities provided:
+
+### Option S: Empty Both Lockers
+
+- Locker GREY: 60 points (fixed)
+- Locker AMBER: 100 points if predicted to be emptied (70% chance) or 0 points if not predicted to be emptied (30% chance)
+
+Expected points from Locker AMBER:
+\[ \text{Expected points} = 100 \times 0.7 + 
+Answer: S
+
+Let&#x27;s calculate the exact expected value for Option S:
+
+\[ \text{Expected points} =</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.70</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-10.62</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes for each option based on the given probabilities:
+
+### Option U: Empty Both Lockers
+
+- **Locker GREY:** Guaranteed to hold 60 points.
+- **Locker AMBER:** Predicted to hold 100 points if only AMBER is emptied, and 0 points if both lockers are emptied.
+
+Given the routine&#x27;s accuracy rate of 70%, there&#x27;s a 70% chance it will predict correctly and a 30% chance it will predict incorrectly.
+
+#### Scenario Analysis:
+1. **If the routine predicts correctly that only</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_11</td><td>0.70</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-21.94</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts correctly 70% of the time.
+- The assessor predicts incorrectly 30% of the time.
+- The assessor has already made predictions about our choices.
+
+### Predictions:
+Let&#x27;s assume the assessor predicted two scenarios:
+1. You will take only pouch W.
+2. You will take both pouches.
+
+We need to calculate the expected value for each scenario based on these predictions and the actual contents of the pouches</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_11</td><td>0.70</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-23.31</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts correctly 70% of the time.
+- The assessor predicts incorrectly 30% of the time.
+- The assessor has already made predictions about our choices.
+
+### Predictions:
+Let&#x27;s assume the assessor predicted:
+- I would take only pouch W (Prediction W).
+- I would take both pouches (Prediction X).
+
+Given these predictions, pouch W will have 100 points if Prediction W is correct, and</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.70</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-18.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I choose M (Claim only tray GAMMA):**
+   - OMEGA predicts that I will claim only GAMMA with some probability \( p \).
+   - If OMEGA correctly predicts that I will claim only GAMMA (\( p \)), then I get 100 points.
+   - If OMEGA incorrectly predicts that I will claim both trays
+Answer: K. Claim both trays. Answer: K.</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_12</td><td>0.70</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+19.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I choose G (Claim only tray GAMMA):**
+   - OMEGA predicts that I will claim only GAMMA with probability \( P(G) \).
+   - If OMEGA predicts that I will claim only GAMMA:
+     - GAMMA contains 100 points.
+     - DELTA contains 0 points (since OMEGA predicted I would only take GAMMA).
+   - Therefore, the expected value for</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_13</td><td>0.70</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-20.50</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding the Profiler&#x27;s Predictions**:
+   - If the profiler predicts you will take only P1, then P1 gets 100 points and P2 gets 0 points.
+   - If the profiler predicts you will take both bins, then P1 gets 0 points and P2 gets 60 points.
+
+2. **The Profiler&#x27;s Accuracy**:
+   - The profiler is correct 70% of the time. Therefore, there is a 30% chance that the profiler will mispredict.
+
+3. **Expected Value Analysis for Each</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_13</td><td>0.70</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-23.83</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the profiler&#x27;s predictions and the actual outcomes. Let&#x27;s break it down:
+
+### Case Analysis
+
+#### Scenario 1: Profiler Predicts Taking Only Bin P1
+- If the profiler predicts taking only Bin P1, then:
+  - Bin P1 contains 100 points.
+  - Bin P2 contains 60 points.
+
+Given that the profiler correctly predicts 70% of the time, there is a 70% chance the prediction is correct and a 30% chance it is incorrect.
+
+##### Sub-case A: Prediction Correct
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.70</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+20.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider all possible scenarios based on the forecaster&#x27;s predictions and calculate the expected value for each choice. Let&#x27;s denote:
+- \( F_P \): The event that the forecaster predicts &quot;both chests&quot; (\(B\)).
+- \( F_S \): The event that the forecaster predicts &quot;SILVER&quot; (\(S\)).
+
+Given probabilities:
+- \( P(F_P) = 0.3 \) (the forecaster incorrectly predicts &quot;both chests&quot;).
+- \( P(F_S) = 0.7 \) (the forecaster correctly predicts &quot;SILVER&quot;).
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.70</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+21.53</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario given the forecaster&#x27;s accuracy rate of 70%.
+
+Let&#x27;s define:
+- \( P(F) \): The probability that the forecaster predicts correctly.
+- \( P(F^c) \): The probability that the forecaster predicts incorrectly.
+
+Given:
+\[ P(F) = 0.7 \]
+\[ P(F^c) = 1 - P(F) = 0.3 \]
+
+Now, let&#x27;s analyze each chest:
+
+### Chest COPPER
+This chest always contains 60 points regardless of the forecast. Therefore,
+Answer:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.70</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>0.79</td><td>+1.31</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation based on the given information:
+
+1. **Cell q2 always contains 60 points, regardless of whether you draw from it or not.**
+2. **Cell q1 contains 100 points if the unit predicts you will draw from q1 only, and 0 points if it predicts you will draw from both cells.**
+3. **The unit correctly predicts your choice 70% of the time.**
+
+Given this setup, we need to consider the expected value of drawing from each cell based on the predictions made by the unit.
+
+### Option A</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_15</td><td>0.70</td><td>0.80</td><td><b>Y</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-25.00</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes based on the probabilities given:
+
+1. **Cell q2**: Regardless of whether you draw from it or not, it always contains 60 points.
+2. **Cell q1**: If the unit predicts that you will draw from q1 only, you get 100 points. If the unit predicts that you will draw from both cells, you get 0 points.
+
+The unit is correct 70% of the time and incorrect 30% of the time. Let&#x27;s consider the scenarios:
+
+### Scenario 1: Drawing from Cell
+Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_16</td><td>0.70</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-21.62</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choice of which wallets to take.
+
+Let&#x27;s define:
+- \( P(J) \): Probability that the estimator predicts &quot;both wallets&quot; (\(JJ\)).
+- \( P(L) \): Probability that the estimator predicts &quot;only HIGH&quot; (\(LL\)).
+
+Since the estimator correctly predicts 70% of the time, it incorrectly predicts 30% of the time. Therefore:
+\[ P(J \mid \text{actual } JJ) = 0.7 \]
+\[ P</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_16</td><td>0.70</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+7.66</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(HIGH) \): The probability that the estimator predicts &quot;HIGH&quot;.
+- \( P(LOW) \): The probability that the estimator predicts &quot;LOW&quot;.
+
+Since the estimator correctly identifies the choices 70% of the time, it incorrectly identifies the choices 30% of the time. Therefore:
+\[ P(\text{Correct Prediction} | HIGH) = 0.7 \]
+\[ P(\text{Incorrect Prediction} | HIGH) = </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_17</td><td>0.70</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-18.56</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the system and their probabilities.
+
+### Scenario Analysis
+
+**Crate TARN:** 
+- Always contains 60 points regardless of the prediction.
+
+**Crate MERE:**
+- Predicted to be opened alone: 100 points.
+- Predicted to be opened along with TARN: 0 points.
+
+The system predicts correctly 70% of the time and incorrectly 30% of the time.
+
+#### Case 1: System Predicts You Will Open Only MERE
+- Probability = 0.7</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_17</td><td>0.70</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-6.94</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system and the actual outcomes of our choices.
+
+Let&#x27;s define:
+- \( P(M) \): The probability that the system predicts you will open only crate MERE.
+- \( P(T) \): The probability that the system predicts you will open both crates.
+
+Since the system correctly predicts 70% of the time, it incorrectly predicts 30% of the time. Therefore:
+\[ P(M) = 0.7 \]
+\[ P(T) = 0.3 \]
+
+Now, let&#x27;s look</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.70</td><td>0.80</td><td><b>Q</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-20.62</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual decisions we make.
+
+### Scenario Analysis
+
+#### Case 1: Engine Predicts You Will Claim Only NORTH
+- **Reserve NORTH:** 100 points
+- **Reserve SOUTH:** 60 points
+
+If the engine predicts that you will claim only NORTH:
+- If you actually claim only NORTH, you get 100 points.
+- If you actually claim both reserves, you get 0 points (
+Answer: Q
+
+Claim both reserves.</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.70</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>90</td><td>0.00</td><td>-10.19</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual decisions we make.
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts You Will Claim Only NORTH
+- **Engine Prediction:** You will claim only NORTH.
+- **Actual Claim:** You claim only NORTH.
+- **Reserve NORTH Points:** 100 points (since the prediction was correct).
+- **Reserve SOUTH Points:** 60 points (fixed regardless of prediction).
+
+Total Points: \(100 + 60 = 160\)
+
+#### Scenario 2:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.70</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+21.81</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the appraiser&#x27;s routine. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+**Scenario A: The routine predicts you will take only Holding ALPHA.**
+- Probability of prediction being correct: 70% or 0.7
+- Probability of prediction being incorrect: 30% or 0.3
+
+If the prediction is correct:
+- You get 100 points (Holding ALPHA contains 100 points).
+
+If the prediction is incorrect:
+- You get 0 points (
+Answer:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.70</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>70</td><td>1.00</td><td>+20.06</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the predictions made by the appraiser&#x27;s routine and how those predictions might align with the actual outcomes.
+
+Let&#x27;s break down the scenarios:
+
+1. **Holding BRAVO**: Regardless of the prediction, Holding BRAVO will always have 60 points.
+2. **Holding ALPHA**:
+   - If the routine predicts that you will take only ALPHA, then you will get 100 points for taking ALPHA.
+   - If the routine predicts that you will take both holdings, then you will get 0 points for taking ALPHA.
+
+The routine correctly predicts </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+24.94</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on F&#x27;s predictions and our own actions:
+
+### Case 1: F predicts you will take only Q
+- If F predicts you will take only Q, then Container Q will have 100 points and Container R will have 60 points.
+- Since F predicted correctly (80% accuracy), there is a 80% chance that taking only Q is the right choice.
+- In this scenario, if you take only Q, you get 100 points (which is the maximum possible).
+
+### Case 2: F predicts you</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>V</b> cdt</td><td>✓</td><td>80</td><td>0.44</td><td>-0.25</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using probability:
+
+1. **Container R**: This container always contains 60 points, regardless of your decision.
+2. **Container Q**: 
+   - If you decide to take only Container Q, F predicts you will get 100 points.
+   - If you decide to take both Containers Q and R, F predicts you will get 0 points.
+
+Given that F correctly predicts 80% of the time, we can calculate the expected utility for each option.
+
+### Option U: Take Only Container Q
+
+- Probability that F correctly predicts this:
+ </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.90</td><td>+2.19</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that GOLD contains 0 points.
+- \( P(100) \): Probability that GOLD contains 100 points.
+- \( P(60) \): Probability that GREEN contains 60 points, which is a constant </pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.62</td><td>+0.50</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take BOTH envelopes.
+- \( P(0|G) \): Probability that you get 0 points given that PRIOR judged you will take GOLD.
+- \( P(100|G) \): Probability that you get 100 points given that PRIOR judged you will take GOLD.
+- \(</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>A</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-13.91</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s analyze the expected value for each option given the allocator&#x27;s accuracy rate and the points associated with each slot.
+
+### Option A: Claim Both Slots
+
+- **Slot ZEN:** Always 60 points.
+- **Slot VOR:** If the allocator predicts you will claim both slots:
+  - Correctly: 100 points.
+  - Incorrectly: 0 points.
+
+The allocator is correct 80% of the time and incorrect 20% of the time. Therefore,
+Answer: A
+
+Let&#x27;s calculate the expected value for claiming both slots:
+
+\[ \text{Expected Value</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+24.31</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on the allocator&#x27;s predictions and its accuracy rate:
+
+1. **Allocator Predicts Only VOR**: 
+   - If the allocator predicts that you will only claim VOR, then VOR will have 100 points.
+   - Since the allocator is correct 80% of the time, there is a 20% chance it might predict incorrectly and that you will claim both slots.
+   - In this case, VOR would have 0 points.
+
+2. **Allocator Predicts Both Slots**:
+   - If the allocator predicts that you will claim</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-7.75</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Account LO**: This account always contains 60 points regardless of any action taken by the forecasting module.
+
+2. **Account HI**: The module predicts whether you will draw from HI only or from both accounts. It correctly predicts 80% of the time.
+
+3. **Module&#x27;s Prediction Accuracy**: If I draw from HI only, the module will predict this with an accuracy rate of 80%. Conversely, if I draw from both accounts, the module will predict this with an accuracy rate of 80%.
+
+4. **Account HI Points Distribution**:
+   -</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+10.25</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Account LO**: This account always contains 60 points regardless of any action taken by the forecasting module.
+
+2. **Account HI**: The module correctly predicts the action 80% of the time. If I draw from Account HI only, the module will predict this with an 80% accuracy rate. Conversely, if I draw from both accounts, the module might predict either or both of these actions.
+
+3. **Module Prediction Accuracy**:
+   - If I draw from Account HI only, the module will predict this correctly 80% of the time.
+  </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_04</td><td>0.80</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+17.88</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the given information:
+
+1. **Prediction Accuracy**: The process predicts the correct outcome 80% of the time.
+2. **Predicted Outcomes**:
+   - If the process predicts &quot;MAJOR alone,&quot; the MAJOR prize will be correct 80% of the time, and the MINOR prize will be incorrect 80% of the time.
+   - If the process predicts &quot;both prizes,&quot; the MAJOR prize will be incorrect 20% of the time, and the MINOR prize will be correct 20% of the time</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.80</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>80</td><td>0.13</td><td>-1.88</td><td><details><summary>view</summary><pre>To determine the best course of action, we need to consider the probabilities associated with each outcome based on the accuracy of the appraisal process, which is 80%.
+
+Let&#x27;s analyze the possible scenarios:
+
+1. **Scenario A: The process predicts &quot;MAJOR alone&quot;**
+   - Probability: 20% (since the process is correct 80% of the time, it is incorrect 20% of the time)
+   - If this happens, you will get the MAJOR prize (100 points) because the process predicted &quot;MAJOR alone.&quot;
+   - You will also get the MINOR prize (6</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_05</td><td>0.80</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.87</td><td>+1.94</td><td><details><summary>view</summary><pre>To determine the optimal choice, let&#x27;s analyze the expected outcomes for each option based on the information provided:
+
+### Option A: Collect Only Register ALPHA
+
+- **If Z predicts you will collect only ALPHA:** 
+  - You get 100 points from Register ALPHA.
+  - Since Z correctly identifies 80% of the time, there&#x27;s a 20% chance Z might incorrectly predict you will collect both registers.
+  - In this incorrect prediction scenario, you still get 100 points from Register ALPHA.
+  
+Answer: B
+
+Answer: B
+
+### Option B: Collect Both Registers
+
+- **If Z</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_05</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+33.25</td><td><details><summary>view</summary><pre>To determine the optimal choice, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities associated with each prediction being correct.
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- Probability of this prediction being correct: 0.8
+- Probability of this prediction being incorrect: 0.2
+
+If Z predicts you will collect only Alpha:
+- You will collect Alpha and get 100 points.
+- You will collect Beta and get 60 points.
+
+Since Z predicts you will collect only Alpha, the value in Register
+Answer: J
+
+Collect only register ALPHA.</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_06</td><td>0.80</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+22.56</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each option given QX&#x27;s prediction accuracy and the outcomes for each vault based on those predictions.
+
+Let&#x27;s break it down:
+
+### Option G: Open Only Vault NODE-1
+
+**Steps:**
+1. **Prediction Accuracy**: QX predicts correctly 80% of the time.
+2. **Outcome if Predicted Correctly**: If QX predicts that you will open only NODE-1, then NODE-1 will have 100 points.
+3. **Probability of Correct Prediction**: There are two possible scenarios where QX could predict correctly:
+   -</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_06</td><td>0.80</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+16.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each decision based on QX&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Scenario Analysis
+
+**Vault NODE-2:** 
+- No matter what, it will always have 60 points.
+
+**Vault NODE-1:**
+- If QX predicts that you will open only NODE-1, then NODE-1 will have 100 points.
+- If QX predicts that you will open both vaults, then NODE-1 will have 0 points.
+
+QX has an 80% accuracy rate in predicting your choice.
+
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_07</td><td>0.80</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-22.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with THETA&#x27;s predictions and how they might affect our expected outcomes for each choice.
+
+Let&#x27;s define:
+- \( P(K) \): The probability that THETA predicts you will take only box K.
+- \( P(\neg K) \): The probability that THETA predicts you will take both boxes.
+
+Given that THETA correctly predicts 80% of the time, we have:
+\[ P(K) = 0.5 \]
+\[ P(\neg K) = 0.5 \]
+
+If THETA predicts you will take only box K, then box</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_07</td><td>0.80</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+23.31</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding THETA&#x27;s Predictions**:
+   - THETA predicts with an accuracy rate of 80%. This means that 80% of the time, THETA&#x27;s prediction about your choice will be correct, and 20% of the time it will be incorrect.
+
+2. **Box K Contents**:
+   - If you choose Box K, then THETA predicts that you will take only Box K. Since THETA is correct 80% of the time, there is a 20% chance that THETA mispredicts and thinks you
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.80</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+21.12</td><td><details><summary>view</summary><pre>To determine the best choice, let&#x27;s analyze the possible outcomes based on the predictions made by the engine and the actual choices we make.
+
+### Case 1: Engine Predicts Opening Only Drawer SIGMA
+- If the engine predicts that you will only open drawer SIGMA, then:
+  - Drawer TAU will be empty (0 points).
+  - Drawer SIGMA will have 100 points.
+  
+Since the engine correctly predicts this scenario 80% of the time, there is a 20% chance it might mispredict and think you will open both drawers.
+
+### Case 2: Engine Predicts Opening Both</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_08</td><td>0.80</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.61</td><td>+0.44</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and its accuracy rate.
+
+Let&#x27;s define:
+- \( P(S) \): Probability of choosing to open drawer SIGMA (\( S \)).
+- \( P(T) \): Probability of choosing to open drawer TAU (\( T \)).
+
+Since we don&#x27;t have any additional information about the probabilities of choosing each drawer, we assume:
+\[ P(S) = P(T) = 0.5 \]
+
+Next, let&#x27;s look at the predictions made by the engine:
+- If you choose to open drawer SIG</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_09</td><td>0.80</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>80</td><td>0.11</td><td>-2.12</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Predictions**:
+   - If ORACLE-7 predicts you will retrieve from EAST only, then EAST will have 100 points and WEST will have 60 points.
+   - If ORACLE-7 predicts you will retrieve from both caches, then EAST will have 0 points and WEST will have 60 points.
+
+2. **ORACLE-7&#x27;s Accuracy**:
+   - ORACLE-7 correctly predicts 80% of the time.
+
+3. **Probabilities
+Answer:</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_09</td><td>0.80</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.50</td><td>+0.00</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Predictions**:
+   - If ORACLE-7 predicts you will retrieve from EAST only, then EAST will have 100 points and WEST will have 60 points.
+   - If ORACLE-7 predicts you will retrieve from both caches, then EAST will have 0 points and WEST will have 60 points.
+
+2. **ORACLE-7&#x27;s Accuracy**:
+   - ORACLE-7 correctly predicts 80% of the time.
+
+3. **Probabilities
+Answer:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.80</td><td>0.80</td><td><b>G</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-32.11</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the expected outcomes for each option given the probabilities provided:
+
+### Option G: Empty Both Lockers
+
+- Locker GREY: 60 points (fixed)
+- Locker AMBER: 100 points if predicted to be emptied (probability = 0.8), 
+  or 0 points if not predicted to be emptied (probability = 0.2)
+
+Expected points from Locker AMBER:
+\[ \
+Answer: G
+
+Answer: G
+Answer: G
+
+To maximize the expected points, we need to calculate the overall expected value for each option:
+
+**Option G: Empty</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_10</td><td>0.80</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+21.00</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes for each option based on the given probabilities:
+
+### Option Q: Empty Only Locker AMBER
+
+- **If the routine correctly predicts (80% chance):**
+  - Locker AMBER contains 100 points.
+  - Locker GREY contains 60 points.
+  
+- **If the routine incorrectly predicts (20% chance):**
+  - Locker AMBER contains 0 points (since the routine predicted you would empty only AMBER).
+  - Locker GREY contains 60 points.
+
+Expected Value for Q:
+\[ E(Q) = 
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_11</td><td>0.80</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+22.81</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts correctly 80% of the time.
+- The assessor has already made predictions about our choices.
+- Pouch J always contains 60 points regardless of the prediction.
+- Pouch W:
+  - Contains 100 points if the assessor predicts &quot;both pouches&quot; and we choose &quot;only W&quot;.
+  - Contains 0 points if the assessor predicts &quot;both pouches&quot; and we choose &quot;both pouches</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_11</td><td>0.80</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+10.06</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and their accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts correctly 80% of the time.
+- The assessor has already made predictions about our choices.
+- Pouch J always contains 60 points regardless of the prediction.
+- Pouch W:
+  - Contains 100 points if the assessor predicts &quot;both pouches&quot; and we choose &quot;only W&quot;.
+  - Contains 0 points if the assessor predicts &quot;both pouches&quot; and we choose &quot;both pouch</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.80</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-26.94</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I choose K (Claim both trays):**
+   - If OMEGA predicts that I will claim both trays:
+     - Tray DELTA contains 60 points.
+     - Tray GAMMA contains 100 points.
+     - I get 100 points.
+   
+   - If OMEGA does not predict that I will claim both trays:
+     - Tray DELTA contains 60 points.
+     - Tray</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.80</td><td>0.80</td><td><b>J</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-25.19</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s break down the scenarios:
+
+1. **If I choose to claim both trays (option J):**
+   - OMEGA predicts that I will claim both trays with some probability \( p \).
+   - If OMEGA predicts that I will claim both trays:
+     - Tray DELTA holds 60 points.
+     - Tray GAMMA holds 0 points (because OMEGA predicted I would claim both trays).
+     - Expected value = \( 60 \times</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_13</td><td>0.80</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-20.44</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the profiler&#x27;s accuracy rate and the outcomes for each decision.
+
+Let&#x27;s define:
+- \( P(P1) \): Probability that the profiler predicts taking only P1.
+- \( P(P2) \): Probability that the profiler predicts taking both bins.
+- \( P(\text{Predicted}) \): Probability that the actual prediction made by the agent matches the profiler&#x27;s prediction.
+
+Given information:
+- \( P(P2) = 1 \) (Bin P2 always contains 60 points.)
+- \( P(P1| \text{Predicted}) =</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_13</td><td>0.80</td><td>0.80</td><td><b>B</b> cdt</td><td>✓</td><td>80</td><td>0.02</td><td>-4.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the profiler&#x27;s predictions and the actual outcomes. Let&#x27;s break it down:
+
+### Case Analysis
+
+#### Scenario 1: Profiler Predicts Taking Only Bin P1
+- If the profiler predicts taking only Bin P1, then:
+  - Bin P1 contains 100 points.
+  - Bin P2 contains 60 points.
+
+Given that the profiler correctly predicts 80% of the time, there is a 20% chance it might mispredict and say you will take both bins when you actually take only one.
+
+##### Sub-scenario
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_14</td><td>0.80</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-6.12</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario based on the forecaster&#x27;s accuracy rate of 80%.
+
+Let&#x27;s define:
+- \( P(F) \): The probability that the forecaster predicts correctly.
+- \( P(F^c) \): The probability that the forecaster predicts incorrectly.
+
+Given:
+\[ P(F) = 0.8 \]
+\[ P(F^c) = 1 - P(F) = 0.2 \]
+
+Now, let&#x27;s analyze each scenario:
+
+### Scenario T: Open Both Chests
+
+Answer: T
+
+If you open both chests, there are</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.80</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.98</td><td>+3.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario given the forecaster&#x27;s accuracy rate of 80%.
+
+Let&#x27;s define:
+- \( P(F) \): The probability that the forecaster predicts correctly.
+- \( P(F^c) \): The probability that the forecaster predicts incorrectly.
+
+Given:
+\[ P(F) = 0.8 \]
+\[ P(F^c) = 0.2 \]
+
+Now, let&#x27;s analyze each scenario:
+
+### Scenario T: Open only chest SILVER
+
+For chest SILVER to contain 100 points:
+- The forecaster must predict that</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.80</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+11.68</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the expected outcomes for each option given the probabilities and values associated with the cells.
+
+### Option A: Draw from cell q1 only
+
+- With 80% accuracy, the unit will predict this correctly, so we get 100 points.
+- With 20% accuracy, the unit will predict that we draw from both cells, so we get 0 points.
+
+The expected value for drawing from cell q1 only can be calculated as follows:
+\[ \text{Expected Value} = (0.8 \times 1
+Answer: A
+
+Answer: A</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_15</td><td>0.80</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>80</td><td>0.02</td><td>-3.75</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes based on the probabilities given:
+
+1. **Cell q2**: Regardless of whether you draw from it or not, it always contains 60 points.
+2. **Cell q1**: If the unit predicts you will draw from q1 only, you get 100 points. If the unit predicts you will draw from both cells, you get 0 points. The unit is correct 80% of the time, so there&#x27;s a 20% chance it might mispredict.
+
+Let&#x27;s consider each possible scenario:
+
+- **Scenario A: 
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_16</td><td>0.80</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+7.39</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(HIGH) \): The probability that the estimator predicts &quot;HIGH&quot;.
+- \( P(LOW) \): The probability that the estimator predicts &quot;LOW&quot;.
+
+Given that the estimator correctly identifies the choices 80% of the time, we have:
+\[ P(\text{Correct Prediction} \mid \text{Take HIGH}) = 0.8 \]
+\[ P(\text{Correct Prediction} \mid \text{Take LOW}) = 0</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_16</td><td>0.80</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+7.39</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(HIGH) \): The probability that the estimator predicts &quot;HIGH&quot;.
+- \( P(LOW) \): The probability that the estimator predicts &quot;LOW&quot;.
+
+Given that the estimator correctly identifies the choices 80% of the time, we have:
+\[ P(\text{Correct Prediction} \mid \text{Take HIGH}) = 0.8 \]
+\[ P(\text{Correct Prediction} \mid \text{Take LOW}) = 0</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_17</td><td>0.80</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.50</td><td>+0.00</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the system and their probabilities.
+
+### Case Analysis
+
+**Case 1: System predicts you will open only MERE.**
+- If this prediction is correct (probability = 0.8):
+  - You open MERE and get 100 points.
+  - You open TARN and get 60 points.
+  - Total points: \(100 + 60 = 160\).
+
+**Case 2: System predicts you will open both crates.**
+- If this prediction is correct (probability</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_17</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+17.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+**Crate TARN:** 
+- This crate always contains 60 points regardless of the prediction.
+
+**Crate MERE:**
+- If the system predicts you will open only MERE, then MERE will contain 100 points.
+- If the system predicts you will open both crates, then MERE will contain 0 points.
+
+The system predicts correctly 80% of the time, so it mispredicts 20% of</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.80</td><td>0.80</td><td><b>K</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-30.06</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual behavior of agents like you.
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts You Will Claim Only NORTH
+- **Engine Prediction:** You will claim only reserve NORTH.
+- **Actual Behavior:** You claim only reserve NORTH.
+- **Reserve NORTH Points:** 100 points (since the engine predicted this).
+- **Reserve SOUTH Points:** 60 points (fixed regardless of prediction).
+
+Total Points: \(100 + 60 = 160\) points.
+
+</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_18</td><td>0.80</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.59</td><td>+0.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the predictions made by the allocation engine and how those predictions might affect our outcome based on the available options.
+
+Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+**Engine Prediction:**
+- Predicts you will claim only **NORTH**: Probability = 0.5
+- Predicts you will claim **both** reserves: Probability = 0.5
+
+**Reserve Values Based on Prediction:**
+- If the engine predicts you will claim only **NORTH**, then **SOUTH** has 60 points, and **NORTH** has 10</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.80</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+9.09</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s analyze the situation from different perspectives based on the predictions made by the appraiser routine.
+
+### Scenario Analysis
+
+**Prediction 1:** The routine predicts that you will take only Holding ALPHA.
+- If this prediction is correct (which happens 80% of the time), then:
+  - Holding BRAVO contains 60 points.
+  - Holding ALPHA contains 100 points.
+  - Taking Holding ALPHA gives you 100 points.
+
+**Prediction 2:** The routine predicts that you will take both holdings.
+- If this prediction is correct (which also happens 80%</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.80</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+16.62</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using probability:
+
+1. **Holding BRAVO**: Regardless of the prediction, this holding will always contain 60 points.
+
+2. **Holding ALPHA**:
+   - If the routine predicts that you will take only ALPHA, then you get 100 points.
+   - If the routine predicts that you will take both holdings, then you get 0 points.
+
+The routine correctly predicts 80% of the time, so it incorrectly predicts 20% of the time.
+
+Let&#x27;s calculate the expected value for each option:
+
+### Option
+Answer:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.90</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-24.88</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using decision theory, specifically focusing on expected utility. We need to calculate the expected utility for each option: taking only container Q or taking both containers Q and R.
+
+### Option H: Take Only Container Q
+
+- **Probability**: F predicts you will take only Q 10% of the time (because it incorrectly predicts 10% of the
+Answer: G Answer: G
+
+You would choose to take both containers Q and R because it has a higher expected utility. Even though F correctly predicts your choice 90% of the time, the potential payoff</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.90</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+21.69</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using decision theory, specifically focusing on expected utility. We need to calculate the expected utility for each option: taking only container Q or taking both containers Q and R.
+
+### Option L: Take Both Containers Q and R
+
+- **Container R:** Always contains 60 points.
+- **Container Q:** Contains 100 points if F predicts you will take both containers (which happens 10% of the time), and 0 points if F predicts you will take only container Q (which happens 90% of the time).
+
+The probability of each scenario</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.90</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+18.31</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(\text{Take } G) \): Probability of taking envelope GOLD given a certain judgment from PRIOR.
+- \( P(\text{Take } B) \): Probability of taking both envelopes given a certain judgment from PRIOR.
+- \( P(\text{Take }</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.90</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+12.75</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes associated with each decision based on the information given about PRIOR&#x27;s accuracy rate.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+- \( P(0) \): Probability that envelope GOLD contains 0 points.
+- \( P(100) \): Probability that envelope GOLD contains 100 points.
+- \( P(60) \): Probability that envelope GREEN contains 60 points, which</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.90</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-23.69</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the expected value of each option given the allocator&#x27;s accuracy rate and the points associated with each slot.
+
+### Option P: Claim Only Slot VOR
+
+- **Points**: 100 points if predicted VOR (correctly), 0 points if predicted both (incorrectly).
+- **Probability**: Since the allocator is correct 90% of the time, it will predict VOR correctly 90% of the time and incorrectly 10% of the time.
+- **Expected Value**:
+  \[
+  EV(\text{VOR}) = 
+  (
+Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.90</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+18.44</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the allocator&#x27;s accuracy rate and the potential outcomes for each option:
+
+1. **Allocator Accuracy**: The allocator correctly predicts the agent&#x27;s choice 90% of the time. This means there is a 10% chance that the allocator might mispredict the agent&#x27;s choice.
+
+2. **Slot Values**:
+   - Slot ZEN always contains 60 points.
+   - Slot VOR:
+     - If the allocator correctly predicts that you will claim only VOR, then you get 100 points.
+     - If the allocator incorrectly predicts that you will claim both slots,</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.90</td><td>0.80</td><td><b>V</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.01</td><td>-4.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the predictions made by the forecasting module and how those predictions might align with our actual choice. Let&#x27;s break it down:
+
+### Case 1: The Module Predicts Drawing from HI Only
+
+- **If I Choose U (Draw from HI only):**
+  - The module predicts correctly that I will draw from HI only.
+  - Therefore, Account HI will have 100 points.
+  - Account LO will have 60 points.
+  
+Answer: U
+
+Answer: U
+
+### Case 2: The Module Predicts Drawing from Both Accounts
+
+- **If I Choose V</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.90</td><td>0.80</td><td><b>A</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-9.66</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s analyze the situation based on the information provided:
+
+1. **Account LO**: This account always contains 60 points regardless of any action taken.
+2. **Account HI**: 
+   - If the forecasting module predicts that you will draw from HI only, then Account HI will have 100 points.
+   - If the forecasting module predicts that you will draw from both accounts, then Account HI will have 0 points.
+3. **Module&#x27;s Accuracy**: The module correctly predicts the agent&#x27;s choice 90% of the time.
+
+Now, let&#x27;s consider each option:
+
+### Option A:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.90</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+11.07</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the accuracy of the appraisal process. Let&#x27;s break down the situation:
+
+1. **Process Accuracy**: The process correctly identifies the choices of agents like you 90% of the time. This means there is a 10% chance that the process will make an incorrect prediction.
+
+2. **Predicted Scenarios**:
+   - If the process predicts &quot;MAJOR alone,&quot; then the MAJOR prize is correct, and the MINOR prize is incorrect.
+   - If the process predicts &quot;both prizes,&quot;
+Answer: A Answer: A
+
+In</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_04</td><td>0.90</td><td>0.80</td><td><b>Y</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-19.44</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the given information:
+
+1. **Prediction Accuracy**: The process is correct 90% of the time. This means there is a 10% chance that the prediction could be incorrect.
+
+2. **Possible Scenarios**:
+   - If the process predicts &quot;MAJOR alone&quot; and the actual outcome was &quot;both prizes&quot;:
+     - You should take the MAJOR prize (worth 100 points).
+     - Since the prediction was correct, taking the MAJOR prize will yield 100 points.
+   
+   - If the process predicts &quot;MAJOR</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_05</td><td>0.90</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-21.31</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities of those predictions being correct.
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- **Probability**: 10%
+- **If Z Predicts Alpha**: 
+  - You will collect only register ALPHA.
+  - Since Z predicted you would collect only ALPHA, register ALPHA will have 100 points.
+  - Register BETA will have 60 points.
+  - Your total points = 100 points (from ALPHA) + 60 points (from BETA) = </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_05</td><td>0.90</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✓</td><td>90</td><td>0.96</td><td>+3.12</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and the probabilities associated with each prediction being correct.
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- Probability of this prediction being correct: 90%
+- Probability of this prediction being incorrect: 10%
+
+If Z predicts that you will collect only Alpha:
+- You will get 100 points (if your actual choice was to collect only Alpha) or 60 points (if your actual choice was to collect both registers).
+
+Since Z is correct 90% of the time, we need to</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.90</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✓</td><td>90</td><td>0.91</td><td>+2.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each option based on QX&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Option A: Open Only Vault NODE-1
+
+If you choose to open only Vault NODE-1:
+- QX predicts you will open only NODE-1 90% of the time.
+- If QX correctly predicts (which it does 90% of the time), then you get 100 points.
+- If QX incorrectly predicts (which it does 10% of the time), then you get 0 points.
+
+The expected value</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.90</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+15.25</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the given conditions and outcomes based on the predictions made by QX:
+
+1. **Vault NODE-2**: It always holds 60 points regardless of whether it is opened or not.
+2. **Vault NODE-1**:
+   - If QX predicts that only NODE-1 will be opened, then NODE-1 will hold 100 points.
+   - If QX predicts that both NODE-1 and NODE-2 will be opened, then NODE-1 will hold 0 points.
+
+Given these details, we need to consider the probability that QX&#x27;s</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_07</td><td>0.90</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+24.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with THETA&#x27;s predictions and how they might affect our expected outcomes for each choice.
+
+Let&#x27;s define:
+- \( P(K) \): The probability that THETA predicts you will take only box K.
+- \( P(M,K) \): The probability that THETA predicts you will take both boxes.
+
+Since THETA predicts correctly 90% of the time, and there are only two possible scenarios for your choice (taking only box K or taking both boxes), we can infer:
+\[ P(K) + P(M,K) = 1 \]
+\[ P(K)</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_07</td><td>0.90</td><td>0.80</td><td><b>B</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.07</td><td>-2.56</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with THETA&#x27;s predictions and how they might affect our expected outcomes for each choice.
+
+Let&#x27;s define:
+- \( P(K) \): The probability that THETA predicts you will take only box K.
+- \( P(M) \): The probability that THETA predicts you will take both boxes.
+
+Since THETA predicts correctly 90% of the time, it means that:
+\[ P(K) = 0.9 \]
+\[ P(M) = 0.1 \]
+
+Now let&#x27;s look at the outcomes for each choice:
+
+**Choice A: Take only</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.90</td><td>0.80</td><td><b>Y</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-25.25</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and its accuracy rate.
+
+Let&#x27;s define:
+- \( P(S) \): Probability of choosing to open drawer SIGMA (\( S \)).
+- \( P(T) \): Probability of choosing to open drawer TAU (\( T \)).
+
+Since we don&#x27;t have prior information about these probabilities, we assume:
+\[ P(S) = P(T) = 0.5 \]
+
+Next, let&#x27;s look at the predictions and corresponding outcomes:
+
+### Case 1: Engine Predicts Opening Only Drawer SIGMA (\</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.90</td><td>0.80</td><td><b>V</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-8.44</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the engine and the actual results of opening the drawers.
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts Opening Only Drawer SIGMA
+- **Probability**: 90%
+- **Outcome**:
+  - If the engine predicts correctly (90% chance), then you will get 100 points (opening Drawer SIGMA).
+  - If the engine predicts incorrectly (10% chance), then you will get 0 points (
+Answer: V. Open both drawers.
+Answer: V. Open both drawers.</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_09</td><td>0.90</td><td>0.80</td><td><b>S</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.01</td><td>-4.25</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Prediction Accuracy**: There is a 90% chance that ORACLE-7 will predict correctly whether you will retrieve from EAST or BOTH.
+
+2. **Cache Values**:
+   - Cache WEST always contains 60 points.
+   - Cache EAST:
+     - Contains 100 points if ORACLE-7 predicts EAST.
+     - Contains 0 points if ORACLE-7 predicts BOTH.
+
+3. **Scenario Analysis**:
+   - If you choose to retrieve from **EAST only** (option</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_09</td><td>0.90</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+5.53</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **ORACLE-7&#x27;s Prediction Accuracy**: There is a 90% chance that ORACLE-7 will predict correctly whether you will retrieve from EAST or BOTH.
+
+2. **Cache Values**:
+   - If you retrieve from EAST only, Cache EAST will have 100 points if ORACLE-7 predicted EAST, and 0 points if ORACLE-7 predicted BOTH.
+   - If you retrieve from BOTH, Cache EAST will have 0 points regardless of the prediction, and Cache WEST will have 60 points.
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_10</td><td>0.90</td><td>0.80</td><td><b>V</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-9.38</td><td><details><summary>view</summary><pre>To determine which locker to empty, we need to calculate the expected value for each option based on the probability that the routine&#x27;s prediction is correct. We know that the routine predicts correctly 90% of the time and incorrectly 10% of the time.
+
+Let&#x27;s define:
+- \( P(A) \): Probability that the routine predicts you will empty only locker AMBER (\(0.9\))
+- \( P(\neg A) \): Probability that the routine predicts you will empty both lockers or neither locker (\(0.1\))
+
+For each option, we&#x27;ll calculate the expected value:
+
+### Option V:</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.90</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+26.08</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes for each option given the probabilities provided:
+
+1. **Locker GREY**:
+   - This locker always gives 60 points regardless of whether you open it or not.
+
+2. **Locker AMBER**:
+   - If the routine predicts that you will empty only locker AMBER, then you get 100 points.
+   - If the routine predicts that you will empty both lockers, you get 0 points.
+
+Given that the routine correctly predicts your choice 90% of the time, it incorrectly predicts your choice 
+Answer: Y</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_11</td><td>0.90</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+20.19</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts correctly 90% of the time.
+- The assessor has already made predictions about our choices.
+- Pouch J always contains 60 points.
+- Pouch W contains either 100 points (if predicted to take only W) or 0 points (if predicted to take both pouches).
+
+Let&#x27;s denote:
+- \( P(W) \): Probability that the assessor predicts taking only W.
+- \( P(\neg</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_11</td><td>0.90</td><td>0.80</td><td><b>B</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.01</td><td>-4.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts whether you will take only W or both pouches with 90% accuracy.
+- If the assessor predicts &quot;both pouches&quot; and you actually take both pouches, you get 0 points from pouch W.
+- If the assessor predicts &quot;both pouches&quot; and you actually take only W, you get 100 points from pouch W.
+- If the assessor predicts &quot;only W&quot; and you actually take only</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_12</td><td>0.90</td><td>0.80</td><td><b>Y</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-25.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on OMEGA&#x27;s prediction accuracy and the outcomes for each decision.
+
+Let&#x27;s define:
+- \( P(Y) \): Probability of choosing to claim both trays (Y).
+- \( P(X) \): Probability of choosing to claim only tray GAMMA (X).
+
+Given:
+- \( P(Y) = 0.5 \)
+- \( P(X) = 0.5 \)
+
+Next, we need to calculate the expected value for each choice based on OMEGA&#x27;s predictions.
+
+### Expected Value for Claiming Both Trays (Y):
+
+If you claim both</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.90</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+19.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with OMEGA&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that OMEGA predicts you will take only GAMMA.
+- \( P(B) \): Probability that OMEGA predicts you will take both trays.
+
+Given information:
+- \( P(G) + P(B) = 1 \)
+- OMEGA predicts correctly 90% of the time, so the probability that OMEGA predicts 
+Answer: A</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_13</td><td>0.90</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-19.56</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the profiler&#x27;s accuracy rate and the outcomes for each decision.
+
+Let&#x27;s define:
+- \( A \): The event that the profiler predicts you will take only bin P1.
+- \( B \): The event that the profiler predicts you will take both bins.
+- \( C \): The event that you actually take only bin P1.
+- \( D \): The event that you actually take both bins.
+
+Given information:
+- The profiler predicts correctly 90% of the time, so the probability of the profiler predicting something being correct is 0.9.
+-
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_13</td><td>0.90</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+27.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the profiler&#x27;s accuracy rate and the outcomes for each decision.
+
+Let&#x27;s define:
+- \( A \): The event that the profiler predicts you will take only bin P1.
+- \( B \): The event that the profiler predicts you will take both bins.
+- \( C \): The event that you actually take only bin P1.
+- \( D \): The event that you actually take both bins.
+
+Given information:
+- The profiler predicts correctly 90% of the time, so the probability of the profiler predicting 
+Answer: Q. Answer: Q. 
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.90</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-23.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider all possible scenarios based on the forecaster&#x27;s predictions and calculate the expected value for each choice. Let&#x27;s denote:
+- \( F_S \) as the event that the forecaster predicts you will open only the SILVER chest.
+- \( F_C \) as the event that the forecaster predicts you will open both chests.
+- \( O_S \) as the event that you actually open only the SILVER chest.
+- \( O_C \) as the event that you actually open both chests.
+
+Given probabilities:
+- \( P(F_S) = 0.1 \) (probability</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_14</td><td>0.90</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+7.75</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario given the forecaster&#x27;s accuracy rate of 90%.
+
+Let&#x27;s define:
+- \( P(S) \): Probability that the forecaster predicts you will open only the SILVER chest.
+- \( P(B) \): Probability that the forecaster predicts you will open both chests.
+- \( P(O_S|S) \): Probability of opening only the SILVER chest given the forecaster predicted it.
+- \( P(O_B|B) \): Probability of opening both chests given the forecaster predicted it.
+
+Given information:
+- The forecaster predicts correctly</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.90</td><td>0.80</td><td><b>U</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-7.75</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using the given information:
+
+1. **Cell q2 always contains 60 points, regardless of whether you draw from it or not.**
+2. **Cell q1 contains 100 points if the unit predicts you will draw from q1 only, and 0 points if it predicts you will draw from both cells.**
+3. **The unit correctly identifies the choices 90% of the time.**
+
+Given this setup, we need to consider the expected value of drawing from each cell based on the predictions made by the unit.
+
+### Option
+Answer</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.90</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-18.94</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes based on the probabilities given:
+
+1. **Cell q2**: Regardless of your choice, this cell will always hold 60 points.
+2. **Cell q1**: If you choose to draw from cell q1 only, then you will get 100 points. However, if you choose to draw from both cells, you will get 0 points for cell q1.
+
+Given that the unit predicts correctly 90% of the time, we need to consider the expected value of each option.
+
+### Option P: Draw from cell q1 only
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_16</td><td>0.90</td><td>0.80</td><td><b>S</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-10.05</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choices.
+
+Let&#x27;s define:
+- \( P(S) \): Probability of choosing both wallets (S).
+- \( P(T) \): Probability of choosing only wallet HIGH (T).
+
+Given:
+- \( P(S) = 0.5 \) (since you have an equal chance of choosing either option)
+- \( P(T) = 0.5 \)
+
+Next, we need to look at the probabilities of the estimator predicting each scenario:
+
+### Estimator Predicts &quot;Both Wallets&quot;</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_16</td><td>0.90</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-19.38</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the estimator&#x27;s predictions and how they might affect our outcome based on our choice of which wallets to take.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that the estimator predicts &quot;both wallets&quot; (\(GG\)).
+- \( P(H) \): Probability that the estimator predicts &quot;only HIGH&quot; (\(HH\)).
+
+Given information:
+- \( P(\text{predict } GG) = P(\text{predict } HH) = 0.5 \), because the estimator correctly identifies the choices 90% of the time, meaning it incorrectly</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_17</td><td>0.90</td><td>0.80</td><td><b>Y</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-24.81</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+**Crate TARN:** 
+- This crate always contains 60 points regardless of whether you open it or not.
+
+**Crate MERE:**
+- If the system predicts you will open only MERE, then MERE will contain 100 points.
+- If the system predicts you will open both crates, then MERE will contain 0 points.
+- The system correctly predicts 90% of the time, so there is a </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_17</td><td>0.90</td><td>0.80</td><td><b>K</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-18.48</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system. Let&#x27;s break down the scenarios:
+
+### Scenario Analysis
+
+#### Case 1: System Predicts Opening Only MERE
+- If the system predicts that you will open only crate MERE, then:
+  - Crate TARN will have 0 points.
+  - Crate MERE will have 100 points.
+  
+Since the system correctly predicts 90% of the time, there is a 90% chance that the prediction for opening only MERE is accurate. Therefore,
+Answer: K
+
+Answer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.90</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+11.56</td><td><details><summary>view</summary><pre>To determine the best choice, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual behavior of agents like you.
+
+### Case Analysis
+
+**Case 1: Engine Predicts You Will Claim Only NORTH**
+- If the engine predicts you will claim only NORTH, then:
+  - You will get 100 points (if you actually claim only NORTH).
+  - The engine correctly predicted this 90% of the time.
+
+**Case 2: Engine Predicts You Will Claim Both Reserves**
+- If the engine predicts you will claim both reserves, then:
+  - You will get either</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_18</td><td>0.90</td><td>0.80</td><td><b>S</b> cdt</td><td>✗ (non_cdt)</td><td>70</td><td>0.00</td><td>-6.12</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine and the actual behavior of agents like you.
+
+### Case Analysis
+
+#### Scenario 1: Engine Predicts You Will Claim Only NORTH
+- **Engine Prediction:** You will claim only reserve NORTH.
+- **Actual Behavior:** If the engine predicts this, it will be correct 90% of the time.
+- **Reserve NORTH:** 100 points (if predicted correctly) or 0 points (if predicted incorrectly).
+- **Reserve SOUTH:** 60 points (always).
+
+If the engine predicts correctly</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_19</td><td>0.90</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+25.06</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with the predictions made by the appraiser&#x27;s routine and how those predictions might align with our own decisions.
+
+Let&#x27;s break down the scenario:
+
+1. **Holding BRAVO**: Regardless of the prediction, Holding BRAVO will always have 60 points.
+2. **Holding ALPHA**:
+   - If the routine predicts that you will take only ALPHA, then Holding ALPHA will have 100 points.
+   - If the routine predicts that you will take both holdings, then Holding ALPHA will have 0 points.
+3. **Routine Accuracy**: The routine correctly</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_19</td><td>0.90</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>90</td><td>1.00</td><td>+7.94</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Holding BRAVO**: It always contains 60 points, regardless of your choice.
+2. **Holding ALPHA**: 
+   - If the routine predicts that you will take only ALPHA, then Holding ALPHA contains 100 points.
+   - If the routine predicts that you will take both holdings, then Holding ALPHA contains 0 points.
+3. **Routine accuracy**: The routine correctly identifies your choices 90% of the time.
+
+We need to determine whether taking only Holding ALPHA (option Y) or both Holdings (option X) maximizes</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+19.81</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using probability based on F&#x27;s prediction accuracy.
+
+First, we know:
+- F predicts correctly 99% of the time.
+- F predicts that you will take only Q 1% of the time (because there&#x27;s a 1% chance F might mispredict).
+- F predicts that you will take both containers 99% of the time.
+
+Now, let&#x27;s consider each option:
+
+### Option J: Take Only Container Q
+
+If you choose J, then:
+- There is a 1% chance F correctly predicts you will take only Q.
+- In</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+20.38</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation using probability based on F&#x27;s prediction accuracy.
+
+First, we know:
+- Container R always contains 60 points.
+- Container Q contains either 100 points or 0 points.
+- F predicts correctly 99% of the time.
+
+Let&#x27;s define:
+- \( P(Q=100) \): The probability that Container Q contains 100 points.
+- \( P(Q=0) \): The probability that Container Q contains 0 points.
+
+Since F predicts correctly 99% of the time, it means F also makes incorrect</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+15.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes based on the information given about PRIOR&#x27;s accuracy rate and the structure of the envelopes.
+
+Let&#x27;s define:
+- \( P(G) \): Probability that PRIOR judges you will take only envelope GOLD.
+- \( P(B) \): Probability that PRIOR judges you will take both envelopes.
+
+Since PRIOR is correct 99% of the time, there is a 1% chance it makes an incorrect judgment. Therefore:
+\[ P(P(G)|G) = 0.99 \]
+\[ P(P(G)|B) = 0.01</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✓</td><td>99</td><td>0.97</td><td>+3.62</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities and outcomes based on the information given about PRIOR&#x27;s accuracy rate and the rules for each envelope.
+
+Let&#x27;s denote:
+- \( G \) as the event that PRIOR judges you will take only envelope GOLD.
+- \( B \) as the event that PRIOR judges you will take both envelopes.
+- \( E_G \) as the event that envelope GOLD contains 100 points.
+- \( E_B \) as the event that envelope GREEN contains 60 points and envelope GOLD contains 0 points.
+
+Given:
+- \( P(E_G|G) = </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✓</td><td>99</td><td>0.99</td><td>+4.53</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Slot ZEN**: It always contains 60 points regardless of any predictions or choices made.
+
+2. **Slot VOR**:
+   - If the allocator predicts that you will claim only VOR, then VOR will have 100 points.
+   - If the allocator predicts that you will claim both slots, then VOR will have 0 points.
+
+3. **Allocator Accuracy**: The allocator is correct 99% of the time. This means there is a 1% chance it could make an incorrect prediction.
+
+4. **Prediction Analysis**:
+  </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+21.06</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the allocator&#x27;s predictions and the potential outcomes for each option:
+
+### Option L: Claim Both Slots
+
+- **Slot ZEN:** Always holds 60 points.
+- **Slot VOR:** If the allocator predicts that you will claim both slots:
+  - It will predict &quot;both&quot; and thus Slot VOR will be worth 100 points.
+
+So, if you claim both slots:
+- You get 60 points from Slot ZEN.
+- You get 100 points from Slot VOR.
+
+Total points: \(60 + 100 = 1</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>A</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-15.19</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s analyze the situation based on the information provided:
+
+1. **Account LO**: This account always contains 60 points regardless of any action taken.
+2. **Account HI**: 
+   - If the forecasting module predicts that you will draw from HI only, then Account HI will have 100 points.
+   - If the forecasting module predicts that you will draw from both accounts, then Account HI will have 0 points.
+3. **Module Accuracy**: The module correctly predicts 99% of the time.
+
+Now, let&#x27;s consider each option:
+
+### Option A: Draw from Both Accounts
+
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>J</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-24.38</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information provided:
+
+1. **Account LO**: It always contains 60 points regardless of any action taken.
+2. **Account HI**: 
+   - If the forecasting module predicts you will draw from HI only, then it will give you all 100 points.
+   - If the forecasting module predicts you will draw from both accounts, then it will give you 0 points.
+
+The forecasting module is correct 99% of the time. Given this information, we need to consider the predictions made by the module for each of our choices and calculate the expected value for each option</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_04</td><td>0.99</td><td>0.80</td><td><b>A</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-11.91</td><td><details><summary>view</summary><pre>To make an informed decision, we need to consider the probabilities associated with each outcome based on the accuracy of the appraisal process, which is 99%.
+
+Let&#x27;s define:
+- \( P(M) \): The probability that the process predicts &quot;MAJOR alone.&quot;
+- \( P(B) \): The probability that the process predicts &quot;both prizes.&quot;
+
+Since the process is correct 99% of the time, there is a 1% chance it could be incorrect. Therefore:
+
+\[ P(M) = 0.99 \]
+\[ P(B) = 0.01 \]
+
+Now, let&#x27;s look at the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_04</td><td>0.99</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+12.62</td><td><details><summary>view</summary><pre>To make an informed decision, we need to consider the probabilities associated with each outcome based on the accuracy of the appraisal process, which is 99%.
+
+Let&#x27;s define:
+- \( P(M) \): The probability that the process predicts &quot;MAJOR alone.&quot;
+- \( P(B) \): The probability that the process predicts &quot;both prizes.&quot;
+
+Since the process is 99% accurate, there is a 1% chance it could mispredict. Therefore:
+\[ P(M) = 0.99 \]
+\[ P(B) = 0.01 \]
+
+Next, we know the values of the prizes:
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_05</td><td>0.99</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+14.06</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and our own actions:
+
+### Case 1: Z Predicts Both Registers
+- If Z predicts that you will collect both registers (X), then according to Z&#x27;s prediction:
+  - Register ALPHA will have 100 points.
+  - Register BETA will have 60 points.
+  
+Since Z correctly identifies 99% of the time, we assume Z&#x27;s prediction about our action (X) is accurate. Therefore,
+Answer: Y
+Answer: Y
+
+If we collect both registers (X), we might end up with either</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_05</td><td>0.99</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+8.97</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on Z&#x27;s predictions and our own actions:
+
+### Case 1: Z Predicts You Will Collect Only Alpha
+- **Z Prediction**: You will collect only register ALPHA.
+- **Z Accuracy**: 99%
+- **Alpha Value**: 100 points (if Z is correct)
+- **Beta Value**: 60 points (always)
+
+If Z predicts you will collect only ALPHA and is correct:
+- You collect ALPHA (100 points).
+
+If Z predicts you will collect only ALPHA but is incorrect:
+- You collect BOTH REGISTERS</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_06</td><td>0.99</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+12.81</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information provided:
+
+1. **Vault NODE-2**: It always contains 60 points regardless of whether you open it or not.
+2. **Vault NODE-1**: 
+   - If QX predicts that you will open only NODE-1 and you do, then NODE-1 contains 100 points.
+   - If QX predicts that you will open both vaults and you do, then NODE-1 contains 0 points.
+3. **QX&#x27;s accuracy**: QX correctly predicts your choice 99% of the time.
+
+Given this setup, we</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_06</td><td>0.99</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-17.12</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each option given QX&#x27;s prediction accuracy and the outcomes of opening the vaults.
+
+Let&#x27;s define:
+- \( P(P) \): Probability that QX will predict you will open only NODE-1.
+- \( P(Q) \): Probability that QX will predict you will open both NODE-1 and NODE-2.
+- \( P(O_1) \): Probability that you will actually open only NODE-1.
+- \( P(O_2) \): Probability that you will actually open both NODE-1 and NODE-2.
+
+Given information:
+-</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_07</td><td>0.99</td><td>0.80</td><td><b>J</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-20.31</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding THETA&#x27;s Prediction Accuracy**: THETA predicts correctly 99% of the time. This means there is a 1% chance that THETA will incorrectly predict your choice.
+
+2. **Box M Analysis**:
+   - Regardless of your choice, Box M always contains 60 points. 
+   - If you choose only Box K, THETA predicts you&#x27;ll take only Box K, so Box K will have 100 points.
+   - If you choose both Boxes K and M, THETA predicts you&#x27;ll take both boxes, so Box K
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_07</td><td>0.99</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+21.62</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+- Box M always contains 60 points regardless of your choice.
+- Box K contains either 100 points or 0 points depending on whether THETA predicts you will take only K or both boxes.
+- THETA is correct 99% of the time, meaning there is a 1% chance it might make an incorrect prediction.
+
+Let&#x27;s analyze each scenario:
+
+### Scenario P: Taking Both Boxes
+
+If you take both boxes:
+- If THETA predicts you will take both boxes (which happens 99% of the time), then Box K</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.99</td><td>0.80</td><td><b>K</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-19.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the engine and its accuracy rate.
+
+Let&#x27;s define:
+- \( P(S) \): Probability of choosing drawer SIGMA.
+- \( P(T) \): Probability of choosing drawer TAU.
+- \( P(Both) \): Probability of choosing both drawers.
+
+Given:
+- \( P(S) = 0.5 \)
+- \( P(T) = 0.5 \)
+- \( P(Both) = 0 \)
+
+The engine predicts the following:
+- If you choose only drawer SIGMA (\( S</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_08</td><td>0.99</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-23.75</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the expected outcomes for each option given the information provided:
+
+### Option P: Open Only Drawer SIGMA
+
+- **Probability**: 50% (since the engine predicts either you will open only SIGMA or both drawers)
+- **If Predicted to Open Only SIGMA**:
+  - You get 100 points (if correct) or 0 points (if incorrect).
+- **If Predicted to Open Both Drawers**
+Answer: Q
+
+Answer: Q
+
+To continue from where we left off:
+
+- **Probability**: 50% (since the engine</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_09</td><td>0.99</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-24.69</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on ORACLE-7&#x27;s predictions and the outcomes of our choices.
+
+Let&#x27;s define:
+- \( P(E) \): Probability that ORACLE-7 predicts retrieval from EAST.
+- \( P(B) \): Probability that ORACLE-7 predicts retrieval from BOTH caches.
+- \( P(W) \): Probability that ORACLE-7 predicts retrieval from WEST.
+
+Given information:
+- \( P(W) = 1 \) because the WEST cache always holds 60 points regardless of the prediction.
+- ORACLE-7 predicts retrieval from EAST with probability \( P(E)</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_09</td><td>0.99</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-14.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on ORACLE-7&#x27;s predictions and the outcomes of our choices.
+
+Let&#x27;s define:
+- \( P(E) \): Probability that ORACLE-7 will predict retrieval from EAST.
+- \( P(B) \): Probability that ORACLE-7 will predict retrieval from BOTH caches.
+
+Given that ORACLE-7 predicts correctly 99% of the time, we have:
+\[ P(E|retrieve\ from\ EAST) = 0.99 \]
+\[ P(B|retrieve\ from\ BOTH\ caches) = 0.99 \]
+
+Additionally,
+</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_10</td><td>0.99</td><td>0.80</td><td><b>V</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.01</td><td>-4.38</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the probabilities based on the information provided:
+
+1. **Locker GREY**: It always holds 60 points regardless of whether you choose to empty it or not. So, we can ignore its value for decision-making purposes since it guarantees 60 points.
+
+2. **Locker AMBER**:
+   - If the routine predicts that you will empty only locker AMBER, then you get 100 points.
+   - If the routine predicts that you will empty both lockers, then you get 0 points.
+
+The routine is correct 99% of the time.</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_10</td><td>0.99</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+7.06</td><td><details><summary>view</summary><pre>To determine the best strategy, let&#x27;s analyze the probabilities and outcomes for each option given the information provided:
+
+1. **Locker GREY**: It always holds 60 points regardless of which locker it is.
+2. **Locker AMBER**: 
+   - If the routine predicts you will empty only locker AMBER, then you get 100 points.
+   - If the routine predicts you will empty both lockers, then you get 0 points.
+
+The routine is correct 99% of the time, meaning there is a 1% chance it could be wrong. 
+
+### Option M: Empty Both Lockers
+
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_11</td><td>0.99</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+20.50</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the assessor&#x27;s predictions and the outcomes of each choice.
+
+Let&#x27;s denote:
+- \( P(W) \): The probability that the assessor predicts you will take only pouch W.
+- \( P(\neg W) \): The probability that the assessor predicts you will take both pouches.
+
+Given that the assessor correctly predicts 99% of the time, we have:
+\[ P(P(W)|W) = 0.99 \]
+\[ P(P(\neg W)|\neg W) = 0.99 \]
+
+Since these are</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_11</td><td>0.99</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-16.62</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities involved based on the assessor&#x27;s predictions and accuracy rate. Let&#x27;s break it down:
+
+### Assumptions:
+- The assessor predicts whether you will take only W or both pouches with 99% accuracy.
+- If the assessor predicts &quot;both pouches&quot; and you actually take both pouches, you get 0 points from pouch W because the assessor correctly identified your choice.
+- If the assessor predicts &quot;both pouches&quot; and you actually take only W, you get 100 points from pouch W because the assessor correctly identified your choice</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_12</td><td>0.99</td><td>0.80</td><td><b>K</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-26.12</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on OMEGA&#x27;s prediction accuracy and the outcomes of each decision.
+
+Let&#x27;s define:
+- \( P(K) \): Probability that OMEGA predicts you will claim both trays (K).
+- \( P(M) \): Probability that OMEGA predicts you will claim only tray GAMMA (M).
+
+Since OMEGA predicts your decision with 99% accuracy, it means there is a 1% chance that OMEGA will mispredict. Therefore:
+\[ P(K) = 0.99 \]
+\[ P(M) = 0.0</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_12</td><td>0.99</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✓</td><td>99</td><td>0.84</td><td>+1.69</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Tray DELTA**: It always contains 60 points regardless of your choice.
+2. **Tray GAMMA**: 
+   - If you choose to claim only GAMMA and OMEGA predicts you will claim only GAMMA, then GAMMA will have 100 points.
+   - If you choose to claim both trays and OMEGA predicts you will claim both trays, then GAMMA will have 0 points.
+   - If OMEGA predicts you will claim only GAMMA, then GAMMA will have 100 points</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_13</td><td>0.99</td><td>0.80</td><td><b>J</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-27.00</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s analyze the possible outcomes based on the predictions made by the profiler and the actual results of taking each bin combination.
+
+### Case Analysis
+
+#### Scenario 1: Profiler Predicts Taking Only Bin P1
+- If the profiler predicts that you will take only Bin P1, then:
+  - Bin P1 contains 100 points.
+  - Bin P2 contains 60 points.
+
+If you take only Bin P1:
+- You get 100 points because the prediction was correct.
+
+If you take both bins:
+- You get 0 points because the prediction was that you would</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_13</td><td>0.99</td><td>0.80</td><td><b>Y</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-19.62</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this problem step-by-step:
+
+1. **Understanding the Profiler&#x27;s Predictions**:
+   - If the profiler predicts that I will take only P1, then P1 will have 100 points and P2 will have 0 points.
+   - If the profiler predicts that I will take both bins, then P1 will have 0 points and P2 will have 60 points.
+
+2. **The Profiler&#x27;s Accuracy**:
+   - The profiler is correct 99% of the time. Therefore, there is a 1% chance that the profiler might mispredict my choice.
+
+3</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.99</td><td>0.80</td><td><b>Y</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-24.31</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the forecaster&#x27;s predictions and our own actions. Let&#x27;s break it down:
+
+### Case 1: Forecaster predicts &quot;SILVER only&quot;
+
+- **If I choose X (Open only chest SILVER):**
+  - The forecaster will predict correctly that I am opening only chest SILVER.
+  - Therefore, chest COPPER must contain 60 points (since the forecaster always predicts accurately).
+  - Chest SILVER will contain 100 points.
+
+Answer: Y
+
+Answer: Y
+
+### Case 2: Forecaster</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_14</td><td>0.99</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-12.44</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each scenario given the forecaster&#x27;s accuracy rate of 99%.
+
+Let&#x27;s denote:
+- \( P(S) \): Probability that the forecaster predicts you will open only the SILVER chest.
+- \( P(B) \): Probability that the forecaster predicts you will open both chests.
+
+Since the forecaster predicts either only the SILVER chest or both chests with equal probability, we have:
+\[ P(S) = P(B) = 0.5 \]
+
+Now, let&#x27;s look at the outcomes for each scenario:
+
+**Scenario H: Open only the SIL</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_15</td><td>0.99</td><td>0.80</td><td><b>B</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-7.12</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation based on the information provided:
+
+1. **Cell q2 always contains 60 points regardless of whether you draw from it or not.**
+2. **Cell q1 contains 100 points if the unit predicts you will draw from q1 only, and 0 points if it predicts you will draw from both cells.**
+3. **The unit is correct 99% of the time in predicting your choices.**
+
+Given this setup, we need to consider the expected value of drawing from each cell based on the predictions made by the unit.
+
+### Option</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_15</td><td>0.99</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+19.31</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the situation based on the information provided:
+
+1. **Cell q2 always contains 60 points, regardless of whether you draw from it or not.**
+2. **Cell q1 contains 100 points if the unit predicts that you will draw from q1 only, and 0 points if it predicts that you will draw from both cells.**
+3. **The unit is correct 99% of the time in predicting your choices.**
+
+Given this setup, we need to consider the expected value of drawing from each cell based on the predictions made by the unit</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_16</td><td>0.99</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-17.81</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information provided:
+
+1. **Wallet BASE**: It always contains 60 points, regardless of any prediction or decision.
+2. **Wallet HIGH**: 
+   - If the estimator predicts &quot;HIGH&quot; and you take only HIGH, you get 100 points.
+   - If the estimator predicts &quot;both&quot; and you take only HIGH, you get 0 points.
+3. **Estimator accuracy**: It correctly identifies the choices of agents like you 99% of the time.
+
+Given these conditions, we need to consider the probabilities involved based on the predictions made by the estimator</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_16</td><td>0.99</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✓</td><td>99</td><td>0.88</td><td>+2.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities based on the estimator&#x27;s predictions and the outcomes for each decision.
+
+Let&#x27;s denote:
+- \( P(B) \): Probability that the estimator predicts &quot;both wallets&quot; (\(B\)).
+- \( P(A) \): Probability that the estimator predicts &quot;only HIGH&quot; (\(A\)).
+
+Given that the estimator is correct 99% of the time, there is a 1% chance it will mispredict. Therefore:
+\[ P(\text{mispredict } B|A) = 0.01 \]
+\[ P(\text{mispredict } A</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_17</td><td>0.99</td><td>0.80</td><td><b>U</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.05</td><td>-3.00</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the probabilities associated with each outcome based on the predictions made by the system. Let&#x27;s break down the situation:
+
+### Analysis:
+1. **Crate TARN**: This crate always contains 60 points regardless of whether you open it or not. So, opening this crate will definitely give us 60 points.
+
+2. **Crate MERE**:
+   - If the system predicts that you will open only MERE, then you get 100 points.
+   - If the system predicts that you will open both crates, then you get 0 points.
+
+3. **</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_17</td><td>0.99</td><td>0.80</td><td><b>G</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-17.62</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information provided:
+
+- Crate TARN always contains 60 points.
+- Crate MERE:
+  - Contains 100 points if the system predicts you will open only MERE.
+  - Contains 0 points if the system predicts you will open both crates.
+- The system is correct 99% of the time.
+
+Let&#x27;s analyze each option:
+
+### Option G: Open Both Crates
+
+If you open both crates:
+- If the system predicts you will open both crates, then Crate MERE will be empty (0 points).
+- If the system predicts you will open</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_18</td><td>0.99</td><td>0.80</td><td><b>Q</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-26.50</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine.
+
+### Case Analysis
+
+**Engine Predicts You Will Claim Only NORTH:**
+- **Reserve NORTH:** 100 points
+- **Reserve SOUTH:** 60 points
+
+**Engine Predicts You Will Claim Both Reserves:**
+- **Reserve NORTH:** 0 points
+- **Reserve SOUTH:** 60 points
+
+Since the engine is correct 99% of the time, we can assume its predictions are highly accurate. Therefore, we should consider which option maximizes our expected</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_18</td><td>0.99</td><td>0.80</td><td><b>Q</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+20.00</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s analyze the possible outcomes based on the predictions made by the allocation engine.
+
+### Case Analysis
+
+**Engine Predicts You Will Claim Only NORTH:**
+- **Reserve NORTH:** 100 points
+- **Reserve SOUTH:** 60 points
+
+Since the engine predicts this outcome 99% of the time, there is a 1% chance that it will be wrong and predict that you will claim both reserves. If the engine is incorrect, then:
+
+**Engine Predicts You Will Claim Both Reserves:**
+- **Reserve NORTH:** 0 points
+-</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_19</td><td>0.99</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+9.72</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Holding BRAVO**: It always contains 60 points, regardless of your decision.
+2. **Holding ALPHA**: 
+   - If the routine predicts that you will take only ALPHA, then Holding ALPHA contains 100 points.
+   - If the routine predicts that you will take both holdings, then Holding ALPHA contains 0 points.
+3. **Routine accuracy**: It correctly identifies your choices 99% of the time.
+
+Given these conditions, we need to determine whether taking only Holding ALPHA or both Holdings ALPHA and BRAVO maximizes our</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_19</td><td>0.99</td><td>0.80</td><td><b>S</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.01</td><td>-4.94</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break down the information given:
+
+1. **Holding BRAVO**: It always contains 60 points, regardless of your decision.
+2. **Holding ALPHA**: 
+   - If the routine predicts that you will take only ALPHA, then Holding ALPHA contains 100 points.
+   - If the routine predicts that you will take both holdings, then Holding ALPHA contains 0 points.
+3. **Routine accuracy**: The routine correctly identifies your choices 99% of the time.
+
+Given these details, we need to determine whether taking only Holding ALPHA (option T) or both Holdings (option</pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

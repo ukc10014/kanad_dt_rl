@@ -1,0 +1,22 @@
+=== credence-ladder START Wed Jun 24 16:02:53 BST 2026 ===
+
+### python -m newcomb_eval.logprob_sweep --model Qwen/Qwen2.5-3B-Instruct --tag base3b ###
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-3B-Instruct --tag base3b --variant outcome prediction direct --action-margin results/logprob/p_margin_by_p_base3b.csv ###
+
+### python -m newcomb_eval.logprob_sweep --model Qwen/Qwen2.5-7B-Instruct --tag base7b ###
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-7B-Instruct --tag base7b --variant outcome prediction direct --action-margin results/logprob/p_margin_by_p_base7b.csv ###
+
+### python -m newcomb_eval.logprob_sweep --model Qwen/Qwen2.5-14B-Instruct --tag base14b ###
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --tag base14b --variant outcome prediction direct --action-margin results/logprob/p_margin_by_p_base14b.csv ###
+SKIP 32B: only 39G free, need ~75G for the bf16 download (4-bit quantizes at load). See OVERNIGHT.md for the AWQ/free-disk options.
+
+### python -m newcomb_eval.credence_ladder ###
+=== credence-ladder DONE Wed Jun 24 16:14:30 BST 2026 ===
+--- signature ---
+tag,params_b,n_variants,repr_slope_outcome,repr_slope_prediction,repr_slope_direct,repr_slope,action_slope,divergence,agreement_outcome_prediction,agreement_token_direct,monotonicity,resolvability
+base3b,3.09,3,-0.0039220699003477575,-0.05461331467499222,0.9570579151252879,-0.0039220699003477575,-1.312499932421452,1.3085778625211042,0.10863821539713976,-0.1514076443311405,0.7142857142857143,1.0
+base7b,7.62,3,0.004872254135982347,-0.006000091913552244,0.3722342430376215,0.004872254135982347,3.3874999165344892,-3.382627662398507,-0.038163734528408384,-0.24526624583565051,0.6190476190476191,1.0
+base14b,14.77,3,0.03538812986851372,0.09250152443301805,0.21042786347455858,0.03538812986851372,0.44999995874451626,-0.41461182887600256,0.6751140748295108,0.1030341392593925,0.7619047619047619,1.0

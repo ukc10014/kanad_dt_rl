@@ -1,0 +1,11 @@
+{
+  "tag": "smoke_3b",
+  "mode": "capabilities",
+  "n_trials": 3,
+  "n_valid": 3,
+  "invalid_rate": 0.0,
+  "truncation_rate": 0.0,
+  "n_items": 3,
+  "accuracy_valid": 0.6666666666666666,
+  "accuracy_all": 0.6666666666666666
+}

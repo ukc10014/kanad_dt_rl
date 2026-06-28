@@ -1,0 +1,16 @@
+{
+ "model": "Qwen/Qwen2.5-3B-Instruct",
+ "S": 60.0,
+ "cot": false,
+ "dom_pass_rate": 1.0,
+ "acc_pass_rate": 1.0,
+ "gate_pass_rate": 1.0,
+ "krate_all": {
+  "0.5": 1.0,
+  "0.99": 1.0
+ },
+ "krate_gatepass": {
+  "0.5": 1.0,
+  "0.99": 1.0
+ }
+}

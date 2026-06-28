@@ -1,0 +1,27 @@
+item_id,p,repeat,variant,action,phrasing,onebox_label,credence_full,margin,is_degenerate,raw
+opaque_00,0.5,0,direct,major_alone,direct,S,0.83,,False,"83
+
+To explain this decision:
+
+"
+opaque_00,0.5,0,direct,both,direct,S,0.5,,False,"50
+
+Given this setup, let"
+opaque_00,0.5,0,action,forced,-,S,0.9999989322970027,13.749999880791279,False,
+opaque_00,0.99,0,direct,major_alone,direct,T,0.99,,False,"99
+
+The reasoning behind this decision"
+opaque_00,0.99,0,direct,both,direct,T,0.99,,False,"99
+
+However, given the context"
+opaque_00,0.99,0,action,forced,-,T,0.9999999973534264,19.75,False,
+opaque_01,0.5,0,direct,major_alone,direct,L,0.5,,False,50
+opaque_01,0.5,0,direct,both,direct,L,0.5,,False,50
+opaque_01,0.5,0,action,forced,-,L,0.0011695103004128338,-6.749999969732016,False,
+opaque_01,0.99,0,direct,major_alone,direct,T,0.99,,False,"99
+
+The reasoning behind this decision"
+opaque_01,0.99,0,direct,both,direct,T,0.49,,False,"49
+
+The reasoning behind choosing to"
+opaque_01,0.99,0,action,forced,-,T,0.014063626423394072,-4.250000044703484,False,

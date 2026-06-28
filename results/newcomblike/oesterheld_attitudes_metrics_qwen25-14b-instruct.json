@@ -1,0 +1,13 @@
+{
+  "tag": "qwen25-14b-instruct",
+  "mode": "attitudes",
+  "n_trials": 60,
+  "n_valid": 60,
+  "invalid_rate": 0.0,
+  "truncation_rate": 0.0,
+  "n_items": 20,
+  "edt_rate": 0.43333333333333335,
+  "cdt_rate": 0.55,
+  "both_rate": 0.05,
+  "neither_rate": 0.06666666666666667
+}

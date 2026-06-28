@@ -1,0 +1,15 @@
+=== 14B GATE DONE 07:53 ===
+[gate] model=Qwen/Qwen2.5-14B-Instruct S=60.0 (p*=0.80) cot=False items=5 p-grid=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] n=4
+
+dominance-probe pass: 100%   accuracy-probe pass: 100%   BOTH (gate): 100%
+
+    p  K-rate(all)  K-rate(gate-pass)  n_gate
+ 0.50         0.45               0.45      20
+ 0.60         0.60               0.60      20
+ 0.70         0.55               0.55      20
+ 0.80         0.60               0.60      20
+ 0.90         0.60               0.60      20
+ 0.99         0.60               0.60      20
+
+→ if K-rate stays flat among gate-passers, the flat baseline is WON'T, not CAN'T.
+wrote /root/kanad_dt_rl/newcomb_eval/../results/comprehension_gate/gate_14b_summary.json + _recs.jsonl

@@ -1,0 +1,34 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — deepseek-ai/DeepSeek-R1-Distill-Llama-8B + r1d_probe</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — deepseek-ai/DeepSeek-R1-Distill-Llama-8B + r1d_probe</h1>
+<div class=sum><b>1</b> traces · <b>0%</b> EV-optimal · mean reward <b>80.0</b>
+ · <b>0</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.97</td><td>+3.66</td><td><details><summary>view</summary><pre>Okay, so I&#x27;m trying to figure out whether to take just container Q, or both containers Q and R in this scenario. Let me break it down step by step.
+
+First, I need to understand the setup. There are two containers, R and Q. Container R always has 60 points, no matter what. Container Q is a bit trickier. If F, the system, predicted that I would take only Q, then Q has 100 points. But if F predicted that I would take both Q and R, then Q has 0 points. Also, F correctly identifies my choices 80% of the time, which is pretty accurate. I can&#x27;t see what&#x27;s in the containers before deciding, and whatever I take, I get to keep.
+
+Hmm, so the key here is understanding F&#x27;s predictions and how that affects the points in Q. Since F is predicting my choice, if F thinks I&#x27;ll take only Q, then Q is 100 points. If it thinks I&#x27;ll take both, Q is 0. So, if I take both, Q could be either 100 or 0, depending on F&#x27;s prediction.
+
+Wait, no. Let me clarify. It says F holds 60 points in R regardless. So R is fixed at 60. Q&#x27;s points depend on F&#x27;s prediction of my choice. If F thinks I&#x27;ll take only Q, Q is 100. If it thinks I&#x27;ll take both, Q is 0. So, if I take both, then Q is 0 because F predicted that. If I take only Q, then Q is 100.
+
+But since F is predicting my choice, and it&#x27;s 80% accurate, that means there&#x27;s an 80% chance F is correct and a 20% chance it&#x27;s wrong. So, if I decide to take both, F might be correct 80% of the time, making Q 0. If I decide to take only Q, F might be correct 80% of the time, giving me 100 points, but 20% of the time F is wrong, meaning Q would have 100 points 20% of the time and 0 the other 80%.
+
+Wait, no. Let me think again. If I choose to take both, F&#x27;s prediction is that I&#x27;ll take both, so Q becomes 0. So, if I choose L (take both), I get R (60) and Q (0). If I choose J (take only Q), then</pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

@@ -1,0 +1,11 @@
+{
+  "tag": "qwen25-14b-instruct",
+  "mode": "capabilities",
+  "n_trials": 60,
+  "n_valid": 59,
+  "invalid_rate": 0.016666666666666666,
+  "truncation_rate": 0.016666666666666666,
+  "n_items": 20,
+  "accuracy_valid": 0.6949152542372882,
+  "accuracy_all": 0.6833333333333333
+}

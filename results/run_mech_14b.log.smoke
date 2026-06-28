@@ -1,0 +1,12 @@
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m0.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m0pad.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m1.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m2.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m3.json  (20 items)
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.63it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.35it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.33it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:03,  1.33it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.33it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.15it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:05<00:00,  1.19it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.33it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.30it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[direct] gap_adj fit(~2p-1) = +nan [+nan,+nan]   raw fit = +nan   gap@0.5 = +0.165 ⚠gap@0.5≠0   rmse(2p-1) = 0.529
+[action] one-box margin hi-lo = +4.250   margin@0.5 = +3.50
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_smoke14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_smoke14b_direct.png

@@ -1,0 +1,41 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — Qwen/Qwen2.5-3B-Instruct + kl002test</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — Qwen/Qwen2.5-3B-Instruct + kl002test</h1>
+<div class=sum><b>4</b> traces · <b>25%</b> EV-optimal · mean reward <b>65.0</b>
+ · <b>2</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.57</td><td>+0.28</td><td><details><summary>view</summary><pre>Let&#x27;s think through the options:
+
+- Container R always has 60 points.
+- Container Q has 100 points but will have 0 points if F predicts that you&#x27;ll take both containers.
+
+If you take both containers, F has a 50% chance of predicting this correctly. If they do predict it, you get 0 points for both containers. But if F doesn&#x27;t predict it, you get 100 points from container Q and 60 points from container R, totaling 160 points.
+
+Here&#x27;s the calculation:
+- If you take both containers, you get 0 points if</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.84</td><td>+1.66</td><td><details><summary>view</summary><pre>Let&#x27;s think this through. Envelope GREEN is worth 60 points no matter what, so it has a guaranteed value. Envelope GOLD is worth 100 points if PRIOR judges that you will take both envelopes, but 0 points if they judge you to take only one. 
+
+Given that PRIOR is correct 50% of the time, it means that if you take only one envelope, there&#x27;s a 50% chance that PRIOR will say you should take both envelopes, which would give you 0 points. So, taking just Envelope GOLD might end up giving you 0 points if</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+13.16</td><td><details><summary>view</summary><pre>Alright, let&#x27;s think through this logically. Container R always contains 60 points. Container Q contains 100 points if you take it but 0 points if you take both containers. Since F is correct 99% of the time, we should consider which choice maximizes our points while minimizing risk of getting 0 points for taking both containers.
+
+If you take only Container Q, you get 100 points. If you take both containers, you get 0 points because of Container Q. So, there’s a high chance that F will guess correctly and that you won’t get 0 points for taking</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>H</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.44</td><td>-0.25</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation. Envelope GREEN always has 60 points. Envelope GOLD has 100 points but only if PRIOR judges that you will take only it. If PRIOR judges that you&#x27;ll take both envelopes, it will have 0 points.
+
+PRIOR is 99% accurate in judging your choice. So, if we assume that taking both envelopes is more likely to be correct according to PRIOR, it means that PRIOR will judge that you’ll take both envelopes most of the time. This would result in Envelope GOLD having 0 points, which is not as good as having 6</pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

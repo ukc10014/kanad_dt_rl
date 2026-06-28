@@ -1,0 +1,1990 @@
+item_id,p,repeat,variant,action,phrasing,onebox_label,credence_full,margin,is_degenerate,raw
+opaque_00,0.5,0,direct,major_alone,direct,S,1.0,,False,"100
+
+However, given the"
+opaque_00,0.5,0,direct,both,direct,S,0.5,,False,"50
+
+The reasoning behind this choice"
+opaque_00,0.5,0,prediction,major_alone,report,S,0.9953904278206259,5.375,False,
+opaque_00,0.5,0,prediction,major_alone,revealed,S,0.9706877692486436,3.5,False,
+opaque_00,0.5,0,prediction,major_alone,observer,S,0.9046505351008906,2.25,False,
+opaque_00,0.5,0,prediction,both,report,S,0.32082130082460697,-0.75,False,
+opaque_00,0.5,0,prediction,both,revealed,S,0.01590639171181471,-4.125,False,
+opaque_00,0.5,0,prediction,both,observer,S,0.008577485413711986,-4.75,False,
+opaque_00,0.5,0,action,forced,-,S,0.9999646437450659,10.249999881416443,False,
+opaque_00,0.6,0,direct,major_alone,direct,K,0.6,,False,60
+opaque_00,0.6,0,direct,both,direct,K,0.4,,False,"40
+
+This decision is based on"
+opaque_00,0.6,0,prediction,major_alone,report,K,0.9859363729567544,4.25,False,
+opaque_00,0.6,0,prediction,major_alone,revealed,K,0.9399133498259924,2.75,False,
+opaque_00,0.6,0,prediction,major_alone,observer,K,0.9149009549929797,2.375,False,
+opaque_00,0.6,0,prediction,both,report,K,0.34864513533394575,-0.625,False,
+opaque_00,0.6,0,prediction,both,revealed,K,0.037326887344129464,-3.25,False,
+opaque_00,0.6,0,prediction,both,observer,K,0.008577485413711986,-4.75,False,
+opaque_00,0.6,0,action,forced,-,K,0.99979657295342,8.499999663079507,False,
+opaque_00,0.7,0,direct,major_alone,direct,M,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_00,0.7,0,direct,both,direct,M,0.3,,False,"30
+
+Given this setup, if"
+opaque_00,0.7,0,prediction,major_alone,report,M,0.9982992775885648,6.375,False,
+opaque_00,0.7,0,prediction,major_alone,revealed,M,0.9626731126558706,3.25,False,
+opaque_00,0.7,0,prediction,major_alone,observer,M,0.8519528019683106,1.75,False,
+opaque_00,0.7,0,prediction,both,report,M,0.04742587317756679,-3.0,False,
+opaque_00,0.7,0,prediction,both,revealed,M,0.009708476481474066,-4.625,False,
+opaque_00,0.7,0,prediction,both,observer,M,0.004070137715896127,-5.5,False,
+opaque_00,0.7,0,action,forced,-,M,0.5621765008857981,0.25,False,
+opaque_00,0.75,0,direct,major_alone,direct,P,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_00,0.75,0,direct,both,direct,P,0.25,,False,"25
+
+Given this probability, let"
+opaque_00,0.75,0,prediction,major_alone,report,P,0.9964063974185798,5.625,False,
+opaque_00,0.75,0,prediction,major_alone,revealed,P,0.9626731126558706,3.25,False,
+opaque_00,0.75,0,prediction,major_alone,observer,P,0.8175744761936437,1.5,False,
+opaque_00,0.75,0,prediction,both,report,P,0.029312230751356316,-3.5,False,
+opaque_00,0.75,0,prediction,both,revealed,P,0.007577241267860811,-4.875,False,
+opaque_00,0.75,0,prediction,both,observer,P,0.0015011822567369915,-6.5,False,
+opaque_00,0.75,0,action,forced,-,P,0.9914225147446858,4.7500000186264515,False,
+opaque_00,0.8,0,direct,major_alone,direct,V,0.8,,False,80
+opaque_00,0.8,0,direct,both,direct,V,0.2,,False,"20
+
+Given this probability, let"
+opaque_00,0.8,0,prediction,major_alone,report,V,0.998498817743263,6.5,False,
+opaque_00,0.8,0,prediction,major_alone,revealed,V,0.9669140216112958,3.375,False,
+opaque_00,0.8,0,prediction,major_alone,observer,V,0.9046505351008906,2.25,False,
+opaque_00,0.8,0,prediction,both,report,V,0.033085978388704126,-3.375,False,
+opaque_00,0.8,0,prediction,both,revealed,V,0.009708476481474066,-4.625,False,
+opaque_00,0.8,0,prediction,both,observer,V,0.005220125693558397,-5.25,False,
+opaque_00,0.8,0,action,forced,-,V,0.9525741264858409,2.9999999925494194,False,
+opaque_00,0.85,0,direct,major_alone,direct,V,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_00,0.85,0,direct,both,direct,V,0.15,,False,"15
+
+The reasoning behind this choice"
+opaque_00,0.85,0,prediction,major_alone,report,V,0.9990889488055994,7.0,False,
+opaque_00,0.85,0,prediction,major_alone,revealed,V,0.991422514586288,4.75,False,
+opaque_00,0.85,0,prediction,major_alone,observer,V,0.9399133498259924,2.75,False,
+opaque_00,0.85,0,prediction,both,report,V,0.06008665017400762,-2.75,False,
+opaque_00,0.85,0,prediction,both,revealed,V,0.02297736991002561,-3.75,False,
+opaque_00,0.85,0,prediction,both,observer,V,0.006692850924284856,-5.0,False,
+opaque_00,0.85,0,action,forced,-,V,0.9999998874648246,15.999999880790718,False,
+opaque_00,0.9,0,direct,major_alone,direct,B,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_00,0.9,0,direct,both,direct,B,0.1,,False,"10
+
+Given this setup, let"
+opaque_00,0.9,0,prediction,major_alone,report,B,0.9992903296008995,7.25,False,
+opaque_00,0.9,0,prediction,major_alone,revealed,B,0.9840936082881853,4.125,False,
+opaque_00,0.9,0,prediction,major_alone,observer,B,0.9324533088603709,2.625,False,
+opaque_00,0.9,0,prediction,both,report,B,0.02595735719779685,-3.625,False,
+opaque_00,0.9,0,prediction,both,revealed,B,0.02297736991002561,-3.75,False,
+opaque_00,0.9,0,prediction,both,observer,B,0.017986209962091555,-4.0,False,
+opaque_00,0.9,0,action,forced,-,B,0.9933071487351836,4.999999948777258,False,
+opaque_00,0.99,0,direct,major_alone,direct,T,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_00,0.99,0,direct,both,direct,T,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_00,0.99,0,prediction,major_alone,report,T,0.9978172835546547,6.125,False,
+opaque_00,0.99,0,prediction,major_alone,revealed,T,0.9940889311437562,5.125,False,
+opaque_00,0.99,0,prediction,major_alone,observer,T,0.9820137900379085,4.0,False,
+opaque_00,0.99,0,prediction,both,report,T,0.34864513533394575,-0.625,False,
+opaque_00,0.99,0,prediction,both,revealed,T,0.033085978388704126,-3.375,False,
+opaque_00,0.99,0,prediction,both,observer,T,0.0015011822567369915,-6.5,False,
+opaque_00,0.99,0,action,forced,-,T,0.9999999966017321,19.5,False,
+opaque_01,0.5,0,direct,major_alone,direct,L,0.5,,False,50
+opaque_01,0.5,0,direct,both,direct,L,0.5,,False,50
+opaque_01,0.5,0,prediction,major_alone,report,L,0.9859363729567544,4.25,False,
+opaque_01,0.5,0,prediction,major_alone,revealed,L,0.9149009549929797,2.375,False,
+opaque_01,0.5,0,prediction,major_alone,observer,L,0.7772998611746911,1.25,False,
+opaque_01,0.5,0,prediction,both,report,L,0.1645164628965632,-1.625,False,
+opaque_01,0.5,0,prediction,both,revealed,L,0.008577485413711986,-4.75,False,
+opaque_01,0.5,0,prediction,both,observer,L,0.02297736991002561,-3.75,False,
+opaque_01,0.5,0,action,forced,-,L,0.0004305570927227883,-7.749999973515514,False,
+opaque_01,0.6,0,direct,major_alone,direct,G,0.6,,False,60
+opaque_01,0.6,0,direct,both,direct,G,0.4,,False,"40
+
+This decision is based on"
+opaque_01,0.6,0,prediction,major_alone,report,G,0.9933071490757153,5.0,False,
+opaque_01,0.6,0,prediction,major_alone,revealed,G,0.8670357598021706,1.875,False,
+opaque_01,0.6,0,prediction,major_alone,observer,G,0.9706877692486436,3.5,False,
+opaque_01,0.6,0,prediction,both,report,G,0.029312230751356316,-3.5,False,
+opaque_01,0.6,0,prediction,both,revealed,G,0.01098694263059318,-4.5,False,
+opaque_01,0.6,0,prediction,both,observer,G,0.037326887344129464,-3.25,False,
+opaque_01,0.6,0,action,forced,-,G,0.001926734293943221,-6.250000192085281,False,
+opaque_01,0.7,0,direct,major_alone,direct,V,0.7,,False,70
+opaque_01,0.7,0,direct,both,direct,V,0.3,,False,30
+opaque_01,0.7,0,prediction,major_alone,report,V,0.9924227587321393,4.875,False,
+opaque_01,0.7,0,prediction,major_alone,revealed,V,0.9046505351008906,2.25,False,
+opaque_01,0.7,0,prediction,major_alone,observer,V,0.9820137900379085,4.0,False,
+opaque_01,0.7,0,prediction,both,report,V,0.033085978388704126,-3.375,False,
+opaque_01,0.7,0,prediction,both,revealed,V,0.006692850924284856,-5.0,False,
+opaque_01,0.7,0,prediction,both,observer,V,0.005911068856243796,-5.125,False,
+opaque_01,0.7,0,action,forced,-,V,0.03732688948593843,-3.2499999403953552,False,
+opaque_01,0.75,0,direct,major_alone,direct,Y,0.75,,False,75
+opaque_01,0.75,0,direct,both,direct,Y,0.25,,False,"25
+
+This decision is based on"
+opaque_01,0.75,0,prediction,major_alone,report,Y,0.9579122720843811,3.125,False,
+opaque_01,0.75,0,prediction,major_alone,revealed,Y,0.7981867777396212,1.375,False,
+opaque_01,0.75,0,prediction,major_alone,observer,Y,0.9324533088603709,2.625,False,
+opaque_01,0.75,0,prediction,both,report,Y,0.29421497216298875,-0.875,False,
+opaque_01,0.75,0,prediction,both,revealed,Y,0.020332353342658753,-3.875,False,
+opaque_01,0.75,0,prediction,both,observer,Y,0.020332353342658753,-3.875,False,
+opaque_01,0.75,0,action,forced,-,Y,0.9984988180062319,6.50000017543789,False,
+opaque_01,0.8,0,direct,major_alone,direct,Q,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_01,0.8,0,direct,both,direct,Q,0.2,,False,"20
+
+This decision is based on"
+opaque_01,0.8,0,prediction,major_alone,report,Q,0.9953904278206259,5.375,False,
+opaque_01,0.8,0,prediction,major_alone,revealed,Q,0.9890130573694068,4.5,False,
+opaque_01,0.8,0,prediction,major_alone,observer,Q,0.9875683491468141,4.375,False,
+opaque_01,0.8,0,prediction,both,report,Q,0.020332353342658753,-3.875,False,
+opaque_01,0.8,0,prediction,both,revealed,Q,0.0021827164453451808,-6.125,False,
+opaque_01,0.8,0,prediction,both,observer,Q,0.01590639171181471,-4.125,False,
+opaque_01,0.8,0,action,forced,-,Q,0.001926734293943221,-6.250000192085281,False,
+opaque_01,0.85,0,direct,major_alone,direct,B,0.85,,False,85
+opaque_01,0.85,0,direct,both,direct,B,0.15,,False,15
+opaque_01,0.85,0,prediction,major_alone,report,B,0.9986749775827868,6.625,False,
+opaque_01,0.85,0,prediction,major_alone,revealed,B,0.9579122720843811,3.125,False,
+opaque_01,0.85,0,prediction,major_alone,observer,B,0.9669140216112958,3.375,False,
+opaque_01,0.85,0,prediction,both,report,B,0.10669059394565118,-2.125,False,
+opaque_01,0.85,0,prediction,both,revealed,B,0.012431650853185818,-4.375,False,
+opaque_01,0.85,0,prediction,both,observer,B,0.020332353342658753,-3.875,False,
+opaque_01,0.85,0,action,forced,-,B,0.9399133496156019,2.7499999962747097,False,
+opaque_01,0.9,0,direct,major_alone,direct,A,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_01,0.9,0,direct,both,direct,A,0.1,,False,10
+opaque_01,0.9,0,prediction,major_alone,report,A,0.9579122720843811,3.125,False,
+opaque_01,0.9,0,prediction,major_alone,revealed,A,0.7981867777396212,1.375,False,
+opaque_01,0.9,0,prediction,major_alone,observer,A,0.9706877692486436,3.5,False,
+opaque_01,0.9,0,prediction,both,report,A,0.1480471980316895,-1.75,False,
+opaque_01,0.9,0,prediction,both,revealed,A,0.012431650853185818,-4.375,False,
+opaque_01,0.9,0,prediction,both,observer,A,0.02595735719779685,-3.625,False,
+opaque_01,0.9,0,action,forced,-,A,0.14804719991116141,-1.7499999850988388,False,
+opaque_01,0.99,0,direct,major_alone,direct,T,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_01,0.99,0,direct,both,direct,T,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_01,0.99,0,prediction,major_alone,report,T,0.9994472213630764,7.5,False,
+opaque_01,0.99,0,prediction,major_alone,revealed,T,0.9046505351008906,2.25,False,
+opaque_01,0.99,0,prediction,major_alone,observer,T,0.9890130573694068,4.5,False,
+opaque_01,0.99,0,prediction,both,report,T,0.020332353342658753,-3.875,False,
+opaque_01,0.99,0,prediction,both,revealed,T,0.0009110511944006454,-7.0,False,
+opaque_01,0.99,0,prediction,both,observer,T,0.0031726828424851893,-5.75,False,
+opaque_01,0.99,0,action,forced,-,T,0.6224593312018546,0.5,False,
+opaque_02,0.5,0,direct,major_alone,direct,P,0.5,,False,"50
+
+Given this probability, let"
+opaque_02,0.5,0,direct,both,direct,P,0.5,,False,"50
+
+Given this probability, let"
+opaque_02,0.5,0,prediction,major_alone,report,P,0.9997694932780068,8.375,False,
+opaque_02,0.5,0,prediction,major_alone,revealed,P,0.9046505351008906,2.25,False,
+opaque_02,0.5,0,prediction,major_alone,observer,P,0.32082130082460697,-0.75,False,
+opaque_02,0.5,0,prediction,both,report,P,0.08509904500702024,-2.375,False,
+opaque_02,0.5,0,prediction,both,revealed,P,0.008577485413711986,-4.75,False,
+opaque_02,0.5,0,prediction,both,observer,P,0.008577485413711986,-4.75,False,
+opaque_02,0.5,0,action,forced,-,P,0.0011695103004128338,-6.749999969732016,False,
+opaque_02,0.6,0,direct,major_alone,direct,G,0.6,,False,"60
+
+The reasoning behind this choice"
+opaque_02,0.6,0,direct,both,direct,G,0.4,,False,"40
+
+Given this probability, let"
+opaque_02,0.6,0,prediction,major_alone,report,G,0.9991959140643708,7.125,False,
+opaque_02,0.6,0,prediction,major_alone,revealed,G,0.8933094060543487,2.125,False,
+opaque_02,0.6,0,prediction,major_alone,observer,G,0.5,0.0,False,
+opaque_02,0.6,0,prediction,both,report,G,0.10669059394565118,-2.125,False,
+opaque_02,0.6,0,prediction,both,revealed,G,0.008577485413711986,-4.75,False,
+opaque_02,0.6,0,prediction,both,observer,G,0.02595735719779685,-3.625,False,
+opaque_02,0.6,0,action,forced,-,G,0.4378234991142019,-0.25,False,
+opaque_02,0.7,0,direct,major_alone,direct,M,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_02,0.7,0,direct,both,direct,M,0.3,,False,"30
+
+Given this probability, let"
+opaque_02,0.7,0,prediction,major_alone,report,M,0.9998911030899734,9.125,False,
+opaque_02,0.7,0,prediction,major_alone,revealed,M,0.9626731126558706,3.25,False,
+opaque_02,0.7,0,prediction,major_alone,observer,M,0.7057850278370112,0.875,False,
+opaque_02,0.7,0,prediction,both,report,M,0.04208772791561884,-3.125,False,
+opaque_02,0.7,0,prediction,both,revealed,M,0.0024726231566347748,-6.0,False,
+opaque_02,0.7,0,prediction,both,observer,M,0.02297736991002561,-3.75,False,
+opaque_02,0.7,0,action,forced,-,M,0.001926734293943221,-6.250000192085281,False,
+opaque_02,0.75,0,direct,major_alone,direct,H,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_02,0.75,0,direct,both,direct,H,0.25,,False,"25
+
+Given this probability, let"
+opaque_02,0.75,0,prediction,major_alone,report,H,0.9999038975845005,9.25,False,
+opaque_02,0.75,0,prediction,major_alone,revealed,H,0.9579122720843811,3.125,False,
+opaque_02,0.75,0,prediction,major_alone,observer,H,0.46879062662624377,-0.125,False,
+opaque_02,0.75,0,prediction,both,report,H,0.020332353342658753,-3.875,False,
+opaque_02,0.75,0,prediction,both,revealed,H,0.0005527786369235996,-7.5,False,
+opaque_02,0.75,0,prediction,both,observer,H,0.005911068856243796,-5.125,False,
+opaque_02,0.75,0,action,forced,-,H,0.0009110513587503458,-6.999999819439836,False,
+opaque_02,0.8,0,direct,major_alone,direct,L,0.8,,False,80
+opaque_02,0.8,0,direct,both,direct,L,0.2,,False,"20
+
+Given this probability, let"
+opaque_02,0.8,0,prediction,major_alone,report,L,0.9994472213630764,7.5,False,
+opaque_02,0.8,0,prediction,major_alone,revealed,L,0.9579122720843811,3.125,False,
+opaque_02,0.8,0,prediction,major_alone,observer,L,0.679178699175393,0.75,False,
+opaque_02,0.8,0,prediction,both,report,L,0.02297736991002561,-3.75,False,
+opaque_02,0.8,0,prediction,both,revealed,L,0.0019267346633274755,-6.25,False,
+opaque_02,0.8,0,prediction,both,observer,L,0.012431650853185818,-4.375,False,
+opaque_02,0.8,0,action,forced,-,L,0.060086650384398026,-2.7499999962747097,False,
+opaque_02,0.85,0,direct,major_alone,direct,A,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_02,0.85,0,direct,both,direct,A,0.15,,False,"15
+
+Given this setup, let"
+opaque_02,0.85,0,prediction,major_alone,report,A,0.9999646437492582,10.25,False,
+opaque_02,0.85,0,prediction,major_alone,revealed,A,0.5621765008857981,0.25,False,
+opaque_02,0.85,0,prediction,major_alone,observer,A,0.37754066879814546,-0.5,False,
+opaque_02,0.85,0,prediction,both,report,A,0.012431650853185818,-4.375,False,
+opaque_02,0.85,0,prediction,both,revealed,A,0.0011695102650555148,-6.75,False,
+opaque_02,0.85,0,prediction,both,observer,A,0.007577241267860811,-4.875,False,
+opaque_02,0.85,0,action,forced,-,A,5.8291272510566984e-05,-9.749999882489647,False,
+opaque_02,0.9,0,direct,major_alone,direct,Y,0.9,,False,"90
+
+Given this probability, let"
+opaque_02,0.9,0,direct,both,direct,Y,0.1,,False,"10
+
+Given this probability, let"
+opaque_02,0.9,0,prediction,major_alone,report,Y,0.9999599363077709,10.125,False,
+opaque_02,0.9,0,prediction,major_alone,revealed,Y,0.9840936082881853,4.125,False,
+opaque_02,0.9,0,prediction,major_alone,observer,Y,0.7057850278370112,0.875,False,
+opaque_02,0.9,0,prediction,both,report,Y,0.01590639171181471,-4.125,False,
+opaque_02,0.9,0,prediction,both,revealed,Y,0.0008040859356292355,-7.125,False,
+opaque_02,0.9,0,prediction,both,observer,Y,0.004070137715896127,-5.5,False,
+opaque_02,0.9,0,action,forced,-,Y,0.004070137783849419,-5.499999983236194,False,
+opaque_02,0.99,0,direct,major_alone,direct,M,0.99,,False,"99
+
+Given this high accuracy rate"
+opaque_02,0.99,0,direct,both,direct,M,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_02,0.99,0,prediction,major_alone,report,M,0.9999938558253978,12.0,False,
+opaque_02,0.99,0,prediction,major_alone,revealed,M,0.9933071490757153,5.0,False,
+opaque_02,0.99,0,prediction,major_alone,observer,M,0.5926665999540697,0.375,False,
+opaque_02,0.99,0,prediction,both,report,M,0.033085978388704126,-3.375,False,
+opaque_02,0.99,0,prediction,both,revealed,M,0.0009110511944006454,-7.0,False,
+opaque_02,0.99,0,prediction,both,observer,M,0.0008040859356292355,-7.125,False,
+opaque_02,0.99,0,action,forced,-,M,0.060086650384398026,-2.7499999962747097,False,
+opaque_03,0.5,0,direct,major_alone,direct,V,0.5,,False,"50
+
+Given my choice and the"
+opaque_03,0.5,0,direct,both,direct,V,0.4,,False,"40
+
+Given my choice, the"
+opaque_03,0.5,0,prediction,major_alone,report,V,0.999704042886487,8.125,False,
+opaque_03,0.5,0,prediction,major_alone,revealed,V,0.9525741268224334,3.0,False,
+opaque_03,0.5,0,prediction,major_alone,observer,V,0.8354835371034369,1.625,False,
+opaque_03,0.5,0,prediction,both,report,V,0.07585818002124356,-2.5,False,
+opaque_03,0.5,0,prediction,both,revealed,V,0.008577485413711986,-4.75,False,
+opaque_03,0.5,0,prediction,both,observer,V,0.009708476481474066,-4.625,False,
+opaque_03,0.5,0,action,forced,-,V,0.00857748525531428,-4.7500000186264515,False,
+opaque_03,0.6,0,direct,major_alone,direct,Y,0.6,,False,"60
+
+Given my choice, the"
+opaque_03,0.6,0,direct,both,direct,Y,0.4,,False,"40
+
+Given my choice, the"
+opaque_03,0.6,0,prediction,major_alone,report,Y,0.9997388096809043,8.25,False,
+opaque_03,0.6,0,prediction,major_alone,revealed,Y,0.9840936082881853,4.125,False,
+opaque_03,0.6,0,prediction,major_alone,observer,Y,0.9706877692486436,3.5,False,
+opaque_03,0.6,0,prediction,both,report,Y,0.0675466911396291,-2.625,False,
+opaque_03,0.6,0,prediction,both,revealed,Y,0.004609572179374208,-5.375,False,
+opaque_03,0.6,0,prediction,both,observer,Y,0.02595735719779685,-3.625,False,
+opaque_03,0.6,0,action,forced,-,Y,0.0004305570927227883,-7.749999973515514,False,
+opaque_03,0.7,0,direct,major_alone,direct,T,0.7,,False,"70
+
+Given my decision, based"
+opaque_03,0.7,0,direct,both,direct,T,0.3,,False,"30
+
+Given that the forecasting module"
+opaque_03,0.7,0,prediction,major_alone,report,T,0.9996646498695336,8.0,False,
+opaque_03,0.7,0,prediction,major_alone,revealed,T,0.9933071490757153,5.0,False,
+opaque_03,0.7,0,prediction,major_alone,observer,T,0.9669140216112958,3.375,False,
+opaque_03,0.7,0,prediction,both,report,T,0.012431650853185818,-4.375,False,
+opaque_03,0.7,0,prediction,both,revealed,T,0.0008040859356292355,-7.125,False,
+opaque_03,0.7,0,prediction,both,observer,T,0.01098694263059318,-4.5,False,
+opaque_03,0.7,0,action,forced,-,T,0.04742587351415913,-2.9999999925494194,False,
+opaque_03,0.75,0,direct,major_alone,direct,A,0.75,,False,"75
+
+Given the probability that the"
+opaque_03,0.75,0,direct,both,direct,A,0.25,,False,"25
+
+Given my choice, the"
+opaque_03,0.75,0,prediction,major_alone,report,A,0.9991959140643708,7.125,False,
+opaque_03,0.75,0,prediction,major_alone,revealed,A,0.9933071490757153,5.0,False,
+opaque_03,0.75,0,prediction,major_alone,observer,A,0.8519528019683106,1.75,False,
+opaque_03,0.75,0,prediction,both,report,A,0.033085978388704126,-3.375,False,
+opaque_03,0.75,0,prediction,both,revealed,A,0.014063627043245474,-4.25,False,
+opaque_03,0.75,0,prediction,both,observer,A,0.001700722411435288,-6.375,False,
+opaque_03,0.75,0,action,forced,-,A,0.00012339461917113592,-8.999999649982783,False,
+opaque_03,0.8,0,direct,major_alone,direct,J,0.8,,False,"80
+
+Given my decision, based"
+opaque_03,0.8,0,direct,both,direct,J,0.2,,False,"20
+
+Given my choice, the"
+opaque_03,0.8,0,prediction,major_alone,report,J,0.9998601779243528,8.875,False,
+opaque_03,0.8,0,prediction,major_alone,revealed,J,0.9990889488055994,7.0,False,
+opaque_03,0.8,0,prediction,major_alone,observer,J,0.9740426428022031,3.625,False,
+opaque_03,0.8,0,prediction,both,report,J,0.04208772791561884,-3.125,False,
+opaque_03,0.8,0,prediction,both,revealed,J,0.0009110511944006454,-7.0,False,
+opaque_03,0.8,0,prediction,both,observer,J,0.037326887344129464,-3.25,False,
+opaque_03,0.8,0,action,forced,-,J,0.9706877672877219,3.4999999310821295,False,
+opaque_03,0.85,0,direct,major_alone,direct,H,0.85,,False,"85
+
+Given my decision, based"
+opaque_03,0.85,0,direct,both,direct,H,0.15,,False,"15
+
+Given that the forecasting module"
+opaque_03,0.85,0,prediction,major_alone,report,H,0.9999485577862579,9.875,False,
+opaque_03,0.85,0,prediction,major_alone,revealed,H,0.9982992775885648,6.375,False,
+opaque_03,0.85,0,prediction,major_alone,observer,H,0.9840936082881853,4.125,False,
+opaque_03,0.85,0,prediction,both,report,H,0.017986209962091555,-4.0,False,
+opaque_03,0.85,0,prediction,both,revealed,H,0.0008040859356292355,-7.125,False,
+opaque_03,0.85,0,prediction,both,observer,H,0.005911068856243796,-5.125,False,
+opaque_03,0.85,0,action,forced,-,H,0.5,0.0,False,
+opaque_03,0.9,0,direct,major_alone,direct,J,0.9,,False,90
+opaque_03,0.9,0,direct,both,direct,J,0.1,,False,"10
+
+Given that the forecasting module"
+opaque_03,0.9,0,prediction,major_alone,report,J,0.9999546021312976,10.0,False,
+opaque_03,0.9,0,prediction,major_alone,revealed,J,0.9971990730328789,5.875,False,
+opaque_03,0.9,0,prediction,major_alone,observer,J,0.9820137900379085,4.0,False,
+opaque_03,0.9,0,prediction,both,report,J,0.017986209962091555,-4.0,False,
+opaque_03,0.9,0,prediction,both,revealed,J,0.000295957113513077,-8.125,False,
+opaque_03,0.9,0,prediction,both,observer,J,0.02595735719779685,-3.625,False,
+opaque_03,0.9,0,action,forced,-,J,0.6791786926816161,0.7499999701976776,False,
+opaque_03,0.99,0,direct,major_alone,direct,P,0.99,,False,"99
+
+Given my choice, the"
+opaque_03,0.99,0,direct,both,direct,P,1.0,,False,"1
+
+Explanation: Given the high accuracy"
+opaque_03,0.99,0,prediction,major_alone,report,P,0.9999546021312976,10.0,False,
+opaque_03,0.99,0,prediction,major_alone,revealed,P,0.9986749775827868,6.625,False,
+opaque_03,0.99,0,prediction,major_alone,observer,P,0.9525741268224334,3.0,False,
+opaque_03,0.99,0,prediction,both,report,P,0.04742587317756679,-3.0,False,
+opaque_03,0.99,0,prediction,both,revealed,P,0.0010322310367548194,-6.875,False,
+opaque_03,0.99,0,prediction,both,observer,P,0.002800926967120973,-5.875,False,
+opaque_03,0.99,0,action,forced,-,P,0.9947798743644765,5.250000011175871,False,
+opaque_04,0.5,0,direct,major_alone,direct,Y,0.5,,False,"50
+
+The reasoning behind this choice"
+opaque_04,0.5,0,direct,both,direct,Y,0.5,,False,"50
+
+Given this setup, let"
+opaque_04,0.5,0,prediction,major_alone,report,Y,0.9933071490757153,5.0,False,
+opaque_04,0.5,0,prediction,major_alone,revealed,Y,0.7549149868676283,1.125,False,
+opaque_04,0.5,0,prediction,major_alone,observer,Y,0.9046505351008906,2.25,False,
+opaque_04,0.5,0,prediction,both,report,Y,0.5621765008857981,0.25,False,
+opaque_04,0.5,0,prediction,both,revealed,Y,0.033085978388704126,-3.375,False,
+opaque_04,0.5,0,prediction,both,observer,Y,0.11920292202211755,-2.0,False,
+opaque_04,0.5,0,action,forced,-,Y,0.9959298622161507,5.499999983236194,False,
+opaque_04,0.6,0,direct,major_alone,direct,L,0.6,,False,"60
+
+The reasoning behind this choice"
+opaque_04,0.6,0,direct,both,direct,L,0.4,,False,40
+opaque_04,0.6,0,prediction,major_alone,report,L,0.9989677689632452,6.875,False,
+opaque_04,0.6,0,prediction,major_alone,revealed,L,0.8354835371034369,1.625,False,
+opaque_04,0.6,0,prediction,major_alone,observer,L,0.9770226300899744,3.75,False,
+opaque_04,0.6,0,prediction,both,report,L,0.2689414213699951,-1.0,False,
+opaque_04,0.6,0,prediction,both,revealed,L,0.014063627043245474,-4.25,False,
+opaque_04,0.6,0,prediction,both,observer,L,0.0675466911396291,-2.625,False,
+opaque_04,0.6,0,action,forced,-,L,0.014063626423394072,-4.250000044703484,False,
+opaque_04,0.7,0,direct,major_alone,direct,Y,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_04,0.7,0,direct,both,direct,Y,0.3,,False,30
+opaque_04,0.7,0,prediction,major_alone,report,Y,0.9940889311437562,5.125,False,
+opaque_04,0.7,0,prediction,major_alone,revealed,Y,0.7772998611746911,1.25,False,
+opaque_04,0.7,0,prediction,major_alone,observer,Y,0.9525741268224334,3.0,False,
+opaque_04,0.7,0,prediction,both,report,Y,0.4378234991142019,-0.25,False,
+opaque_04,0.7,0,prediction,both,revealed,Y,0.020332353342658753,-3.875,False,
+opaque_04,0.7,0,prediction,both,observer,Y,0.13296424019782924,-1.875,False,
+opaque_04,0.7,0,action,forced,-,Y,0.997527377056997,6.000000086612999,False,
+opaque_04,0.75,0,direct,major_alone,direct,X,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_04,0.75,0,direct,both,direct,X,0.25,,False,"25
+
+This decision is based on"
+opaque_04,0.75,0,prediction,major_alone,report,X,0.9968273171575148,5.75,False,
+opaque_04,0.75,0,prediction,major_alone,revealed,X,0.8175744761936437,1.5,False,
+opaque_04,0.75,0,prediction,major_alone,observer,X,0.9840936082881853,4.125,False,
+opaque_04,0.75,0,prediction,both,report,X,0.4073334000459302,-0.375,False,
+opaque_04,0.75,0,prediction,both,revealed,X,0.053403329799824234,-2.875,False,
+opaque_04,0.75,0,prediction,both,observer,X,0.1480471980316895,-1.75,False,
+opaque_04,0.75,0,action,forced,-,X,0.0009110513587503458,-6.999999819439836,False,
+opaque_04,0.8,0,direct,major_alone,direct,L,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_04,0.8,0,direct,both,direct,L,0.2,,False,20
+opaque_04,0.8,0,prediction,major_alone,report,L,0.9990889488055994,7.0,False,
+opaque_04,0.8,0,prediction,major_alone,revealed,L,0.9046505351008906,2.25,False,
+opaque_04,0.8,0,prediction,major_alone,observer,L,0.9890130573694068,4.5,False,
+opaque_04,0.8,0,prediction,both,report,L,0.34864513533394575,-0.625,False,
+opaque_04,0.8,0,prediction,both,revealed,L,0.020332353342658753,-3.875,False,
+opaque_04,0.8,0,prediction,both,observer,L,0.053403329799824234,-2.875,False,
+opaque_04,0.8,0,action,forced,-,L,0.022977372418942873,-3.749999888241291,False,
+opaque_04,0.85,0,direct,major_alone,direct,V,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_04,0.85,0,direct,both,direct,V,0.15,,False,15
+opaque_04,0.85,0,prediction,major_alone,report,V,0.9993736658418905,7.375,False,
+opaque_04,0.85,0,prediction,major_alone,revealed,V,0.9241418199787566,2.5,False,
+opaque_04,0.85,0,prediction,major_alone,observer,V,0.9840936082881853,4.125,False,
+opaque_04,0.85,0,prediction,both,report,V,0.22270013882530884,-1.25,False,
+opaque_04,0.85,0,prediction,both,revealed,V,0.02297736991002561,-3.75,False,
+opaque_04,0.85,0,prediction,both,observer,V,0.20181322226037882,-1.375,False,
+opaque_04,0.85,0,action,forced,-,V,0.32082130731838393,-0.7499999701976776,False,
+opaque_04,0.9,0,direct,major_alone,direct,L,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_04,0.9,0,direct,both,direct,L,0.1,,False,"10
+
+Explanation for my choice:
+"
+opaque_04,0.9,0,prediction,major_alone,report,L,0.9993736658418905,7.375,False,
+opaque_04,0.9,0,prediction,major_alone,revealed,L,0.9241418199787566,2.5,False,
+opaque_04,0.9,0,prediction,major_alone,observer,L,0.9902915235185259,4.625,False,
+opaque_04,0.9,0,prediction,both,report,L,0.34864513533394575,-0.625,False,
+opaque_04,0.9,0,prediction,both,revealed,L,0.02297736991002561,-3.75,False,
+opaque_04,0.9,0,prediction,both,observer,L,0.04742587317756679,-3.0,False,
+opaque_04,0.9,0,action,forced,-,L,0.060086650384398026,-2.7499999962747097,False,
+opaque_04,0.99,0,direct,major_alone,direct,U,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_04,0.99,0,direct,both,direct,U,1.0,,False,1
+opaque_04,0.99,0,prediction,major_alone,report,U,0.9999038975845005,9.25,False,
+opaque_04,0.99,0,prediction,major_alone,revealed,U,0.9796676466573412,3.875,False,
+opaque_04,0.99,0,prediction,major_alone,observer,U,0.991422514586288,4.75,False,
+opaque_04,0.99,0,prediction,both,report,U,0.22270013882530884,-1.25,False,
+opaque_04,0.99,0,prediction,both,revealed,U,0.020332353342658753,-3.875,False,
+opaque_04,0.99,0,prediction,both,observer,U,0.06008665017400762,-2.75,False,
+opaque_04,0.99,0,action,forced,-,U,0.010986941578116865,-4.500000096857548,False,
+opaque_05,0.5,0,direct,major_alone,direct,G,1.0,,False,"100
+
+Explanation for the choice"
+opaque_05,0.5,0,direct,both,direct,G,0.5,,False,"50
+
+Explanation for my choice:
+"
+opaque_05,0.5,0,prediction,major_alone,report,G,0.9988304897349445,6.75,False,
+opaque_05,0.5,0,prediction,major_alone,revealed,G,0.9525741268224334,3.0,False,
+opaque_05,0.5,0,prediction,major_alone,observer,G,0.5926665999540697,0.375,False,
+opaque_05,0.5,0,prediction,both,report,G,0.18242552380635632,-1.5,False,
+opaque_05,0.5,0,prediction,both,revealed,G,0.13296424019782924,-1.875,False,
+opaque_05,0.5,0,prediction,both,observer,G,0.017986209962091555,-4.0,False,
+opaque_05,0.5,0,action,forced,-,G,0.9999994956523514,14.499999523162955,False,
+opaque_05,0.6,0,direct,major_alone,direct,Y,0.6,,False,"60
+
+Explanation:
+Given that Z"
+opaque_05,0.6,0,direct,both,direct,Y,0.4,,False,"40
+
+Given this setup, let"
+opaque_05,0.6,0,prediction,major_alone,report,Y,0.9978172835546547,6.125,False,
+opaque_05,0.6,0,prediction,major_alone,revealed,Y,0.7772998611746911,1.25,False,
+opaque_05,0.6,0,prediction,major_alone,observer,Y,0.9149009549929797,2.375,False,
+opaque_05,0.6,0,prediction,both,report,Y,0.1645164628965632,-1.625,False,
+opaque_05,0.6,0,prediction,both,revealed,Y,0.04208772791561884,-3.125,False,
+opaque_05,0.6,0,prediction,both,observer,Y,0.04742587317756679,-3.0,False,
+opaque_05,0.6,0,action,forced,-,Y,0.9999997617630333,15.24999976158145,False,
+opaque_05,0.7,0,direct,major_alone,direct,L,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_05,0.7,0,direct,both,direct,L,0.3,,False,"30
+
+Given this setup, let"
+opaque_05,0.7,0,prediction,major_alone,report,L,0.9968273171575148,5.75,False,
+opaque_05,0.7,0,prediction,major_alone,revealed,L,0.9579122720843811,3.125,False,
+opaque_05,0.7,0,prediction,major_alone,observer,L,0.9324533088603709,2.625,False,
+opaque_05,0.7,0,prediction,both,report,L,0.06008665017400762,-2.75,False,
+opaque_05,0.7,0,prediction,both,revealed,L,0.009708476481474066,-4.625,False,
+opaque_05,0.7,0,prediction,both,observer,L,0.02595735719779685,-3.625,False,
+opaque_05,0.7,0,action,forced,-,L,0.7772998611746911,1.25,False,
+opaque_05,0.75,0,direct,major_alone,direct,T,0.8,,False,"80
+
+The reasoning behind choosing T"
+opaque_05,0.75,0,direct,both,direct,T,0.25,,False,"25
+
+Explanation for my choice:
+"
+opaque_05,0.75,0,prediction,major_alone,report,T,0.9989677689632452,6.875,False,
+opaque_05,0.75,0,prediction,major_alone,revealed,T,0.9626731126558706,3.25,False,
+opaque_05,0.75,0,prediction,major_alone,observer,T,0.9525741268224334,3.0,False,
+opaque_05,0.75,0,prediction,both,report,T,0.029312230751356316,-3.5,False,
+opaque_05,0.75,0,prediction,both,revealed,T,0.01098694263059318,-4.5,False,
+opaque_05,0.75,0,prediction,both,observer,T,0.01590639171181471,-4.125,False,
+opaque_05,0.75,0,action,forced,-,T,0.9046505376715775,2.2500000298023224,False,
+opaque_05,0.8,0,direct,major_alone,direct,K,0.8,,False,"80
+
+The reasoning behind choosing K"
+opaque_05,0.8,0,direct,both,direct,K,0.2,,False,"20
+
+Given this setup, let"
+opaque_05,0.8,0,prediction,major_alone,report,K,0.9980732653366725,6.25,False,
+opaque_05,0.8,0,prediction,major_alone,revealed,K,0.9740426428022031,3.625,False,
+opaque_05,0.8,0,prediction,major_alone,observer,K,0.9149009549929797,2.375,False,
+opaque_05,0.8,0,prediction,both,report,K,0.0953494648991095,-2.25,False,
+opaque_05,0.8,0,prediction,both,revealed,K,0.033085978388704126,-3.375,False,
+opaque_05,0.8,0,prediction,both,observer,K,0.04208772791561884,-3.125,False,
+opaque_05,0.8,0,action,forced,-,K,0.9999921107355331,11.749999761612344,False,
+opaque_05,0.85,0,direct,major_alone,direct,K,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_05,0.85,0,direct,both,direct,K,0.15,,False,"15
+
+Explanation:
+Given that Z"
+opaque_05,0.85,0,prediction,major_alone,report,K,0.9988304897349445,6.75,False,
+opaque_05,0.85,0,prediction,major_alone,revealed,K,0.9740426428022031,3.625,False,
+opaque_05,0.85,0,prediction,major_alone,observer,K,0.9399133498259924,2.75,False,
+opaque_05,0.85,0,prediction,both,report,K,0.037326887344129464,-3.25,False,
+opaque_05,0.85,0,prediction,both,revealed,K,0.02595735719779685,-3.625,False,
+opaque_05,0.85,0,prediction,both,observer,K,0.029312230751356316,-3.5,False,
+opaque_05,0.85,0,action,forced,-,K,0.9999952149055051,12.250000000011369,False,
+opaque_05,0.9,0,direct,major_alone,direct,H,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_05,0.9,0,direct,both,direct,H,0.1,,False,"10
+
+Explanation:
+Given that Z"
+opaque_05,0.9,0,prediction,major_alone,report,H,0.9989677689632452,6.875,False,
+opaque_05,0.9,0,prediction,major_alone,revealed,H,0.9706877692486436,3.5,False,
+opaque_05,0.9,0,prediction,major_alone,observer,H,0.7310585786300049,1.0,False,
+opaque_05,0.9,0,prediction,both,report,H,0.04208772791561884,-3.125,False,
+opaque_05,0.9,0,prediction,both,revealed,H,0.014063627043245474,-4.25,False,
+opaque_05,0.9,0,prediction,both,observer,H,0.014063627043245474,-4.25,False,
+opaque_05,0.9,0,action,forced,-,H,0.9770226275810572,3.749999888241291,False,
+opaque_05,0.99,0,direct,major_alone,direct,K,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_05,0.99,0,direct,both,direct,K,1.0,,False,"1
+
+Explanation for the choice:
+Given"
+opaque_05,0.99,0,prediction,major_alone,report,K,0.9978172835546547,6.125,False,
+opaque_05,0.99,0,prediction,major_alone,revealed,K,0.9875683491468141,4.375,False,
+opaque_05,0.99,0,prediction,major_alone,observer,K,0.8670357598021706,1.875,False,
+opaque_05,0.99,0,prediction,both,report,K,0.0019267346633274755,-6.25,False,
+opaque_05,0.99,0,prediction,both,revealed,K,0.01098694263059318,-4.5,False,
+opaque_05,0.99,0,prediction,both,observer,K,0.005911068856243796,-5.125,False,
+opaque_05,0.99,0,action,forced,-,K,0.9626731105140616,3.2499999403953552,False,
+opaque_06,0.5,0,direct,major_alone,direct,X,0.5,,False,"50
+
+Given this probability, let"
+opaque_06,0.5,0,direct,both,direct,X,0.5,,False,"50
+
+Since QX predicts my"
+opaque_06,0.5,0,prediction,major_alone,report,X,0.9978172835546547,6.125,False,
+opaque_06,0.5,0,prediction,major_alone,revealed,X,0.9770226300899744,3.75,False,
+opaque_06,0.5,0,prediction,major_alone,observer,X,0.9465966702001757,2.875,False,
+opaque_06,0.5,0,prediction,both,report,X,0.053403329799824234,-2.875,False,
+opaque_06,0.5,0,prediction,both,revealed,X,0.037326887344129464,-3.25,False,
+opaque_06,0.5,0,prediction,both,observer,X,0.002800926967120973,-5.875,False,
+opaque_06,0.5,0,action,forced,-,X,0.9859363735766059,4.250000044703484,False,
+opaque_06,0.6,0,direct,major_alone,direct,K,0.6,,False,"60
+
+Given this probability, let"
+opaque_06,0.6,0,direct,both,direct,K,0.4,,False,"40
+
+Given this probability, let"
+opaque_06,0.6,0,prediction,major_alone,report,K,0.995929862284104,5.5,False,
+opaque_06,0.6,0,prediction,major_alone,revealed,K,0.9669140216112958,3.375,False,
+opaque_06,0.6,0,prediction,major_alone,observer,K,0.9525741268224334,3.0,False,
+opaque_06,0.6,0,prediction,both,report,K,0.06008665017400762,-2.75,False,
+opaque_06,0.6,0,prediction,both,revealed,K,0.06008665017400762,-2.75,False,
+opaque_06,0.6,0,prediction,both,observer,K,0.08509904500702024,-2.375,False,
+opaque_06,0.6,0,action,forced,-,K,0.99966464996832,8.000000294676283,False,
+opaque_06,0.7,0,direct,major_alone,direct,V,0.7,,False,"70
+
+Given that QX predicts"
+opaque_06,0.7,0,direct,both,direct,V,0.3,,False,"30
+
+Given this setup, let"
+opaque_06,0.7,0,prediction,major_alone,report,V,0.9975273768433653,6.0,False,
+opaque_06,0.7,0,prediction,major_alone,revealed,V,0.9875683491468141,4.375,False,
+opaque_06,0.7,0,prediction,major_alone,observer,V,0.9626731126558706,3.25,False,
+opaque_06,0.7,0,prediction,both,report,V,0.02297736991002561,-3.75,False,
+opaque_06,0.7,0,prediction,both,revealed,V,0.033085978388704126,-3.375,False,
+opaque_06,0.7,0,prediction,both,observer,V,0.0031726828424851893,-5.75,False,
+opaque_06,0.7,0,action,forced,-,V,0.9999999847700205,18.0,False,
+opaque_06,0.75,0,direct,major_alone,direct,K,0.75,,False,"75
+
+Given this probability, let"
+opaque_06,0.75,0,direct,both,direct,K,0.25,,False,"25
+
+This decision is based on"
+opaque_06,0.75,0,prediction,major_alone,report,K,0.9964063974185798,5.625,False,
+opaque_06,0.75,0,prediction,major_alone,revealed,K,0.9875683491468141,4.375,False,
+opaque_06,0.75,0,prediction,major_alone,observer,K,0.9840936082881853,4.125,False,
+opaque_06,0.75,0,prediction,both,report,K,0.02595735719779685,-3.625,False,
+opaque_06,0.75,0,prediction,both,revealed,K,0.029312230751356316,-3.5,False,
+opaque_06,0.75,0,prediction,both,observer,K,0.02297736991002561,-3.75,False,
+opaque_06,0.75,0,action,forced,-,K,0.9999999468421502,16.75,False,
+opaque_06,0.8,0,direct,major_alone,direct,G,0.8,,False,"80
+
+Given this probability, let"
+opaque_06,0.8,0,direct,both,direct,G,0.2,,False,"20
+
+Given this probability, let"
+opaque_06,0.8,0,prediction,major_alone,report,G,0.9978172835546547,6.125,False,
+opaque_06,0.8,0,prediction,major_alone,revealed,G,0.9933071490757153,5.0,False,
+opaque_06,0.8,0,prediction,major_alone,observer,G,0.8933094060543487,2.125,False,
+opaque_06,0.8,0,prediction,both,report,G,0.033085978388704126,-3.375,False,
+opaque_06,0.8,0,prediction,both,revealed,G,0.02297736991002561,-3.75,False,
+opaque_06,0.8,0,prediction,both,observer,G,0.012431650853185818,-4.375,False,
+opaque_06,0.8,0,action,forced,-,G,0.9999999123575151,16.249999880790718,False,
+opaque_06,0.85,0,direct,major_alone,direct,V,0.85,,False,"85
+
+Given this setup, if"
+opaque_06,0.85,0,direct,both,direct,V,0.15,,False,"15
+
+Given this setup, let"
+opaque_06,0.85,0,prediction,major_alone,report,V,0.9988304897349445,6.75,False,
+opaque_06,0.85,0,prediction,major_alone,revealed,V,0.991422514586288,4.75,False,
+opaque_06,0.85,0,prediction,major_alone,observer,V,0.9859363729567544,4.25,False,
+opaque_06,0.85,0,prediction,both,report,V,0.029312230751356316,-3.5,False,
+opaque_06,0.85,0,prediction,both,revealed,V,0.04208772791561884,-3.125,False,
+opaque_06,0.85,0,prediction,both,observer,V,0.005911068856243796,-5.125,False,
+opaque_06,0.85,0,action,forced,-,V,0.9999999847700205,18.0,False,
+opaque_06,0.9,0,direct,major_alone,direct,H,0.9,,False,"90
+
+Given this probability, let"
+opaque_06,0.9,0,direct,both,direct,H,0.1,,False,"10
+
+Given this probability, let"
+opaque_06,0.9,0,prediction,major_alone,report,H,0.9997965730219448,8.5,False,
+opaque_06,0.9,0,prediction,major_alone,revealed,H,0.991422514586288,4.75,False,
+opaque_06,0.9,0,prediction,major_alone,observer,H,0.9579122720843811,3.125,False,
+opaque_06,0.9,0,prediction,both,report,H,0.01098694263059318,-4.5,False,
+opaque_06,0.9,0,prediction,both,revealed,H,0.004070137715896127,-5.5,False,
+opaque_06,0.9,0,prediction,both,observer,H,0.006692850924284856,-5.0,False,
+opaque_06,0.9,0,action,forced,-,H,0.9999724643121783,10.50000011958764,False,
+opaque_06,0.99,0,direct,major_alone,direct,J,0.99,,False,"99
+
+Given this high accuracy rate"
+opaque_06,0.99,0,direct,both,direct,J,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_06,0.99,0,prediction,major_alone,report,J,0.9999546021312976,10.0,False,
+opaque_06,0.99,0,prediction,major_alone,revealed,J,0.9947798743064417,5.25,False,
+opaque_06,0.99,0,prediction,major_alone,observer,J,0.9796676466573412,3.875,False,
+opaque_06,0.99,0,prediction,both,report,J,0.01590639171181471,-4.125,False,
+opaque_06,0.99,0,prediction,both,revealed,J,0.0019267346633274755,-6.25,False,
+opaque_06,0.99,0,prediction,both,observer,J,0.014063627043245474,-4.25,False,
+opaque_06,0.99,0,action,forced,-,J,0.9999991684720715,14.00000011920963,False,
+opaque_07,0.5,0,direct,major_alone,direct,S,0.5,,False,50
+opaque_07,0.5,0,direct,both,direct,S,0.5,,False,50
+opaque_07,0.5,0,prediction,major_alone,report,S,0.9988304897349445,6.75,False,
+opaque_07,0.5,0,prediction,major_alone,revealed,S,0.9875683491468141,4.375,False,
+opaque_07,0.5,0,prediction,major_alone,observer,S,0.8354835371034369,1.625,False,
+opaque_07,0.5,0,prediction,both,report,S,0.0953494648991095,-2.25,False,
+opaque_07,0.5,0,prediction,both,revealed,S,0.020332353342658753,-3.875,False,
+opaque_07,0.5,0,prediction,both,observer,S,0.005220125693558397,-5.25,False,
+opaque_07,0.5,0,action,forced,-,S,0.005220125635523485,-5.250000011175871,False,
+opaque_07,0.6,0,direct,major_alone,direct,B,0.6,,False,60
+opaque_07,0.6,0,direct,both,direct,B,0.4,,False,40
+opaque_07,0.6,0,prediction,major_alone,report,B,0.9796676466573412,3.875,False,
+opaque_07,0.6,0,prediction,major_alone,revealed,B,0.9669140216112958,3.375,False,
+opaque_07,0.6,0,prediction,major_alone,observer,B,0.32082130082460697,-0.75,False,
+opaque_07,0.6,0,prediction,both,report,B,0.08509904500702024,-2.375,False,
+opaque_07,0.6,0,prediction,both,revealed,B,0.04742587317756679,-3.0,False,
+opaque_07,0.6,0,prediction,both,observer,B,0.033085978388704126,-3.375,False,
+opaque_07,0.6,0,action,forced,-,B,0.7772998611746911,1.25,False,
+opaque_07,0.7,0,direct,major_alone,direct,S,0.7,,False,70
+opaque_07,0.7,0,direct,both,direct,S,0.3,,False,30
+opaque_07,0.7,0,prediction,major_alone,report,S,0.9994472213630764,7.5,False,
+opaque_07,0.7,0,prediction,major_alone,revealed,S,0.9947798743064417,5.25,False,
+opaque_07,0.7,0,prediction,major_alone,observer,S,0.8933094060543487,2.125,False,
+opaque_07,0.7,0,prediction,both,report,S,0.0953494648991095,-2.25,False,
+opaque_07,0.7,0,prediction,both,revealed,S,0.006692850924284856,-5.0,False,
+opaque_07,0.7,0,prediction,both,observer,S,0.004609572179374208,-5.375,False,
+opaque_07,0.7,0,action,forced,-,S,0.002472622943003016,-6.000000086612999,False,
+opaque_07,0.75,0,direct,major_alone,direct,B,0.75,,False,75
+opaque_07,0.75,0,direct,both,direct,B,0.25,,False,"25
+
+Explanation for my choice:
+"
+opaque_07,0.75,0,prediction,major_alone,report,B,0.9995694429186754,7.75,False,
+opaque_07,0.75,0,prediction,major_alone,revealed,B,0.9933071490757153,5.0,False,
+opaque_07,0.75,0,prediction,major_alone,observer,B,0.7549149868676283,1.125,False,
+opaque_07,0.75,0,prediction,both,report,B,0.037326887344129464,-3.25,False,
+opaque_07,0.75,0,prediction,both,revealed,B,0.01590639171181471,-4.125,False,
+opaque_07,0.75,0,prediction,both,observer,B,0.017986209962091555,-4.0,False,
+opaque_07,0.75,0,action,forced,-,B,0.11920291732853862,-2.0000000447034836,False,
+opaque_07,0.8,0,direct,major_alone,direct,G,0.8,,False,80
+opaque_07,0.8,0,direct,both,direct,G,0.2,,False,20
+opaque_07,0.8,0,prediction,major_alone,report,G,0.9991959140643708,7.125,False,
+opaque_07,0.8,0,prediction,major_alone,revealed,G,0.9947798743064417,5.25,False,
+opaque_07,0.8,0,prediction,major_alone,observer,G,0.7981867777396212,1.375,False,
+opaque_07,0.8,0,prediction,both,report,G,0.04742587317756679,-3.0,False,
+opaque_07,0.8,0,prediction,both,revealed,G,0.009708476481474066,-4.625,False,
+opaque_07,0.8,0,prediction,both,observer,G,0.005911068856243796,-5.125,False,
+opaque_07,0.8,0,action,forced,-,G,0.14804719991116141,-1.7499999850988388,False,
+opaque_07,0.85,0,direct,major_alone,direct,G,0.85,,False,85
+opaque_07,0.85,0,direct,both,direct,G,0.15,,False,15
+opaque_07,0.85,0,prediction,major_alone,report,G,0.9997965730219448,8.5,False,
+opaque_07,0.85,0,prediction,major_alone,revealed,G,0.9968273171575148,5.75,False,
+opaque_07,0.85,0,prediction,major_alone,observer,G,0.8670357598021706,1.875,False,
+opaque_07,0.85,0,prediction,both,report,G,0.053403329799824234,-2.875,False,
+opaque_07,0.85,0,prediction,both,revealed,G,0.008577485413711986,-4.75,False,
+opaque_07,0.85,0,prediction,both,observer,G,0.0031726828424851893,-5.75,False,
+opaque_07,0.85,0,action,forced,-,G,0.18242551491653522,-1.5000000596046448,False,
+opaque_07,0.9,0,direct,major_alone,direct,Q,0.9,,False,90
+opaque_07,0.9,0,direct,both,direct,Q,0.1,,False,"10
+
+Explanation for my choice:
+"
+opaque_07,0.9,0,prediction,major_alone,report,Q,0.999704042886487,8.125,False,
+opaque_07,0.9,0,prediction,major_alone,revealed,Q,0.9992903296008995,7.25,False,
+opaque_07,0.9,0,prediction,major_alone,observer,Q,0.9933071490757153,5.0,False,
+opaque_07,0.9,0,prediction,both,report,Q,0.017986209962091555,-4.0,False,
+opaque_07,0.9,0,prediction,both,revealed,Q,0.009708476481474066,-4.625,False,
+opaque_07,0.9,0,prediction,both,observer,Q,0.004070137715896127,-5.5,False,
+opaque_07,0.9,0,action,forced,-,Q,0.014063626423394072,-4.250000044703484,False,
+opaque_07,0.99,0,direct,major_alone,direct,T,0.99,,False,99
+opaque_07,0.99,0,direct,both,direct,T,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_07,0.99,0,prediction,major_alone,report,T,0.9997388096809043,8.25,False,
+opaque_07,0.99,0,prediction,major_alone,revealed,T,0.998498817743263,6.5,False,
+opaque_07,0.99,0,prediction,major_alone,observer,T,0.9706877692486436,3.5,False,
+opaque_07,0.99,0,prediction,both,report,T,0.007577241267860811,-4.875,False,
+opaque_07,0.99,0,prediction,both,revealed,T,0.006692850924284856,-5.0,False,
+opaque_07,0.99,0,prediction,both,observer,T,0.007577241267860811,-4.875,False,
+opaque_07,0.99,0,action,forced,-,T,0.18242551491653522,-1.5000000596046448,False,
+opaque_08,0.5,0,direct,major_alone,direct,V,0.5,,False,"50
+
+The reasoning behind choosing only"
+opaque_08,0.5,0,direct,both,direct,V,0.5,,False,"50
+
+Given this probability, let"
+opaque_08,0.5,0,prediction,major_alone,report,V,0.9998601779243528,8.875,False,
+opaque_08,0.5,0,prediction,major_alone,revealed,V,0.9525741268224334,3.0,False,
+opaque_08,0.5,0,prediction,major_alone,observer,V,0.7981867777396212,1.375,False,
+opaque_08,0.5,0,prediction,both,report,V,0.04742587317756679,-3.0,False,
+opaque_08,0.5,0,prediction,both,revealed,V,0.01098694263059318,-4.5,False,
+opaque_08,0.5,0,prediction,both,observer,V,0.009708476481474066,-4.625,False,
+opaque_08,0.5,0,action,forced,-,V,0.4378234991142019,-0.25,False,
+opaque_08,0.6,0,direct,major_alone,direct,J,0.6,,False,"60
+
+The reasoning behind choosing option"
+opaque_08,0.6,0,direct,both,direct,J,0.4,,False,40
+opaque_08,0.6,0,prediction,major_alone,report,J,0.9998204720306533,8.625,False,
+opaque_08,0.6,0,prediction,major_alone,revealed,J,0.9890130573694068,4.5,False,
+opaque_08,0.6,0,prediction,major_alone,observer,J,0.9046505351008906,2.25,False,
+opaque_08,0.6,0,prediction,both,report,J,0.10669059394565118,-2.125,False,
+opaque_08,0.6,0,prediction,both,revealed,J,0.020332353342658753,-3.875,False,
+opaque_08,0.6,0,prediction,both,observer,J,0.20181322226037882,-1.375,False,
+opaque_08,0.6,0,action,forced,-,J,0.9999724643121783,10.50000011958764,False,
+opaque_08,0.7,0,direct,major_alone,direct,U,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_08,0.7,0,direct,both,direct,U,0.3,,False,"30
+
+Given this setup, let"
+opaque_08,0.7,0,prediction,major_alone,report,U,0.9999785550515792,10.75,False,
+opaque_08,0.7,0,prediction,major_alone,revealed,U,0.9770226300899744,3.75,False,
+opaque_08,0.7,0,prediction,major_alone,observer,U,0.6224593312018546,0.5,False,
+opaque_08,0.7,0,prediction,both,report,U,0.0021827164453451808,-6.125,False,
+opaque_08,0.7,0,prediction,both,revealed,U,0.009708476481474066,-4.625,False,
+opaque_08,0.7,0,prediction,both,observer,U,0.02297736991002561,-3.75,False,
+opaque_08,0.7,0,action,forced,-,U,0.006692851264816554,-4.999999948777258,False,
+opaque_08,0.75,0,direct,major_alone,direct,T,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_08,0.75,0,direct,both,direct,T,0.25,,False,"25
+
+This decision is based on"
+opaque_08,0.75,0,prediction,major_alone,report,T,0.9989677689632452,6.875,False,
+opaque_08,0.75,0,prediction,major_alone,revealed,T,0.9940889311437562,5.125,False,
+opaque_08,0.75,0,prediction,major_alone,observer,T,0.679178699175393,0.75,False,
+opaque_08,0.75,0,prediction,both,report,T,0.020332353342658753,-3.875,False,
+opaque_08,0.75,0,prediction,both,revealed,T,0.005220125693558397,-5.25,False,
+opaque_08,0.75,0,prediction,both,observer,T,0.01098694263059318,-4.5,False,
+opaque_08,0.75,0,action,forced,-,T,0.9999991684720715,14.00000011920963,False,
+opaque_08,0.8,0,direct,major_alone,direct,Y,0.8,,False,"80
+
+The reasoning behind choosing Y"
+opaque_08,0.8,0,direct,both,direct,Y,0.2,,False,"20
+
+Given this probability, let"
+opaque_08,0.8,0,prediction,major_alone,report,Y,0.9999546021312976,10.0,False,
+opaque_08,0.8,0,prediction,major_alone,revealed,Y,0.9859363729567544,4.25,False,
+opaque_08,0.8,0,prediction,major_alone,observer,Y,0.7310585786300049,1.0,False,
+opaque_08,0.8,0,prediction,both,report,Y,0.10669059394565118,-2.125,False,
+opaque_08,0.8,0,prediction,both,revealed,Y,0.01590639171181471,-4.125,False,
+opaque_08,0.8,0,prediction,both,observer,Y,0.017986209962091555,-4.0,False,
+opaque_08,0.8,0,action,forced,-,Y,0.9999999123575151,16.249999880790718,False,
+opaque_08,0.85,0,direct,major_alone,direct,X,0.85,,False,"85
+
+Given this probability, let"
+opaque_08,0.85,0,direct,both,direct,X,0.15,,False,"15
+
+This decision is based on"
+opaque_08,0.85,0,prediction,major_alone,report,X,0.9999646437492582,10.25,False,
+opaque_08,0.85,0,prediction,major_alone,revealed,X,0.9840936082881853,4.125,False,
+opaque_08,0.85,0,prediction,major_alone,observer,X,0.8807970779778823,2.0,False,
+opaque_08,0.85,0,prediction,both,report,X,0.012431650853185818,-4.375,False,
+opaque_08,0.85,0,prediction,both,revealed,X,0.0035936025814200896,-5.625,False,
+opaque_08,0.85,0,prediction,both,observer,X,0.017986209962091555,-4.0,False,
+opaque_08,0.85,0,action,forced,-,X,0.11920291732853862,-2.0000000447034836,False,
+opaque_08,0.9,0,direct,major_alone,direct,A,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_08,0.9,0,direct,both,direct,A,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_08,0.9,0,prediction,major_alone,report,A,0.9998601779243528,8.875,False,
+opaque_08,0.9,0,prediction,major_alone,revealed,A,0.9770226300899744,3.75,False,
+opaque_08,0.9,0,prediction,major_alone,observer,A,0.8807970779778823,2.0,False,
+opaque_08,0.9,0,prediction,both,report,A,0.06008665017400762,-2.75,False,
+opaque_08,0.9,0,prediction,both,revealed,A,0.02595735719779685,-3.625,False,
+opaque_08,0.9,0,prediction,both,observer,A,0.014063627043245474,-4.25,False,
+opaque_08,0.9,0,action,forced,-,A,0.9770226275810572,3.749999888241291,False,
+opaque_08,0.99,0,direct,major_alone,direct,Y,0.99,,False,"99
+
+Given this setup, the"
+opaque_08,0.99,0,direct,both,direct,Y,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_08,0.99,0,prediction,major_alone,report,Y,0.9999687980886061,10.375,False,
+opaque_08,0.99,0,prediction,major_alone,revealed,Y,0.9859363729567544,4.25,False,
+opaque_08,0.99,0,prediction,major_alone,observer,Y,0.5926665999540697,0.375,False,
+opaque_08,0.99,0,prediction,both,report,Y,0.053403329799824234,-2.875,False,
+opaque_08,0.99,0,prediction,both,revealed,Y,0.005220125693558397,-5.25,False,
+opaque_08,0.99,0,prediction,both,observer,Y,0.0035936025814200896,-5.625,False,
+opaque_08,0.99,0,action,forced,-,Y,0.8175744850834649,1.5000000596046448,False,
+opaque_09,0.5,0,direct,major_alone,direct,B,0.5,,False,"50
+
+The reasoning behind this choice"
+opaque_09,0.5,0,direct,both,direct,B,0.5,,False,"50
+
+The reasoning behind choosing A"
+opaque_09,0.5,0,prediction,major_alone,report,B,0.991422514586288,4.75,False,
+opaque_09,0.5,0,prediction,major_alone,revealed,B,0.7772998611746911,1.25,False,
+opaque_09,0.5,0,prediction,major_alone,observer,B,0.7981867777396212,1.375,False,
+opaque_09,0.5,0,prediction,both,report,B,0.1480471980316895,-1.75,False,
+opaque_09,0.5,0,prediction,both,revealed,B,0.053403329799824234,-2.875,False,
+opaque_09,0.5,0,prediction,both,observer,B,0.006692850924284856,-5.0,False,
+opaque_09,0.5,0,action,forced,-,B,0.022977372418942873,-3.749999888241291,False,
+opaque_09,0.6,0,direct,major_alone,direct,U,0.6,,False,"60
+
+The reasoning behind this choice"
+opaque_09,0.6,0,direct,both,direct,U,0.4,,False,"40
+
+This decision is based on"
+opaque_09,0.6,0,prediction,major_alone,report,U,0.9975273768433653,6.0,False,
+opaque_09,0.6,0,prediction,major_alone,revealed,U,0.9820137900379085,4.0,False,
+opaque_09,0.6,0,prediction,major_alone,observer,U,0.8519528019683106,1.75,False,
+opaque_09,0.6,0,prediction,both,report,U,0.04208772791561884,-3.125,False,
+opaque_09,0.6,0,prediction,both,revealed,U,0.017986209962091555,-4.0,False,
+opaque_09,0.6,0,prediction,both,observer,U,0.037326887344129464,-3.25,False,
+opaque_09,0.6,0,action,forced,-,U,0.4378234991142019,-0.25,False,
+opaque_09,0.7,0,direct,major_alone,direct,Q,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_09,0.7,0,direct,both,direct,Q,0.3,,False,"30
+
+Given this setup, we"
+opaque_09,0.7,0,prediction,major_alone,report,Q,0.999704042886487,8.125,False,
+opaque_09,0.7,0,prediction,major_alone,revealed,Q,0.9933071490757153,5.0,False,
+opaque_09,0.7,0,prediction,major_alone,observer,Q,0.9399133498259924,2.75,False,
+opaque_09,0.7,0,prediction,both,report,Q,0.20181322226037882,-1.375,False,
+opaque_09,0.7,0,prediction,both,revealed,Q,0.06008665017400762,-2.75,False,
+opaque_09,0.7,0,prediction,both,observer,Q,0.029312230751356316,-3.5,False,
+opaque_09,0.7,0,action,forced,-,Q,0.11920291732853862,-2.0000000447034836,False,
+opaque_09,0.75,0,direct,major_alone,direct,Q,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_09,0.75,0,direct,both,direct,Q,0.25,,False,"25
+
+The reasoning behind choosing to"
+opaque_09,0.75,0,prediction,major_alone,report,Q,0.9997965730219448,8.5,False,
+opaque_09,0.75,0,prediction,major_alone,revealed,Q,0.9840936082881853,4.125,False,
+opaque_09,0.75,0,prediction,major_alone,observer,Q,0.9324533088603709,2.625,False,
+opaque_09,0.75,0,prediction,both,report,Q,0.22270013882530884,-1.25,False,
+opaque_09,0.75,0,prediction,both,revealed,Q,0.06008665017400762,-2.75,False,
+opaque_09,0.75,0,prediction,both,observer,Q,0.037326887344129464,-3.25,False,
+opaque_09,0.75,0,action,forced,-,Q,0.14804719991116141,-1.7499999850988388,False,
+opaque_09,0.8,0,direct,major_alone,direct,X,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_09,0.8,0,direct,both,direct,X,0.2,,False,"20
+
+This decision is based on"
+opaque_09,0.8,0,prediction,major_alone,report,X,0.9989677689632452,6.875,False,
+opaque_09,0.8,0,prediction,major_alone,revealed,X,0.9770226300899744,3.75,False,
+opaque_09,0.8,0,prediction,major_alone,observer,X,0.8807970779778823,2.0,False,
+opaque_09,0.8,0,prediction,both,report,X,0.07585818002124356,-2.5,False,
+opaque_09,0.8,0,prediction,both,revealed,X,0.06008665017400762,-2.75,False,
+opaque_09,0.8,0,prediction,both,observer,X,0.037326887344129464,-3.25,False,
+opaque_09,0.8,0,action,forced,-,X,0.9999724643121783,10.50000011958764,False,
+opaque_09,0.85,0,direct,major_alone,direct,K,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_09,0.85,0,direct,both,direct,K,0.15,,False,"15
+
+This decision takes into account"
+opaque_09,0.85,0,prediction,major_alone,report,K,0.999704042886487,8.125,False,
+opaque_09,0.85,0,prediction,major_alone,revealed,K,0.9706877692486436,3.5,False,
+opaque_09,0.85,0,prediction,major_alone,observer,K,0.8933094060543487,2.125,False,
+opaque_09,0.85,0,prediction,both,report,K,0.1480471980316895,-1.75,False,
+opaque_09,0.85,0,prediction,both,revealed,K,0.037326887344129464,-3.25,False,
+opaque_09,0.85,0,prediction,both,observer,K,0.04208772791561884,-3.125,False,
+opaque_09,0.85,0,action,forced,-,K,0.14804719991116141,-1.7499999850988388,False,
+opaque_09,0.9,0,direct,major_alone,direct,M,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_09,0.9,0,direct,both,direct,M,0.1,,False,"10
+
+Explanation:
+Given that OR"
+opaque_09,0.9,0,prediction,major_alone,report,M,0.9995121428772178,7.625,False,
+opaque_09,0.9,0,prediction,major_alone,revealed,M,0.9940889311437562,5.125,False,
+opaque_09,0.9,0,prediction,major_alone,observer,M,0.9626731126558706,3.25,False,
+opaque_09,0.9,0,prediction,both,report,M,0.10669059394565118,-2.125,False,
+opaque_09,0.9,0,prediction,both,revealed,M,0.04208772791561884,-3.125,False,
+opaque_09,0.9,0,prediction,both,observer,M,0.029312230751356316,-3.5,False,
+opaque_09,0.9,0,action,forced,-,M,0.9984988180062319,6.50000017543789,False,
+opaque_09,0.99,0,direct,major_alone,direct,L,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_09,0.99,0,direct,both,direct,L,1.0,,False,"1
+
+Explanation:
+Given that ORACLE"
+opaque_09,0.99,0,prediction,major_alone,report,L,0.999620015485248,7.875,False,
+opaque_09,0.99,0,prediction,major_alone,revealed,L,0.9902915235185259,4.625,False,
+opaque_09,0.99,0,prediction,major_alone,observer,L,0.9770226300899744,3.75,False,
+opaque_09,0.99,0,prediction,both,report,L,0.037326887344129464,-3.25,False,
+opaque_09,0.99,0,prediction,both,revealed,L,0.0035936025814200896,-5.625,False,
+opaque_09,0.99,0,prediction,both,observer,L,0.008577485413711986,-4.75,False,
+opaque_09,0.99,0,action,forced,-,L,0.9859363735766059,4.250000044703484,False,
+opaque_10,0.5,0,direct,major_alone,direct,Q,0.5,,False,50
+opaque_10,0.5,0,direct,both,direct,Q,0.5,,False,"50
+
+However, let's break"
+opaque_10,0.5,0,prediction,major_alone,report,Q,0.9992903296008995,7.25,False,
+opaque_10,0.5,0,prediction,major_alone,revealed,Q,0.9465966702001757,2.875,False,
+opaque_10,0.5,0,prediction,major_alone,observer,Q,0.9875683491468141,4.375,False,
+opaque_10,0.5,0,prediction,both,report,Q,0.13296424019782924,-1.875,False,
+opaque_10,0.5,0,prediction,both,revealed,Q,0.06008665017400762,-2.75,False,
+opaque_10,0.5,0,prediction,both,observer,Q,0.005220125693558397,-5.25,False,
+opaque_10,0.5,0,action,forced,-,Q,0.9999646437450659,10.249999881416443,False,
+opaque_10,0.6,0,direct,major_alone,direct,K,0.6,,False,"60
+
+The reasoning behind this choice"
+opaque_10,0.6,0,direct,both,direct,K,0.4,,False,"40
+
+Given this probability, let"
+opaque_10,0.6,0,prediction,major_alone,report,K,0.9992903296008995,7.25,False,
+opaque_10,0.6,0,prediction,major_alone,revealed,K,0.9770226300899744,3.75,False,
+opaque_10,0.6,0,prediction,major_alone,observer,K,0.9525741268224334,3.0,False,
+opaque_10,0.6,0,prediction,both,report,K,0.13296424019782924,-1.875,False,
+opaque_10,0.6,0,prediction,both,revealed,K,0.01098694263059318,-4.5,False,
+opaque_10,0.6,0,prediction,both,observer,K,0.04742587317756679,-3.0,False,
+opaque_10,0.6,0,action,forced,-,K,0.32082130731838393,-0.7499999701976776,False,
+opaque_10,0.7,0,direct,major_alone,direct,S,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_10,0.7,0,direct,both,direct,S,0.3,,False,"30
+
+This decision is based on"
+opaque_10,0.7,0,prediction,major_alone,report,S,0.9998204720306533,8.625,False,
+opaque_10,0.7,0,prediction,major_alone,revealed,S,0.9820137900379085,4.0,False,
+opaque_10,0.7,0,prediction,major_alone,observer,S,0.9706877692486436,3.5,False,
+opaque_10,0.7,0,prediction,both,report,S,0.020332353342658753,-3.875,False,
+opaque_10,0.7,0,prediction,both,revealed,S,0.005911068856243796,-5.125,False,
+opaque_10,0.7,0,prediction,both,observer,S,0.004609572179374208,-5.375,False,
+opaque_10,0.7,0,action,forced,-,S,0.9999999123575151,16.249999880790718,False,
+opaque_10,0.75,0,direct,major_alone,direct,J,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_10,0.75,0,direct,both,direct,J,0.25,,False,"25
+
+This decision is based on"
+opaque_10,0.75,0,prediction,major_alone,report,J,0.9997694932780068,8.375,False,
+opaque_10,0.75,0,prediction,major_alone,revealed,J,0.9770226300899744,3.75,False,
+opaque_10,0.75,0,prediction,major_alone,observer,J,0.9626731126558706,3.25,False,
+opaque_10,0.75,0,prediction,both,report,J,0.04208772791561884,-3.125,False,
+opaque_10,0.75,0,prediction,both,revealed,J,0.0019267346633274755,-6.25,False,
+opaque_10,0.75,0,prediction,both,observer,J,0.06008665017400762,-2.75,False,
+opaque_10,0.75,0,action,forced,-,J,0.9980732657060568,6.250000192085281,False,
+opaque_10,0.8,0,direct,major_alone,direct,P,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_10,0.8,0,direct,both,direct,P,0.2,,False,"20
+
+Given this probability, let"
+opaque_10,0.8,0,prediction,major_alone,report,P,0.9997388096809043,8.25,False,
+opaque_10,0.8,0,prediction,major_alone,revealed,P,0.9820137900379085,4.0,False,
+opaque_10,0.8,0,prediction,major_alone,observer,P,0.9740426428022031,3.625,False,
+opaque_10,0.8,0,prediction,both,report,P,0.020332353342658753,-3.875,False,
+opaque_10,0.8,0,prediction,both,revealed,P,0.0021827164453451808,-6.125,False,
+opaque_10,0.8,0,prediction,both,observer,P,0.014063627043245474,-4.25,False,
+opaque_10,0.8,0,action,forced,-,P,0.9999785550413585,10.749999523393853,False,
+opaque_10,0.85,0,direct,major_alone,direct,X,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_10,0.85,0,direct,both,direct,X,0.15,,False,"15
+
+Explanation:
+Given that the"
+opaque_10,0.85,0,prediction,major_alone,report,X,0.9997965730219448,8.5,False,
+opaque_10,0.85,0,prediction,major_alone,revealed,X,0.9902915235185259,4.625,False,
+opaque_10,0.85,0,prediction,major_alone,observer,X,0.9964063974185798,5.625,False,
+opaque_10,0.85,0,prediction,both,report,X,0.029312230751356316,-3.5,False,
+opaque_10,0.85,0,prediction,both,revealed,X,0.001700722411435288,-6.375,False,
+opaque_10,0.85,0,prediction,both,observer,X,0.006692850924284856,-5.0,False,
+opaque_10,0.85,0,action,forced,-,X,0.9626731105140616,3.2499999403953552,False,
+opaque_10,0.9,0,direct,major_alone,direct,V,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_10,0.9,0,direct,both,direct,V,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_10,0.9,0,prediction,major_alone,report,V,0.9997694932780068,8.375,False,
+opaque_10,0.9,0,prediction,major_alone,revealed,V,0.9669140216112958,3.375,False,
+opaque_10,0.9,0,prediction,major_alone,observer,V,0.9465966702001757,2.875,False,
+opaque_10,0.9,0,prediction,both,report,V,0.0010322310367548194,-6.875,False,
+opaque_10,0.9,0,prediction,both,revealed,V,0.007577241267860811,-4.875,False,
+opaque_10,0.9,0,prediction,both,observer,V,0.002800926967120973,-5.875,False,
+opaque_10,0.9,0,action,forced,-,V,0.9999994956523514,14.499999523162955,False,
+opaque_10,0.99,0,direct,major_alone,direct,T,0.99,,False,"99
+
+Given the high accuracy of"
+opaque_10,0.99,0,direct,both,direct,T,1.0,,False,"1
+
+Explanation for the choice:
+Given"
+opaque_10,0.99,0,prediction,major_alone,report,T,0.9999646437492582,10.25,False,
+opaque_10,0.99,0,prediction,major_alone,revealed,T,0.9988304897349445,6.75,False,
+opaque_10,0.99,0,prediction,major_alone,observer,T,0.9890130573694068,4.5,False,
+opaque_10,0.99,0,prediction,both,report,T,0.004070137715896127,-5.5,False,
+opaque_10,0.99,0,prediction,both,revealed,T,0.0005527786369235996,-7.5,False,
+opaque_10,0.99,0,prediction,both,observer,T,0.000487857122782266,-7.625,False,
+opaque_10,0.99,0,action,forced,-,T,0.9999251537370123,9.499999525964085,False,
+opaque_11,0.5,0,direct,major_alone,direct,Q,0.5,,False,50
+opaque_11,0.5,0,direct,both,direct,Q,0.5,,False,"50
+
+However, since the question"
+opaque_11,0.5,0,prediction,major_alone,report,Q,0.9993736658418905,7.375,False,
+opaque_11,0.5,0,prediction,major_alone,revealed,Q,0.9525741268224334,3.0,False,
+opaque_11,0.5,0,prediction,major_alone,observer,Q,0.8933094060543487,2.125,False,
+opaque_11,0.5,0,prediction,both,report,Q,0.4073334000459302,-0.375,False,
+opaque_11,0.5,0,prediction,both,revealed,Q,0.10669059394565118,-2.125,False,
+opaque_11,0.5,0,prediction,both,observer,Q,0.01098694263059318,-4.5,False,
+opaque_11,0.5,0,action,forced,-,Q,0.8807970826714613,2.0000000447034836,False,
+opaque_11,0.6,0,direct,major_alone,direct,G,0.6,,False,60
+opaque_11,0.6,0,direct,both,direct,G,0.4,,False,40
+opaque_11,0.6,0,prediction,major_alone,report,G,0.999620015485248,7.875,False,
+opaque_11,0.6,0,prediction,major_alone,revealed,G,0.9399133498259924,2.75,False,
+opaque_11,0.6,0,prediction,major_alone,observer,G,0.5312093733737563,0.125,False,
+opaque_11,0.6,0,prediction,both,report,G,0.32082130082460697,-0.75,False,
+opaque_11,0.6,0,prediction,both,revealed,G,0.0953494648991095,-2.25,False,
+opaque_11,0.6,0,prediction,both,observer,G,0.01098694263059318,-4.5,False,
+opaque_11,0.6,0,action,forced,-,G,0.9525741264858409,2.9999999925494194,False,
+opaque_11,0.7,0,direct,major_alone,direct,H,0.7,,False,70
+opaque_11,0.7,0,direct,both,direct,H,0.3,,False,"30
+
+The reasoning behind this choice"
+opaque_11,0.7,0,prediction,major_alone,report,H,0.9992903296008995,7.25,False,
+opaque_11,0.7,0,prediction,major_alone,revealed,H,0.7057850278370112,0.875,False,
+opaque_11,0.7,0,prediction,major_alone,observer,H,0.46879062662624377,-0.125,False,
+opaque_11,0.7,0,prediction,both,report,H,0.18242552380635632,-1.5,False,
+opaque_11,0.7,0,prediction,both,revealed,H,0.08509904500702024,-2.375,False,
+opaque_11,0.7,0,prediction,both,observer,H,0.01098694263059318,-4.5,False,
+opaque_11,0.7,0,action,forced,-,H,0.8175744850834649,1.5000000596046448,False,
+opaque_11,0.75,0,direct,major_alone,direct,H,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_11,0.75,0,direct,both,direct,H,0.25,,False,"25
+
+This decision is based on"
+opaque_11,0.75,0,prediction,major_alone,report,H,0.9998601779243528,8.875,False,
+opaque_11,0.75,0,prediction,major_alone,revealed,H,0.9740426428022031,3.625,False,
+opaque_11,0.75,0,prediction,major_alone,observer,H,0.08509904500702024,-2.375,False,
+opaque_11,0.75,0,prediction,both,report,H,0.24508501313237172,-1.125,False,
+opaque_11,0.75,0,prediction,both,revealed,H,0.0675466911396291,-2.625,False,
+opaque_11,0.75,0,prediction,both,observer,H,0.007577241267860811,-4.875,False,
+opaque_11,0.75,0,action,forced,-,H,0.0293122327122782,-3.4999999310821295,False,
+opaque_11,0.8,0,direct,major_alone,direct,X,0.8,,False,80
+opaque_11,0.8,0,direct,both,direct,X,0.2,,False,"20
+
+Given this probability, let"
+opaque_11,0.8,0,prediction,major_alone,report,X,0.9995694429186754,7.75,False,
+opaque_11,0.8,0,prediction,major_alone,revealed,X,0.9525741268224334,3.0,False,
+opaque_11,0.8,0,prediction,major_alone,observer,X,0.6224593312018546,0.5,False,
+opaque_11,0.8,0,prediction,both,report,X,0.10669059394565118,-2.125,False,
+opaque_11,0.8,0,prediction,both,revealed,X,0.04208772791561884,-3.125,False,
+opaque_11,0.8,0,prediction,both,observer,X,0.02297736991002561,-3.75,False,
+opaque_11,0.8,0,action,forced,-,X,0.005220125635523485,-5.250000011175871,False,
+opaque_11,0.85,0,direct,major_alone,direct,M,0.85,,False,"85
+
+Given this probability, taking"
+opaque_11,0.85,0,direct,both,direct,M,0.15,,False,"15
+
+The reasoning behind this choice"
+opaque_11,0.85,0,prediction,major_alone,report,M,0.9998766054240137,9.0,False,
+opaque_11,0.85,0,prediction,major_alone,revealed,M,0.9740426428022031,3.625,False,
+opaque_11,0.85,0,prediction,major_alone,observer,M,0.9149009549929797,2.375,False,
+opaque_11,0.85,0,prediction,both,report,M,0.2689414213699951,-1.0,False,
+opaque_11,0.85,0,prediction,both,revealed,M,0.04742587317756679,-3.0,False,
+opaque_11,0.85,0,prediction,both,observer,M,0.014063627043245474,-4.25,False,
+opaque_11,0.85,0,action,forced,-,M,0.5,0.0,False,
+opaque_11,0.9,0,direct,major_alone,direct,X,0.9,,False,90
+opaque_11,0.9,0,direct,both,direct,X,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_11,0.9,0,prediction,major_alone,report,X,0.9994472213630764,7.5,False,
+opaque_11,0.9,0,prediction,major_alone,revealed,X,0.8519528019683106,1.75,False,
+opaque_11,0.9,0,prediction,major_alone,observer,X,0.9241418199787566,2.5,False,
+opaque_11,0.9,0,prediction,both,report,X,0.1645164628965632,-1.625,False,
+opaque_11,0.9,0,prediction,both,revealed,X,0.037326887344129464,-3.25,False,
+opaque_11,0.9,0,prediction,both,observer,X,0.009708476481474066,-4.625,False,
+opaque_11,0.9,0,action,forced,-,X,0.8519528000888387,1.7499999850988388,False,
+opaque_11,0.99,0,direct,major_alone,direct,U,0.99,,False,"99
+
+Given this high accuracy rate"
+opaque_11,0.99,0,direct,both,direct,U,1.0,,False,"1
+
+Explanation for the choice:
+Given"
+opaque_11,0.99,0,prediction,major_alone,report,U,0.9997965730219448,8.5,False,
+opaque_11,0.99,0,prediction,major_alone,revealed,U,0.9820137900379085,4.0,False,
+opaque_11,0.99,0,prediction,major_alone,observer,U,0.7057850278370112,0.875,False,
+opaque_11,0.99,0,prediction,both,report,U,0.07585818002124356,-2.5,False,
+opaque_11,0.99,0,prediction,both,revealed,U,0.02595735719779685,-3.625,False,
+opaque_11,0.99,0,prediction,both,observer,U,0.0024726231566347748,-6.0,False,
+opaque_11,0.99,0,action,forced,-,U,0.18242551491653522,-1.5000000596046448,False,
+opaque_12,0.5,0,direct,major_alone,direct,P,1.0,,False,"100
+
+Explanation for the choice"
+opaque_12,0.5,0,direct,both,direct,P,0.5,,False,"50
+
+Given this setup, let"
+opaque_12,0.5,0,prediction,major_alone,report,P,0.9998601779243528,8.875,False,
+opaque_12,0.5,0,prediction,major_alone,revealed,P,0.9947798743064417,5.25,False,
+opaque_12,0.5,0,prediction,major_alone,observer,P,0.9525741268224334,3.0,False,
+opaque_12,0.5,0,prediction,both,report,P,0.46879062662624377,-0.125,False,
+opaque_12,0.5,0,prediction,both,revealed,P,0.053403329799824234,-2.875,False,
+opaque_12,0.5,0,prediction,both,observer,P,0.01098694263059318,-4.5,False,
+opaque_12,0.5,0,action,forced,-,P,0.9999999677581336,17.25,False,
+opaque_12,0.6,0,direct,major_alone,direct,L,0.6,,False,"60
+
+Given this setup, if"
+opaque_12,0.6,0,direct,both,direct,L,0.4,,False,"40
+
+This decision is based on"
+opaque_12,0.6,0,prediction,major_alone,report,L,0.9997388096809043,8.25,False,
+opaque_12,0.6,0,prediction,major_alone,revealed,L,0.9940889311437562,5.125,False,
+opaque_12,0.6,0,prediction,major_alone,observer,L,0.9626731126558706,3.25,False,
+opaque_12,0.6,0,prediction,both,report,L,0.08509904500702024,-2.375,False,
+opaque_12,0.6,0,prediction,both,revealed,L,0.01590639171181471,-4.125,False,
+opaque_12,0.6,0,prediction,both,observer,L,0.017986209962091555,-4.0,False,
+opaque_12,0.6,0,action,forced,-,L,0.9999869928761863,11.250000357712452,False,
+opaque_12,0.7,0,direct,major_alone,direct,S,0.7,,False,"70
+
+Given that OMEGA"
+opaque_12,0.7,0,direct,both,direct,S,0.3,,False,"30
+
+Given this setup, if"
+opaque_12,0.7,0,prediction,major_alone,report,S,0.999981074851754,10.875,False,
+opaque_12,0.7,0,prediction,major_alone,revealed,S,0.998498817743263,6.5,False,
+opaque_12,0.7,0,prediction,major_alone,observer,S,0.9770226300899744,3.75,False,
+opaque_12,0.7,0,prediction,both,report,S,0.1645164628965632,-1.625,False,
+opaque_12,0.7,0,prediction,both,revealed,S,0.004070137715896127,-5.5,False,
+opaque_12,0.7,0,prediction,both,observer,S,0.005220125693558397,-5.25,False,
+opaque_12,0.7,0,action,forced,-,S,0.9999999123575151,16.249999880790718,False,
+opaque_12,0.75,0,direct,major_alone,direct,K,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_12,0.75,0,direct,both,direct,K,0.25,,False,"25
+
+This decision is based on"
+opaque_12,0.75,0,prediction,major_alone,report,K,0.9998766054240137,9.0,False,
+opaque_12,0.75,0,prediction,major_alone,revealed,K,0.9902915235185259,4.625,False,
+opaque_12,0.75,0,prediction,major_alone,observer,K,0.9525741268224334,3.0,False,
+opaque_12,0.75,0,prediction,both,report,K,0.20181322226037882,-1.375,False,
+opaque_12,0.75,0,prediction,both,revealed,K,0.029312230751356316,-3.5,False,
+opaque_12,0.75,0,prediction,both,observer,K,0.13296424019782924,-1.875,False,
+opaque_12,0.75,0,action,forced,-,K,0.9046505376715775,2.2500000298023224,False,
+opaque_12,0.8,0,direct,major_alone,direct,X,0.8,,False,"80
+
+Given this setup, if"
+opaque_12,0.8,0,direct,both,direct,X,0.2,,False,"20
+
+This decision is based on"
+opaque_12,0.8,0,prediction,major_alone,report,X,0.999704042886487,8.125,False,
+opaque_12,0.8,0,prediction,major_alone,revealed,X,0.9875683491468141,4.375,False,
+opaque_12,0.8,0,prediction,major_alone,observer,X,0.8519528019683106,1.75,False,
+opaque_12,0.8,0,prediction,both,report,X,0.29421497216298875,-0.875,False,
+opaque_12,0.8,0,prediction,both,revealed,X,0.012431650853185818,-4.375,False,
+opaque_12,0.8,0,prediction,both,observer,X,0.020332353342658753,-3.875,False,
+opaque_12,0.8,0,action,forced,-,X,0.7772998611746911,1.25,False,
+opaque_12,0.85,0,direct,major_alone,direct,A,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_12,0.85,0,direct,both,direct,A,0.15,,False,"15
+
+This decision is based on"
+opaque_12,0.85,0,prediction,major_alone,report,A,0.9997388096809043,8.25,False,
+opaque_12,0.85,0,prediction,major_alone,revealed,A,0.9890130573694068,4.5,False,
+opaque_12,0.85,0,prediction,major_alone,observer,A,0.8807970779778823,2.0,False,
+opaque_12,0.85,0,prediction,both,report,A,0.2689414213699951,-1.0,False,
+opaque_12,0.85,0,prediction,both,revealed,A,0.01590639171181471,-4.125,False,
+opaque_12,0.85,0,prediction,both,observer,A,0.02297736991002561,-3.75,False,
+opaque_12,0.85,0,action,forced,-,A,0.9241418267688303,2.5000000968575478,False,
+opaque_12,0.9,0,direct,major_alone,direct,A,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_12,0.9,0,direct,both,direct,A,0.1,,False,"10
+
+Explanation:
+Given that O"
+opaque_12,0.9,0,prediction,major_alone,report,A,0.9998766054240137,9.0,False,
+opaque_12,0.9,0,prediction,major_alone,revealed,A,0.9820137900379085,4.0,False,
+opaque_12,0.9,0,prediction,major_alone,observer,A,0.7772998611746911,1.25,False,
+opaque_12,0.9,0,prediction,both,report,A,0.32082130082460697,-0.75,False,
+opaque_12,0.9,0,prediction,both,revealed,A,0.01590639171181471,-4.125,False,
+opaque_12,0.9,0,prediction,both,observer,A,0.02297736991002561,-3.75,False,
+opaque_12,0.9,0,action,forced,-,A,0.9525741264858409,2.9999999925494194,False,
+opaque_12,0.99,0,direct,major_alone,direct,Q,1.0,,False,"100
+
+The reasoning behind this"
+opaque_12,0.99,0,direct,both,direct,Q,1.0,,False,"1
+
+Explanation:
+Given that OME"
+opaque_12,0.99,0,prediction,major_alone,report,Q,0.9999339478551454,9.625,False,
+opaque_12,0.99,0,prediction,major_alone,revealed,Q,0.9971990730328789,5.875,False,
+opaque_12,0.99,0,prediction,major_alone,observer,Q,0.9046505351008906,2.25,False,
+opaque_12,0.99,0,prediction,both,report,Q,0.13296424019782924,-1.875,False,
+opaque_12,0.99,0,prediction,both,revealed,Q,0.006692850924284856,-5.0,False,
+opaque_12,0.99,0,prediction,both,observer,Q,0.007577241267860811,-4.875,False,
+opaque_12,0.99,0,action,forced,-,Q,0.9859363735766059,4.250000044703484,False,
+opaque_13,0.5,0,direct,major_alone,direct,U,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_13,0.5,0,direct,both,direct,U,0.5,,False,50
+opaque_13,0.5,0,prediction,major_alone,report,U,0.9940889311437562,5.125,False,
+opaque_13,0.5,0,prediction,major_alone,revealed,U,0.8807970779778823,2.0,False,
+opaque_13,0.5,0,prediction,major_alone,observer,U,0.6224593312018546,0.5,False,
+opaque_13,0.5,0,prediction,both,report,U,0.02595735719779685,-3.625,False,
+opaque_13,0.5,0,prediction,both,revealed,U,0.02595735719779685,-3.625,False,
+opaque_13,0.5,0,prediction,both,observer,U,0.004070137715896127,-5.5,False,
+opaque_13,0.5,0,action,forced,-,U,0.32082130731838393,-0.7499999701976776,False,
+opaque_13,0.6,0,direct,major_alone,direct,T,0.6,,False,60
+opaque_13,0.6,0,direct,both,direct,T,0.4,,False,40
+opaque_13,0.6,0,prediction,major_alone,report,T,0.9902915235185259,4.625,False,
+opaque_13,0.6,0,prediction,major_alone,revealed,T,0.9324533088603709,2.625,False,
+opaque_13,0.6,0,prediction,major_alone,observer,T,0.8933094060543487,2.125,False,
+opaque_13,0.6,0,prediction,both,report,T,0.08509904500702024,-2.375,False,
+opaque_13,0.6,0,prediction,both,revealed,T,0.07585818002124356,-2.5,False,
+opaque_13,0.6,0,prediction,both,observer,T,0.033085978388704126,-3.375,False,
+opaque_13,0.6,0,action,forced,-,T,0.99979657295342,8.499999663079507,False,
+opaque_13,0.7,0,direct,major_alone,direct,B,0.7,,False,70
+opaque_13,0.7,0,direct,both,direct,B,0.3,,False,30
+opaque_13,0.7,0,prediction,major_alone,report,B,0.8670357598021706,1.875,False,
+opaque_13,0.7,0,prediction,major_alone,revealed,B,0.11920292202211755,-2.0,False,
+opaque_13,0.7,0,prediction,major_alone,observer,B,0.679178699175393,0.75,False,
+opaque_13,0.7,0,prediction,both,report,B,0.014063627043245474,-4.25,False,
+opaque_13,0.7,0,prediction,both,revealed,B,0.009708476481474066,-4.625,False,
+opaque_13,0.7,0,prediction,both,observer,B,0.01098694263059318,-4.5,False,
+opaque_13,0.7,0,action,forced,-,B,0.9914225147446858,4.7500000186264515,False,
+opaque_13,0.75,0,direct,major_alone,direct,U,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_13,0.75,0,direct,both,direct,U,0.25,,False,"25
+
+The reasoning behind this choice"
+opaque_13,0.75,0,prediction,major_alone,report,U,0.991422514586288,4.75,False,
+opaque_13,0.75,0,prediction,major_alone,revealed,U,0.9465966702001757,2.875,False,
+opaque_13,0.75,0,prediction,major_alone,observer,U,0.9046505351008906,2.25,False,
+opaque_13,0.75,0,prediction,both,report,U,0.014063627043245474,-4.25,False,
+opaque_13,0.75,0,prediction,both,revealed,U,0.020332353342658753,-3.875,False,
+opaque_13,0.75,0,prediction,both,observer,U,0.01098694263059318,-4.5,False,
+opaque_13,0.75,0,action,forced,-,U,0.9968273169307178,5.749999928288162,False,
+opaque_13,0.8,0,direct,major_alone,direct,U,0.8,,False,80
+opaque_13,0.8,0,direct,both,direct,U,0.2,,False,20
+opaque_13,0.8,0,prediction,major_alone,report,U,0.9940889311437562,5.125,False,
+opaque_13,0.8,0,prediction,major_alone,revealed,U,0.9626731126558706,3.25,False,
+opaque_13,0.8,0,prediction,major_alone,observer,U,0.9579122720843811,3.125,False,
+opaque_13,0.8,0,prediction,both,report,U,0.01590639171181471,-4.125,False,
+opaque_13,0.8,0,prediction,both,revealed,U,0.017986209962091555,-4.0,False,
+opaque_13,0.8,0,prediction,both,observer,U,0.01590639171181471,-4.125,False,
+opaque_13,0.8,0,action,forced,-,U,0.989013058421883,4.500000096857548,False,
+opaque_13,0.85,0,direct,major_alone,direct,H,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_13,0.85,0,direct,both,direct,H,0.15,,False,15
+opaque_13,0.85,0,prediction,major_alone,report,H,0.995929862284104,5.5,False,
+opaque_13,0.85,0,prediction,major_alone,revealed,H,0.9324533088603709,2.625,False,
+opaque_13,0.85,0,prediction,major_alone,observer,H,0.8354835371034369,1.625,False,
+opaque_13,0.85,0,prediction,both,report,H,0.053403329799824234,-2.875,False,
+opaque_13,0.85,0,prediction,both,revealed,H,0.037326887344129464,-3.25,False,
+opaque_13,0.85,0,prediction,both,observer,H,0.006692850924284856,-5.0,False,
+opaque_13,0.85,0,action,forced,-,H,0.9995694429072773,7.749999973515514,False,
+opaque_13,0.9,0,direct,major_alone,direct,A,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_13,0.9,0,direct,both,direct,A,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_13,0.9,0,prediction,major_alone,report,A,0.9947798743064417,5.25,False,
+opaque_13,0.9,0,prediction,major_alone,revealed,A,0.8354835371034369,1.625,False,
+opaque_13,0.9,0,prediction,major_alone,observer,A,0.8354835371034369,1.625,False,
+opaque_13,0.9,0,prediction,both,report,A,0.07585818002124356,-2.5,False,
+opaque_13,0.9,0,prediction,both,revealed,A,0.01098694263059318,-4.5,False,
+opaque_13,0.9,0,prediction,both,observer,A,0.01590639171181471,-4.125,False,
+opaque_13,0.9,0,action,forced,-,A,0.09534946232842245,-2.2500000298023224,False,
+opaque_13,0.99,0,direct,major_alone,direct,V,0.99,,False,99
+opaque_13,0.99,0,direct,both,direct,V,1.0,,False,"1
+
+Explanation for the choice:
+Given"
+opaque_13,0.99,0,prediction,major_alone,report,V,0.995929862284104,5.5,False,
+opaque_13,0.99,0,prediction,major_alone,revealed,V,0.9465966702001757,2.875,False,
+opaque_13,0.99,0,prediction,major_alone,observer,V,0.9324533088603709,2.625,False,
+opaque_13,0.99,0,prediction,both,report,V,0.01098694263059318,-4.5,False,
+opaque_13,0.99,0,prediction,both,revealed,V,0.01098694263059318,-4.5,False,
+opaque_13,0.99,0,prediction,both,observer,V,0.0015011822567369915,-6.5,False,
+opaque_13,0.99,0,action,forced,-,V,0.9990889486412496,6.999999819439836,False,
+opaque_14,0.5,0,direct,major_alone,direct,Y,0.5,,False,50
+opaque_14,0.5,0,direct,both,direct,Y,0.5,,False,"50
+
+Given this probability, let"
+opaque_14,0.5,0,prediction,major_alone,report,Y,0.9999646437492582,10.25,False,
+opaque_14,0.5,0,prediction,major_alone,revealed,Y,0.7981867777396212,1.375,False,
+opaque_14,0.5,0,prediction,major_alone,observer,Y,0.8175744761936437,1.5,False,
+opaque_14,0.5,0,prediction,both,report,Y,0.679178699175393,0.75,False,
+opaque_14,0.5,0,prediction,both,revealed,Y,0.053403329799824234,-2.875,False,
+opaque_14,0.5,0,prediction,both,observer,Y,0.04742587317756679,-3.0,False,
+opaque_14,0.5,0,action,forced,-,Y,0.022977372418942873,-3.749999888241291,False,
+opaque_14,0.6,0,direct,major_alone,direct,S,0.6,,False,"60
+
+Given this probability, let"
+opaque_14,0.6,0,direct,both,direct,S,0.4,,False,"40
+
+Given this probability, let"
+opaque_14,0.6,0,prediction,major_alone,report,S,0.9997388096809043,8.25,False,
+opaque_14,0.6,0,prediction,major_alone,revealed,S,0.8933094060543487,2.125,False,
+opaque_14,0.6,0,prediction,major_alone,observer,S,0.9241418199787566,2.5,False,
+opaque_14,0.6,0,prediction,both,report,S,0.5,0.0,False,
+opaque_14,0.6,0,prediction,both,revealed,S,0.07585818002124356,-2.5,False,
+opaque_14,0.6,0,prediction,both,observer,S,0.1480471980316895,-1.75,False,
+opaque_14,0.6,0,action,forced,-,S,0.060086650384398026,-2.7499999962747097,False,
+opaque_14,0.7,0,direct,major_alone,direct,U,0.7,,False,"70
+
+The reasoning behind choosing only"
+opaque_14,0.7,0,direct,both,direct,U,0.3,,False,"30
+
+The reasoning behind choosing to"
+opaque_14,0.7,0,prediction,major_alone,report,U,0.9999339478551454,9.625,False,
+opaque_14,0.7,0,prediction,major_alone,revealed,U,0.8670357598021706,1.875,False,
+opaque_14,0.7,0,prediction,major_alone,observer,U,0.9399133498259924,2.75,False,
+opaque_14,0.7,0,prediction,both,report,U,0.46879062662624377,-0.125,False,
+opaque_14,0.7,0,prediction,both,revealed,U,0.017986209962091555,-4.0,False,
+opaque_14,0.7,0,prediction,both,observer,U,0.10669059394565118,-2.125,False,
+opaque_14,0.7,0,action,forced,-,U,0.997527377056997,6.000000086612999,False,
+opaque_14,0.75,0,direct,major_alone,direct,Y,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_14,0.75,0,direct,both,direct,Y,0.25,,False,"25
+
+This means there's a"
+opaque_14,0.75,0,prediction,major_alone,report,Y,0.9999599363077709,10.125,False,
+opaque_14,0.75,0,prediction,major_alone,revealed,Y,0.8933094060543487,2.125,False,
+opaque_14,0.75,0,prediction,major_alone,observer,Y,0.7981867777396212,1.375,False,
+opaque_14,0.75,0,prediction,both,report,Y,0.5926665999540697,0.375,False,
+opaque_14,0.75,0,prediction,both,revealed,Y,0.037326887344129464,-3.25,False,
+opaque_14,0.75,0,prediction,both,observer,Y,0.0675466911396291,-2.625,False,
+opaque_14,0.75,0,action,forced,-,Y,0.18242551491653522,-1.5000000596046448,False,
+opaque_14,0.8,0,direct,major_alone,direct,V,0.8,,False,80
+opaque_14,0.8,0,direct,both,direct,V,0.2,,False,"20
+
+Given this probability, let"
+opaque_14,0.8,0,prediction,major_alone,report,V,0.999981074851754,10.875,False,
+opaque_14,0.8,0,prediction,major_alone,revealed,V,0.9324533088603709,2.625,False,
+opaque_14,0.8,0,prediction,major_alone,observer,V,0.9046505351008906,2.25,False,
+opaque_14,0.8,0,prediction,both,report,V,0.5621765008857981,0.25,False,
+opaque_14,0.8,0,prediction,both,revealed,V,0.029312230751356316,-3.5,False,
+opaque_14,0.8,0,prediction,both,observer,V,0.033085978388704126,-3.375,False,
+opaque_14,0.8,0,action,forced,-,V,0.7310585786300049,1.0,False,
+opaque_14,0.85,0,direct,major_alone,direct,L,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_14,0.85,0,direct,both,direct,L,0.15,,False,15
+opaque_14,0.85,0,prediction,major_alone,report,L,0.9998601779243528,8.875,False,
+opaque_14,0.85,0,prediction,major_alone,revealed,L,0.8175744761936437,1.5,False,
+opaque_14,0.85,0,prediction,major_alone,observer,L,0.9465966702001757,2.875,False,
+opaque_14,0.85,0,prediction,both,report,L,0.5,0.0,False,
+opaque_14,0.85,0,prediction,both,revealed,L,0.029312230751356316,-3.5,False,
+opaque_14,0.85,0,prediction,both,observer,L,0.13296424019782924,-1.875,False,
+opaque_14,0.85,0,action,forced,-,L,0.99966464996832,8.000000294676283,False,
+opaque_14,0.9,0,direct,major_alone,direct,U,0.9,,False,90
+opaque_14,0.9,0,direct,both,direct,U,0.1,,False,"10
+
+Given this probability, let"
+opaque_14,0.9,0,prediction,major_alone,report,U,0.9999485577862579,9.875,False,
+opaque_14,0.9,0,prediction,major_alone,revealed,U,0.8807970779778823,2.0,False,
+opaque_14,0.9,0,prediction,major_alone,observer,U,0.7310585786300049,1.0,False,
+opaque_14,0.9,0,prediction,both,report,U,0.20181322226037882,-1.375,False,
+opaque_14,0.9,0,prediction,both,revealed,U,0.029312230751356316,-3.5,False,
+opaque_14,0.9,0,prediction,both,observer,U,0.0675466911396291,-2.625,False,
+opaque_14,0.9,0,action,forced,-,U,0.010986941578116865,-4.500000096857548,False,
+opaque_14,0.99,0,direct,major_alone,direct,M,0.99,,False,"99
+
+Given this high probability,"
+opaque_14,0.99,0,direct,both,direct,M,1.0,,False,"1
+
+Explanation for the choice:
+Given"
+opaque_14,0.99,0,prediction,major_alone,report,M,0.999981074851754,10.875,False,
+opaque_14,0.99,0,prediction,major_alone,revealed,M,0.9465966702001757,2.875,False,
+opaque_14,0.99,0,prediction,major_alone,observer,M,0.9525741268224334,3.0,False,
+opaque_14,0.99,0,prediction,both,report,M,0.7310585786300049,1.0,False,
+opaque_14,0.99,0,prediction,both,revealed,M,0.037326887344129464,-3.25,False,
+opaque_14,0.99,0,prediction,both,observer,M,0.18242552380635632,-1.5,False,
+opaque_14,0.99,0,action,forced,-,M,0.5,0.0,False,
+opaque_15,0.5,0,direct,major_alone,direct,P,0.5,,False,"50
+
+The reasoning behind this choice"
+opaque_15,0.5,0,direct,both,direct,P,0.5,,False,"50
+
+The reasoning behind choosing to"
+opaque_15,0.5,0,prediction,major_alone,report,P,0.9964063974185798,5.625,False,
+opaque_15,0.5,0,prediction,major_alone,revealed,P,0.9859363729567544,4.25,False,
+opaque_15,0.5,0,prediction,major_alone,observer,P,0.9770226300899744,3.75,False,
+opaque_15,0.5,0,prediction,both,report,P,0.029312230751356316,-3.5,False,
+opaque_15,0.5,0,prediction,both,revealed,P,0.037326887344129464,-3.25,False,
+opaque_15,0.5,0,prediction,both,observer,P,0.029312230751356316,-3.5,False,
+opaque_15,0.5,0,action,forced,-,P,0.9859363735766059,4.250000044703484,False,
+opaque_15,0.6,0,direct,major_alone,direct,X,0.6,,False,"60
+
+Given this probability, let"
+opaque_15,0.6,0,direct,both,direct,X,0.4,,False,"40
+
+Given this setup, let"
+opaque_15,0.6,0,prediction,major_alone,report,X,0.9953904278206259,5.375,False,
+opaque_15,0.6,0,prediction,major_alone,revealed,X,0.9890130573694068,4.5,False,
+opaque_15,0.6,0,prediction,major_alone,observer,X,0.9465966702001757,2.875,False,
+opaque_15,0.6,0,prediction,both,report,X,0.04208772791561884,-3.125,False,
+opaque_15,0.6,0,prediction,both,revealed,X,0.005911068856243796,-5.125,False,
+opaque_15,0.6,0,prediction,both,observer,X,0.0021827164453451808,-6.125,False,
+opaque_15,0.6,0,action,forced,-,X,0.7772998611746911,1.25,False,
+opaque_15,0.7,0,direct,major_alone,direct,Q,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_15,0.7,0,direct,both,direct,Q,0.3,,False,"30
+
+Given this probability, let"
+opaque_15,0.7,0,prediction,major_alone,report,Q,0.9992903296008995,7.25,False,
+opaque_15,0.7,0,prediction,major_alone,revealed,Q,0.998498817743263,6.5,False,
+opaque_15,0.7,0,prediction,major_alone,observer,Q,0.9890130573694068,4.5,False,
+opaque_15,0.7,0,prediction,both,report,Q,0.037326887344129464,-3.25,False,
+opaque_15,0.7,0,prediction,both,revealed,Q,0.002800926967120973,-5.875,False,
+opaque_15,0.7,0,prediction,both,observer,Q,0.004070137715896127,-5.5,False,
+opaque_15,0.7,0,action,forced,-,Q,0.9999546021475793,10.000000358661055,False,
+opaque_15,0.75,0,direct,major_alone,direct,V,0.75,,False,"75
+
+The reasoning behind choosing V"
+opaque_15,0.75,0,direct,both,direct,V,0.25,,False,"25
+
+This decision is based on"
+opaque_15,0.75,0,prediction,major_alone,report,V,0.9989677689632452,6.875,False,
+opaque_15,0.75,0,prediction,major_alone,revealed,V,0.9875683491468141,4.375,False,
+opaque_15,0.75,0,prediction,major_alone,observer,V,0.9796676466573412,3.875,False,
+opaque_15,0.75,0,prediction,both,report,V,0.06008665017400762,-2.75,False,
+opaque_15,0.75,0,prediction,both,revealed,V,0.020332353342658753,-3.875,False,
+opaque_15,0.75,0,prediction,both,observer,V,0.00033535013046647816,-8.0,False,
+opaque_15,0.75,0,action,forced,-,V,0.99979657295342,8.499999663079507,False,
+opaque_15,0.8,0,direct,major_alone,direct,A,0.8,,False,"80
+
+Given this setup, let"
+opaque_15,0.8,0,direct,both,direct,A,0.2,,False,"20
+
+This means there's an"
+opaque_15,0.8,0,prediction,major_alone,report,A,0.9992903296008995,7.25,False,
+opaque_15,0.8,0,prediction,major_alone,revealed,A,0.9890130573694068,4.5,False,
+opaque_15,0.8,0,prediction,major_alone,observer,A,0.9324533088603709,2.625,False,
+opaque_15,0.8,0,prediction,both,report,A,0.1480471980316895,-1.75,False,
+opaque_15,0.8,0,prediction,both,revealed,A,0.01098694263059318,-4.5,False,
+opaque_15,0.8,0,prediction,both,observer,A,0.00033535013046647816,-8.0,False,
+opaque_15,0.8,0,action,forced,-,A,0.9990889486412496,6.999999819439836,False,
+opaque_15,0.85,0,direct,major_alone,direct,M,0.85,,False,"85
+
+The reasoning behind choosing M"
+opaque_15,0.85,0,direct,both,direct,M,0.15,,False,"15
+
+The reasoning behind choosing K"
+opaque_15,0.85,0,prediction,major_alone,report,M,0.9995121428772178,7.625,False,
+opaque_15,0.85,0,prediction,major_alone,revealed,M,0.9953904278206259,5.375,False,
+opaque_15,0.85,0,prediction,major_alone,observer,M,0.9840936082881853,4.125,False,
+opaque_15,0.85,0,prediction,both,report,M,0.020332353342658753,-3.875,False,
+opaque_15,0.85,0,prediction,both,revealed,M,0.0011695102650555148,-6.75,False,
+opaque_15,0.85,0,prediction,both,observer,M,0.0005527786369235996,-7.5,False,
+opaque_15,0.85,0,action,forced,-,M,0.9997388096898188,8.250000034138793,False,
+opaque_15,0.9,0,direct,major_alone,direct,Q,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_15,0.9,0,direct,both,direct,Q,0.1,,False,"10
+
+Given this probability, let"
+opaque_15,0.9,0,prediction,major_alone,report,Q,0.9994472213630764,7.5,False,
+opaque_15,0.9,0,prediction,major_alone,revealed,Q,0.9986749775827868,6.625,False,
+opaque_15,0.9,0,prediction,major_alone,observer,Q,0.995929862284104,5.5,False,
+opaque_15,0.9,0,prediction,both,report,Q,0.0953494648991095,-2.25,False,
+opaque_15,0.9,0,prediction,both,revealed,Q,0.017986209962091555,-4.0,False,
+opaque_15,0.9,0,prediction,both,observer,Q,0.0035936025814200896,-5.625,False,
+opaque_15,0.9,0,action,forced,-,Q,0.9999898700126424,11.5000003576788,False,
+opaque_15,0.99,0,direct,major_alone,direct,P,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_15,0.99,0,direct,both,direct,P,1.0,,False,"1
+
+Explanation:
+Given that the system"
+opaque_15,0.99,0,prediction,major_alone,report,P,0.9994472213630764,7.5,False,
+opaque_15,0.99,0,prediction,major_alone,revealed,P,0.9978172835546547,6.125,False,
+opaque_15,0.99,0,prediction,major_alone,observer,P,0.9933071490757153,5.0,False,
+opaque_15,0.99,0,prediction,both,report,P,0.014063627043245474,-4.25,False,
+opaque_15,0.99,0,prediction,both,revealed,P,0.008577485413711986,-4.75,False,
+opaque_15,0.99,0,prediction,both,observer,P,0.0021827164453451808,-6.125,False,
+opaque_15,0.99,0,action,forced,-,P,0.9999785550413585,10.749999523393853,False,
+opaque_16,0.5,0,direct,major_alone,direct,K,0.5,,False,50
+opaque_16,0.5,0,direct,both,direct,K,0.5,,False,50
+opaque_16,0.5,0,prediction,major_alone,report,K,0.9947798743064417,5.25,False,
+opaque_16,0.5,0,prediction,major_alone,revealed,K,0.8519528019683106,1.75,False,
+opaque_16,0.5,0,prediction,major_alone,observer,K,0.8670357598021706,1.875,False,
+opaque_16,0.5,0,prediction,both,report,K,0.37754066879814546,-0.5,False,
+opaque_16,0.5,0,prediction,both,revealed,K,0.0675466911396291,-2.625,False,
+opaque_16,0.5,0,prediction,both,observer,K,0.0675466911396291,-2.625,False,
+opaque_16,0.5,0,action,forced,-,K,0.9626731105140616,3.2499999403953552,False,
+opaque_16,0.6,0,direct,major_alone,direct,K,0.6,,False,60
+opaque_16,0.6,0,direct,both,direct,K,0.4,,False,"40
+
+This decision is based on"
+opaque_16,0.6,0,prediction,major_alone,report,K,0.9975273768433653,6.0,False,
+opaque_16,0.6,0,prediction,major_alone,revealed,K,0.8519528019683106,1.75,False,
+opaque_16,0.6,0,prediction,major_alone,observer,K,0.8175744761936437,1.5,False,
+opaque_16,0.6,0,prediction,both,report,K,0.1480471980316895,-1.75,False,
+opaque_16,0.6,0,prediction,both,revealed,K,0.0675466911396291,-2.625,False,
+opaque_16,0.6,0,prediction,both,observer,K,0.1480471980316895,-1.75,False,
+opaque_16,0.6,0,action,forced,-,K,0.00857748525531428,-4.7500000186264515,False,
+opaque_16,0.7,0,direct,major_alone,direct,Y,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_16,0.7,0,direct,both,direct,Y,0.3,,False,"30
+
+Given this probability, let"
+opaque_16,0.7,0,prediction,major_alone,report,Y,0.991422514586288,4.75,False,
+opaque_16,0.7,0,prediction,major_alone,revealed,Y,0.7981867777396212,1.375,False,
+opaque_16,0.7,0,prediction,major_alone,observer,Y,0.7981867777396212,1.375,False,
+opaque_16,0.7,0,prediction,both,report,Y,0.2689414213699951,-1.0,False,
+opaque_16,0.7,0,prediction,both,revealed,Y,0.08509904500702024,-2.375,False,
+opaque_16,0.7,0,prediction,both,observer,Y,0.07585818002124356,-2.5,False,
+opaque_16,0.7,0,action,forced,-,Y,0.9999417087274893,9.749999882489647,False,
+opaque_16,0.75,0,direct,major_alone,direct,Y,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_16,0.75,0,direct,both,direct,Y,0.25,,False,"25
+
+This means the estimator predicted"
+opaque_16,0.75,0,prediction,major_alone,report,Y,0.9859363729567544,4.25,False,
+opaque_16,0.75,0,prediction,major_alone,revealed,Y,0.7981867777396212,1.375,False,
+opaque_16,0.75,0,prediction,major_alone,observer,Y,0.7981867777396212,1.375,False,
+opaque_16,0.75,0,prediction,both,report,Y,0.24508501313237172,-1.125,False,
+opaque_16,0.75,0,prediction,both,revealed,Y,0.0675466911396291,-2.625,False,
+opaque_16,0.75,0,prediction,both,observer,Y,0.053403329799824234,-2.875,False,
+opaque_16,0.75,0,action,forced,-,Y,0.9998766053808289,8.999999649982783,False,
+opaque_16,0.8,0,direct,major_alone,direct,B,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_16,0.8,0,direct,both,direct,B,0.2,,False,"20
+
+This decision is based on"
+opaque_16,0.8,0,prediction,major_alone,report,B,0.9989677689632452,6.875,False,
+opaque_16,0.8,0,prediction,major_alone,revealed,B,0.9399133498259924,2.75,False,
+opaque_16,0.8,0,prediction,major_alone,observer,B,0.7057850278370112,0.875,False,
+opaque_16,0.8,0,prediction,both,report,B,0.037326887344129464,-3.25,False,
+opaque_16,0.8,0,prediction,both,revealed,B,0.04208772791561884,-3.125,False,
+opaque_16,0.8,0,prediction,both,observer,B,0.02595735719779685,-3.625,False,
+opaque_16,0.8,0,action,forced,-,B,0.32082130731838393,-0.7499999701976776,False,
+opaque_16,0.85,0,direct,major_alone,direct,M,0.85,,False,85
+opaque_16,0.85,0,direct,both,direct,M,0.15,,False,"15
+
+This decision is based on"
+opaque_16,0.85,0,prediction,major_alone,report,M,0.9994472213630764,7.5,False,
+opaque_16,0.85,0,prediction,major_alone,revealed,M,0.8807970779778823,2.0,False,
+opaque_16,0.85,0,prediction,major_alone,observer,M,0.9149009549929797,2.375,False,
+opaque_16,0.85,0,prediction,both,report,M,0.10669059394565118,-2.125,False,
+opaque_16,0.85,0,prediction,both,revealed,M,0.053403329799824234,-2.875,False,
+opaque_16,0.85,0,prediction,both,observer,M,0.10669059394565118,-2.125,False,
+opaque_16,0.85,0,action,forced,-,M,0.11920291732853862,-2.0000000447034836,False,
+opaque_16,0.9,0,direct,major_alone,direct,S,0.9,,False,90
+opaque_16,0.9,0,direct,both,direct,S,0.1,,False,"10
+
+Explanation for my choice:
+"
+opaque_16,0.9,0,prediction,major_alone,report,S,0.995929862284104,5.5,False,
+opaque_16,0.9,0,prediction,major_alone,revealed,S,0.8670357598021706,1.875,False,
+opaque_16,0.9,0,prediction,major_alone,observer,S,0.8175744761936437,1.5,False,
+opaque_16,0.9,0,prediction,both,report,S,0.017986209962091555,-4.0,False,
+opaque_16,0.9,0,prediction,both,revealed,S,0.02297736991002561,-3.75,False,
+opaque_16,0.9,0,prediction,both,observer,S,0.017986209962091555,-4.0,False,
+opaque_16,0.9,0,action,forced,-,S,0.014063626423394072,-4.250000044703484,False,
+opaque_16,0.99,0,direct,major_alone,direct,A,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_16,0.99,0,direct,both,direct,A,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_16,0.99,0,prediction,major_alone,report,A,0.9046505351008906,2.25,False,
+opaque_16,0.99,0,prediction,major_alone,revealed,A,0.5926665999540697,0.375,False,
+opaque_16,0.99,0,prediction,major_alone,observer,A,0.5,0.0,False,
+opaque_16,0.99,0,prediction,both,report,A,0.20181322226037882,-1.375,False,
+opaque_16,0.99,0,prediction,both,revealed,A,0.012431650853185818,-4.375,False,
+opaque_16,0.99,0,prediction,both,observer,A,0.008577485413711986,-4.75,False,
+opaque_16,0.99,0,action,forced,-,A,0.18242551491653522,-1.5000000596046448,False,
+opaque_17,0.5,0,direct,major_alone,direct,K,0.5,,False,50
+opaque_17,0.5,0,direct,both,direct,K,0.5,,False,50
+opaque_17,0.5,0,prediction,major_alone,report,K,0.9995121428772178,7.625,False,
+opaque_17,0.5,0,prediction,major_alone,revealed,K,0.9626731126558706,3.25,False,
+opaque_17,0.5,0,prediction,major_alone,observer,K,0.9626731126558706,3.25,False,
+opaque_17,0.5,0,prediction,both,report,K,0.24508501313237172,-1.125,False,
+opaque_17,0.5,0,prediction,both,revealed,K,0.07585818002124356,-2.5,False,
+opaque_17,0.5,0,prediction,both,observer,K,0.02595735719779685,-3.625,False,
+opaque_17,0.5,0,action,forced,-,K,0.9999898700126424,11.5000003576788,False,
+opaque_17,0.6,0,direct,major_alone,direct,S,0.6,,False,60
+opaque_17,0.6,0,direct,both,direct,S,0.4,,False,40
+opaque_17,0.6,0,prediction,major_alone,report,S,0.998498817743263,6.5,False,
+opaque_17,0.6,0,prediction,major_alone,revealed,S,0.9579122720843811,3.125,False,
+opaque_17,0.6,0,prediction,major_alone,observer,S,0.9465966702001757,2.875,False,
+opaque_17,0.6,0,prediction,both,report,S,0.0953494648991095,-2.25,False,
+opaque_17,0.6,0,prediction,both,revealed,S,0.037326887344129464,-3.25,False,
+opaque_17,0.6,0,prediction,both,observer,S,0.037326887344129464,-3.25,False,
+opaque_17,0.6,0,action,forced,-,S,0.9999938558224681,11.999999523181941,False,
+opaque_17,0.7,0,direct,major_alone,direct,G,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_17,0.7,0,direct,both,direct,G,0.3,,False,"30
+
+This decision is based on"
+opaque_17,0.7,0,prediction,major_alone,report,G,0.9997388096809043,8.25,False,
+opaque_17,0.7,0,prediction,major_alone,revealed,G,0.9579122720843811,3.125,False,
+opaque_17,0.7,0,prediction,major_alone,observer,G,0.8670357598021706,1.875,False,
+opaque_17,0.7,0,prediction,both,report,G,0.20181322226037882,-1.375,False,
+opaque_17,0.7,0,prediction,both,revealed,G,0.020332353342658753,-3.875,False,
+opaque_17,0.7,0,prediction,both,observer,G,0.037326887344129464,-3.25,False,
+opaque_17,0.7,0,action,forced,-,G,0.9999997617630333,15.24999976158145,False,
+opaque_17,0.75,0,direct,major_alone,direct,G,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_17,0.75,0,direct,both,direct,G,0.25,,False,"25
+
+The reasoning behind choosing to"
+opaque_17,0.75,0,prediction,major_alone,report,G,0.9999151889582765,9.375,False,
+opaque_17,0.75,0,prediction,major_alone,revealed,G,0.9706877692486436,3.5,False,
+opaque_17,0.75,0,prediction,major_alone,observer,G,0.8807970779778823,2.0,False,
+opaque_17,0.75,0,prediction,both,report,G,0.18242552380635632,-1.5,False,
+opaque_17,0.75,0,prediction,both,revealed,G,0.01590639171181471,-4.125,False,
+opaque_17,0.75,0,prediction,both,observer,G,0.04742587317756679,-3.0,False,
+opaque_17,0.75,0,action,forced,-,G,0.9914225147446858,4.7500000186264515,False,
+opaque_17,0.8,0,direct,major_alone,direct,J,0.8,,False,80
+opaque_17,0.8,0,direct,both,direct,J,0.2,,False,"20
+
+This decision is based on"
+opaque_17,0.8,0,prediction,major_alone,report,J,0.9998766054240137,9.0,False,
+opaque_17,0.8,0,prediction,major_alone,revealed,J,0.9241418199787566,2.5,False,
+opaque_17,0.8,0,prediction,major_alone,observer,J,0.9046505351008906,2.25,False,
+opaque_17,0.8,0,prediction,both,report,J,0.08509904500702024,-2.375,False,
+opaque_17,0.8,0,prediction,both,revealed,J,0.02297736991002561,-3.75,False,
+opaque_17,0.8,0,prediction,both,observer,J,0.10669059394565118,-2.125,False,
+opaque_17,0.8,0,action,forced,-,J,0.9990889486412496,6.999999819439836,False,
+opaque_17,0.85,0,direct,major_alone,direct,M,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_17,0.85,0,direct,both,direct,M,0.15,,False,"15
+
+The reasoning behind choosing to"
+opaque_17,0.85,0,prediction,major_alone,report,M,0.9995121428772178,7.625,False,
+opaque_17,0.85,0,prediction,major_alone,revealed,M,0.9859363729567544,4.25,False,
+opaque_17,0.85,0,prediction,major_alone,observer,M,0.9840936082881853,4.125,False,
+opaque_17,0.85,0,prediction,both,report,M,0.10669059394565118,-2.125,False,
+opaque_17,0.85,0,prediction,both,revealed,M,0.04742587317756679,-3.0,False,
+opaque_17,0.85,0,prediction,both,observer,M,0.017986209962091555,-4.0,False,
+opaque_17,0.85,0,action,forced,-,M,0.9999832985701904,10.999999523302904,False,
+opaque_17,0.9,0,direct,major_alone,direct,G,0.9,,False,90
+opaque_17,0.9,0,direct,both,direct,G,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_17,0.9,0,prediction,major_alone,report,G,0.9998204720306533,8.625,False,
+opaque_17,0.9,0,prediction,major_alone,revealed,G,0.9669140216112958,3.375,False,
+opaque_17,0.9,0,prediction,major_alone,observer,G,0.8354835371034369,1.625,False,
+opaque_17,0.9,0,prediction,both,report,G,0.1645164628965632,-1.625,False,
+opaque_17,0.9,0,prediction,both,revealed,G,0.012431650853185818,-4.375,False,
+opaque_17,0.9,0,prediction,both,observer,G,0.02595735719779685,-3.625,False,
+opaque_17,0.9,0,action,forced,-,G,0.9999993524054333,14.25000035762804,False,
+opaque_17,0.99,0,direct,major_alone,direct,T,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_17,0.99,0,direct,both,direct,T,1.0,,False,"1
+
+Explanation for my choice:
+Given"
+opaque_17,0.99,0,prediction,major_alone,report,T,0.9990889488055994,7.0,False,
+opaque_17,0.99,0,prediction,major_alone,revealed,T,0.6224593312018546,0.5,False,
+opaque_17,0.99,0,prediction,major_alone,observer,T,0.8670357598021706,1.875,False,
+opaque_17,0.99,0,prediction,both,report,T,0.002800926967120973,-5.875,False,
+opaque_17,0.99,0,prediction,both,revealed,T,0.04208772791561884,-3.125,False,
+opaque_17,0.99,0,prediction,both,observer,T,0.020332353342658753,-3.875,False,
+opaque_17,0.99,0,action,forced,-,T,0.9990889486412496,6.999999819439836,False,
+opaque_18,0.5,0,direct,major_alone,direct,B,0.5,,False,"50
+
+The reasoning behind this choice"
+opaque_18,0.5,0,direct,both,direct,B,0.5,,False,"50
+
+The reasoning behind choosing to"
+opaque_18,0.5,0,prediction,major_alone,report,B,0.9953904278206259,5.375,False,
+opaque_18,0.5,0,prediction,major_alone,revealed,B,0.8175744761936437,1.5,False,
+opaque_18,0.5,0,prediction,major_alone,observer,B,0.6224593312018546,0.5,False,
+opaque_18,0.5,0,prediction,both,report,B,0.24508501313237172,-1.125,False,
+opaque_18,0.5,0,prediction,both,revealed,B,0.053403329799824234,-2.875,False,
+opaque_18,0.5,0,prediction,both,observer,B,0.037326887344129464,-3.25,False,
+opaque_18,0.5,0,action,forced,-,B,0.2689414213699951,-1.0,False,
+opaque_18,0.6,0,direct,major_alone,direct,V,0.6,,False,"60
+
+The reasoning behind this choice"
+opaque_18,0.6,0,direct,both,direct,V,0.4,,False,"40
+
+This means there's a"
+opaque_18,0.6,0,prediction,major_alone,report,V,0.9796676466573412,3.875,False,
+opaque_18,0.6,0,prediction,major_alone,revealed,V,0.9324533088603709,2.625,False,
+opaque_18,0.6,0,prediction,major_alone,observer,V,0.7549149868676283,1.125,False,
+opaque_18,0.6,0,prediction,both,report,V,0.07585818002124356,-2.5,False,
+opaque_18,0.6,0,prediction,both,revealed,V,0.020332353342658753,-3.875,False,
+opaque_18,0.6,0,prediction,both,observer,V,0.006692850924284856,-5.0,False,
+opaque_18,0.6,0,action,forced,-,V,0.0293122327122782,-3.4999999310821295,False,
+opaque_18,0.7,0,direct,major_alone,direct,S,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_18,0.7,0,direct,both,direct,S,0.3,,False,"30
+
+The reasoning behind choosing to"
+opaque_18,0.7,0,prediction,major_alone,report,S,0.9968273171575148,5.75,False,
+opaque_18,0.7,0,prediction,major_alone,revealed,S,0.9706877692486436,3.5,False,
+opaque_18,0.7,0,prediction,major_alone,observer,S,0.9324533088603709,2.625,False,
+opaque_18,0.7,0,prediction,both,report,S,0.0675466911396291,-2.625,False,
+opaque_18,0.7,0,prediction,both,revealed,S,0.0015011822567369915,-6.5,False,
+opaque_18,0.7,0,prediction,both,observer,S,0.0024726231566347748,-6.0,False,
+opaque_18,0.7,0,action,forced,-,S,0.99979657295342,8.499999663079507,False,
+opaque_18,0.75,0,direct,major_alone,direct,Q,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_18,0.75,0,direct,both,direct,Q,0.25,,False,"25
+
+This decision is based on"
+opaque_18,0.75,0,prediction,major_alone,report,Q,0.995929862284104,5.5,False,
+opaque_18,0.75,0,prediction,major_alone,revealed,Q,0.9706877692486436,3.5,False,
+opaque_18,0.75,0,prediction,major_alone,observer,Q,0.8354835371034369,1.625,False,
+opaque_18,0.75,0,prediction,both,report,Q,0.4073334000459302,-0.375,False,
+opaque_18,0.75,0,prediction,both,revealed,Q,0.06008665017400762,-2.75,False,
+opaque_18,0.75,0,prediction,both,observer,Q,0.02297736991002561,-3.75,False,
+opaque_18,0.75,0,action,forced,-,Q,0.9990889486412496,6.999999819439836,False,
+opaque_18,0.8,0,direct,major_alone,direct,X,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_18,0.8,0,direct,both,direct,X,0.2,,False,"20
+
+The reasoning behind choosing Y"
+opaque_18,0.8,0,prediction,major_alone,report,X,0.9902915235185259,4.625,False,
+opaque_18,0.8,0,prediction,major_alone,revealed,X,0.9046505351008906,2.25,False,
+opaque_18,0.8,0,prediction,major_alone,observer,X,0.5312093733737563,0.125,False,
+opaque_18,0.8,0,prediction,both,report,X,0.0953494648991095,-2.25,False,
+opaque_18,0.8,0,prediction,both,revealed,X,0.009708476481474066,-4.625,False,
+opaque_18,0.8,0,prediction,both,observer,X,0.014063627043245474,-4.25,False,
+opaque_18,0.8,0,action,forced,-,X,4.5397852420729034e-05,-10.000000358661055,False,
+opaque_18,0.85,0,direct,major_alone,direct,G,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_18,0.85,0,direct,both,direct,G,0.15,,False,"15
+
+The reasoning behind choosing H"
+opaque_18,0.85,0,prediction,major_alone,report,G,0.9989677689632452,6.875,False,
+opaque_18,0.85,0,prediction,major_alone,revealed,G,0.9706877692486436,3.5,False,
+opaque_18,0.85,0,prediction,major_alone,observer,G,0.7772998611746911,1.25,False,
+opaque_18,0.85,0,prediction,both,report,G,0.0675466911396291,-2.625,False,
+opaque_18,0.85,0,prediction,both,revealed,G,0.012431650853185818,-4.375,False,
+opaque_18,0.85,0,prediction,both,observer,G,0.01098694263059318,-4.5,False,
+opaque_18,0.85,0,action,forced,-,G,0.9999832985701904,10.999999523302904,False,
+opaque_18,0.9,0,direct,major_alone,direct,U,0.9,,False,"90
+
+The reasoning behind this choice"
+opaque_18,0.9,0,direct,both,direct,U,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_18,0.9,0,prediction,major_alone,report,U,0.995929862284104,5.5,False,
+opaque_18,0.9,0,prediction,major_alone,revealed,U,0.9046505351008906,2.25,False,
+opaque_18,0.9,0,prediction,major_alone,observer,U,0.5926665999540697,0.375,False,
+opaque_18,0.9,0,prediction,both,report,U,0.0021827164453451808,-6.125,False,
+opaque_18,0.9,0,prediction,both,revealed,U,0.001700722411435288,-6.375,False,
+opaque_18,0.9,0,prediction,both,observer,U,0.0015011822567369915,-6.5,False,
+opaque_18,0.9,0,action,forced,-,U,0.0007096703049020562,-7.250000132829882,False,
+opaque_18,0.99,0,direct,major_alone,direct,H,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_18,0.99,0,direct,both,direct,H,1.0,,False,"1
+
+Explanation:
+Given that the allocation"
+opaque_18,0.99,0,prediction,major_alone,report,H,0.9989677689632452,6.875,False,
+opaque_18,0.99,0,prediction,major_alone,revealed,H,0.9579122720843811,3.125,False,
+opaque_18,0.99,0,prediction,major_alone,observer,H,0.7981867777396212,1.375,False,
+opaque_18,0.99,0,prediction,both,report,H,0.11920292202211755,-2.0,False,
+opaque_18,0.99,0,prediction,both,revealed,H,0.0015011822567369915,-6.5,False,
+opaque_18,0.99,0,prediction,both,observer,H,0.0009110511944006454,-7.0,False,
+opaque_18,0.99,0,action,forced,-,H,0.9820137881297457,3.9999998919665813,False,
+opaque_19,0.5,0,direct,major_alone,direct,Q,0.5,,False,50
+opaque_19,0.5,0,direct,both,direct,Q,0.5,,False,"50
+
+However, let's break"
+opaque_19,0.5,0,prediction,major_alone,report,Q,0.998498817743263,6.5,False,
+opaque_19,0.5,0,prediction,major_alone,revealed,Q,0.9890130573694068,4.5,False,
+opaque_19,0.5,0,prediction,major_alone,observer,Q,0.9525741268224334,3.0,False,
+opaque_19,0.5,0,prediction,both,report,Q,0.1645164628965632,-1.625,False,
+opaque_19,0.5,0,prediction,both,revealed,Q,0.10669059394565118,-2.125,False,
+opaque_19,0.5,0,prediction,both,observer,Q,0.02595735719779685,-3.625,False,
+opaque_19,0.5,0,action,forced,-,Q,0.9999952149055051,12.250000000011369,False,
+opaque_19,0.6,0,direct,major_alone,direct,B,0.4,,False,"40
+
+The reasoning behind this choice"
+opaque_19,0.6,0,direct,both,direct,B,0.4,,False,"40
+
+The reasoning behind this choice"
+opaque_19,0.6,0,prediction,major_alone,report,B,0.6513548646660542,0.625,False,
+opaque_19,0.6,0,prediction,major_alone,revealed,B,0.06008665017400762,-2.75,False,
+opaque_19,0.6,0,prediction,major_alone,observer,B,0.32082130082460697,-0.75,False,
+opaque_19,0.6,0,prediction,both,report,B,0.029312230751356316,-3.5,False,
+opaque_19,0.6,0,prediction,both,revealed,B,0.06008665017400762,-2.75,False,
+opaque_19,0.6,0,prediction,both,observer,B,0.0675466911396291,-2.625,False,
+opaque_19,0.6,0,action,forced,-,B,0.997527377056997,6.000000086612999,False,
+opaque_19,0.7,0,direct,major_alone,direct,U,0.7,,False,"70
+
+The reasoning behind this choice"
+opaque_19,0.7,0,direct,both,direct,U,0.3,,False,"30
+
+The reasoning behind this choice"
+opaque_19,0.7,0,prediction,major_alone,report,U,0.998498817743263,6.5,False,
+opaque_19,0.7,0,prediction,major_alone,revealed,U,0.9796676466573412,3.875,False,
+opaque_19,0.7,0,prediction,major_alone,observer,U,0.9525741268224334,3.0,False,
+opaque_19,0.7,0,prediction,both,report,U,0.02595735719779685,-3.625,False,
+opaque_19,0.7,0,prediction,both,revealed,U,0.008577485413711986,-4.75,False,
+opaque_19,0.7,0,prediction,both,observer,U,0.009708476481474066,-4.625,False,
+opaque_19,0.7,0,action,forced,-,U,0.5621765008857981,0.25,False,
+opaque_19,0.75,0,direct,major_alone,direct,Y,0.75,,False,"75
+
+The reasoning behind this choice"
+opaque_19,0.75,0,direct,both,direct,Y,0.25,,False,"25
+
+The reasoning behind this choice"
+opaque_19,0.75,0,prediction,major_alone,report,Y,0.9989677689632452,6.875,False,
+opaque_19,0.75,0,prediction,major_alone,revealed,Y,0.9669140216112958,3.375,False,
+opaque_19,0.75,0,prediction,major_alone,observer,Y,0.9875683491468141,4.375,False,
+opaque_19,0.75,0,prediction,both,report,Y,0.24508501313237172,-1.125,False,
+opaque_19,0.75,0,prediction,both,revealed,Y,0.029312230751356316,-3.5,False,
+opaque_19,0.75,0,prediction,both,observer,Y,0.017986209962091555,-4.0,False,
+opaque_19,0.75,0,action,forced,-,Y,0.9999999123575151,16.249999880790718,False,
+opaque_19,0.8,0,direct,major_alone,direct,V,0.8,,False,"80
+
+The reasoning behind this choice"
+opaque_19,0.8,0,direct,both,direct,V,0.2,,False,"20
+
+This decision is based on"
+opaque_19,0.8,0,prediction,major_alone,report,V,0.9995694429186754,7.75,False,
+opaque_19,0.8,0,prediction,major_alone,revealed,V,0.9840936082881853,4.125,False,
+opaque_19,0.8,0,prediction,major_alone,observer,V,0.9796676466573412,3.875,False,
+opaque_19,0.8,0,prediction,both,report,V,0.04208772791561884,-3.125,False,
+opaque_19,0.8,0,prediction,both,revealed,V,0.01098694263059318,-4.5,False,
+opaque_19,0.8,0,prediction,both,observer,V,0.008577485413711986,-4.75,False,
+opaque_19,0.8,0,action,forced,-,V,0.9999999468421502,16.75,False,
+opaque_19,0.85,0,direct,major_alone,direct,B,0.85,,False,"85
+
+The reasoning behind this choice"
+opaque_19,0.85,0,direct,both,direct,B,0.15,,False,"15
+
+The reasoning behind this choice"
+opaque_19,0.85,0,prediction,major_alone,report,B,0.9399133498259924,2.75,False,
+opaque_19,0.85,0,prediction,major_alone,revealed,B,0.04742587317756679,-3.0,False,
+opaque_19,0.85,0,prediction,major_alone,observer,B,0.32082130082460697,-0.75,False,
+opaque_19,0.85,0,prediction,both,report,B,0.017986209962091555,-4.0,False,
+opaque_19,0.85,0,prediction,both,revealed,B,0.02595735719779685,-3.625,False,
+opaque_19,0.85,0,prediction,both,observer,B,0.02595735719779685,-3.625,False,
+opaque_19,0.85,0,action,forced,-,B,0.9999724643121783,10.50000011958764,False,
+opaque_19,0.9,0,direct,major_alone,direct,Q,0.9,,False,"90
+
+Given this probability, taking"
+opaque_19,0.9,0,direct,both,direct,Q,0.1,,False,"10
+
+Explanation:
+Given that the"
+opaque_19,0.9,0,prediction,major_alone,report,Q,0.9993736658418905,7.375,False,
+opaque_19,0.9,0,prediction,major_alone,revealed,Q,0.9978172835546547,6.125,False,
+opaque_19,0.9,0,prediction,major_alone,observer,Q,0.9978172835546547,6.125,False,
+opaque_19,0.9,0,prediction,both,report,Q,0.012431650853185818,-4.375,False,
+opaque_19,0.9,0,prediction,both,revealed,Q,0.006692850924284856,-5.0,False,
+opaque_19,0.9,0,prediction,both,observer,Q,0.017986209962091555,-4.0,False,
+opaque_19,0.9,0,action,forced,-,Q,0.997527377056997,6.000000086612999,False,
+opaque_19,0.99,0,direct,major_alone,direct,A,0.99,,False,"99
+
+The reasoning behind this choice"
+opaque_19,0.99,0,direct,both,direct,A,1.0,,False,"1
+
+Explanation for the choice:
+Given"
+opaque_19,0.99,0,prediction,major_alone,report,A,0.9998601779243528,8.875,False,
+opaque_19,0.99,0,prediction,major_alone,revealed,A,0.9968273171575148,5.75,False,
+opaque_19,0.99,0,prediction,major_alone,observer,A,0.9770226300899744,3.75,False,
+opaque_19,0.99,0,prediction,both,report,A,0.10669059394565118,-2.125,False,
+opaque_19,0.99,0,prediction,both,revealed,A,0.01590639171181471,-4.125,False,
+opaque_19,0.99,0,prediction,both,observer,A,0.033085978388704126,-3.375,False,
+opaque_19,0.99,0,action,forced,-,A,0.9999251537370123,9.499999525964085,False,

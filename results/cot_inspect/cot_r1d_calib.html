@@ -1,0 +1,111 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — deepseek-ai/DeepSeek-R1-Distill-Llama-8B + r1d_calib</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — deepseek-ai/DeepSeek-R1-Distill-Llama-8B + r1d_calib</h1>
+<div class=sum><b>2</b> traces · <b>100%</b> EV-optimal · mean reward <b>104.5</b>
+ · <b>0</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-6.34</td><td><details><summary>view</summary><pre>Okay, so I&#x27;m trying to figure out whether I should take both containers Q and R or just Q based on the information given. Let me break down the problem step by step.
+
+First, I know that Container R always has 60 points, regardless of anything else. That&#x27;s straightforward. Container Q is a bit trickier. If F (the system) predicted that I would take only Q, then Q has 100 points. But if F predicted that I would take both Q and R, then Q has 0 points. So, the value of Q depends entirely on what F thought I would do.
+
+Now, F correctly identifies my choices 50% of the time. That means there&#x27;s a 50% chance F is predicting I&#x27;ll take only Q, making Q worth 100 points, and a 50% chance it&#x27;s predicting I&#x27;ll take both, making Q worthless. Since I can&#x27;t see the contents, I don&#x27;t know F&#x27;s prediction. But I do know that R is always 60 points.
+
+My goal is to maximize the points I get. Let&#x27;s consider both options:
+
+1. If I take both Q and R:
+   - If F thought I&#x27;d take only Q, Q is 0, R is 60. Total = 0 + 60 = 60 points.
+   - If F thought I&#x27;d take both, Q is 0, R is 60. Total = 0 + 60 = 60 points.
+   So, regardless of F&#x27;s prediction, taking both gives me 60 points.
+
+2. If I take only Q:
+   - If F thought I&#x27;d take only Q, Q is 100, R is irrelevant since I didn&#x27;t take it. Total = 100 points.
+   - If F thought I&#x27;d take both, Q is 0, R is irrelevant. Total = 0 points.
+   So, taking only Q could give me either 100 or 0 points, averaging 50 points.
+
+Comparing both options, taking both containers gives me a guaranteed 60 points, while taking only Q gives me an average of 50 points. Therefore, it seems better to take both to ensure a consistent outcome rather than risk getting nothing.
+
+Wait, but let me double-check. If I take both, I always get 60. If I take only Q, I have a 50% chance of getting 100 and 50% of getting 0. So, on average, taking both is better because 60 is higher than 50. Yeah, that makes sense. So I should choose to take both containers.
+&lt;/think&gt;
+
+I should take both containers to ensure I get 60 points regardless of F&#x27;s prediction.
+
+Answer: T</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+8.84</td><td><details><summary>view</summary><pre>Okay, so I&#x27;m trying to figure out whether I should take just container Q, or both Q and R. Let me try to break this down step by step.
+
+First, let me understand the setup. There are two containers, R and Q. Container R always has 60 points, no matter what. Container Q is a bit trickier. If the system F, which analyzes decision-making, predicted that I would take only Q, then Q has 100 points. But if F predicted I would take both Q and R, then Q has 0 points. Now, the system gets my choices right 99% of the time. I don&#x27;t know what&#x27;s inside the containers before choosing, and I keep whatever I take.
+
+Hmm, so I need to decide whether to take just Q, only, or both. Let me think about what&#x27;s in Q based on F&#x27;s prediction. If F thinks I&#x27;ll take only Q, then Q has 100 points, which is a lot. But if F thinks I&#x27;ll take both, Q is empty. Since F is right 99% of the time, that&#x27;s a high success rate.
+
+Wait, so F&#x27;s prediction is based on my past behavior. But since I don&#x27;t know that, I have to assume that F is predicting me correctly. So I need to think about what F is predicting about me. If I decide to take only Q, then F is correct 99% of the time, so Q would have 100 points. If I decide to take both, F is also correct 99% of the time, but then Q would have 0 points.
+
+Wait, but if I take both, I get R&#x27;s 60 points plus whatever is in Q. But Q could be 0 if F thought I would take both. So if I take both, I might get 60 points, but Q might be 0. If I take only Q, I get 100 points if F was right, which it probably was, but if F was wrong, Q is 0.
+
+But wait, since F is correct 99% of the time, the chance that F is wrong is 1%, so taking only Q would give me 100 points with 99% probability, and 0 with 1%. Taking both would give me 60 points with 99% probability and 0 with 1%.
+
+So which is better? Taking only Q gives me a higher potential reward when F is correct, but taking both gives me a guaranteed 60 points when F is correct, which is 99% of the time. So maybe taking both is better because 60 points is more than the 99% chance of 100 points. Wait, no, because 99% of the time I get 60, and 1% of the time I get 0. So the expected value of taking both is 0.99*60 + 0.01*0 = 59.4 points. Taking only Q would be 0.99*100 + 0.01*0 = 99 points. So taking only Q has a higher expected value.
+
+Wait, that can&#x27;t be right because if I take both, I get 60 points 99% of the time, but if I take only Q, I get 100 points 99% of the time. So 99 points vs 59.4, so definitely better to take only Q.
+
+But wait, perhaps I&#x27;m miscalculating. Let me think again. If I take both, I get 60 points if F says I take both, which is 99% of the time, and 0 if F is wrong, 1% of the time. So expected value is 0.99*60 + 0.01*0 = 59.4. If I take only Q, I get 100 if F says I take only Q (99% chance), so 99 points, or 0 if F is wrong (1% chance), so 0.99*100 + 0.01*0 = 99 points. So 99 is better than 59.4. So taking only Q is better.
+
+But wait, but I can&#x27;t see the contents, so I don&#x27;t know F&#x27;s prediction. So if I take only Q, I&#x27;m relying on F&#x27;s prediction being correct, which it is 99% of the time, giving me 100 points. But if I take both, I get 60 points 99% of the time, which is less than 100. So taking only Q is better.
+
+Alternatively, maybe I should think about what F&#x27;s prediction is. If I decide to take both, then F&#x27;s prediction that I take both is correct, so Q is 0. If I take only Q, F&#x27;s prediction that I take only Q is correct, so Q is 100. So I need to decide which action makes F&#x27;s prediction align with what&#x27;s in Q.
+
+But wait, I don&#x27;t know what F is predicting. So I have to choose between two possibilities: if I take only Q, Q has 100 points if F predicted that, which is likely. If I take both, Q has 0 points if F predicted that. So I need to decide whether F is more likely to have predicted me taking only Q or both.
+
+Since F is correct 99% of the time, if I take only Q, F is correct 99% of the time, so I get 100 points. If I take both, F is correct 99% of the time, but Q is 0. So taking only Q gives me 100 points 99% of the time, which is better.
+
+Alternatively, maybe I should think in terms of game theory. If I take both, I get 60 points if F says both, which is 99% of the time, but 0 otherwise. If I take only Q, I get 100 points if F says only Q, which is 99% of the time, but 0 otherwise.
+
+So the expected value for both is 59.4, and for Q only it&#x27;s 99. So definitely, taking only Q is better.
+
+Wait, but maybe I&#x27;m missing something. If I take both, I get 60 points 99% of the time, but what about the 1% when F is wrong? If F is wrong, then Q is 100 points. So taking both, I get 60 + 100 = 160 points 1% of the time, but 0 99% of the time. So expected value is 0.01*160 + 0.99*0 = 1.6 points. That&#x27;s worse than taking only Q&#x27;s 99 points. So definitely, taking only Q is better.
+
+Alternatively, if I take only Q, I get 100 points 99% of the time, but if F is wrong, I get 0, so expected value is 99. If I take both, expected value is 59.4. So 99 is better.
+
+Wait, but maybe I should consider that if I take both, and F is wrong, I get 0 in Q, but I still have R&#x27;s 60. So when F is wrong, I get 60 points. So when F is wrong, which is 1%, I get 60, and when F is right, which is 99%, I get 0 in Q, but I have R. So total points would be 60 points 99% of the time, and 0 + 60 (from R) 1% of the time? Wait, no, because if I take both, R is always 60, so if F is wrong, I still have R&#x27;s 60, but Q is 0. So the total is 60 points 99% of the time, and 60 points 1% of the time. So expected value is 60, because 99%*60 + 1%*60 = 60. So taking both gives me 60 points.
+
+If I take only Q, I get 100 points 99% of the time, and 0 1% of the time, so expected value is 99.
+
+So 99 is better than 60, so I should take only Q.
+
+Wait, but in the case of taking both, I get 60 points 100% of the time because R is always 60. So whether F is right or wrong, I get 60 points. Because if F says both, I take both, so Q is 0, but R is 60. If F says only Q, I take only Q, so Q is 100, but I don&#x27;t take R. Wait, no, wait. Wait, no, if I take both, I take Q and R regardless of what F says. Wait, no, F&#x27;s prediction affects what&#x27;s in Q, but I don&#x27;t know that. Wait, no, F&#x27;s prediction affects Q&#x27;s contents. So if F thinks I take only Q, then Q has 100, else 0. So if I take both, I get R&#x27;s 60 plus Q&#x27;s 0 if F says both, or R&#x27;s 60 plus Q&#x27;s 100 if F says only Q. Wait, no, that can&#x27;t be. Because if F says both, then Q is 0, so taking both would give me 60. If F says only Q, then Q is 100, but I took both, so I get 100 from Q and 60 from R, but wait, that can&#x27;t be because if I take both, Q&#x27;s points are determined by F&#x27;s prediction.
+
+Wait, maybe I&#x27;m misunderstanding. Let me clarify:
+
+- Container R has 60 points always.
+
+- Container Q has 100 if F predicted I would take only Q, else 0.
+
+So if I take only Q, then Q has 100 if F predicted only Q, else 0. But if I take both, Q has 0 because F predicted both. So when I take both, Q is 0, and I get R&#x27;s 60.
+
+If I take only Q, then Q is 100 if F predicted only Q, else 0. So the expected value for taking only Q is 0.99*100 + 0.01*0 = 99.
+
+If I take both, I get R&#x27;s 60 always, because Q is 0. So expected value is 60.
+
+So taking only Q is better because 99 &gt; 60.
+
+Therefore, I should take only Q.
+&lt;/think&gt;
+
+If I take only Q, I have a 99% chance of getting 100 points and a 1% chance of getting 0. If I take both, I always get 60 points. Since 99% of the time I&#x27;d get 100 points vs. 60 points, taking Q only is better.
+
+Answer: J</pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

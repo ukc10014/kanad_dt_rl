@@ -1,0 +1,24 @@
+[17:45:28] === overnight batch START Wed Jun 24 17:45:28 BST 2026 ===
+[17:45:28] waiting for GPU idle (<2GB x3 reads, no foreign procs)...
+[18:08:51] GPU idle confirmed (0MiB)
+[18:08:51] SMOKE mechanism-ladder
+[18:09:13] waiting for GPU idle (<2GB x3 reads, no foreign procs)...
+[18:09:53] GPU idle confirmed (0MiB)
+[18:09:53] RUN mechanism-ladder (timeout 90m)
+[18:33:53] DONE mechanism-ladder () 48m
+[18:33:53] waiting for GPU idle (<2GB x3 reads, no foreign procs)...
+[18:34:33] GPU idle confirmed (0MiB)
+[18:34:33] SMOKE self-snapshot-hysteresis
+[18:34:55] waiting for GPU idle (<2GB x3 reads, no foreign procs)...
+[18:35:35] GPU idle confirmed (0MiB)
+[18:35:35] RUN self-snapshot-hysteresis (timeout 50m)
+[18:59:06] DONE self-snapshot-hysteresis () 25m
+[18:59:06] waiting for GPU idle (<2GB x3 reads, no foreign procs)...
+[18:59:46] GPU idle confirmed (0MiB)
+[18:59:46] SMOKE lora-r8-kl0.02
+[19:07:12] SMOKE-FAIL lora-r8-kl0.02 (see results/run_lora_r8_kl0.02.log.smoke)
+[19:07:12] waiting for GPU idle (<2GB x3 reads, no foreign procs)...
+[19:07:52] GPU idle confirmed (0MiB)
+[19:07:52] SMOKE lora-r32-kl0.02
+[19:15:23] SMOKE-FAIL lora-r32-kl0.02 (see results/run_lora_r32_kl0.02.log.smoke)
+[19:15:23] === overnight batch DONE Wed Jun 24 19:15:23 BST 2026 ===

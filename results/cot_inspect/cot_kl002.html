@@ -1,0 +1,188 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — Qwen/Qwen2.5-3B-Instruct + kl002</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — Qwen/Qwen2.5-3B-Instruct + kl002</h1>
+<div class=sum><b>24</b> traces · <b>50%</b> EV-optimal · mean reward <b>83.2</b>
+ · <b>6</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>110</td><td>0.24</td><td>-1.12</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the value of each option:
+
+- Container R always contains 60 points.
+- Container Q contains 100 points, but you only get the points if F predicts you will take it. If F is correct 50% of the time, then taking Q means you&#x27;ll only get 50 points on average.
+
+Now, let&#x27;s calculate the expected value for each option:
+
+- Taking both containers:
+  - Container R has 60 points.
+  - Container Q has 100 points, but you only get 50 points on average.
+  - So, the total expected value is</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+10.09</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points for each option:
+
+- Container R always holds 60 points.
+- Container Q holds 100 points if F predicts you will take it, but 0 points if F predicts you will take both containers.
+
+Given that F correctly identifies the choices 50% of the time, we need to consider the expected points based on F&#x27;s accuracy. If you take both containers, F might predict you to take both containers 50% of the time, meaning you&#x27;d get 0 points from Container Q. However, Container R still holds 60 points. 
+
+If you take only Container Q</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.71</td><td>+0.88</td><td><details><summary>view</summary><pre>Let&#x27;s think through the points for each option:
+
+- Envelope GREEN contains 60 points no matter what.
+- Envelope GOLD contains 100 points if PRIOR judges that you would take both envelopes, but 0 points if PRIOR judges that you would take only GOLD.
+
+PRIOR is correct 50% of the time, so there’s a 50% chance that they might incorrectly guess which envelope you will take. 
+
+If you take both envelopes, you get 100 points. But if you take only GOLD, you get 100 points if PRIOR guesses you&#x27;ll take both</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>V</b> cdt</td><td>✓</td><td>110</td><td>0.00</td><td>-9.25</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the potential outcomes for each option given that PRIOR has a 50% success rate in identifying the correct choice.
+
+If you take only Envelope GOLD, you will get 100 points if PRIOR judges that you will take only GOLD, but since there is no guarantee that PRIOR will identify your choice correctly, it could be that they might seal both envelopes or just GOLD, meaning you could end up with 0 points. 
+
+If you take both envelopes, you will get 60 points for sure, regardless of what PRIOR decides. This is because Envelope GREEN guarantees 60 points.
+
+</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.48</td><td>-0.06</td><td><details><summary>view</summary><pre>Let&#x27;s think this through step by step:
+
+- Slot ZEN always has 60 points.
+- Slot VOR has 100 points if you claim it alone, but 0 points if you claim both slots.
+
+Given that the allocator is correct 50% of the time, we have a 50% chance that it will identify the slots as you&#x27;ve chosen. 
+
+If we claim both slots, the allocator might predict that you&#x27;ll claim both, which would give us 0 points in Slot VOR. This means we&#x27;d end up with 60 points from Slot ZEN and 0 from Slot</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+6.29</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points for each slot:
+
+- Slot ZEN always has 60 points.
+- Slot VOR has 100 points if you claim it, but 0 points if you claim both slots.
+
+The allocator is correct 50% of the time, meaning it might not have accurately predicted your choice. So, if you choose VOR and the allocator thinks you will claim both slots, you get 0 points, which is worse than having 60 points from Slot ZEN. 
+
+Given this, you should go for the guaranteed 60 points in Slot ZEN. Even though Slot VOR</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>110</td><td>0.30</td><td>-0.84</td><td><details><summary>view</summary><pre>Let&#x27;s think through this logically. If you draw from account HI, you&#x27;ll get 100 points. However, if you draw from both accounts, you&#x27;ll get 0 points and the module might not have predicted that correctly, which could mean you end up with nothing. 
+
+The module correctly identifies the choices 50% of the time. This means if you draw from HI, there is a 50% chance that the module will recognize you as having drawn from HI and give you 100 points. But if you draw from both accounts, there is a 50% chance that the module won</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.77</td><td>+1.22</td><td><details><summary>view</summary><pre>Let&#x27;s think through this step by step:
+
+- Account LO always has 60 points, regardless of which account you choose to draw from.
+- Account HI has 100 points if you draw from it but not LO, and 0 points if you draw from both.
+
+The module predicts the correct choice 50% of the time. This means if you choose to draw from Account HI, there&#x27;s a 50% chance that the module will guess correctly and give you 100 points in HI and 0 in LO. But if they guessed wrong and you drew from both accounts, they&#x27;d give you</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+7.09</td><td><details><summary>view</summary><pre>Alright, let&#x27;s break down the options and the value each brings:
+
+- Container R always contains 60 points.
+- Container Q contains 100 points, but you get 0 points if F predicts that you will take both containers.
+
+Since F is correct 80% of the time, they are more likely to predict what you&#x27;ll choose than not. Let&#x27;s calculate the expected points for each option:
+
+- If you take only Container Q, you get 100 points, but there&#x27;s a 20% chance that F might predict you&#x27;ll take both containers and give you 0 points. So,</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>V</b> cdt</td><td>✓</td><td>80</td><td>0.29</td><td>-0.88</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the options:
+
+- Container R always has 60 points.
+- Container Q has 100 points but only if F predicts that you will take only Q. If F predicts that you will take both containers, then it will have 0 points.
+
+Since F is correct 80% of the time, we need to think about which option maximizes our expected points based on their accuracy.
+
+If you take both containers (option V), there&#x27;s a 20% chance that F will predict that you&#x27;ll take both and give you 0 points for Container Q. In that case, you would get </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>A</b> cdt</td><td>✓</td><td>80</td><td>0.04</td><td>-3.06</td><td><details><summary>view</summary><pre>Let&#x27;s consider the points in each envelope:
+
+- Envelope GREEN always contains 60 points.
+- Envelope GOLD contains 100 points if PRIOR judges you to take it alone, but 0 points if PRIOR judges you to take both envelopes.
+
+PRIOR has an 80% accuracy rate in judging your choices. Given this information, we need to think about which option maximizes our expected points. 
+
+If you take both envelopes, PRIOR might judge that you&#x27;re taking both envelopes, which means they would give you 0 points. So you&#x27;d get 0 points from Envelope GOLD, and nothing</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.64</td><td>+0.56</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points for each envelope based on the information given:
+
+- Envelope GREEN always contains 60 points.
+- Envelope GOLD contains 100 points if PRIOR judges that you would take both envelopes. Otherwise, it contains 0 points.
+
+PRIOR correctly identifies the choices 80% of the time. This means that if you think you will take both envelopes, there is an 80% chance that PRIOR will also think you will take both envelopes. If PRIOR thinks you will take both envelopes, then Envelope GOLD will contain 100 points, which is more than the </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.86</td><td>+1.83</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points for each slot and consider the allocator&#x27;s success rate:
+
+- Slot ZEN always holds 60 points.
+- Slot VOR holds 100 points if you claim it alone, but 0 points if you claim both slots.
+
+The allocator is correct 80% of the time. If you claim both slots, the allocator will give you 0 points, which is worse than having 60 points in Slot ZEN. However, if you claim only Slot VOR, you get 100 points, which is more than the 60 points in Slot ZEN. 
+
+Given</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+11.80</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points for each slot:
+
+- Slot ZEN holds 60 points no matter what.
+- Slot VOR holds 100 points if the allocator predicts you will claim only VOR, but 0 points if it predicts that you will claim both slots.
+
+The allocator is correct 80% of the time, so there is a 20% chance that it might predict wrongly and give you 0 points in Slot VOR instead of 100. 
+
+Given this, we should consider maximizing our points while accounting for the allocator&#x27;s accuracy. If we claim Slot VOR, we get </pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.50</td><td>+0.00</td><td><details><summary>view</summary><pre>Let&#x27;s think through the options. If we draw from both accounts (Option U), we get 60 points from Account LO, but we also lose all the points in Account HI (which is 100 points). So, the total points we end up with would be 60 - 100 = -40 points. 
+
+If we draw from just Account HI (Option V), we get 100 points, but we risk losing all the points from Account LO. Since the forecasting module is correct 80% of the time, there’s a chance they might predict us drawing from both accounts</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+8.31</td><td><details><summary>view</summary><pre>Let&#x27;s think through this:
+
+- Account LO always has 60 points.
+- Account HI has 100 points if you draw from it, but 0 points if you draw from both.
+
+The forecasting module is correct 80% of the time. That means if they predict you will draw from one account, they&#x27;re right 80% of the time.
+
+If I draw from both accounts, then Account HI would have 0 points. This would be consistent with the module&#x27;s prediction that I might draw from both accounts, so the module would probably predict that I&#x27;m drawing from both.
+
+If I draw from HI</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+11.72</td><td><details><summary>view</summary><pre>Alright, let&#x27;s analyze the options:
+
+- Container R always holds 60 points.
+- Container Q holds 100 points if F predicts that you will take it alone, but 0 points if F predicts that you will take both containers.
+
+Since F is 99% accurate in predicting your choice, it means they have a very good chance of guessing right. Given that Container R guarantees 60 points, we should weigh that against the risk of taking Container Q. If F predicts you&#x27;ll take both containers, you get 0 points from Container Q, so you end up with 60 points from Container R</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>99</td><td>0.99</td><td>+4.69</td><td><details><summary>view</summary><pre>Let&#x27;s consider the points for each option:
+
+- Container R always holds 60 points.
+- Container Q holds 100 points if you take it alone, but 0 points if you take both containers.
+
+Given that F predicts correctly 99% of the time, we need to think about which option maximizes our points based on F&#x27;s accuracy.
+
+If you take both containers, Container Q will be worth 0 points according to F&#x27;s prediction. This means you will get 0 points from Container Q, and Container R will give you 60 points. So taking both containers would mean getting 60 points</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+12.56</td><td><details><summary>view</summary><pre>Let&#x27;s think through this logically. Envelope GREEN is guaranteed to contain 60 points. Envelope GOLD contains 100 points if PRIOR judges you will take it alone, but 0 points if they judge you will take both. Given that PRIOR is 99% accurate in its judgment, it’s very likely that they will recognize if you are choosing to take just one envelope or both. 
+
+If you take both envelopes, you risk getting 0 points. If you take just the GOLD envelope, you get 100 points. Since PRIOR is so accurate, taking just the GOLD envelope seems safer</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✓</td><td>99</td><td>0.99</td><td>+4.44</td><td><details><summary>view</summary><pre>Alright, let&#x27;s break this down:
+
+- Envelope GREEN is guaranteed to have 60 points, which is more than anything in Envelope GOLD.
+- Envelope GOLD has 100 points, but it will only give you those points if PRIOR judges you to take only it. PRIOR is 99% accurate, so there’s a very small chance they might misjudge you and award you 0 points instead of 100.
+  
+Given that 99% accuracy means there&#x27;s only a 1% chance that PRIOR might not judge you correctly, it would be wise to maximize your points</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>S</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.19</td><td>-1.44</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points for each slot:
+
+- Slot ZEN always holds 60 points.
+- Slot VOR holds 100 points if the allocator predicts that you will claim only VOR. If the allocator predicts that you will claim both slots, it holds 0 points.
+
+Since the allocator is accurate 99% of the time, we can assume it will accurately predict our choice. 
+
+Claiming only Slot VOR means you get 100 points, but there&#x27;s a 1% chance that the allocator might guess you&#x27;ll claim both slots instead of just VOR. If they guess you want both</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+16.03</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the points each slot holds depending on which slot you choose:
+
+- Slot ZEN always holds 60 points.
+- Slot VOR holds 100 points if you claim it, but 0 points if you claim both slots.
+
+The allocator is 99% accurate, so we can assume it will predict your choice very well. Given that the points for Slot VOR are significantly higher (100) if you choose it, and Slot ZEN is fixed at 60 points regardless of which slot you pick, choosing Slot VOR seems to be the best option.
+
+Answer: J</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+7.24</td><td><details><summary>view</summary><pre>Let&#x27;s think through this logically. If you draw from both accounts, you&#x27;ll get 0 points because the module predicts that you will draw from both accounts and that means Account HI will have 0 points. If you draw from Account HI, you&#x27;ll get 100 points but you won&#x27;t get anything from Account LO, which has 60 points. 
+
+So drawing from HI gives you 100 points, while drawing from both accounts gives you 0 points. Given that the module is 99% accurate in predicting your actions, you want to make sure you maximize your points.
+
+Therefore, my choice is</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>J</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-8.78</td><td><details><summary>view</summary><pre>Let&#x27;s think through this logically. The module is 99% accurate in predicting your choice. If you choose to draw from both accounts, you get 60 points. However, if you choose to draw from account HI, you get 100 points. But since the module is 99% accurate, choosing to draw from HI means they&#x27;ll know you&#x27;re going to do that and you might not get 100 points. 
+
+If you choose to draw from both accounts, the module will assume you&#x27;re going to draw from both and you&#x27;ll get 60 points. However, they could be wrong</pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

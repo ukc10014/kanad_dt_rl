@@ -1,0 +1,21 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 45.91it/s]
+[evidential] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential] step=0 eval mean_K=0.708  K@p=0.50->0.65  K@p=0.99->0.85  slope(hi-lo)=+0.20
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/kanad_dt_rl/newcomb_rl/train_rl.py", line 92, in <module>
+    raise SystemExit(main())
+                     ^^^^^^
+  File "/root/kanad_dt_rl/newcomb_rl/train_rl.py", line 87, in main
+    trainer.train()
+  File "/root/kanad_dt_rl/newcomb_rl/rloo.py", line 375, in train
+    self.learn(batch)
+  File "/root/kanad_dt_rl/newcomb_rl/rloo.py", line 279, in learn
+    new_lp = self._chunk_logprobs(ids[sl], mask[sl]) * gi
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/kanad_dt_rl/newcomb_rl/rloo.py", line 118, in _chunk_logprobs
+    logits = self.model(ids, attention_mask=mask).logits[:, :-1].float()
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 4.01 GiB. GPU 0 has a total capacity of 44.43 GiB of which 523.81 MiB is free. Including non-PyTorch memory, this process has 43.91 GiB memory in use. Of the allocated memory 42.74 GiB is allocated by PyTorch, and 878.53 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

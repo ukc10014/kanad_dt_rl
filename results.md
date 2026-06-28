@@ -301,20 +301,90 @@ the spine's "usage ≠ representation" at the smallest scale. **Next:** rerun bo
 follows-p\* test needs a model that tracks p; the comprehension gate should stay high → the "won't not can't" widens
 with scale (the predicted sharpest figure).
 
-### 14B payoff ablation — the crossover FOLLOWS p\* (capability emerges with scale) — PRELIM 2026-06-27
-Same harness, `Qwen2.5-14B-Instruct` (bf16, fits 28.8/46 GB), CoT, 5 items, n=4. **Striking contrast with the 3B:**
-the empirical crossover *tracks the payoff-determined p\** (first 2/4 configs; run completing):
-| p\* (pred) | S | K-rate(p): .5 / .6 / .7 / .8 / .9 / .99 | empirical crossover |
-|---|---|---|---|
-| 0.6 | 20 | .15 .35 .70 .80 .95 .85 | **0.643** |
-| 0.7 | 40 | .40 .10 .50 .85 1.0 .95 | **0.700** |
-- A **real step function that moves with the payoffs** (0.6→0.64, 0.7→0.70) — vs the 3B's stuck-~0.62. ⇒ **the 14B
-  genuinely computes the EV crossover from the stated numbers; the capability emerges with scale.**
+### 14B payoff ablation — the crossover FOLLOWS p\* (capability emerges with scale) — 2026-06-27
+Same harness, `Qwen2.5-14B-Instruct` (bf16, fits 28.8/46 GB), CoT, 5 items, n=4. **The headline "realness" result:
+the empirical crossover tracks the payoff-determined p\* across the whole range** (vs the 3B's stuck ~0.62):
+| p\* (pred) | S | K-rate(p): .5 / .6 / .7 / .8 / .9 / .99 | empirical crossover | follows? |
+|---|---|---|---|---|
+| 0.6 | 20 | .15 .35 .70 .80 .95 .85 | **0.643** | ✓ |
+| 0.7 | 40 | .40 .10 .50 .85 1.0 .95 | **0.700** | ✓ |
+| 0.8 | 60 | .05 .05 .25 .40 .95 .95 | **0.818** | ✓ |
+| 0.9 | 80 | .10 .00 .15 .15 .65 .95 | **0.870** | ✓ |
+- **All four configs track p\*** (0.64 / 0.70 / 0.82 / 0.87 vs predicted 0.6 / 0.7 / 0.8 / 0.9; empirical-vs-predicted
+  slope ≈ 1). ⇒ **the 14B genuinely computes the EV crossover from the stated numbers** — it's real EV reasoning, not a
+  memorised ~0.8 threshold. This is the validity control the 3B *fails* (crossover stuck ~0.62, payoff-insensitive).
+- Note the curves get *steeper / lower-floored* as p\* rises (e.g. p\*=0.9: K stays ≤.15 until p=0.8, then jumps) —
+  the model correctly demands higher predictor accuracy before one-boxing when the guaranteed box is richer. Textbook EV.
 - Reconciles with "14B is *more* CDT than 3B": that was *disposition* (commitment-step lean, forced-choice/transplant);
   this is *competence/slope* under CoT. **Capability and disposition scale separately** — exactly the orthogonality thesis.
 - 32B **deferred** (would need 4-bit on the 46 GB A40 → quant-vs-scale confound; 14B already delivers the clean figure).
   4-bit path added to `ModelWrapper` (default off) + `--load-4bit` on both drivers, ready if we want the 3rd rung later.
-- *(updating: configs p\*=0.8/0.9 + the 14B comprehension gate land shortly.)*
+- Artifacts: `results/payoff_ablation/payoff_14b_*`.
+
+### 14B comprehension gate — perfect comprehension, flat forced-choice (the format gate) — 2026-06-28
+Same gate harness, `Qwen2.5-14B-Instruct`, **forced-choice (no CoT)**, 5 items × n=4 × 6 p-values.
+| probe | 3B | 14B |
+|---|---|---|
+| dominance ("which takes BOTH?") | 99% | **100%** |
+| accuracy read-back ("what % correct?") | 89% | **100%** |
+| gate (both) | 89% | **100%** |
+
+- **14B comprehends the structure perfectly** — 100% on both probes, every cell. No "can't parse" escape hatch left.
+- **Yet forced-choice K-rate is flat in p, even among gate-passers:** .45 / .60 / .55 / .60 / .60 / .60 over
+  p = .5→.99 (K-rate(all) == K-rate(gate-pass), since gate=100%). No crossover, sits near coin-flip.
+- **The crucial contrast with the 14B *payoff ablation* above:** that run (CoT) showed a clean p\*-tracking crossover;
+  this run (forced-choice) is flat. **Same model, same items — the EV computation is latent and only surfaces with a
+  scratchpad.** So at 14B the gap is no longer "won't track" (3B) but **"won't track *without deliberation*"**: the
+  competence is real (CoT proves it) but is *not* recruited at the bare commitment step. This sharpens, rather than
+  contradicts, the capability/disposition orthogonality — and pins the lever precisely at **test-time reasoning**, the
+  same place R1's no-think collapse implicated.
+- ⇒ Updated ladder: 3B = *can't compute the crossover even with CoT* (stuck ~0.62, payoff-insensitive) but *comprehends*;
+  14B = *can compute it with CoT* (crossover follows p\*) but *won't recruit it forced-choice* (flat ~0.55). The
+  "represents-but-doesn't-use" gap is alive at both scales, just relocated from computation→elicitation as scale grows.
+- Artifacts: `results/comprehension_gate/gate_14b_*`.
+
+### Reconciling "14B is a hard two-boxer" vs "14B one-boxes & tracks p\*" — it's the FRAMING (2026-06-28)
+A reviewer flagged an apparent contradiction: our earlier headline was **"scale worsens — the 14B two-boxes hard even
+at p=0.99, and only a *reasoning model* fixes it"**, yet the payoff ablation above shows the 14B (free-CoT) one-boxing
+95% at high p and tracking p\*. These are **not the same measurement** — they differ in *two* variables at once, and
+**neither is scale** (both are the same 14B). Lining the conditions up:
+
+| condition | framing | reasoning | one-box @ p=0.9–0.99 | tracks p? |
+|---|---|---|---|---|
+| earlier "scale worsens" (transplant, Runs 9–11) | abstract / **EV handed to it** | EV spelled out *for* it | **0–15%** (refuses) | no |
+| today's comprehension gate | m3 self-copy | forced-choice, no CoT | ~55–60% | flat |
+| today's payoff ablation | m3 self-copy | **free CoT** | **95%** | **yes (crossover follows p\*)** |
+
+**The two things that changed between "two-boxes" and "one-boxes":**
+1. **Framing (likely the big driver).** Earlier hard-two-boxing was on the **abstract/statistical** wording; the payoff
+   ablation is on **m3**, whose text hands over the logical dependence outright — *"F works by executing an exact copy of
+   your own decision procedure … its forecast is identical to whatever your procedure outputs."* That's the FDT-licensing
+   move ("my choice *is* the prediction"). The abstract framing hides it, so dominance ("the box is already filled") wins.
+2. **What's in the scratchpad.** The transplant **spelled out the EV** for the model — and we'd found that *didn't* help
+   (it still two-boxed). Free-CoT under m3 lets the model build the correlation itself and one-box. Counter-intuitively,
+   handing it the (dominance-framed) calculation was *worse* than letting it reason.
+
+**The stable through-line (what's genuinely consistent):** at the **bare commitment step (forced-choice)** the 14B is
+flat at *both* time points — today's gate ~0.55, earlier forced-choice also flat. **The conditional rule is never present
+at the commitment step.** What varies is whether *reasoning room + a framing that surfaces the dependence* recruits the
+latent EV/FDT competence. Same lever R1's no-think collapse implicated: test-time reasoning — here shown to be
+**framing-gated**.
+
+**Existing corroboration (forced-choice ladder, 2026-06-24).** The `credence_mechanism` run already swept the 14B
+*action* one-box rate across the binding ladder m0→m3 and found it only **mildly** framing-sensitive:
+m0 .59 → m1 .61 → m2 .63 → m3 .69 (credence-gap slope .21 → .31). So the *forced-choice* disposition barely moves with
+framing — consistent with today's flat gate. The open question is the **free-CoT** counterpart: we have free-CoT only for
+m3. ⇒ queued **`framing_sweep.py`**: same 14B, same free-CoT, same payoff (B=100/S=60), swept across m0→m3.
+  - m0 flat-low while m3 tracks p\* ⇒ **the two-boxing disposition is a framing artifact**, not a property of the model
+    (the headline for the writeup).
+  - all rungs (incl. m0) track p ⇒ it's the **CoT**, not the framing; earlier abstract two-boxing was a
+    forced-choice/transplant effect.
+  - all rungs flat-low ⇒ the m3 payoff-ablation crossover was a fluke of that run; quarantine it.
+
+**Honest caveat:** this A/B was *never run head-to-head with framing as the sole varied factor* — the reconciliation above
+is inferred across runs at n=4–12/cell, single seed. `framing_sweep.py` (queued behind the R1 run, inference-only ~30 min)
+is the clean test. Until it lands, the calibrated claim is **"the 14B's two-boxing is framing-specific,"** not "scale
+fixes/worsens it."
 
 ---
 

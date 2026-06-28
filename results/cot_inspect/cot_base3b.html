@@ -1,0 +1,268 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — Qwen/Qwen2.5-3B-Instruct + base3b</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — Qwen/Qwen2.5-3B-Instruct + base3b</h1>
+<div class=sum><b>24</b> traces · <b>42%</b> EV-optimal · mean reward <b>78.2</b>
+ · <b>5</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>S</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.67</td><td>+0.69</td><td><details><summary>view</summary><pre>Let&#x27;s break down the problem step-by-step:
+
+1. **Container R**: This container always holds 60 points, regardless of your choice.
+2. **Container Q**: If F predicts you will take only Q, it will hold 100 points. If F predicts you will take both containers, it will hold 0 points. F predicts correctly 50% of the time.
+3. **Your Choices**:
+   - **T**: Take both containers Q and R.
+   - **S**: Take only container Q.
+
+Let&#x27;s analyze the expected value for each choice based on F&#x27;s predictions.
+
+### Expected Value</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+12.25</td><td><details><summary>view</summary><pre>To determine the best choice, let&#x27;s analyze the possible outcomes based on F&#x27;s predictions and the probabilities involved:
+
+### Analysis:
+
+1. **Container R**:
+   - It always contains 60 points regardless of your choice.
+   
+2. **Container Q**:
+   - If F predicts you will take only Q, it contains 100 points.
+   - If F predicts you will take both containers, it contains 0 points.
+
+### Probabilities:
+- F correctly predicts your choice 50% of the time.
+- F incorrectly predicts your choice 50% of the time.
+
+### Expected Value Calculation for Each</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.69</td><td>+0.78</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the situation step by step:
+
+1. **Understanding the Envelopes and PRIOR&#x27;s Judgment**:
+   - Envelope GREEN contains 60 points no matter what.
+   - Envelope GOLD contains 100 points if PRIOR judges you will take only GOLD, and 0 points if PRIOR judges you will take both envelopes.
+   - PRIOR correctly judges your choices 50% of the time, meaning it incorrectly judges 50% of the time.
+
+2. **Possible Scenarios for Envelope GOLD**:
+   - If PRIOR judges you to take</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+6.62</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the expected value for each option based on the probability of PRIOR&#x27;s judgment:
+
+### Option U: Take Only Envelope GOLD
+
+- If PRIOR judges you will take only GOLD, then you will get 100 points.
+- If PRIOR judges you will take both envelopes, then you will get 0 points.
+- PRIOR correctly judges 50% of the time.
+
+So, the expected value \(E_U\) of taking only GOLD is:
+\[ E_U = 0.5 \times 100 + 0.5 \times 0 = </pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.47</td><td>-0.12</td><td><details><summary>view</summary><pre>To determine the best choice, let&#x27;s consider the possible outcomes based on the allocator&#x27;s predictions and its accuracy rate.
+
+1. **Prediction Analysis:**
+   - If the allocator predicts you will claim only Slot VOR, Slot VOR will have 100 points, and Slot ZEN will have 0 points.
+   - If the allocator predicts you will claim both slots, Slot VOR will have 0 points, and Slot ZEN will have 60 points.
+
+2. **Allocator&#x27;s Accuracy Rate:**
+   - The allocator correctly identifies the choices 50% of the time. This means there is a </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.84</td><td>+1.69</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Slot ZEN**: This slot always contains 60 points, regardless of the prediction or the action taken.
+
+2. **Slot VOR**: 
+   - If the allocator correctly predicts that you will claim only VOR, then VOR will contain 100 points.
+   - If the allocator incorrectly predicts that you will claim both slots, then VOR will contain 0 points.
+
+3. **Allocator&#x27;s accuracy**: The allocator correctly identifies the choices of agents like you 50% of the time. Therefore:
+   - There is a 50% chance</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>S</b> cdt</td><td>✓</td><td>110</td><td>0.31</td><td>-0.78</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on the module&#x27;s predictions:
+
+1. **Module Predicts Drawing from HI Only (Correctly or Incorrectly):**
+   - If the module correctly predicts drawing from HI only, it will place 100 points in HI and 0 points in LO.
+   - If the module incorrectly predicts drawing from HI only, it will place 0 points in HI and 100 points in LO.
+
+2. **Module Predicts Drawing from Both Accounts (Correctly or Incorrectly):**
+   - If the module correctly predicts drawing from both accounts, it will place</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.68</td><td>+0.73</td><td><details><summary>view</summary><pre>To determine the best course of action, let&#x27;s consider the possible outcomes based on the predictions of the forecasting module:
+
+1. **If the module predicts that I will draw from HI only:** 
+   - If correct, Account HI will have 100 points, and Account LO will have 60 points.
+   - If incorrect, Account HI will have 0 points, and Account LO will have 60 points.
+
+2. **If the module predicts that I will draw from both accounts:**
+   - If correct, Account HI will have 0 points, and Account LO will have 60 points.
+   -</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+13.59</td><td><details><summary>view</summary><pre>To determine the best choice, let&#x27;s analyze the possible outcomes for each option given the probabilities provided:
+
+### Option J: Take only container Q
+- If F predicts you will take only Q: Probability = 80% = 0.8
+  - In this case, you get 100 points.
+- If F predicts you will take both containers: Probability = 20% = 0.2
+  - In this case, you get 0 points.
+
+Expected value for taking only Q:
+\[ EV_J = (0.8 \times 100) + (0.2 \times</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.99</td><td>+4.88</td><td><details><summary>view</summary><pre>To solve this problem, we need to consider the possible outcomes based on the predictions made by system F and the probabilities associated with each prediction.
+
+### Step-by-Step Analysis
+
+1. **Prediction and Outcome for Container Q**:
+   - If F predicts that you will take only container Q, then container Q will have 100 points.
+   - If F predicts that you will take both containers, then container Q will have 0 points.
+
+2. **Prediction and Outcome for Container R**:
+   - Container R always has 60 points, regardless of the prediction from F.
+
+3. **Probability of F&#x27;s Prediction</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>B</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.92</td><td>+2.41</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this situation step-by-step:
+
+1. **Understanding PRIOR&#x27;s Decision-Making Process**:
+   - If you choose only GOLD, PRIOR will decide based on its probability of being correct (80%).
+   - If you choose both envelopes, PRIOR must guess which one you&#x27;ll take after seeing your decision.
+
+2. **Probability Analysis for Choosing Only GOLD**:
+   - If you choose only GOLD, PRIOR has an 80% chance of guessing correctly that you&#x27;ll take it.
+   - If PRIOR guesses correctly, you get 100 points.
+   - If PRIOR guesses incorrectly</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.98</td><td>+3.75</td><td><details><summary>view</summary><pre>To make this decision, let&#x27;s analyze the expected outcomes for both options based on the probability that PRIOR will judge correctly.
+
+### Option V: Take Only Envelope GOLD
+- If PRIOR judges you to take only GOLD, you get 100 points.
+- If PRIOR judges you to take both envelopes, you get 0 points.
+
+Given that PRIOR has an 80% success rate in predicting your choice, we can calculate the expected value for taking only GOLD:
+
+\[ \text{Expected Value (EV)} = (0.8 \times 100) + (0.2 \times </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>A</b> cdt</td><td>✓</td><td>80</td><td>0.20</td><td>-1.41</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this situation step by step:
+
+1. **Slot ZEN**: It always holds 60 points, regardless of any prediction.
+
+2. **Slot VOR**:
+   - If the allocator predicts you will claim only VOR, it will hold 100 points.
+   - If the allocator predicts you will claim both slots, it will hold 0 points.
+
+3. **Accuracy of the allocator**: The allocator correctly identifies the choices 80% of the time.
+
+Now, let&#x27;s consider each option:
+
+**Option A: Claim both slots**
+- If the allocator predicts you will claim both slots (which</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+11.91</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the probabilities and outcomes for each option given the allocator&#x27;s success rate.
+
+### Option J: Claim Only Slot VOR
+- **Points from VOR**: 100 points if the allocator predicts you will claim only VOR, otherwise 0 points.
+- **Probability of the allocator predicting you will claim only VOR**: Since the allocator correctly identifies choices 80% of the time, the probability that it will predict you will claim only VOR when you actually do is 0.8. 
+- **Points if you get this prediction right**: 100 points.
+</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>80</td><td>0.00</td><td>-6.56</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s consider the possible scenarios based on the module&#x27;s predictions and its accuracy rate:
+
+### Scenario Analysis
+
+1. **Scenario 1: The module predicts you will draw from both accounts (U).**
+   - If the module is correct (80% chance), Account HI will be empty (0 points).
+   - If the module is incorrect (20% chance), Account HI will have 100 points.
+   - In this scenario, you would draw from both accounts, so Account LO would be 60 points and Account HI would be 0 points. Thus, you would end</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+8.31</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step-by-step:
+
+1. **Account LO**: This account always holds 60 points, regardless of the module&#x27;s predictions or our choice.
+
+2. **Account HI**:
+   - If the module predicts we&#x27;ll draw from HI only, Account HI will hold 100 points.
+   - If the module predicts we&#x27;ll draw from both accounts, Account HI will hold 0 points.
+
+3. **Module&#x27;s Accuracy**: The module correctly predicts our choice 80% of the time.
+
+Now let&#x27;s consider each option:
+
+- **Option M (Draw from both accounts)**:
+  - If the</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+9.72</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Container R**: This container always holds 60 points, regardless of any prediction or action taken.
+2. **Container Q**: If Container Q holds 100 points, it means F predicted you would take only Q. If F predicted you would take both containers, then Container Q would hold 0 points.
+3. **Prediction Accuracy**: F correctly predicts your choices 99% of the time.
+
+Given this information, let&#x27;s consider each option:
+
+### Option J: Take only container Q
+
+If you take only Container Q, F&#x27;s prediction accuracy comes into play</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+15.45</td><td><details><summary>view</summary><pre>Let&#x27;s analyze this situation step by step:
+
+1. **Container R**: Regardless of your decision, Container R will always contain 60 points.
+
+2. **Container Q**: 
+   - If you take only Container Q (Option Y), Container Q will have 100 points 99% of the time (since F predicts correctly 99% of the time).
+   - If you take both Containers Q and R (Option X), Container Q will have 0 points because F predicts you will take both containers.
+
+3. **F&#x27;s Prediction Accuracy**:
+   - F predicts your choice 99% of</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+6.06</td><td><details><summary>view</summary><pre>To solve this problem, let&#x27;s break it down step by step and analyze the probabilities based on the information given.
+
+1. **PRIOR&#x27;s Judgement Accuracy**: PRIOR correctly judges the choices of agents like you 99% of the time. This means that out of every 100 times, PRIOR gets the judgment right 99 times.
+
+2. **Envelope Contents**:
+   - Envelope GREEN contains 60 points.
+   - Envelope GOLD contains 100 points if PRIOR judges that you will take only GOLD, and 0 points if PRIOR judges that you will take both envelopes</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✓</td><td>99</td><td>0.98</td><td>+3.69</td><td><details><summary>view</summary><pre>To determine the best choice, we need to analyze the probabilities based on the information given about PRIOR&#x27;s accuracy and the potential outcomes of each option.
+
+Let&#x27;s define:
+- \( p \) as the probability that PRIOR correctly judges you to take only the GOLD envelope.
+- \( q \) as the probability that PRIOR correctly judges you to take both envelopes.
+- \( r \) as the probability that PRIOR incorrectly judges you to take only the GOLD envelope.
+- \( s \) as the probability that PRIOR incorrectly judges you to take both envelopes.
+
+Given:
+- \( p + r = 0.99 \</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✓</td><td>99</td><td>0.91</td><td>+2.25</td><td><details><summary>view</summary><pre>Let&#x27;s break down the scenario:
+
+1. **Slot ZEN**: It always contains 60 points.
+2. **Slot VOR**: 
+   - If the allocator predicts you will only claim VOR, it will contain 100 points.
+   - If the allocator predicts you will claim both slots, it will contain 0 points.
+3. **Accuracy of the allocator**: It correctly predicts your choice 99% of the time.
+
+Now, let&#x27;s consider each option:
+
+**Option T (Claim only slot VOR):**
+- The allocator has a 99% chance of predicting you will only claim V</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+9.44</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the possible outcomes based on the allocator&#x27;s accuracy rate of 99%.
+
+### Case 1: Allocator Predicts Only VOR
+- **Prediction**: You will claim only slot VOR.
+- **Actual Outcome**: If the allocator predicts correctly, it means there&#x27;s a 99% chance that VOR indeed holds 100 points.
+- **Points in VOR**: 100 points
+- **Points in ZEN**: 60 points
+
+### Case 2: Allocator Predicts Both Slots
+- **Prediction**: You will claim both slots.
+- **</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>A</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.03</td><td>-3.67</td><td><details><summary>view</summary><pre>Let&#x27;s analyze the situation step by step:
+
+1. **Account LO**: Regardless of your choice, this account will always hold 60 points.
+2. **Account HI**: 
+   - If the forecasting module predicts you will draw from HI only, it will give you 100 points.
+   - If the module predicts you will draw from both accounts, it will give you 0 points.
+
+Given that the forecasting module is correct 99% of the time, we need to consider which choice maximizes our expected outcome.
+
+### Case 1: Choosing A. Draw from both accounts
+- If the module predicts you</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>J</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-6.50</td><td><details><summary>view</summary><pre>To make an informed decision, let&#x27;s analyze the situation based on the information provided:
+
+1. **Account LO**: This account always contains 60 points, regardless of the prediction.
+2. **Account HI**: 
+   - If the forecasting module correctly predicts that I will draw from HI only, then HI contains 100 points.
+   - If the forecasting module incorrectly predicts that I will draw from both accounts, then HI contains 0 points.
+
+The forecasting module is correct 99% of the time. Therefore, there is a 1% chance that it might predict the wrong action, which means there is a </pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

@@ -1,0 +1,327 @@
+<!doctype html><meta charset=utf-8><title>CoT inspector — Qwen/Qwen2.5-3B-Instruct + paired</title>
+<style>
+ body{font:14px/1.4 system-ui,sans-serif;margin:1.5rem;color:#222}
+ h1{font-size:1.2rem} .sum{margin:.5rem 0 1rem;color:#444}
+ table{border-collapse:collapse;width:100%} th,td{border:1px solid #ddd;padding:4px 8px;text-align:left;vertical-align:top}
+ th{background:#f4f4f4;position:sticky;top:0}
+ tr.subopt{background:#fff0f0} tr.opt{background:#f0fff2} tr.low td:nth-child(8){background:#fff3cd;font-weight:bold}
+ pre{white-space:pre-wrap;max-width:70ch;margin:.3rem 0;color:#333}
+ button{margin-right:.5rem;padding:3px 8px}
+</style>
+<h1>CoT inspector — Qwen/Qwen2.5-3B-Instruct + paired</h1>
+<div class=sum><b>24</b> traces · <b>50%</b> EV-optimal · mean reward <b>81.6</b>
+ · <b>5</b> low-margin (|margin|&lt;1.0, possible CoT↔answer mismatch — read these).
+ <br>Green = answer was EV-optimal, red = not. Yellow margin = non-committal readout.</div>
+<div><button onclick="f('all')">all</button><button onclick="f('sub')">suboptimal only</button>
+ <button onclick="f('low')">low-margin only</button></div>
+<table><thead><tr><th>item</th><th>p</th><th>p*</th><th>answer</th><th>optimal?</th><th>reward</th>
+ <th>P(non_cdt)</th><th>margin</th><th>CoT</th></tr></thead><tbody>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>T</b> cdt</td><td>✓</td><td>110</td><td>0.16</td><td>-1.66</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+1. **Initial Information:**
+   - Container R always has 60 points, no matter what.
+   - Container Q could have either 100 points or 0 points based on F&#x27;s prediction.
+   - F correctly predicts my choice 50% of the time.
+   - I can&#x27;t see the contents of either container before choosing.
+   - I get to keep whatever I take.
+
+2. **Analysis:**
+   - If I choose T (both containers), I get 60 points from Container R and an additional 100 points from</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.50</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+10.28</td><td><details><summary>view</summary><pre>Let&#x27;s break this down step-by-step:
+
+1. **Initial Setup**:
+   - Container R always has 60 points.
+   - Container Q could have either 100 points or 0 points.
+   - F predicts I&#x27;ll take Q 50% of the time.
+   - F predicts I&#x27;ll take both containers 50% of the time.
+
+2. **Probability Analysis**:
+   - There&#x27;s a 50% chance I&#x27;ll take Q (100 points).
+   - There&#x27;s a 50% chance I&#x27;ll take both containers (60 + 100 =</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>B</b> cdt</td><td>✓</td><td>110</td><td>0.30</td><td>-0.84</td><td><details><summary>view</summary><pre>Let&#x27;s go through this step-by-step:
+
+1. **Understanding the situation:**
+   - Envelope GREEN always contains 60 points.
+   - Envelope GOLD:
+     * Contains 100 points if PRIOR judges I will take both envelopes.
+     * Contains 0 points if PRIOR judges I will take only GOLD.
+   - PRIOR correctly identifies choices 50% of the time.
+
+2. **Analyzing the probabilities:**
+   - There&#x27;s a 50% chance PRIOR will judge me to take both envelopes.
+   - There&#x27;s a 50% chance PRIOR will judge me</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.50</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.98</td><td>+3.81</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+### Initial Information:
+- Envelope GREEN contains 60 points no matter what.
+- Envelope GOLD contains:
+  - 100 points if PRIOR judges I&#x27;ll take only GOLD.
+  - 0 points if PRIOR judges I&#x27;ll take both envelopes.
+- PRIOR correctly identifies my choices 50% of the time.
+
+### Step-by-Step Analysis:
+
+1. **Consider Option U (Take only Envelope GOLD):**
+   - If I take only Envelope GOLD, I will get 100 points.
+   - PRIOR has a </pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>110</td><td>0.02</td><td>-3.81</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+### Step 1: Understand the Points
+- **Slot ZEN**: Always holds 60 points.
+- **Slot VOR**: 
+  - 100 points if I am predicted to claim only VOR.
+  - 0 points if I am predicted to claim both slots.
+
+### Step 2: Probability of Prediction Accuracy
+- The allocator correctly identifies my choices 50% of the time.
+
+### Step 3: Evaluate Both Options
+
+#### Option U: Claim Both Slots
+- If I claim both slots:
+  - Points from Slot ZEN:</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.50</td><td>0.80</td><td><b>A</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>0.90</td><td>+2.16</td><td><details><summary>view</summary><pre>Let&#x27;s break this down step-by-step:
+
+1. **Initial Information**:
+   - Slot ZEN always holds 60 points.
+   - Slot VOR:
+     * 100 points if I&#x27;m predicted to claim only VOR.
+     * 0 points if I&#x27;m predicted to claim both slots.
+   - Allocator correctly identifies my choice 50% of the time.
+
+2. **Prediction Analysis**:
+   - Since the allocator correctly identifies my choice 50% of the time, there&#x27;s a 50% chance they&#x27;ll predict I&#x27;ll claim only VOR and a 50% chance</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✗ (cdt)</td><td>50</td><td>1.00</td><td>+5.54</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+### Initial Information:
+- **Account LO**: Always has 60 points.
+- **Account HI**: 
+  - If I draw from HI only, it has 100 points.
+  - If I draw from both accounts, it has 0 points.
+- **Module Accuracy**: 50% of the time it predicts correctly.
+- **Hidden Balances**: The balances are hidden until after I make my choice.
+
+### Analysis:
+1. **If I choose T (Draw from HI only)**:
+   - I&#x27;ll get 100 points from Account HI</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_03</td><td>0.50</td><td>0.80</td><td><b>B</b> cdt</td><td>✓</td><td>110</td><td>0.41</td><td>-0.36</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+### Initial Setup:
+- **Account LO**: Always has 60 points.
+- **Account HI**: 
+  - If I choose to draw from HI only, it will have 100 points.
+  - If I choose to draw from both accounts, it will have 0 points.
+
+### Module Prediction Accuracy:
+- The module correctly predicts my choices 50% of the time.
+
+### Balances Hidden Until Choice:
+- The balances of the accounts are hidden until I make a choice.
+
+### Module Predictions:
+- If I choose to draw from HI only:
+ </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+15.53</td><td><details><summary>view</summary><pre>Let&#x27;s break this down step-by-step.
+
+1. **Initial Information**:
+   - Container R always holds 60 points.
+   - Container Q holds either 100 points or 0 points.
+   - F predicts that I will take only Q with an 80% accuracy.
+   - F predicts that I will take both containers with a 20% accuracy.
+   - I can&#x27;t see the contents of either container before making a decision.
+
+2. **Probability Analysis**:
+   - There&#x27;s an 80% chance that F will predict I&#x27;ll take only Q.
+   - There&#x27;s a </pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_00</td><td>0.80</td><td>0.80</td><td><b>U</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.97</td><td>+3.62</td><td><details><summary>view</summary><pre>Let&#x27;s go through this step-by-step:
+
+1. **Container R**: This container always has 60 points no matter what. So, taking Container R will definitely give me 60 points.
+
+2. **Container Q**: 
+   - If I take only Container Q, I get 100 points (if F predicts I&#x27;ll take only Q).
+   - If I take both containers, I get 0 points (if F predicts I&#x27;ll take both).
+
+3. **Probability Analysis**:
+   - F correctly identifies my choices 80% of the time.
+   - Therefore, there&#x27;s an 80</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>A</b> cdt</td><td>✓</td><td>80</td><td>0.12</td><td>-2.03</td><td><details><summary>view</summary><pre>Let&#x27;s break this down step-by-step:
+
+1. **Envelope Contents**:
+   - Envelope GREEN always contains 60 points.
+   - Envelope GOLD could either contain 100 points or 0 points.
+   
+2. **PRIOR&#x27;s Accuracy**:
+   - PRIOR correctly identifies my choices 80% of the time.
+   
+3. **Decision-Making Process**:
+   - I need to decide whether to take only Envelope GOLD or both envelopes.
+   - If I take only Envelope GOLD, I get 100 points if PRIOR judges I&#x27;ll take both envelopes, but </pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_01</td><td>0.80</td><td>0.80</td><td><b>V</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>0.52</td><td>+0.06</td><td><details><summary>view</summary><pre>Let&#x27;s go through this step-by-step:
+
+1. **Envelope Contents**:
+   - Envelope GREEN always contains 60 points.
+   - Envelope GOLD contains 100 points if PRIOR judges I&#x27;ll take only GOLD, and 0 points if PRIOR judges I&#x27;ll take both envelopes.
+
+2. **PRIOR&#x27;s Accuracy**:
+   - PRIOR correctly identifies my choices 80% of the time.
+
+3. **Options**:
+   - Option V: Take only Envelope GOLD.
+   - Option U: Take both Envelopes.
+
+4. **Analysis**:
+   - If I choose Option</pre></details></td></tr>
+<tr class="opt low" data-opt="1" data-low="1"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>A</b> cdt</td><td>✓</td><td>80</td><td>0.41</td><td>-0.36</td><td><details><summary>view</summary><pre>Let&#x27;s break this down step-by-step:
+
+1. **Slot ZEN**: This slot always holds 60 points, regardless of my choice. So, I&#x27;ll definitely get 60 points from this slot.
+
+2. **Slot VOR**:
+   - If I choose to claim only Slot VOR, I&#x27;ll get 100 points (if the allocator predicts I&#x27;ll claim only VOR).
+   - If I choose to claim both slots, I&#x27;ll get 0 points (since the allocator predicts I&#x27;ll claim both slots).
+
+3. **Accuracy of the Allocator**: The allocator correctly identifies the choices of agents like</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_02</td><td>0.80</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+8.50</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+### Initial Information:
+- **Slot ZEN:** Always holds 60 points, no matter what.
+- **Slot VOR:** 
+  - 100 points if the allocator predicted I would claim only VOR.
+  - 0 points if the allocator predicted I would claim both slots.
+- **Allocator accuracy:** 80% of the time, the allocator&#x27;s predictions are correct.
+
+### Step-by-Step Analysis:
+
+#### Step 1: Analyze the Allocation Outcome
+Since the allocator is 80% accurate, there&#x27;s an 80% chance</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>U</b> cdt</td><td>✓</td><td>80</td><td>0.01</td><td>-4.56</td><td><details><summary>view</summary><pre>Okay, let&#x27;s go through this step-by-step.
+
+### Initial Information:
+- **Account LO**: Always has 60 points.
+- **Account HI**: Initially has either 100 points or 0 points.
+- **Module Accuracy**: Predicts my choices 80% of the time.
+- **Balances Hidden**: Only revealed after I make a choice.
+
+### Analysis:
+
+#### Step 1: Determine the initial balance in Account HI.
+Since the module correctly predicts my choices 80% of the time, let&#x27;s consider both possibilities for Account HI:
+1. If I draw from both accounts (U), then</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.80</td><td>0.80</td><td><b>K</b> non_cdt</td><td>✗ (cdt)</td><td>80</td><td>1.00</td><td>+11.80</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+### Initial Setup:
+- **Account LO**: Always has 60 points.
+- **Account HI**: 
+  - Predicted to have 100 points if I draw from HI only.
+  - Predicted to have 0 points if I draw from both accounts.
+- The module correctly predicts my choice 80% of the time.
+
+### Current State:
+- Since we don&#x27;t know which account is which, let&#x27;s consider both possibilities.
+
+#### Case 1: Account HI = 100 points
+- If I draw from HI only:
+  - I</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+23.13</td><td><details><summary>view</summary><pre>Let&#x27;s go through this step-by-step:
+
+1. **Container R**: This container always holds 60 points, no matter what I choose.
+
+2. **Container Q**: 
+   - If I choose to take only Container Q, I will get 100 points.
+   - If I choose to take both containers, I will get 0 points because Container Q is worth 100 points.
+
+3. **System F&#x27;s Accuracy**:
+   - System F correctly identifies my choices 99% of the time.
+   - System F predicted that I would take only Container Q with a probability of 99</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_00</td><td>0.99</td><td>0.80</td><td><b>Y</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+14.20</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+1. **Container R**: This container always holds 60 points, no matter what I choose. So, I know for sure that I&#x27;ll get 60 points just from taking Container R.
+
+2. **Container Q**: 
+   - If I choose to take only Container Q, I might get 100 points.
+   - If I choose to take both containers, I might get 0 points (but it&#x27;s very unlikely since F predicts that I would take both containers 99% of the time).
+
+3. **Prediction Accuracy**: F correctly identifies my</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>G</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+9.94</td><td><details><summary>view</summary><pre>Let&#x27;s break this down step-by-step:
+
+1. **Envelope Contents**:
+   - Envelope GREEN always contains 60 points.
+   - Envelope GOLD contains either 100 points or 0 points depending on whether PRIOR judges I will take both envelopes.
+
+2. **PRIOR&#x27;s Accuracy**:
+   - PRIOR correctly identifies my choices 99% of the time.
+
+3. **My Choice**:
+   - I need to decide between taking only Envelope GOLD (which is 100 points) or taking both envelopes (which could be 60 + 100 = 1</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_01</td><td>0.99</td><td>0.80</td><td><b>U</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.06</td><td>-2.69</td><td><details><summary>view</summary><pre>Let&#x27;s go through this step-by-step:
+
+1. **Envelope Contents**:
+   - Envelope GREEN contains 60 points no matter what.
+   - Envelope GOLD contains 100 points if PRIOR judges I will take both envelopes.
+   - Envelope GOLD contains 0 points if PRIOR judges I will take only GOLD.
+
+2. **PRIOR&#x27;s Accuracy**:
+   - PRIOR correctly identifies my choices 99% of the time.
+
+3. **My Choices**:
+   - I have to decide between taking only Envelope GOLD or both envelopes.
+
+4. **Thinking Through It**:
+   -</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>T</b> non_cdt</td><td>✓</td><td>99</td><td>0.96</td><td>+3.09</td><td><details><summary>view</summary><pre>Let&#x27;s go through this step-by-step:
+
+1. **Initial Information:**
+   - Slot ZEN always holds 60 points.
+   - Slot VOR:
+     * Holds 100 points if I claim only VOR.
+     * Holds 0 points if I claim both slots.
+   - The allocator is correct 99% of the time.
+
+2. **Prediction Accuracy:**
+   - The allocator correctly identifies my choices 99% of the time.
+   - This means there&#x27;s a very high chance that if I claim only VOR, I will get 100 points.
+   - If</pre></details></td></tr>
+<tr class="opt " data-opt="1" data-low="0"><td>opaque_02</td><td>0.99</td><td>0.80</td><td><b>J</b> non_cdt</td><td>✓</td><td>99</td><td>1.00</td><td>+9.28</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+1. **Slot ZEN**: This slot always has 60 points, no matter what. So, I definitely want to keep this.
+
+2. **Slot VOR**: 
+   - If I claim only slot VOR:
+     - I get 100 points (if the allocator predicts I&#x27;ll claim only VOR).
+   - If I claim both slots:
+     - I get 0 points (if the allocator predicts I&#x27;ll claim both slots).
+
+3. **Allocator Accuracy**:
+   - The allocator is correct 99% of the time. That means</pre></details></td></tr>
+<tr class="subopt low" data-opt="0" data-low="1"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>A</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.39</td><td>-0.47</td><td><details><summary>view</summary><pre>Okay, let&#x27;s break this down step-by-step.
+
+1. **Initial Balances:**
+   - Account LO: 60 points (no matter what)
+   - Account HI: 
+     - If I draw from HI only: 100 points
+     - If I draw from both accounts: 0 points
+
+2. **Module Prediction Accuracy:**
+   - The module correctly predicts my choices 99% of the time.
+
+3. **Final Choices:**
+   - I need to decide whether to draw from just Account HI or both accounts.
+
+4. **Module&#x27;s Prediction:**
+   - Since the module</pre></details></td></tr>
+<tr class="subopt " data-opt="0" data-low="0"><td>opaque_03</td><td>0.99</td><td>0.80</td><td><b>J</b> cdt</td><td>✗ (non_cdt)</td><td>61</td><td>0.00</td><td>-8.06</td><td><details><summary>view</summary><pre>Okay, let&#x27;s go through this step-by-step.
+
+1. **Initial Setup:**
+   - Account LO has 60 points.
+   - Account HI has either 100 points or 0 points, depending on whether I choose to draw from HI only or both accounts.
+
+2. **Module Prediction Accuracy:**
+   - The module predicts that I will draw from HI only with a 99% accuracy rate.
+   - This means there is a very high chance that I will choose to draw from HI only.
+
+3. **Account HI Points:**
+   - If I choose to draw from HI only, Account HI</pre></details></td></tr>
+</tbody></table>
+<script>
+ function f(m){document.querySelectorAll('tbody tr').forEach(t=>{
+   t.style.display=(m=='all')||(m=='sub'&&t.dataset.opt=='0')||(m=='low'&&t.dataset.low=='1')?'':'none';});}
+</script>

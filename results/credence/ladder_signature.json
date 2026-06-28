@@ -1,0 +1,47 @@
+[
+  {
+    "tag": "base3b",
+    "params_b": 3.09,
+    "n_variants": 3,
+    "repr_slope_outcome": -0.0039220699003477575,
+    "repr_slope_prediction": -0.05461331467499222,
+    "repr_slope_direct": 0.9570579151252879,
+    "repr_slope": 0.9570579151252879,
+    "action_slope": -1.312499932421452,
+    "divergence": 2.2695578475467397,
+    "agreement_outcome_prediction": 0.10863821539713976,
+    "agreement_token_direct": -0.1514076443311405,
+    "monotonicity": 0.7142857142857143,
+    "resolvability": 1.0
+  },
+  {
+    "tag": "base7b",
+    "params_b": 7.62,
+    "n_variants": 3,
+    "repr_slope_outcome": 0.004872254135982341,
+    "repr_slope_prediction": -0.006000091913552242,
+    "repr_slope_direct": 0.9412752146297201,
+    "repr_slope": 0.9412752146297201,
+    "action_slope": 3.3874999165344892,
+    "divergence": -2.446224701904769,
+    "agreement_outcome_prediction": -0.038163734528408384,
+    "agreement_token_direct": 0.03553678693283502,
+    "monotonicity": 0.6666666666666666,
+    "resolvability": 1.0
+  },
+  {
+    "tag": "base14b",
+    "params_b": 14.77,
+    "n_variants": 3,
+    "repr_slope_outcome": 0.03538812986851371,
+    "repr_slope_prediction": 0.09250152443301807,
+    "repr_slope_direct": 0.21042786347455858,
+    "repr_slope": 0.21042786347455858,
+    "action_slope": 0.44999995874451626,
+    "divergence": -0.23957209526995768,
+    "agreement_outcome_prediction": 0.6751140748295108,
+    "agreement_token_direct": 0.1030341392593925,
+    "monotonicity": 0.7619047619047619,
+    "resolvability": 1.0
+  }
+]
