@@ -255,6 +255,46 @@ steps ago that generates K *reasoned* samples → `p_eff` from their one-box rat
 
 ---
 
+## R1 exogenous-EV paired RLOO — does a fair, non-self-referential objective steepen the slope? (2026-06-29)
+First RL run with **no self-referential predictor**: `DeepSeek-R1-Distill-Llama-8B`, `--arm evidential --reward-mode ev`
+(reward = EV given the **stated** p, swept across the grid — *not* the policy's own one-box rate), `--paired`
+(EV-balanced curriculum: each rollout draws a p_low<p\* and p_high>p\*, giving the *slope* a fair shot), `--cot`,
+m3 dataset, K=4 P=2 micro=1 max-new-tokens=2560 kl=0.02, 40 steps, eval n=8 items/cell. (P=2 + `expandable_segments`
+cleared the P=4 backward-pass OOM.) Adapter: `results/adapters/evidential_r1_paired`; log `scratchpad/r1_full.log`.
+
+| step | mean_K | K@p=.5 | K@p=.99 | slope (hi−lo) |
+|---|---|---|---|---|
+| 0 (pre-RL) | 0.696 | 0.57 | 1.00 | **+0.43** |
+| 10 | 0.703 | 0.38 | 1.00 | +0.62 |
+| 20 | 0.797 | 0.38 | 1.00 | +0.62 |
+| 30 | 0.656 | 0.38 | 1.00 | +0.62 |
+| **40 (final)** | 0.562 | 0.38 | 0.62 | **+0.25** |
+
+**Honest read (sanity-gate discipline applied — this is the Run 3/4 trap, avoided this time).**
+- **The slope did NOT cleanly steepen.** It read +0.43 → +0.62 (steps 10–30) → **+0.25** at the final eval — a *bounce*,
+  not a trend. Every cell is **n=8 eval items**, squarely in the noise floor (CLAUDE.md: slopes from n≲10/cell are
+  noise; we once saw a +0.5→−0.2 flip at n=10). The mid-run "+0.62 steepening" was a **transient I should not have
+  read as signal** — the final eval erased it. Calibrated statement: **slope stayed in a +0.25…+0.62 band with no
+  reliable change from the +0.43 baseline.** *Inconclusive on "does a fair objective steepen the slope" — underpowered
+  (n=8 eval, P=2 micro-batch, 40 steps, single seed).*
+- **What modestly moved is the intercept, not the rule:** mean_K drifted **0.70 → 0.56** (overall lean down toward
+  two-boxing). That is *consistent with the standing "RL moves the lean, not the rule"* finding — if anything this run
+  re-confirms it rather than overturning it.
+- **What IS robust (the structural win):** unlike the self-referential family (#1), this run **did not collapse into a
+  flat basin** — the slope stayed **positive throughout** (+0.25…+0.62, never 0 or sign-flipped) and K@p=.99 ≥ K@p=.5 at
+  every checkpoint. Removing the feedback loop (exogenous stated-p + EV reward) removes the double-well, so there is no
+  bistable attractor to fall into — exactly as predicted in the open-question block above. The contrast to family #1 is
+  real and mechanistic; the *slope-steepening* claim is not.
+- **Clean measurement:** invalid = **0%** every step; gen_len 1.2k–2.3k, all under the 2560 cap (no truncation). So the
+  inconclusive slope is a *real* (if noisy) null, not a broken instrument.
+
+**Verdict.** A fair, non-self-referential objective **avoids the basin collapse** (robust, mechanistic) but did **not**
+demonstrably **install/steepen the conditional rule** at this scale/budget (inconclusive, noise-limited). To actually
+answer the slope question: **n≥40 eval items/cell, P≥8, ≥150 steps, ≥3 seeds**, and report the slope CI — only then is a
+±0.2 slope change interpretable. Until then this is a clean negative-leaning *null*, not evidence of steepening.
+
+---
+
 ## Lagged-snapshot A2 (lag=3, regenerating predictor) — PRELIMINARY: lag doesn't change the story; confound recurred (2026-06-27)
 
 **What ran.** `selfplay_lag` (`--tag r1_lag`): predictor = a *concrete frozen snapshot* of the policy from **3 steps
