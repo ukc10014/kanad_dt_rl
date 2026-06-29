@@ -223,6 +223,36 @@ step 1→10→20→30:
 steps ago that generates K *reasoned* samples → `p_eff` from their one-box rate (≈2x generation, ~8–10h; 2560 tok so
 `</think>` closes → no confound). The overshoot/hysteresis test the un-lagged A2 structurally can't run.
 
+> ### ❓ OPEN QUESTION — why *monotonic slide-and-stick* and never oscillation, even on R1? (2026-06-29)
+> The self-referential collapse (family #1) was run on **R1, the reasoning model** — so it is **not** a capability
+> failure. That makes the *shape* of the collapse the interesting puzzle: every run slides **monotonically** into one
+> basin and stays; we never saw a settled one-box basin flip to two-box (or back), nor sustained oscillation — only
+> damped wobble before lock-in.
+>
+> **What we think IS explained (dynamical-systems account).** When the predictor's accuracy *is* the policy's own
+> one-box rate π, the EV makes p\* a **repeller** and π=0 / π=1 **attractors** — a **double-well**. The RL update is
+> then ≈ **overdamped gradient descent** on that well: (i) no oscillation because there is **no inertia / no momentum**
+> term to carry π past the floor and back up; (ii) no cross-basin restoring force because, once past p\*, the EV
+> gradient points *deeper* into the well, and the pinning gradient swamps step-size noise → a settled basin can't be
+> kicked back over the p\* barrier. "Self-fulfilling reward crossover at p\* ⇒ structural bistability." The collapse is
+> a property of the **reward landscape (environment), robust to model capability** — which is exactly why R1's reasoning
+> doesn't rescue it.
+>
+> **What is genuinely UNRESOLVED.** Pure gradient flow lacks the one ingredient that canonically produces
+> overshoot/oscillation/hysteresis: a **time delay** in the feedback loop (controller reacting to a *stale* state). Our
+> one lagged run still collapsed monotonically, which leaves three possibilities undistinguished: (a) the **lag was too
+> small** (one snapshot back ≠ enough delay to destabilize the attractor); (b) it was **confounded** (the lagged-CoT
+> runs had the truncation issue); or (c) **delay genuinely cannot induce oscillation here** because the wells are too
+> deep / the p\* barrier too sharp for a realistic lag to push π back across. We cannot yet tell which.
+>
+> **Experiments that would settle it.** (1) **Lag-length sweep** (k = 1, 3, 10, 30 steps) on the clean 2560-tok
+> reasoned-snapshot variant — look for overshoot/ringing as k grows. (2) **Start at the repeller** (initialize π≈p\*)
+> with **high sampling temperature** and watch for metastable wandering near p\* before commitment. (3) **Measure the
+> barrier height** — perturb a settled basin (inject opposite-side rollouts) and see how large a kick is needed to flip
+> it; quantifies *how* deep the well is. (4) **Phase portrait**: plot π(t+1) vs π(t) across runs to expose the repeller
+> and attractor locations empirically. Until then, treat "no oscillation" as *explained by overdamped bistability* and
+> "can lag ever induce hysteresis" as **open**.
+
 ---
 
 ## Lagged-snapshot A2 (lag=3, regenerating predictor) — PRELIMINARY: lag doesn't change the story; confound recurred (2026-06-27)
