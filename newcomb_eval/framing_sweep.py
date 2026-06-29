@@ -70,6 +70,9 @@ def main(argv=None) -> int:
                            load_in_4bit=args.load_4bit)
 
     out_dir = os.path.join(base.results_dir, "framing_sweep"); os.makedirs(out_dir, exist_ok=True)
+    recs_path = os.path.join(out_dir, f"{args.tag}_recs.jsonl")
+    summ_path = os.path.join(out_dir, f"{args.tag}_summary.json")
+    open(recs_path, "w").close()  # truncate; we append per-level (crash-safe — don't buffer to the end)
     summary, all_recs = [], []
     for key, fname, label in levels:
         ds = os.path.join(DATA_DIR, fname)
@@ -98,10 +101,16 @@ def main(argv=None) -> int:
         ks = "  ".join(f"{p:.2f}:{krate[p]:.2f}" for p in sorted(krate))
         print(f"[framing {key} {label}]  K-rate[{ks}]  "
               + (f"emp_xover={emp:.3f}" if emp is not None else "emp_xover=NONE"), flush=True)
+        # crash-safe: persist this level's CoT recs + the running summary immediately
+        with open(recs_path, "a") as f:
+            for r in recs:
+                f.write(json.dumps(r) + "\n")
+        json.dump(dict(model=args.model, B=args.B, S=args.S, p_star_pred=round(pred, 3),
+                       summary=summary), open(summ_path, "w"), indent=1)
 
     res = dict(model=args.model, B=args.B, S=args.S, p_star_pred=round(pred, 3), summary=summary)
-    json.dump(res, open(os.path.join(out_dir, f"{args.tag}_summary.json"), "w"), indent=1)
-    with open(os.path.join(out_dir, f"{args.tag}_recs.jsonl"), "w") as f:
+    json.dump(res, open(summ_path, "w"), indent=1)
+    with open(recs_path, "w") as f:
         for r in all_recs:
             f.write(json.dumps(r) + "\n")
     print(f"\n=== SUMMARY: does free-CoT one-boxing depend on framing? (p*_pred={pred:.2f}) ===")
