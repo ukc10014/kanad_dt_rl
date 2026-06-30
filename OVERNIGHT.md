@@ -20,6 +20,33 @@ overnight bucket is mainly the ablations we'd run regardless.
 - Don't launch a batch onto a GPU already running a primary experiment — check `pgrep -f train_rl`.
 
 ## Overnight-friendly (fire-and-forget; read in the morning)
+- [ ] **DT fingerprint — does CoT buy *general* decision-theory competence, or just Newcomb?** ⭐⭐
+      *(BUILT + CPU-tested 2026-06-30; runnable when GPU free)* — `newcomb_eval/signature.py` runs a model
+      over the four DT-zoo problems (opaque/transparent Newcomb, counterfactual mugging, XOR blackmail;
+      5 items each in `dataset_raw.json`, **already DT-labelled** via `match_endorsed_by`) and reads off a
+      **CDT / EDT / FDT / incoherent** signature. Tests whether the CoT EV-tracking we see on Newcomb (14B
+      + R1) **generalises** across the problem class or is Newcomb-specific persona/pattern-match. **XOR
+      blackmail is the EDT-vs-FDT separator** → this also resolves the standing "EDT(+FDT)-consistent,
+      can't separate them" ambiguity (results.md:1665).
+      **Run plan** (smoke each first — eyeball one rendered prompt per category for a stray `{{...}}` marker
+      or a nonsensical p-sentence on the non-Newcomb problems):
+      - forced-choice signature: `python -m newcomb_eval.signature --model <M> -n 8 --seed 0 --tag sig_<m>_fc`
+        (repeat seeds 1, 2 — n=5 items/problem is noisy).
+      - CoT signature: add `--cot --max-new-tokens 2560` (R1) or `--max-new-tokens 512` (14B); `--tag sig_<m>_cot`.
+      - models `M ∈ {deepseek-ai/DeepSeek-R1-Distill-Llama-8B, Qwen/Qwen2.5-14B-Instruct}`.
+      - **pair with `comprehension_gate.py`** (can't-vs-won't guard) and **read the CoT traces** (does the
+        stated reasoning match the behaviour-implied theory? recited-from-memory vs reasoned?).
+      **Read:** a *coherent* signature (one of CDT/EDT/FDT) under CoT ⇒ general DT competence; one-boxes
+      Newcomb but an **incoherent** tuple ⇒ Newcomb-specific. The FDT-vs-EDT verdict comes from XOR blackmail
+      (+ transparent / cfmugging). Outputs `results/signature/<tag>_summary.json` + `_recs.jsonl` (CoT traces
+      persisted). Inference-only (cheaper than RL): R1 CoT ≈ an hour-ish, 14B well under.
+      **Caveats:** n=5 items/problem × single seed → don't over-read borderline cells (add items + shuffles);
+      famous problems ⇒ memorisation risk (the CoT-reasoning check + an anti-camouflage rewrite mitigate);
+      `answer_2way` forces a binary choice (invalid not separately tracked → lean on the comprehension gate).
+      **Not yet in the zoo:** smoking lesion (the famous EDT *counterexample* — worth authoring; "one-boxes
+      Newcomb AND smokes correctly" is the clean FDT-vs-"avoid spooky correlations" cut) and Parfit's
+      hitchhiker. Module `newcomb_eval/signature.py`; core tests `newcomb_eval/tests/test_signature.py`
+      (4, CPU, green). See README "general-vs-Newcomb" + PLAN §8.
 - [ ] **Mechanism-credibility ladder on 14B — is the abstract predictor *incredible*?** ⭐⭐ *(STAGED;
       runnable now when GPU free)* — `bash results/credence/run_credence_mechanism.sh`. Our abstract
       predictor ("identifies agents like you X% of the time") is a **reference-class statistic** — the

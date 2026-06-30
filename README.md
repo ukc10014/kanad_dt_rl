@@ -113,6 +113,22 @@ delay for the oscillation hunt without a second network. (An `_ema` artifact alr
 worth checking what it showed.) Build the full separate predictor only if the *specific* target is
 oscillation or predictor-imperfection — **not** to re-confirm the result.
 
+## Next experiment queued — does CoT generalise beyond Newcomb? (the DT fingerprint)
+
+Both the 14B and R1 reach EV-rational / EDT-consistent behaviour *on Newcomb* under CoT. Open
+question: is that **general decision-theory competence**, or are they just good at **Newcomb
+specifically** (persona / pattern-match)? **Built and CPU-tested 2026-06-30, ready to run on the GPU:**
+`newcomb_eval/signature.py` runs a model over the four DT-zoo problems already in the repo
+(opaque/transparent Newcomb, counterfactual mugging, XOR blackmail — `dataset_raw.json`, 5 items each,
+already DT-labelled) and reads off a **CDT / EDT / FDT / incoherent** signature. A coherent signature
+under CoT ⇒ general competence; one-boxes Newcomb but an **incoherent** tuple ⇒ Newcomb-specific. Bonus:
+**XOR blackmail separates EDT from FDT**, so it also settles the "EDT(+FDT)-consistent, can't separate"
+ambiguity flagged at `results.md:1665`. The classification core is pure + unit-tested
+(`newcomb_eval/tests/test_signature.py`, 4 green); only the driver needs a GPU. **Full run plan + guards
+(comprehension gate, forced-choice/CoT split, memorisation caveat, the missing smoking-lesion/hitchhiker
+items) are the top item in `OVERNIGHT.md`.** This is the deferred PLAN §8 "fingerprint" eval, now
+restricted to the high-capability models where its comprehension confound is weakest.
+
 ## Confidence / caveats to carry in your head
 
 - Many headline numbers are **single-seed, n=4–12 per cell** = at/below the noise floor by the project's
