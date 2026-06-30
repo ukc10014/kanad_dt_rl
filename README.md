@@ -113,6 +113,55 @@ delay for the oscillation hunt without a second network. (An `_ema` artifact alr
 worth checking what it showed.) Build the full separate predictor only if the *specific* target is
 oscillation or predictor-imperfection — **not** to re-confirm the result.
 
+## Self-play dynamics — collapse vs oscillation vs hysteresis (a dynamical-systems read)
+
+*Refines the `results.md` open-question block (results.md:226, "why monotonic slide-and-stick, never
+oscillation"), which guessed the lag was "too small / confounded / wells too deep." The sharper answer
+is structural — and it **corrects** an over-optimistic earlier framing that "lag is the missing
+ingredient for oscillation." It isn't, in this loop.*
+
+**The loop as a 1-D system.** Let π = the policy's one-box propensity. The chooser's best response to a
+predictor of accuracy `p_eff` is a **step**: one-box iff `p_eff > p*`. And `p_eff` = the (possibly
+lagged) policy one-box rate π. So π-above-p\* → rewards one-boxing → π **rises**; π-below-p\* → π
+**falls**. That's **positive (self-fulfilling) feedback**, giving **attractors at the saturating corners
+π=0 / π=1** and a **repeller at p\***. Gradient descent on that double-well = roll into the nearest well
+⇒ the **default is monotone collapse into a seed-selected basin** (what every self-referential run showed).
+
+**Why lag alone does NOT buy oscillation.** A sustained oscillation (limit cycle) needs
+**negative/restoring** feedback toward a **stable interior** point that a delay then destabilizes
+(overshoot → correct → overshoot) — the thermostat-with-lag / matching-pennies picture, where onset is
+governed by **gain × delay** crossing a threshold (a Hopf bifurcation; gain ≈ LR × reward-response slope,
+delay ≈ lag). Our loop has the **wrong feedback sign** (positive/coordination) and its equilibria sit at
+**saturating walls**, with no interior point to overshoot. So adding lag gives **delayed** collapse plus
+at most a **damped transient wobble** — never a sustained cycle. (This is why lag=3 still collapsed
+monotonically; it refines the "wells too deep" guess into "wrong feedback sign / corner attractors" — a
+**structural**, not quantitative, obstruction.)
+
+**When oscillation WOULD appear.** Only if you engineer a **stable interior equilibrium** for a delay to
+destabilize, then push **gain × delay** (i.e. **LR × lag**) past threshold. Routes, cheapest first:
+(a) **cap/squash the predictor's accuracy** (`p_eff = clip(π_lag, 0.5, 0.9)` or a logistic) so the
+attractor moves off the corner into the interior; (b) a small **anti-coordination** term (reward the
+chooser for *deviating* from the prediction) → genuine negative feedback / matching-pennies cycles (this
+changes the game); (c) a **strong restoring regularizer** (KL toward a p\*-mixed reference) making the
+interior point stable. So the "weird convergence of LR and lag" instinct is the right *mechanism* — it
+just needs an interior equilibrium to act on, which the vanilla loop lacks.
+
+**Why this ties to the predictor-design question above.** Sampling-the-chooser is **zero-delay and
+perfectly self-calibrated** → attractors pinned at the saturating corners → no oscillation, fast collapse.
+A **truly independent** predictor buys the two things a cycle needs — a **tunable delay** (≈1/LR_pred; the
+EMA-on-`p_eff` knob is the cheap proxy) *and* the ability to be **imperfect/capped** (interior attractor).
+But a *perfectly accurate* independent predictor just recreates the corner attractors and still collapses
+— so independence is **necessary-ish, not sufficient**; the real enabler is the **interior equilibrium**,
+not the separate weights.
+
+**The distinction to carry (and to fix in any rewrite): hysteresis ≠ oscillation.** *Hysteresis* (the
+basin/state depends on history / initial condition) is **generic** to bistable systems and is **already
+half-shown** — seed selects the basin; the "barrier-kick" perturbation experiment would confirm the full
+loop. *Oscillation* is a **separate, harder** thing this reward geometry **structurally cannot** produce
+without the interior-equilibrium engineering above. The `results.md` open-question block treats them
+together — they should be split: **"can lag induce hysteresis?" ≈ yes; "can lag induce sustained
+oscillation?" ≈ no**, not in the self-fulfilling loop.
+
 ## Next experiment queued — does CoT generalise beyond Newcomb? (the DT fingerprint)
 
 Both the 14B and R1 reach EV-rational / EDT-consistent behaviour *on Newcomb* under CoT. Open
