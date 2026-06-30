@@ -1,0 +1,15 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.59it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  2.10it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  2.00it/s]
+[no_cot] mean_K=0.831 invalid=0.000  -> /root/kanad_dt_rl/results/scaffold/scaffold_logs/transcripts_no_cot_base3b.jsonl
+[free_cot] mean_K=0.490 invalid=0.381  -> /root/kanad_dt_rl/results/scaffold/scaffold_logs/transcripts_free_cot_base3b.jsonl
+[scaffolded] mean_K=0.697 invalid=0.012  -> /root/kanad_dt_rl/results/scaffold/scaffold_logs/transcripts_scaffolded_base3b.jsonl
+
+table: /root/kanad_dt_rl/results/scaffold/k_rate_by_arm_p_base3b.csv
+samples: /root/kanad_dt_rl/results/scaffold/scaffold_samples_base3b.csv
+p* = 0.80
+plot: /root/kanad_dt_rl/results/scaffold/k_rate_by_arm_base3b.png
+
+=== summary (mean K-rate, slope hi-lo) ===
+  no_cot      mean_K=0.831  slope=+0.00
+  free_cot    mean_K=0.490  slope=+0.51
+  scaffolded  mean_K=0.697  slope=-0.05

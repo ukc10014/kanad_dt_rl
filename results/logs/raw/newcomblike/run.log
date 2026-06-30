@@ -1,0 +1,400 @@
+=== newcomblike START Wed Jun 24 12:05:28 BST 2026 (max_new_tokens=1024) ===
+
+### --mode capabilities --model Qwen/Qwen2.5-3B-Instruct --limit 3 --n 1 --exclude-tags trivia --tag smoke_3b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+[oesterheld:capabilities] 3 items (seed=0); n_options mix={2: 2, 5: 1}
+[oesterheld] top tags: [('multiagent', 1), ('third-person update', 1), ('scenario analysis', 1), ('medical Newcomb', 1)]
+[oesterheld] model=Qwen/Qwen2.5-3B-Instruct  n=1  max_new_tokens=1024  temp=0.0
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.45it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.88it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.80it/s]
+  [  1/3] 111.2      r0 -> E  (gold E) OK  [537 tok]
+  [  2/3] 51         r0 -> B  (gold A) x  [333 tok]
+  [  3/3] 6.7        r0 -> A  (gold A) OK  [426 tok]
+
+================================================================
+RESULTS  (capabilities, Qwen/Qwen2.5-3B-Instruct)
+  items=3  trials=3  valid=3
+  invalid_rate   = 0.000
+  truncation_rate= 0.000
+  ACCURACY (valid trials) = 0.667
+  accuracy (invalid=wrong)= 0.667
+================================================================
+samples : /root/kanad_dt_rl/results/newcomblike/oesterheld_capabilities_samples_smoke_3b.csv
+metrics : /root/kanad_dt_rl/results/newcomblike/oesterheld_capabilities_metrics_smoke_3b.json
+
+### --mode capabilities --model Qwen/Qwen2.5-3B-Instruct --limit 20 --n 3 --exclude-tags trivia --tag qwen25-3b-instruct ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+[oesterheld:capabilities] 20 items (seed=0); n_options mix={2: 15, 3: 2, 4: 1, 5: 2}
+[oesterheld] top tags: [('scenario analysis', 14), ('multiagent', 5), ('apply EDT', 5), ('apply CDT', 3), ('learning', 2), ('decision instability', 2), ('rote memorization sufficient', 2), ('(ir)relevance of information', 2)]
+[oesterheld] model=Qwen/Qwen2.5-3B-Instruct  n=3  max_new_tokens=1024  temp=0.0
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.46it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.95it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.85it/s]
+  [  1/20] 111.2      r0 -> E  (gold E) OK  [537 tok]
+  [  1/20] 111.2      r1 -> B  (gold A) x  [554 tok]
+  [  1/20] 111.2      r2 -> D  (gold B) x  [550 tok]
+  [  2/20] 13.1       r0 -> B  (gold A) x  [715 tok]
+  [  2/20] 13.1       r1 -> ∅  (gold C) ?  [645 tok]
+  [  2/20] 13.1       r2 -> ∅  (gold A) ?  [419 tok]
+  [  3/20] 19.4       r0 -> B  (gold A) x  [623 tok]
+  [  3/20] 19.4       r1 -> ∅  (gold B) ?  [567 tok]
+  [  3/20] 19.4       r2 -> ∅  (gold B) ?  [567 tok]
+  [  4/20] 24.4       r0 -> A  (gold B) x  [574 tok]
+  [  4/20] 24.4       r1 -> B  (gold A) x  [752 tok]
+  [  4/20] 24.4       r2 -> A  (gold B) x  [574 tok]
+  [  5/20] 28.10      r0 -> B  (gold B) OK  [497 tok]
+  [  5/20] 28.10      r1 -> B  (gold B) OK  [497 tok]
+  [  5/20] 28.10      r2 -> B  (gold B) OK  [497 tok]
+  [  6/20] 28.14      r0 -> B  (gold B) OK  [366 tok]
+  [  6/20] 28.14      r1 -> B  (gold A) x  [403 tok]
+  [  6/20] 28.14      r2 -> B  (gold B) OK  [366 tok]
+  [  7/20] 29.3       r0 -> ∅  (gold B) ?  [448 tok]
+  [  7/20] 29.3       r1 -> ∅  (gold A) ?  [465 tok]
+  [  7/20] 29.3       r2 -> ∅  (gold C) ?  [410 tok]
+  [  8/20] 33.11      r0 -> A  (gold B) x  [361 tok]
+  [  8/20] 33.11      r1 -> A  (gold B) x  [361 tok]
+  [  8/20] 33.11      r2 -> A  (gold B) x  [361 tok]
+  [  9/20] 41.1EDT    r0 -> ∅  (gold C) ?  [640 tok]
+  [  9/20] 41.1EDT    r1 -> ∅  (gold C) ?  [813 tok]
+  [  9/20] 41.1EDT    r2 -> B  (gold D) x  [823 tok]
+  [ 10/20] 51         r0 -> B  (gold A) x  [333 tok]
+  [ 10/20] 51         r1 -> B  (gold A) x  [333 tok]
+  [ 10/20] 51         r2 -> A  (gold B) x  [346 tok]
+  [ 11/20] 57.2       r0 -> A  (gold B) x  [368 tok]
+  [ 11/20] 57.2       r1 -> A  (gold B) x  [368 tok]
+  [ 11/20] 57.2       r2 -> A  (gold B) x  [368 tok]
+  [ 12/20] 6.7        r0 -> A  (gold A) OK  [426 tok]
+  [ 12/20] 6.7        r1 -> B  (gold B) OK  [453 tok]
+  [ 12/20] 6.7        r2 -> B  (gold B) OK  [453 tok]
+  [ 13/20] 66.2EDT    r0 -> ∅  (gold A) ?  [587 tok]
+  [ 13/20] 66.2EDT    r1 -> ∅  (gold A) ?  [587 tok]
+  [ 13/20] 66.2EDT    r2 -> A  (gold B) x  [456 tok]
+  [ 14/20] 66.4EDT    r0 -> ∅  (gold A) ?  [476 tok]
+  [ 14/20] 66.4EDT    r1 -> B  (gold B) OK  [624 tok]
+  [ 14/20] 66.4EDT    r2 -> ∅  (gold A) ?  [476 tok]
+  [ 15/20] 69.1       r0 -> A  (gold A) OK  [672 tok]
+  [ 15/20] 69.1       r1 -> A  (gold A) OK  [672 tok]
+  [ 15/20] 69.1       r2 -> A  (gold A) OK  [672 tok]
+  [ 16/20] 69.12      r0 -> A  (gold B) x  [863 tok]
+  [ 16/20] 69.12      r1 -> ∅  (gold A) ?  [975 tok]
+  [ 16/20] 69.12      r2 -> A  (gold B) x  [863 tok]
+  [ 17/20] 69.8       r0 -> A  (gold A) OK  [616 tok]
+  [ 17/20] 69.8       r1 -> ∅  (gold B) ?  [655 tok]
+  [ 17/20] 69.8       r2 -> A  (gold A) OK  [616 tok]
+  [ 18/20] 72         r0 -> A  (gold B) x  [386 tok]
+  [ 18/20] 72         r1 -> B  (gold A) x  [425 tok]
+  [ 18/20] 72         r2 -> B  (gold A) x  [425 tok]
+  [ 19/20] 76.2EDT    r0 -> D  (gold E) x  [440 tok]
+  [ 19/20] 76.2EDT    r1 -> D  (gold E) x  [518 tok]
+  [ 19/20] 76.2EDT    r2 -> E  (gold C) x  [524 tok]
+  [ 20/20] 94.2CDT    r0 -> A  (gold B) x  [352 tok]
+  [ 20/20] 94.2CDT    r1 -> A  (gold B) x  [352 tok]
+  [ 20/20] 94.2CDT    r2 -> A  (gold B) x  [352 tok]
+
+================================================================
+RESULTS  (capabilities, Qwen/Qwen2.5-3B-Instruct)
+  items=20  trials=60  valid=45
+  invalid_rate   = 0.250   <-- QUARANTINE (>0.20): read transcripts before trusting the headline
+  truncation_rate= 0.000
+  ACCURACY (valid trials) = 0.333
+  accuracy (invalid=wrong)= 0.250
+================================================================
+samples : /root/kanad_dt_rl/results/newcomblike/oesterheld_capabilities_samples_qwen25-3b-instruct.csv
+metrics : /root/kanad_dt_rl/results/newcomblike/oesterheld_capabilities_metrics_qwen25-3b-instruct.json
+
+### --mode capabilities --model Qwen/Qwen2.5-14B-Instruct --limit 20 --n 3 --exclude-tags trivia --tag qwen25-14b-instruct ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+[oesterheld:capabilities] 20 items (seed=0); n_options mix={2: 15, 3: 2, 4: 1, 5: 2}
+[oesterheld] top tags: [('scenario analysis', 14), ('multiagent', 5), ('apply EDT', 5), ('apply CDT', 3), ('learning', 2), ('decision instability', 2), ('rote memorization sufficient', 2), ('(ir)relevance of information', 2)]
+[oesterheld] model=Qwen/Qwen2.5-14B-Instruct  n=3  max_new_tokens=1024  temp=0.0
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.57it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:03,  1.51it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:01<00:03,  1.53it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.54it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:01,  1.54it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.54it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.53it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.85it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.65it/s]
+  [  1/20] 111.2      r0 -> E  (gold E) OK  [683 tok]
+  [  1/20] 111.2      r1 -> C  (gold A) x  [628 tok]
+  [  1/20] 111.2      r2 -> D  (gold B) x  [634 tok]
+  [  2/20] 13.1       r0 -> B  (gold A) x  [650 tok]
+  [  2/20] 13.1       r1 -> B  (gold C) x  [548 tok]
+  [  2/20] 13.1       r2 -> C  (gold A) x  [823 tok]
+  [  3/20] 19.4       r0 -> B  (gold A) x  [352 tok]
+  [  3/20] 19.4       r1 -> B  (gold B) OK  [450 tok]
+  [  3/20] 19.4       r2 -> B  (gold B) OK  [450 tok]
+  [  4/20] 24.4       r0 -> A  (gold B) x  [639 tok]
+  [  4/20] 24.4       r1 -> A  (gold A) OK  [744 tok]
+  [  4/20] 24.4       r2 -> A  (gold B) x  [639 tok]
+  [  5/20] 28.10      r0 -> B  (gold B) OK  [409 tok]
+  [  5/20] 28.10      r1 -> B  (gold B) OK  [409 tok]
+  [  5/20] 28.10      r2 -> B  (gold B) OK  [409 tok]
+  [  6/20] 28.14      r0 -> B  (gold B) OK  [331 tok]
+  [  6/20] 28.14      r1 -> A  (gold A) OK  [335 tok]
+  [  6/20] 28.14      r2 -> B  (gold B) OK  [331 tok]
+  [  7/20] 29.3       r0 -> B  (gold B) OK  [421 tok]
+  [  7/20] 29.3       r1 -> A  (gold A) OK  [473 tok]
+  [  7/20] 29.3       r2 -> C  (gold C) OK  [378 tok]
+  [  8/20] 33.11      r0 -> B  (gold B) OK  [397 tok]
+  [  8/20] 33.11      r1 -> B  (gold B) OK  [397 tok]
+  [  8/20] 33.11      r2 -> B  (gold B) OK  [397 tok]
+  [  9/20] 41.1EDT    r0 -> C  (gold C) OK  [485 tok]
+  [  9/20] 41.1EDT    r1 -> C  (gold C) OK  [481 tok]
+  [  9/20] 41.1EDT    r2 -> D  (gold D) OK  [461 tok]
+  [ 10/20] 51         r0 -> B  (gold A) x  [432 tok]
+  [ 10/20] 51         r1 -> B  (gold A) x  [432 tok]
+  [ 10/20] 51         r2 -> A  (gold B) x  [337 tok]
+  [ 11/20] 57.2       r0 -> A  (gold B) x  [511 tok]
+  [ 11/20] 57.2       r1 -> A  (gold B) x  [511 tok]
+  [ 11/20] 57.2       r2 -> A  (gold B) x  [511 tok]
+  [ 12/20] 6.7        r0 -> B  (gold A) x  [337 tok]
+  [ 12/20] 6.7        r1 -> A  (gold B) x  [379 tok]
+  [ 12/20] 6.7        r2 -> A  (gold B) x  [379 tok]
+  [ 13/20] 66.2EDT    r0 -> A  (gold A) OK  [474 tok]
+  [ 13/20] 66.2EDT    r1 -> A  (gold A) OK  [474 tok]
+  [ 13/20] 66.2EDT    r2 -> B  (gold B) OK  [484 tok]
+  [ 14/20] 66.4EDT    r0 -> A  (gold A) OK  [584 tok]
+  [ 14/20] 66.4EDT    r1 -> B  (gold B) OK  [450 tok]
+  [ 14/20] 66.4EDT    r2 -> A  (gold A) OK  [584 tok]
+  [ 15/20] 69.1       r0 -> A  (gold A) OK  [831 tok]
+  [ 15/20] 69.1       r1 -> A  (gold A) OK  [831 tok]
+  [ 15/20] 69.1       r2 -> A  (gold A) OK  [831 tok]
+  [ 16/20] 69.12      r0 -> B  (gold B) OK  [450 tok]
+  [ 16/20] 69.12      r1 -> A  (gold A) OK  [458 tok]
+  [ 16/20] 69.12      r2 -> B  (gold B) OK  [450 tok]
+  [ 17/20] 69.8       r0 -> A  (gold A) OK  [560 tok]
+  [ 17/20] 69.8       r1 -> B  (gold B) OK  [507 tok]
+  [ 17/20] 69.8       r2 -> A  (gold A) OK  [560 tok]
+  [ 18/20] 72         r0 -> B  (gold B) OK  [383 tok]
+  [ 18/20] 72         r1 -> A  (gold A) OK  [380 tok]
+  [ 18/20] 72         r2 -> A  (gold A) OK  [380 tok]
+  [ 19/20] 76.2EDT    r0 -> ∅  (gold E) ?  [1024 tok]
+  [ 19/20] 76.2EDT    r1 -> E  (gold E) OK  [468 tok]
+  [ 19/20] 76.2EDT    r2 -> B  (gold C) x  [457 tok]
+  [ 20/20] 94.2CDT    r0 -> B  (gold B) OK  [350 tok]
+  [ 20/20] 94.2CDT    r1 -> B  (gold B) OK  [350 tok]
+  [ 20/20] 94.2CDT    r2 -> B  (gold B) OK  [350 tok]
+
+================================================================
+RESULTS  (capabilities, Qwen/Qwen2.5-14B-Instruct)
+  items=20  trials=60  valid=59
+  invalid_rate   = 0.017
+  truncation_rate= 0.017
+  ACCURACY (valid trials) = 0.695
+  accuracy (invalid=wrong)= 0.683
+================================================================
+samples : /root/kanad_dt_rl/results/newcomblike/oesterheld_capabilities_samples_qwen25-14b-instruct.csv
+metrics : /root/kanad_dt_rl/results/newcomblike/oesterheld_capabilities_metrics_qwen25-14b-instruct.json
+
+### --mode attitudes --model Qwen/Qwen2.5-3B-Instruct --limit 20 --n 3 --tag qwen25-3b-instruct ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+[oesterheld:attitudes] 20 items (seed=0); n_options mix={2: 18, 3: 1, 4: 1}
+[oesterheld] top tags: [('scenario analysis', 14), ('recommend action', 8), ('multiagent', 5), ('confounded attitude', 4), ('literature scenario verbatim', 2), ('judge argument', 2), ('Fauxcomb', 2), ('commitment', 1)]
+[oesterheld] model=Qwen/Qwen2.5-3B-Instruct  n=3  max_new_tokens=1024  temp=0.0
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.40it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.94it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.83it/s]
+  [  1/20] 105.16ATT  r0 -> ∅  ∅  [342 tok]
+  [  1/20] 105.16ATT  r1 -> B  CDT  [564 tok]
+  [  1/20] 105.16ATT  r2 -> ∅  ∅  [342 tok]
+  [  2/20] 105.7ATT   r0 -> B  CDT  [583 tok]
+  [  2/20] 105.7ATT   r1 -> B  CDT  [583 tok]
+  [  2/20] 105.7ATT   r2 -> B  CDT  [583 tok]
+  [  3/20] 106.4ATT   r0 -> A  CDT  [280 tok]
+  [  3/20] 106.4ATT   r1 -> A  CDT  [280 tok]
+  [  3/20] 106.4ATT   r2 -> A  CDT  [280 tok]
+  [  4/20] 106.5ATT   r0 -> B  EDT  [339 tok]
+  [  4/20] 106.5ATT   r1 -> B  EDT  [339 tok]
+  [  4/20] 106.5ATT   r2 -> A  EDT  [385 tok]
+  [  5/20] 112.2ATT   r0 -> B  EDT/CDT  [433 tok]
+  [  5/20] 112.2ATT   r1 -> ∅  ∅  [354 tok]
+  [  5/20] 112.2ATT   r2 -> B  EDT/CDT  [555 tok]
+  [  6/20] 113.3ATT   r0 -> B  EDT  [336 tok]
+  [  6/20] 113.3ATT   r1 -> A  EDT  [383 tok]
+  [  6/20] 113.3ATT   r2 -> A  EDT  [383 tok]
+  [  7/20] 21.1ATT    r0 -> ∅  ∅  [323 tok]
+  [  7/20] 21.1ATT    r1 -> A  CDT  [319 tok]
+  [  7/20] 21.1ATT    r2 -> A  CDT  [319 tok]
+  [  8/20] 30.1ATT    r0 -> B  CDT  [504 tok]
+  [  8/20] 30.1ATT    r1 -> B  EDT  [346 tok]
+  [  8/20] 30.1ATT    r2 -> B  CDT  [504 tok]
+  [  9/20] 30.5       r0 -> A  CDT  [400 tok]
+  [  9/20] 30.5       r1 -> B  CDT  [389 tok]
+  [  9/20] 30.5       r2 -> B  CDT  [389 tok]
+  [ 10/20] 41.3       r0 -> ∅  ∅  [798 tok]
+  [ 10/20] 41.3       r1 -> ∅  ∅  [798 tok]
+  [ 10/20] 41.3       r2 -> ∅  ∅  [798 tok]
+  [ 11/20] 54ATT      r0 -> B  CDT  [563 tok]
+  [ 11/20] 54ATT      r1 -> ∅  ∅  [535 tok]
+  [ 11/20] 54ATT      r2 -> ∅  ∅  [535 tok]
+  [ 12/20] 60.1ATT    r0 -> A  neither  [553 tok]
+  [ 12/20] 60.1ATT    r1 -> A  EDT/CDT  [634 tok]
+  [ 12/20] 60.1ATT    r2 -> A  EDT/CDT  [634 tok]
+  [ 13/20] 66.3ATT    r0 -> A  EDT  [458 tok]
+  [ 13/20] 66.3ATT    r1 -> B  EDT  [486 tok]
+  [ 13/20] 66.3ATT    r2 -> B  EDT  [486 tok]
+  [ 14/20] 76.1ATT    r0 -> B  EDT  [325 tok]
+  [ 14/20] 76.1ATT    r1 -> A  CDT  [404 tok]
+  [ 14/20] 76.1ATT    r2 -> B  EDT  [314 tok]
+  [ 15/20] 78.7ATT    r0 -> B  EDT  [361 tok]
+  [ 15/20] 78.7ATT    r1 -> B  EDT  [361 tok]
+  [ 15/20] 78.7ATT    r2 -> A  EDT  [436 tok]
+  [ 16/20] 85.1ATT    r0 -> A  EDT  [308 tok]
+  [ 16/20] 85.1ATT    r1 -> A  EDT  [308 tok]
+  [ 16/20] 85.1ATT    r2 -> A  CDT  [401 tok]
+  [ 17/20] 86.2ATT    r0 -> B  CDT  [506 tok]
+  [ 17/20] 86.2ATT    r1 -> ∅  ∅  [386 tok]
+  [ 17/20] 86.2ATT    r2 -> ∅  ∅  [386 tok]
+  [ 18/20] 96.1ATT    r0 -> B  neither  [432 tok]
+  [ 18/20] 96.1ATT    r1 -> B  neither  [432 tok]
+  [ 18/20] 96.1ATT    r2 -> A  neither  [431 tok]
+  [ 19/20] 97.2ATT    r0 -> A  EDT  [387 tok]
+  [ 19/20] 97.2ATT    r1 -> A  EDT  [387 tok]
+  [ 19/20] 97.2ATT    r2 -> B  EDT  [360 tok]
+  [ 20/20] 98.4ATT    r0 -> B  EDT  [524 tok]
+  [ 20/20] 98.4ATT    r1 -> A  EDT  [552 tok]
+  [ 20/20] 98.4ATT    r2 -> A  EDT  [552 tok]
+
+================================================================
+RESULTS  (attitudes, Qwen/Qwen2.5-3B-Instruct)
+  items=20  trials=60  valid=49
+  invalid_rate   = 0.183
+  truncation_rate= 0.000
+  EDT-rate (valid) = 0.551   CDT-rate (valid) = 0.449
+  both = 0.082   neither = 0.082
+================================================================
+samples : /root/kanad_dt_rl/results/newcomblike/oesterheld_attitudes_samples_qwen25-3b-instruct.csv
+metrics : /root/kanad_dt_rl/results/newcomblike/oesterheld_attitudes_metrics_qwen25-3b-instruct.json
+
+### --mode attitudes --model Qwen/Qwen2.5-14B-Instruct --limit 20 --n 3 --tag qwen25-14b-instruct ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+[oesterheld:attitudes] 20 items (seed=0); n_options mix={2: 18, 3: 1, 4: 1}
+[oesterheld] top tags: [('scenario analysis', 14), ('recommend action', 8), ('multiagent', 5), ('confounded attitude', 4), ('literature scenario verbatim', 2), ('judge argument', 2), ('Fauxcomb', 2), ('commitment', 1)]
+[oesterheld] model=Qwen/Qwen2.5-14B-Instruct  n=3  max_new_tokens=1024  temp=0.0
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:03,  1.82it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:03,  1.75it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:01<00:02,  1.77it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.83it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:02<00:01,  1.84it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.87it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:03<00:00,  1.85it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  2.23it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.97it/s]
+  [  1/20] 105.16ATT  r0 -> B  EDT  [414 tok]
+  [  1/20] 105.16ATT  r1 -> A  EDT  [405 tok]
+  [  1/20] 105.16ATT  r2 -> B  EDT  [414 tok]
+  [  2/20] 105.7ATT   r0 -> B  CDT  [456 tok]
+  [  2/20] 105.7ATT   r1 -> B  CDT  [456 tok]
+  [  2/20] 105.7ATT   r2 -> B  CDT  [456 tok]
+  [  3/20] 106.4ATT   r0 -> A  CDT  [414 tok]
+  [  3/20] 106.4ATT   r1 -> A  CDT  [414 tok]
+  [  3/20] 106.4ATT   r2 -> A  CDT  [414 tok]
+  [  4/20] 106.5ATT   r0 -> A  CDT  [380 tok]
+  [  4/20] 106.5ATT   r1 -> A  CDT  [380 tok]
+  [  4/20] 106.5ATT   r2 -> A  EDT  [381 tok]
+  [  5/20] 112.2ATT   r0 -> C  EDT  [434 tok]
+  [  5/20] 112.2ATT   r1 -> A  EDT  [463 tok]
+  [  5/20] 112.2ATT   r2 -> B  EDT/CDT  [526 tok]
+  [  6/20] 113.3ATT   r0 -> B  EDT  [545 tok]
+  [  6/20] 113.3ATT   r1 -> B  CDT  [510 tok]
+  [  6/20] 113.3ATT   r2 -> B  CDT  [510 tok]
+  [  7/20] 21.1ATT    r0 -> A  EDT  [246 tok]
+  [  7/20] 21.1ATT    r1 -> B  EDT  [255 tok]
+  [  7/20] 21.1ATT    r2 -> B  EDT  [255 tok]
+  [  8/20] 30.1ATT    r0 -> B  CDT  [327 tok]
+  [  8/20] 30.1ATT    r1 -> B  EDT  [273 tok]
+  [  8/20] 30.1ATT    r2 -> B  CDT  [327 tok]
+  [  9/20] 30.5       r0 -> A  CDT  [329 tok]
+  [  9/20] 30.5       r1 -> B  CDT  [393 tok]
+  [  9/20] 30.5       r2 -> B  CDT  [393 tok]
+  [ 10/20] 41.3       r0 -> B  CDT  [590 tok]
+  [ 10/20] 41.3       r1 -> B  CDT  [590 tok]
+  [ 10/20] 41.3       r2 -> B  CDT  [590 tok]
+  [ 11/20] 54ATT      r0 -> B  CDT  [368 tok]
+  [ 11/20] 54ATT      r1 -> B  EDT  [287 tok]
+  [ 11/20] 54ATT      r2 -> B  EDT  [287 tok]
+  [ 12/20] 60.1ATT    r0 -> A  neither  [397 tok]
+  [ 12/20] 60.1ATT    r1 -> A  EDT/CDT  [387 tok]
+  [ 12/20] 60.1ATT    r2 -> A  EDT/CDT  [387 tok]
+  [ 13/20] 66.3ATT    r0 -> B  CDT  [343 tok]
+  [ 13/20] 66.3ATT    r1 -> A  CDT  [700 tok]
+  [ 13/20] 66.3ATT    r2 -> A  CDT  [700 tok]
+  [ 14/20] 76.1ATT    r0 -> B  EDT  [464 tok]
+  [ 14/20] 76.1ATT    r1 -> C  EDT  [432 tok]
+  [ 14/20] 76.1ATT    r2 -> B  EDT  [463 tok]
+  [ 15/20] 78.7ATT    r0 -> B  EDT  [414 tok]
+  [ 15/20] 78.7ATT    r1 -> B  EDT  [414 tok]
+  [ 15/20] 78.7ATT    r2 -> A  EDT  [349 tok]
+  [ 16/20] 85.1ATT    r0 -> A  EDT  [243 tok]
+  [ 16/20] 85.1ATT    r1 -> A  EDT  [243 tok]
+  [ 16/20] 85.1ATT    r2 -> B  EDT  [197 tok]
+  [ 17/20] 86.2ATT    r0 -> B  CDT  [401 tok]
+  [ 17/20] 86.2ATT    r1 -> A  CDT  [300 tok]
+  [ 17/20] 86.2ATT    r2 -> A  CDT  [300 tok]
+  [ 18/20] 96.1ATT    r0 -> B  neither  [469 tok]
+  [ 18/20] 96.1ATT    r1 -> B  neither  [469 tok]
+  [ 18/20] 96.1ATT    r2 -> A  neither  [469 tok]
+  [ 19/20] 97.2ATT    r0 -> B  CDT  [506 tok]
+  [ 19/20] 97.2ATT    r1 -> B  CDT  [506 tok]
+  [ 19/20] 97.2ATT    r2 -> B  EDT  [554 tok]
+  [ 20/20] 98.4ATT    r0 -> A  CDT  [367 tok]
+  [ 20/20] 98.4ATT    r1 -> B  CDT  [361 tok]
+  [ 20/20] 98.4ATT    r2 -> B  CDT  [361 tok]
+
+================================================================
+RESULTS  (attitudes, Qwen/Qwen2.5-14B-Instruct)
+  items=20  trials=60  valid=60
+  invalid_rate   = 0.000
+  truncation_rate= 0.000
+  EDT-rate (valid) = 0.433   CDT-rate (valid) = 0.550
+  both = 0.050   neither = 0.067
+================================================================
+samples : /root/kanad_dt_rl/results/newcomblike/oesterheld_attitudes_samples_qwen25-14b-instruct.csv
+metrics : /root/kanad_dt_rl/results/newcomblike/oesterheld_attitudes_metrics_qwen25-14b-instruct.json
+=== newcomblike DONE Wed Jun 24 13:22:33 BST 2026 ===
+--- metrics ---
+results/newcomblike/oesterheld_attitudes_metrics_qwen25-14b-instruct.json:
+{
+  "tag": "qwen25-14b-instruct",
+  "mode": "attitudes",
+  "n_trials": 60,
+  "n_valid": 60,
+  "invalid_rate": 0.0,
+  "truncation_rate": 0.0,
+  "n_items": 20,
+  "edt_rate": 0.43333333333333335,
+  "cdt_rate": 0.55,
+  "both_rate": 0.05,
+  "neither_rate": 0.06666666666666667
+}
+results/newcomblike/oesterheld_attitudes_metrics_qwen25-3b-instruct.json:
+{
+  "tag": "qwen25-3b-instruct",
+  "mode": "attitudes",
+  "n_trials": 60,
+  "n_valid": 49,
+  "invalid_rate": 0.18333333333333332,
+  "truncation_rate": 0.0,
+  "n_items": 20,
+  "edt_rate": 0.5510204081632653,
+  "cdt_rate": 0.4489795918367347,
+  "both_rate": 0.08163265306122448,
+  "neither_rate": 0.08163265306122448
+}
+results/newcomblike/oesterheld_capabilities_metrics_qwen25-14b-instruct.json:
+{
+  "tag": "qwen25-14b-instruct",
+  "mode": "capabilities",
+  "n_trials": 60,
+  "n_valid": 59,
+  "invalid_rate": 0.016666666666666666,
+  "truncation_rate": 0.016666666666666666,
+  "n_items": 20,
+  "accuracy_valid": 0.6949152542372882,
+  "accuracy_all": 0.6833333333333333
+}
+results/newcomblike/oesterheld_capabilities_metrics_qwen25-3b-instruct.json:
+{
+  "tag": "qwen25-3b-instruct",
+  "mode": "capabilities",
+  "n_trials": 60,
+  "n_valid": 45,
+  "invalid_rate": 0.25,
+  "truncation_rate": 0.0,
+  "n_items": 20,
+  "accuracy_valid": 0.3333333333333333,
+  "accuracy_all": 0.25
+}
+results/newcomblike/oesterheld_capabilities_metrics_smoke_3b.json:
+{
+  "tag": "smoke_3b",
+  "mode": "capabilities",
+  "n_trials": 3,
+  "n_valid": 3,
+  "invalid_rate": 0.0,
+  "truncation_rate": 0.0,
+  "n_items": 3,
+  "accuracy_valid": 0.6666666666666666,
+  "accuracy_all": 0.6666666666666666
+}

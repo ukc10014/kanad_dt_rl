@@ -1,0 +1,23 @@
+[oracle-klctl] arm=evidential p=1.0 kl_coef=0.0 seed_adapter=results/adapters/causal model=Qwen/Qwen2.5-3B-Instruct steps=150 K=8 P=8 temp=1.0
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 43.92it/s]
+[seed] default <- results/adapters/causal: sum|lora_B| 0.000 -> 39.193
+[evidential] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[1.0] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential] step=0 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=1 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=20 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=20 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=40 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=40 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=60 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=60 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=80 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=80 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=100 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=100 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=120 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=120 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=140 train reward=60.00 K=0.00 invalid=0.00 gen_len=2.0
+[evidential] step=140 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] step=150 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[evidential] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_oracle_klctl_kl00

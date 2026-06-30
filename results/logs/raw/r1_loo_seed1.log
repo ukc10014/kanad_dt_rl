@@ -1,0 +1,4 @@
+[selfplay-loo] A2 self-consistency | model=deepseek-ai/DeepSeek-R1-Distill-Llama-8B dataset=newcomb_eval/data/dataset_mech_m3.json grid=(0.5, 0.6, 0.9, 0.99) K=4 P=3 mnt=2560 kl=0.02 seed_adapter=None tag=r1_loo_seed1
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 49.45it/s]
+[evidential] model=deepseek-ai/DeepSeek-R1-Distill-Llama-8B reward_mode=ev train_p=[0.5, 0.6, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.

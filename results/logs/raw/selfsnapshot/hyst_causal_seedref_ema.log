@@ -1,0 +1,29 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  3.27it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  4.16it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00,  3.99it/s]
+[seed] default <- /root/kanad_dt_rl/results/adapters/causal: sum|lora_B| 0.000 -> 39.193
+[snapshot] every=0 ema=0.1 kl_ref=seed seed_adapter=/root/kanad_dt_rl/results/adapters/causal trainable_tensors=504
+[evidential_modelpred] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.8] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential_modelpred] step=0 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=1 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=15 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=15 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=30 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=30 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=45 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=45 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=60 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=60 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=75 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=75 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=90 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=90 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=105 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=105 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=120 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=120 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=135 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=135 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=150 train reward=160.00 K=0.00 invalid=0.00 gen_len=2.0 p_model=0.000
+[evidential_modelpred] step=150 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=150 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[evidential_modelpred] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_modelpred_hyst_causal_seedref_ema

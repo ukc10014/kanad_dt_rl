@@ -1,0 +1,43 @@
+13:35:15 waiting for sustained GPU idle (Oesterheld gate)...
+13:37:15 GPU idle confirmed (gpu_used=0MiB) — starting C2 pipeline.
+13:37:15 SMOKE 0.5B kl_ref=seed
+smoke rc=0
+[snapshot] every=5 ema=0.0 kl_ref=seed seed_adapter=None trainable_tensors=336
+[evidential_modelpred] step=0 eval mean_K=0.450  K@p=0.80->0.45  K@p=0.80->0.45  slope(hi-lo)=+0.00
+[evidential_modelpred] step=1 train reward=96.91 K=0.44 invalid=0.00 gen_len=2.4 p_model=0.437
+[evidential_modelpred] step=8 train reward=124.08 K=0.50 invalid=0.00 gen_len=3.0 p_model=0.557
+[evidential_modelpred] step=8 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=16 train reward=144.99 K=0.25 invalid=0.00 gen_len=2.0 p_model=0.250
+[evidential_modelpred] step=16 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=16 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+13:37:47 START hyst_base_seedref (seed=none kl_ref=seed )
+14:00:23 DONE hyst_base_seedref rc=0
+[hyst_base_seedref] [evidential_modelpred] step=0 eval mean_K=0.800  K@p=0.80->0.80  K@p=0.80->0.80  slope(hi-lo)=+0.00
+[hyst_base_seedref] [evidential_modelpred] step=150 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+14:00:23 START hyst_causal_seedref (seed=causal kl_ref=seed )
+14:22:59 DONE hyst_causal_seedref rc=0
+[hyst_causal_seedref] [evidential_modelpred] step=0 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[hyst_causal_seedref] [evidential_modelpred] step=150 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+14:22:59 START hyst_causal_baseref (seed=causal kl_ref=base )
+14:44:12 DONE hyst_causal_baseref rc=0
+[hyst_causal_baseref] [evidential_modelpred] step=0 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[hyst_causal_baseref] [evidential_modelpred] step=150 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+14:44:12 START hyst_base_baseref (seed=none kl_ref=base )
+15:06:40 DONE hyst_base_baseref rc=0
+[hyst_base_baseref] [evidential_modelpred] step=0 eval mean_K=0.800  K@p=0.80->0.80  K@p=0.80->0.80  slope(hi-lo)=+0.00
+[hyst_base_baseref] [evidential_modelpred] step=150 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+15:06:40 START hyst_causal_seedref_ema (seed=causal kl_ref=seed --snapshot-ema 0.1 --snapshot-every 0)
+15:34:06 DONE hyst_causal_seedref_ema rc=0
+[hyst_causal_seedref_ema] [evidential_modelpred] step=0 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+[hyst_causal_seedref_ema] [evidential_modelpred] step=150 eval mean_K=0.000  K@p=0.80->0.00  K@p=0.80->0.00  slope(hi-lo)=+0.00
+15:34:06 ENDPOINT sweep hyst_base_seedref
+  endpoint rc=0 -> results/logprob/p_margin_by_p_ep_hyst_base_seedref.csv
+15:34:40 ENDPOINT sweep hyst_causal_seedref
+  endpoint rc=0 -> results/logprob/p_margin_by_p_ep_hyst_causal_seedref.csv
+15:35:15 ENDPOINT sweep hyst_causal_baseref
+  endpoint rc=0 -> results/logprob/p_margin_by_p_ep_hyst_causal_baseref.csv
+15:35:49 ENDPOINT sweep hyst_base_baseref
+  endpoint rc=0 -> results/logprob/p_margin_by_p_ep_hyst_base_baseref.csv
+15:36:23 ENDPOINT sweep hyst_causal_seedref_ema
+  endpoint rc=0 -> results/logprob/p_margin_by_p_ep_hyst_causal_seedref_ema.csv
+15:36:57 C2 PIPELINE DONE

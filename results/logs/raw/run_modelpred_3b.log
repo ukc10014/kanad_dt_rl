@@ -1,0 +1,19 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 46.82it/s]
+[evidential_modelpred] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential_modelpred] step=0 eval mean_K=0.856  K@p=0.50->0.85  K@p=0.99->0.90  slope(hi-lo)=+0.05
+[evidential_modelpred] step=1 train reward=112.15 K=0.52 invalid=0.00 gen_len=2.0 p_model=0.516
+[evidential_modelpred] step=25 train reward=48.29 K=0.98 invalid=0.00 gen_len=2.0 p_model=0.459
+[evidential_modelpred] step=25 eval mean_K=0.806  K@p=0.50->0.70  K@p=0.99->0.90  slope(hi-lo)=+0.20
+[evidential_modelpred] step=50 train reward=93.29 K=0.50 invalid=0.00 gen_len=2.0 p_model=0.864
+[evidential_modelpred] step=50 eval mean_K=0.550  K@p=0.50->0.75  K@p=0.99->0.50  slope(hi-lo)=-0.25
+[evidential_modelpred] step=75 train reward=80.84 K=0.62 invalid=0.00 gen_len=2.0 p_model=0.957
+[evidential_modelpred] step=75 eval mean_K=0.531  K@p=0.50->0.70  K@p=0.99->0.50  slope(hi-lo)=-0.20
+[evidential_modelpred] step=100 train reward=96.43 K=0.75 invalid=0.00 gen_len=2.0 p_model=0.826
+[evidential_modelpred] step=100 eval mean_K=0.556  K@p=0.50->0.65  K@p=0.99->0.60  slope(hi-lo)=-0.05
+[evidential_modelpred] step=125 train reward=101.15 K=0.88 invalid=0.00 gen_len=2.0 p_model=0.835
+[evidential_modelpred] step=125 eval mean_K=0.750  K@p=0.50->0.80  K@p=0.99->0.75  slope(hi-lo)=-0.05
+[evidential_modelpred] step=150 train reward=110.24 K=0.25 invalid=0.00 gen_len=2.0 p_model=0.593
+[evidential_modelpred] step=150 eval mean_K=0.719  K@p=0.50->0.75  K@p=0.99->0.80  slope(hi-lo)=+0.05
+[evidential_modelpred] step=150 eval mean_K=0.719  K@p=0.50->0.75  K@p=0.99->0.80  slope(hi-lo)=+0.05
+[evidential_modelpred] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_modelpred

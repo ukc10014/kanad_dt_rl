@@ -1,0 +1,10 @@
+[overnight] armed Thu Jun 25 17:05:43 BST 2026; waiting for r1_calib to finish
+[overnight] r1_calib process gone Thu Jun 25 21:25:43 BST 2026
+[overnight] gate: last eval mean_K=0.312
+[overnight] gate: last invalid=0.06
+[overnight] GATE PASSED — firing fanouts Thu Jun 25 21:25:43 BST 2026
+[overnight] START r1_seed1 Thu Jun 25 21:25:43 BST 2026
+[overnight] DONE r1_seed1 EXIT 0 Fri Jun 26 03:02:55 BST 2026
+[overnight] START r1_kl0 Fri Jun 26 03:02:55 BST 2026
+[overnight] DONE r1_kl0 EXIT 0 Fri Jun 26 08:21:44 BST 2026
+[overnight] ALL DONE Fri Jun 26 08:21:44 BST 2026

@@ -24,6 +24,13 @@ runs/
 tensorboard/
 *.log
 logs/
+# EXCEPTION: recovered/parsed RL training dynamics are tracked under results/logs/
+# (tiny per-step CSVs + their raw source step-logs). This narrow re-include keeps the
+# blanket *.log / logs/ rules above from silently swallowing the dynamics again — the
+# bug that forced a prior session to rebuild the curves from ~4 transcribed checkpoints.
+# Stray *.log elsewhere (and heavy logs/ dirs) stay ignored.
+!results/logs/
+!results/logs/**
 
 # ── Generated eval outputs ──
 # results/ IS tracked so CoT logs / transcripts / summaries / plots upload to GitHub

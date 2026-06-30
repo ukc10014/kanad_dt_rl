@@ -1,0 +1,11 @@
+[snapshot] every=5 ema=0.0 kl_ref=seed seed_adapter=None trainable_tensors=336
+[evidential_modelpred] model=Qwen/Qwen2.5-0.5B-Instruct reward_mode=ev train_p=[0.8] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential_modelpred] step=0 eval mean_K=0.450  K@p=0.80->0.45  K@p=0.80->0.45  slope(hi-lo)=+0.00
+[evidential_modelpred] step=1 train reward=96.91 K=0.44 invalid=0.00 gen_len=2.4 p_model=0.437
+[evidential_modelpred] step=8 train reward=124.08 K=0.50 invalid=0.00 gen_len=3.0 p_model=0.557
+[evidential_modelpred] step=8 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=16 train reward=144.99 K=0.25 invalid=0.00 gen_len=2.0 p_model=0.250
+[evidential_modelpred] step=16 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=16 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_modelpred_smoke_seedref

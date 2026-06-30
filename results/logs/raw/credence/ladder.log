@@ -1,0 +1,74 @@
+=== credence-ladder START Wed Jun 24 16:02:53 BST 2026 ===
+
+### python -m newcomb_eval.logprob_sweep --model Qwen/Qwen2.5-3B-Instruct --tag base3b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.37it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.77it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.69it/s]
+P(non_cdt) slope (hi-lo) = -0.022   margin slope = -1.312   K-rate(argmax) slope = +0.00
+table: /root/kanad_dt_rl/results/logprob/p_margin_by_p_base3b.csv   p* = 0.80
+plot: /root/kanad_dt_rl/results/logprob/p_margin_by_p_base3b.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-3B-Instruct --tag base3b --variant outcome prediction direct --action-margin results/logprob/p_margin_by_p_base3b.csv ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.45it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.91it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.82it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[outcome] gap fit(gap~2p-1) slope = -0.004 [-0.050,+0.040]   gap hi-lo = +0.005   gap@0.5 = +0.182   rmse(2p-1) = 0.452   action-margin hi-lo = -1.31
+[prediction] gap fit(gap~2p-1) slope = -0.055 [-0.089,-0.024]   gap hi-lo = -0.035   gap@0.5 = +0.286   rmse(2p-1) = 0.430   action-margin hi-lo = -1.31
+[direct] gap fit(gap~2p-1) slope = +0.957 [+0.841,+1.060]   gap hi-lo = +0.877   gap@0.5 = +0.031   rmse(2p-1) = 0.120   action-margin hi-lo = -1.31
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base3b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base3b_outcome.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base3b_prediction.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base3b_direct.png
+
+### python -m newcomb_eval.logprob_sweep --model Qwen/Qwen2.5-7B-Instruct --tag base7b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 4 files:   0%|          | 0/4 [00:00<?, ?it/s]Fetching 4 files:  25%|██▌       | 1/4 [00:16<00:50, 16.95s/it]Fetching 4 files: 100%|██████████| 4/4 [00:16<00:00,  4.24s/it]
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:02,  1.44it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.49it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:02<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.52it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.50it/s]
+P(non_cdt) slope (hi-lo) = +0.239   margin slope = +3.387   K-rate(argmax) slope = +0.25
+table: /root/kanad_dt_rl/results/logprob/p_margin_by_p_base7b.csv   p* = 0.80
+plot: /root/kanad_dt_rl/results/logprob/p_margin_by_p_base7b.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-7B-Instruct --tag base7b --variant outcome prediction direct --action-margin results/logprob/p_margin_by_p_base7b.csv ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:00<00:01,  1.63it/s]Loading checkpoint shards:  50%|█████     | 2/4 [00:01<00:01,  1.64it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:01<00:00,  1.64it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.73it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:02<00:00,  1.69it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[outcome] gap fit(gap~2p-1) slope = +0.005 [-0.046,+0.056]   gap hi-lo = -0.025   gap@0.5 = +0.472   rmse(2p-1) = 0.314   action-margin hi-lo = +3.39
+[prediction] gap fit(gap~2p-1) slope = -0.006 [-0.072,+0.062]   gap hi-lo = -0.013   gap@0.5 = +0.504   rmse(2p-1) = 0.302   action-margin hi-lo = +3.39
+[direct] gap fit(gap~2p-1) slope = +0.372 [+0.368,+0.381]   gap hi-lo = -0.010   gap@0.5 = +0.000   rmse(2p-1) = 0.350   action-margin hi-lo = +3.39
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base7b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base7b_outcome.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base7b_prediction.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base7b_direct.png
+
+### python -m newcomb_eval.logprob_sweep --model Qwen/Qwen2.5-14B-Instruct --tag base14b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.47it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.28it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:04,  1.22it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.15it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:04<00:02,  1.10it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:05<00:02,  1.17s/it]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:07<00:01,  1.22s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.01s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:07<00:00,  1.01it/s]
+P(non_cdt) slope (hi-lo) = +0.092   margin slope = +0.450   K-rate(argmax) slope = +0.05
+table: /root/kanad_dt_rl/results/logprob/p_margin_by_p_base14b.csv   p* = 0.80
+plot: /root/kanad_dt_rl/results/logprob/p_margin_by_p_base14b.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --tag base14b --variant outcome prediction direct --action-margin results/logprob/p_margin_by_p_base14b.csv ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.52it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.25it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.37it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.43it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.49it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.50it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.56it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.81it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.57it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[outcome] gap fit(gap~2p-1) slope = +0.035 [-0.009,+0.081]   gap hi-lo = +0.045   gap@0.5 = +0.709   rmse(2p-1) = 0.359   action-margin hi-lo = +0.45
+[prediction] gap fit(gap~2p-1) slope = +0.093 [+0.043,+0.143]   gap hi-lo = +0.095   gap@0.5 = +0.743   rmse(2p-1) = 0.380   action-margin hi-lo = +0.45
+[direct] gap fit(gap~2p-1) slope = +0.210 [+0.117,+0.311]   gap hi-lo = -0.056   gap@0.5 = +0.189   rmse(2p-1) = 0.313   action-margin hi-lo = +0.45
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base14b_outcome.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base14b_prediction.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_base14b_direct.png
+SKIP 32B: only 39G free, need ~75G for the bf16 download (4-bit quantizes at load). See OVERNIGHT.md for the AWQ/free-disk options.
+
+### python -m newcomb_eval.credence_ladder ###
+          rung  params   repr  action  diverg  agreeOP  agreeTD  mono resolv
+        base3b    3.1B  -0.00   -1.31   +1.31     0.11    -0.15  0.71   1.00
+        base7b    7.6B  +0.00   +3.39   -3.38    -0.04    -0.25  0.62   1.00
+       base14b   14.8B  +0.04   +0.45   -0.41     0.68     0.10  0.76   1.00
+
+wrote /root/kanad_dt_rl/results/credence/ladder_signature.{csv,json} + ladder_signature.png
+=== credence-ladder DONE Wed Jun 24 16:14:30 BST 2026 ===
+--- signature ---
+tag,params_b,n_variants,repr_slope_outcome,repr_slope_prediction,repr_slope_direct,repr_slope,action_slope,divergence,agreement_outcome_prediction,agreement_token_direct,monotonicity,resolvability
+base3b,3.09,3,-0.0039220699003477575,-0.05461331467499222,0.9570579151252879,-0.0039220699003477575,-1.312499932421452,1.3085778625211042,0.10863821539713976,-0.1514076443311405,0.7142857142857143,1.0
+base7b,7.62,3,0.004872254135982347,-0.006000091913552244,0.3722342430376215,0.004872254135982347,3.3874999165344892,-3.382627662398507,-0.038163734528408384,-0.24526624583565051,0.6190476190476191,1.0
+base14b,14.77,3,0.03538812986851372,0.09250152443301805,0.21042786347455858,0.03538812986851372,0.44999995874451626,-0.41461182887600256,0.6751140748295108,0.1030341392593925,0.7619047619047619,1.0

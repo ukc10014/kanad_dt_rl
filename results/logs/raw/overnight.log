@@ -1,0 +1,78 @@
+=== OVERNIGHT START Tue Jun 23 17:51:58 BST 2026 ===
+### [1] clean transplant (3B base, collision-proof wording) ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.31it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.76it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.67it/s]
+samples: /root/kanad_dt_rl/results/transplant/transplant_samples_base3b_clean.csv
+aggregate: /root/kanad_dt_rl/results/transplant/transplant_by_condition_p_base3b_clean.csv
+none         mean P(optimal)=0.384 hi-lo=+0.332
+variables    mean P(optimal)=0.451 hi-lo=-0.303
+formulas     mean P(optimal)=0.449 hi-lo=-0.336
+numeric_evs  mean P(optimal)=0.490 hi-lo=-0.464
+comparison   mean P(optimal)=0.566 hi-lo=-0.157
+full         mean P(optimal)=0.661 hi-lo=-0.189
+### [2] bigger SFT (3B; relaxed margin 0.3, 16 items, 5 epochs) + de-noised eval ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.28it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.70it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.62it/s]
+[sft] harvest: 228 examples kept (balanced=True)
+  p     kept/total  rate
+  0.50   80/192    0.42
+  0.60   76/192    0.40
+  0.70   82/192    0.43
+  0.80   38/96     0.40
+  0.90   55/96     0.57
+  0.99   49/96     0.51
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 46.20it/s]
+[sft] epoch 1/5  mean_loss=0.471  n=228
+[sft] epoch 2/5  mean_loss=0.352  n=228
+[sft] epoch 3/5  mean_loss=0.287  n=228
+[sft] epoch 4/5  mean_loss=0.230  n=228
+[sft] epoch 5/5  mean_loss=0.180  n=228
+[sft] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/sft_star_big
+usage: cot_inspect.py [-h] [--model MODEL] [--adapter ADAPTER]
+                      [--p-grid P_GRID [P_GRID ...]] [--limit LIMIT]
+                      [-n N_SAMPLES] [--temperature TEMPERATURE]
+                      [--max-new-tokens MAX_NEW_TOKENS] [--tag TAG]
+cot_inspect.py: error: argument --p-grid: invalid float value: '0.5 0.6 0.7 0.8 0.9 0.99'
+STAGE2-EVAL FAILED
+### [3] 14B scale probe (download+run; timeout-guarded, fail-soft) ###
+usage: cot_inspect.py [-h] [--model MODEL] [--adapter ADAPTER]
+                      [--p-grid P_GRID [P_GRID ...]] [--limit LIMIT]
+                      [-n N_SAMPLES] [--temperature TEMPERATURE]
+                      [--max-new-tokens MAX_NEW_TOKENS] [--tag TAG]
+cot_inspect.py: error: argument --p-grid: invalid float value: '0.5 0.6 0.7 0.8 0.9 0.99'
+STAGE3-14B-COT FAILED/TIMEOUT
+`torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files:  12%|█▎        | 1/8 [00:12<01:28, 12.67s/it]Fetching 8 files:  25%|██▌       | 2/8 [00:13<00:33,  5.60s/it]Fetching 8 files:  62%|██████▎   | 5/8 [00:13<00:04,  1.66s/it]Fetching 8 files: 100%|██████████| 8/8 [00:13<00:00,  1.70s/it]
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:05,  1.28it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.26it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:04,  1.25it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.27it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.29it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.28it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:06<00:01,  1.03s/it]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.09it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.15it/s]
+samples: /root/kanad_dt_rl/results/transplant/transplant_samples_base14b_clean.csv
+aggregate: /root/kanad_dt_rl/results/transplant/transplant_by_condition_p_base14b_clean.csv
+none         mean P(optimal)=0.482 hi-lo=+0.023
+variables    mean P(optimal)=0.483 hi-lo=-0.537
+formulas     mean P(optimal)=0.556 hi-lo=-0.923
+numeric_evs  mean P(optimal)=0.617 hi-lo=-1.000
+comparison   mean P(optimal)=0.829 hi-lo=-0.338
+full         mean P(optimal)=0.799 hi-lo=-0.854
+### [4] paired-CoT seed-confirmation (seeds 1,2) ###
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 45.73it/s]
+[evidential] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential] step=0 eval mean_K=0.710  K@p=0.50->0.67  K@p=0.99->0.73  slope(hi-lo)=+0.07
+[evidential] step=1 train reward=79.67 K=0.60 invalid=0.00 gen_len=128.0
+[evidential] step=30 train reward=82.47 K=0.30 invalid=0.03 gen_len=128.0
+[evidential] step=30 eval mean_K=0.392  K@p=0.50->0.60  K@p=0.99->0.33  slope(hi-lo)=-0.27
+[evidential] step=60 train reward=77.00 K=0.50 invalid=0.00 gen_len=113.4
+[evidential] step=60 eval mean_K=0.158  K@p=0.50->0.27  K@p=0.99->0.13  slope(hi-lo)=-0.13
+[evidential] step=60 eval mean_K=0.158  K@p=0.50->0.27  K@p=0.99->0.13  slope(hi-lo)=-0.13
+[evidential] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_paired_s1
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 55.02it/s]
+[evidential] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential] step=0 eval mean_K=0.710  K@p=0.50->0.67  K@p=0.99->0.73  slope(hi-lo)=+0.07
+[evidential] step=1 train reward=70.73 K=0.67 invalid=0.07 gen_len=128.0
+[evidential] step=30 train reward=82.43 K=0.40 invalid=0.00 gen_len=127.4
+[evidential] step=30 eval mean_K=0.600  K@p=0.50->0.67  K@p=0.99->0.80  slope(hi-lo)=+0.13
+[evidential] step=60 train reward=81.63 K=0.80 invalid=0.00 gen_len=127.7
+[evidential] step=60 eval mean_K=0.525  K@p=0.50->0.60  K@p=0.99->0.73  slope(hi-lo)=+0.13
+[evidential] step=60 eval mean_K=0.525  K@p=0.50->0.60  K@p=0.99->0.73  slope(hi-lo)=+0.13
+[evidential] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_paired_s2
+=== OVERNIGHT DONE Tue Jun 23 19:34:04 BST 2026 ===

@@ -1,0 +1,46 @@
+=== BATCH-2 START Tue Jun 23 19:38:19 BST 2026 ===
+### [A] recover: bigger-SFT de-noised eval (sft_star_big) ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.93it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.84it/s]
+240 traces · 50% EV-optimal · 9 low-margin
+viewer: /root/kanad_dt_rl/results/cot_inspect/cot_sft_big_dn.html
+### [B] recover: 14B free-CoT de-noised (does 14B track p when reasoning itself?) ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.54it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.47it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.46it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.50it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.49it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.50it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.48it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.70it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.56it/s]
+144 traces · 50% EV-optimal · 13 low-margin
+viewer: /root/kanad_dt_rl/results/cot_inspect/cot_base14b_dn.html
+### [C] transplant on RL'd/SFT'd adapters (does the disposition change EV-use?) ###
+-- transplant: causal --
+none         mean P(optimal)=0.498 hi-lo=-0.649
+variables    mean P(optimal)=0.468 hi-lo=-0.660
+formulas     mean P(optimal)=0.483 hi-lo=-0.685
+numeric_evs  mean P(optimal)=0.492 hi-lo=-0.677
+comparison   mean P(optimal)=0.484 hi-lo=-0.679
+full         mean P(optimal)=0.500 hi-lo=-0.719
+-- transplant: evidential --
+none         mean P(optimal)=0.462 hi-lo=-0.204
+variables    mean P(optimal)=0.467 hi-lo=-0.327
+formulas     mean P(optimal)=0.475 hi-lo=-0.305
+numeric_evs  mean P(optimal)=0.473 hi-lo=-0.328
+comparison   mean P(optimal)=0.481 hi-lo=-0.324
+full         mean P(optimal)=0.512 hi-lo=-0.346
+-- transplant: evidential_paired_cot --
+none         mean P(optimal)=0.432 hi-lo=+0.412
+variables    mean P(optimal)=0.475 hi-lo=-0.213
+formulas     mean P(optimal)=0.467 hi-lo=-0.275
+numeric_evs  mean P(optimal)=0.523 hi-lo=-0.350
+comparison   mean P(optimal)=0.575 hi-lo=-0.092
+full         mean P(optimal)=0.664 hi-lo=-0.016
+-- transplant: sft_star --
+none         mean P(optimal)=0.455 hi-lo=-0.183
+variables    mean P(optimal)=0.464 hi-lo=-0.416
+formulas     mean P(optimal)=0.459 hi-lo=-0.416
+numeric_evs  mean P(optimal)=0.464 hi-lo=-0.421
+comparison   mean P(optimal)=0.499 hi-lo=-0.398
+full         mean P(optimal)=0.596 hi-lo=-0.331
+### [D] threshold-local psychophysics (dense p near p*) ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.36it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.81it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.73it/s]
+360 traces · 50% EV-optimal · 44 low-margin
+viewer: /root/kanad_dt_rl/results/cot_inspect/cot_dense_base.html
+=== BATCH-2 DONE Tue Jun 23 20:41:54 BST 2026 ===

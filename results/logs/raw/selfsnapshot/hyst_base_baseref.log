@@ -1,0 +1,28 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 42.49it/s]
+[snapshot] every=10 ema=0.0 kl_ref=base seed_adapter=None trainable_tensors=504
+[evidential_modelpred] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.8] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential_modelpred] step=0 eval mean_K=0.800  K@p=0.80->0.80  K@p=0.80->0.80  slope(hi-lo)=+0.00
+[evidential_modelpred] step=1 train reward=110.08 K=0.69 invalid=0.00 gen_len=2.0 p_model=0.693
+[evidential_modelpred] step=15 train reward=137.50 K=0.38 invalid=0.00 gen_len=2.0 p_model=0.375
+[evidential_modelpred] step=15 eval mean_K=0.400  K@p=0.80->0.40  K@p=0.80->0.40  slope(hi-lo)=+0.00
+[evidential_modelpred] step=30 train reward=130.00 K=0.50 invalid=0.00 gen_len=2.0 p_model=0.500
+[evidential_modelpred] step=30 eval mean_K=0.350  K@p=0.80->0.35  K@p=0.80->0.35  slope(hi-lo)=+0.00
+[evidential_modelpred] step=45 train reward=129.71 K=0.50 invalid=0.00 gen_len=2.0 p_model=0.497
+[evidential_modelpred] step=45 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=60 train reward=122.50 K=0.62 invalid=0.00 gen_len=2.0 p_model=0.625
+[evidential_modelpred] step=60 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=75 train reward=115.00 K=0.75 invalid=0.00 gen_len=2.0 p_model=0.750
+[evidential_modelpred] step=75 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=90 train reward=145.00 K=0.25 invalid=0.00 gen_len=2.0 p_model=0.250
+[evidential_modelpred] step=90 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=105 train reward=130.00 K=0.50 invalid=0.00 gen_len=2.0 p_model=0.500
+[evidential_modelpred] step=105 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=120 train reward=107.50 K=0.88 invalid=0.00 gen_len=2.0 p_model=0.875
+[evidential_modelpred] step=120 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=135 train reward=115.00 K=0.75 invalid=0.00 gen_len=2.0 p_model=0.750
+[evidential_modelpred] step=135 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=150 train reward=145.00 K=0.25 invalid=0.00 gen_len=2.0 p_model=0.250
+[evidential_modelpred] step=150 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] step=150 eval mean_K=0.500  K@p=0.80->0.50  K@p=0.80->0.50  slope(hi-lo)=+0.00
+[evidential_modelpred] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_modelpred_hyst_base_baseref

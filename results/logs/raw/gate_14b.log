@@ -1,0 +1,16 @@
+[gate] model=Qwen/Qwen2.5-14B-Instruct S=60.0 (p*=0.80) cot=False items=5 p-grid=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] n=4
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.46it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.42it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.42it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.33it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.27it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.24it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:05<00:00,  1.16it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.45it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.35it/s]
+
+dominance-probe pass: 100%   accuracy-probe pass: 100%   BOTH (gate): 100%
+
+    p  K-rate(all)  K-rate(gate-pass)  n_gate
+ 0.50         0.45               0.45      20
+ 0.60         0.60               0.60      20
+ 0.70         0.55               0.55      20
+ 0.80         0.60               0.60      20
+ 0.90         0.60               0.60      20
+ 0.99         0.60               0.60      20
+
+→ if K-rate stays flat among gate-passers, the flat baseline is WON'T, not CAN'T.
+wrote /root/kanad_dt_rl/newcomb_eval/../results/comprehension_gate/gate_14b_summary.json + _recs.jsonl

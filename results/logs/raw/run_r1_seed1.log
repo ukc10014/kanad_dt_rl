@@ -1,0 +1,16 @@
+[selfplay-cot] model=deepseek-ai/DeepSeek-R1-Distill-Llama-8B dataset=newcomb_eval/data/dataset_mech_m3.json cot=True grid=(0.5, 0.6, 0.9, 0.99) K=4 P=4 mnt=2048 snapshot_every=10 kl_ref=seed seed_adapter=None
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 64.18it/s]
+[snapshot] every=10 ema=0.0 kl_ref=seed seed_adapter=None trainable_tensors=448
+[evidential_modelpred] model=deepseek-ai/DeepSeek-R1-Distill-Llama-8B reward_mode=ev train_p=[0.5, 0.6, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential_modelpred] step=0 eval mean_K=0.625  K@p=0.50->0.50  K@p=0.99->0.75  slope(hi-lo)=+0.25
+[evidential_modelpred] step=1 train reward=73.69 K=0.62 invalid=0.00 gen_len=1858.7 p_model=0.687
+[evidential_modelpred] step=10 train reward=84.02 K=0.75 invalid=0.06 gen_len=2044.8 p_model=0.603
+[evidential_modelpred] step=10 eval mean_K=0.938  K@p=0.50->1.00  K@p=0.99->1.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=20 train reward=100.74 K=0.50 invalid=0.06 gen_len=2048.0 p_model=0.579
+[evidential_modelpred] step=20 eval mean_K=0.875  K@p=0.50->0.75  K@p=0.99->1.00  slope(hi-lo)=+0.25
+[evidential_modelpred] step=30 train reward=84.30 K=0.62 invalid=0.00 gen_len=2048.0 p_model=0.670
+[evidential_modelpred] step=30 eval mean_K=0.938  K@p=0.50->1.00  K@p=0.99->1.00  slope(hi-lo)=+0.00
+[evidential_modelpred] step=30 eval mean_K=0.938  K@p=0.50->1.00  K@p=0.99->1.00  slope(hi-lo)=+0.00
+[evidential_modelpred] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_modelpred_r1_seed1
+[selfplay-cot] predictor reasoning gens=99 </think>-closed=13/99

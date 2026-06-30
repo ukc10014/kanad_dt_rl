@@ -1,0 +1,13 @@
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 52.77it/s]
+[evidential] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential] step=0 eval mean_K=0.703  K@p=0.50->0.75  K@p=0.99->0.75  slope(hi-lo)=+0.00
+[evidential] step=1 train reward=70.80 K=0.52 invalid=0.08 gen_len=128.0
+[evidential] step=20 train reward=79.00 K=0.60 invalid=0.04 gen_len=128.0
+[evidential] step=20 eval mean_K=0.688  K@p=0.50->0.88  K@p=0.99->0.88  slope(hi-lo)=+0.00
+[evidential] step=40 train reward=88.00 K=0.36 invalid=0.00 gen_len=128.0
+[evidential] step=40 eval mean_K=0.609  K@p=0.50->0.50  K@p=0.99->0.75  slope(hi-lo)=+0.25
+[evidential] step=60 train reward=75.88 K=0.64 invalid=0.00 gen_len=128.0
+[evidential] step=60 eval mean_K=0.578  K@p=0.50->0.75  K@p=0.99->0.88  slope(hi-lo)=+0.12
+[evidential] step=60 eval mean_K=0.578  K@p=0.50->0.75  K@p=0.99->0.88  slope(hi-lo)=+0.12
+[evidential] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential_cot_kl002

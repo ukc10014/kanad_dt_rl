@@ -1,0 +1,5 @@
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.46it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.87it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.79it/s]
+P(non_cdt) slope (hi-lo) = -0.250   margin slope = -17.038   K-rate(argmax) slope = -0.25
+table: /root/kanad_dt_rl/results/logprob/p_margin_by_p_ep_hyst_base_seedref.csv   p* = 0.80
+plot: /root/kanad_dt_rl/results/logprob/p_margin_by_p_ep_hyst_base_seedref.png

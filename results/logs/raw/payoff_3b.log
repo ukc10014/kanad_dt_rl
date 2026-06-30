@@ -1,0 +1,16 @@
+[payoff-ablation] model=Qwen/Qwen2.5-3B-Instruct p*=[0.6, 0.7, 0.8, 0.9] p-grid=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] items=5 n=4 mnt=512
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.46it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.94it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.85it/s]
+[ablation] p*_pred=0.60 (S=20)  K-rate[0.50:0.45  0.60:0.45  0.70:0.80  0.80:0.75  0.90:0.65  0.99:0.75]  emp_xover=0.614
+[ablation] p*_pred=0.70 (S=40)  K-rate[0.50:0.50  0.60:0.60  0.70:0.70  0.80:0.90  0.90:0.60  0.99:0.65]  emp_xover=NONE
+[ablation] p*_pred=0.80 (S=60)  K-rate[0.50:0.55  0.60:0.50  0.70:0.60  0.80:0.75  0.90:0.70  0.99:0.70]  emp_xover=NONE
+[ablation] p*_pred=0.90 (S=80)  K-rate[0.50:0.45  0.60:0.40  0.70:0.75  0.80:0.75  0.90:0.75  0.99:0.70]  emp_xover=0.629
+
+=== SUMMARY: does empirical crossover follow p*? ===
+ p*_pred    S   p*_emp  follows?
+     0.6   20    0.614  ✓
+     0.7   40     None  —
+     0.8   60     None  —
+     0.9   80    0.629  ✗
+
+wrote /root/kanad_dt_rl/newcomb_eval/../results/payoff_ablation/payoff_3b_summary.json + _recs.jsonl

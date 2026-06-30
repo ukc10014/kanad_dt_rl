@@ -1,0 +1,13 @@
+[payoff-ablation] model=Qwen/Qwen2.5-3B-Instruct p*=[0.6, 0.9] p-grid=[0.5, 0.99] items=1 n=1 mnt=256
+`torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 2 files:   0%|          | 0/2 [00:00<?, ?it/s]Fetching 2 files:  50%|█████     | 1/2 [00:04<00:04,  4.26s/it]Fetching 2 files: 100%|██████████| 2/2 [00:04<00:00,  2.13s/it]
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.45it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.89it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.81it/s]
+[ablation] p*_pred=0.60 (S=20)  K-rate[0.50:0.00  0.99:1.00]  emp_xover=0.745
+[ablation] p*_pred=0.90 (S=80)  K-rate[0.50:0.00  0.99:1.00]  emp_xover=0.745
+
+=== SUMMARY: does empirical crossover follow p*? ===
+ p*_pred    S   p*_emp  follows?
+     0.6   20    0.745  ✗
+     0.9   80    0.745  ✗
+
+wrote /root/kanad_dt_rl/newcomb_eval/../results/payoff_ablation/payoff_smoke_summary.json + _recs.jsonl

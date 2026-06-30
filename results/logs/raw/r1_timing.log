@@ -1,0 +1,20 @@
+[r1-timing] model=deepseek-ai/DeepSeek-R1-Distill-Llama-8B batches=[16, 32] mnt=4096 temp=0.6
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 57.76it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+
+===== batch=16 max_new_tokens=4096 =====
+wall=539.2s  gen_len mean=1528 median=1516 max=4096
+</think> closed: 15/16 (94%)   throughput: 1.8 seqs/min  45 tok/s  peak=26.1GB
+  extrapolate (K*P=64/step, +overhead x1.4):
+    policy-only    : 3019s/step -> 150-step run 125.8h (7548min)
+    full+predictor : 3397s/step -> 150-step run 141.5h (8492min)
+
+===== batch=32 max_new_tokens=4096 =====
+wall=917.5s  gen_len mean=1527 median=1282 max=4096
+</think> closed: 31/32 (97%)   throughput: 2.1 seqs/min  53 tok/s  peak=36.2GB
+  extrapolate (K*P=64/step, +overhead x1.4):
+    policy-only    : 2569s/step -> 150-step run 107.0h (6423min)
+    full+predictor : 2890s/step -> 150-step run 120.4h (7225min)
+
+[r1-timing] done
+[r1-timing] EXIT 0

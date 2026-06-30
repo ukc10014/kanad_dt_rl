@@ -1,0 +1,113 @@
+=== CAUSAL ARM ===
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 52.87it/s]
+[causal] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[causal] step=0 eval mean_K=0.856  K@p=0.50->0.85  K@p=0.99->0.90  slope(hi-lo)=+0.05
+[causal] step=1 train reward=97.81 K=0.52 invalid=0.00 gen_len=2.0
+[causal] step=50 train reward=138.50 K=0.00 invalid=0.00 gen_len=2.0
+[causal] step=50 eval mean_K=0.000  K@p=0.50->0.00  K@p=0.99->0.00  slope(hi-lo)=+0.00
+[causal] step=100 train reward=137.12 K=0.00 invalid=0.00 gen_len=2.0
+[causal] step=100 eval mean_K=0.000  K@p=0.50->0.00  K@p=0.99->0.00  slope(hi-lo)=+0.00
+[causal] step=150 train reward=127.50 K=0.00 invalid=0.00 gen_len=2.0
+[causal] step=150 eval mean_K=0.000  K@p=0.50->0.00  K@p=0.99->0.00  slope(hi-lo)=+0.00
+[causal] step=150 eval mean_K=0.000  K@p=0.50->0.00  K@p=0.99->0.00  slope(hi-lo)=+0.00
+[causal] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/causal
+=== EVIDENTIAL ARM ===
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:00<00:00, 42.60it/s]
+[evidential] model=Qwen/Qwen2.5-3B-Instruct reward_mode=ev train_p=[0.5, 0.6, 0.7, 0.8, 0.9, 0.99] p*=0.8
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[evidential] step=0 eval mean_K=0.856  K@p=0.50->0.85  K@p=0.99->0.90  slope(hi-lo)=+0.05
+[evidential] step=1 train reward=79.38 K=0.52 invalid=0.00 gen_len=2.0
+[evidential] step=50 train reward=84.00 K=0.12 invalid=0.00 gen_len=2.0
+[evidential] step=50 eval mean_K=0.037  K@p=0.50->0.05  K@p=0.99->0.05  slope(hi-lo)=+0.00
+[evidential] step=100 train reward=72.38 K=0.88 invalid=0.00 gen_len=2.0
+[evidential] step=100 eval mean_K=0.481  K@p=0.50->0.65  K@p=0.99->0.50  slope(hi-lo)=-0.15
+[evidential] step=150 train reward=85.00 K=0.12 invalid=0.00 gen_len=2.0
+[evidential] step=150 eval mean_K=0.531  K@p=0.50->0.65  K@p=0.99->0.55  slope(hi-lo)=-0.10
+[evidential] step=150 eval mean_K=0.531  K@p=0.50->0.65  K@p=0.99->0.55  slope(hi-lo)=-0.10
+[evidential] saved adapter -> /root/kanad_dt_rl/newcomb_rl/../results/adapters/evidential
+=== EVAL ARMS (baseline + both) ===
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.23it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.66it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.58it/s]
+---------------------------------------------------------
+newcomb_p_sweep (160 samples): mockllm/model             
+max_samples: 1, dataset: (samples)                       
+---------------------------------------------------------
+                                                         
+newcomb_s... | Steps:  30/160  18% | Samples:  30/160 | mean: 0.92 |  | HTTP retries: 0
+newcomb_s... | Steps:  75/160  46% | Samples:  75/160 | mean: 0.93 |  | HTTP retries: 0
+newcomb_s... | Steps: 121/160  75% | Samples: 121/160 | mean: 0.83 |  | HTTP retries: 0
+newcomb_s... | Steps: 160/160 100% | Samples: 160/160 | mean: 0.84 |  | HTTP retries: 0
+
+---------------------------------------------------------                       
+newcomb_p_sweep (160 samples): mockllm/model                                    
+max_samples: 1, dataset: (samples)                                              
+                                                                                
+total time:                                   0:00:19                           
+newcomb_scorer                                                                  
+mean            0.831                                                           
+stderr          0.030                                                           
+Log:                                                                            
+results/arm_baseline/inspect_logs/2026-06-22T13-57-35-00-00_newcomb-p-sweep_LSx…
+---------------------------------------------------------                       
+                                                                                
+[baseline] mean K-rate=0.831 invalid=0.000
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.29it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.65it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.58it/s]
+---------------------------------------------------------
+newcomb_p_sweep (160 samples): mockllm/model             
+max_samples: 1, dataset: (samples)                       
+---------------------------------------------------------
+                                                         
+newcomb_s... | Steps:  31/160  19% | Samples:  31/160 | mean: 0.00 |  | HTTP retries: 0
+newcomb_s... | Steps:  61/160  38% | Samples:  61/160 | mean: 0.00 |  | HTTP retries: 0
+newcomb_s... | Steps:  91/160  56% | Samples:  91/160 | mean: 0.00 |  | HTTP retries: 0
+newcomb_s... | Steps: 120/160  75% | Samples: 120/160 | mean: 0.00 |  | HTTP retries: 0
+newcomb_s... | Steps: 150/160  93% | Samples: 150/160 | mean: 0.00 |  | HTTP retries: 0
+newcomb_s... | Steps: 160/160 100% | Samples: 160/160 | mean: 0.00 |  | HTTP retries: 0
+
+---------------------------------------------------------                       
+newcomb_p_sweep (160 samples): mockllm/model                                    
+max_samples: 1, dataset: (samples)                                              
+                                                                                
+total time:                                   0:00:27                           
+newcomb_scorer                                                                  
+mean            0.000                                                           
+stderr          0.000                                                           
+Log:                                                                            
+results/arm_causal/inspect_logs/2026-06-22T13-58-03-00-00_newcomb-p-sweep_mRgUN…
+---------------------------------------------------------                       
+                                                                                
+[causal] mean K-rate=0.000 invalid=0.000
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:00<00:00,  1.35it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.71it/s]Loading checkpoint shards: 100%|██████████| 2/2 [00:01<00:00,  1.64it/s]
+---------------------------------------------------------
+newcomb_p_sweep (160 samples): mockllm/model             
+max_samples: 1, dataset: (samples)                       
+---------------------------------------------------------
+                                                         
+newcomb_s... | Steps:  31/160  19% | Samples:  31/160 | mean: 0.38 |  | HTTP retries: 0
+newcomb_s... | Steps:  65/160  40% | Samples:  65/160 | mean: 0.36 |  | HTTP retries: 0
+newcomb_s... | Steps: 100/160  62% | Samples: 100/160 | mean: 0.38 |  | HTTP retries: 0
+newcomb_s... | Steps: 135/160  84% | Samples: 135/160 | mean: 0.44 |  | HTTP retries: 0
+newcomb_s... | Steps: 160/160 100% | Samples: 160/160 | mean: 0.45 |  | HTTP retries: 0
+
+---------------------------------------------------------                       
+newcomb_p_sweep (160 samples): mockllm/model                                    
+max_samples: 1, dataset: (samples)                                              
+                                                                                
+total time:                                   0:00:24                           
+newcomb_scorer                                                                  
+mean            0.456                                                           
+stderr          0.040                                                           
+Log:                                                                            
+results/arm_evidential/inspect_logs/2026-06-22T13-58-38-00-00_newcomb-p-sweep_m…
+---------------------------------------------------------                       
+                                                                                
+[evidential] mean K-rate=0.456 invalid=0.000
+
+comparison plot: /root/kanad_dt_rl/results/k_rate_arms_comparison.png
+
+=== summary (mean K-rate over grid) ===
+  baseline     mean_K=0.831
+  causal       mean_K=0.000
+  evidential   mean_K=0.456
+=== ALL DONE ===

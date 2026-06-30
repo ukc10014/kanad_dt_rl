@@ -1,0 +1,17 @@
+===== 10:35:25 START oracle_p1_base (p=1.0 seed=none steps=120 temp=1.0) =====
+===== 10:51:57 DONE  oracle_p1_base rc=0 =====
+[oracle_p1_base] [evidential] step=0 eval mean_K=1.000  K@p=1.00->1.00  K@p=1.00->1.00  slope(hi-lo)=+0.00
+[oracle_p1_base] [evidential] step=120 eval mean_K=1.000  K@p=1.00->1.00  K@p=1.00->1.00  slope(hi-lo)=+0.00
+===== 10:51:57 START oracle_p1_causal (p=1.0 seed=/root/kanad_dt_rl/results/adapters/causal steps=150 temp=1.3) =====
+===== 11:12:39 DONE  oracle_p1_causal rc=0 =====
+[oracle_p1_causal] [evidential] step=0 eval mean_K=0.000  K@p=1.00->0.00  K@p=1.00->0.00  slope(hi-lo)=+0.00
+[oracle_p1_causal] [evidential] step=150 eval mean_K=1.000  K@p=1.00->1.00  K@p=1.00->1.00  slope(hi-lo)=+0.00
+===== 11:12:39 START oracle_p0_base (p=0.0 seed=none steps=120 temp=1.0) =====
+===== 11:29:04 DONE  oracle_p0_base rc=0 =====
+[oracle_p0_base] [evidential] step=0 eval mean_K=0.650  K@p=0.00->0.65  K@p=0.00->0.65  slope(hi-lo)=+0.00
+[oracle_p0_base] [evidential] step=120 eval mean_K=0.000  K@p=0.00->0.00  K@p=0.00->0.00  slope(hi-lo)=+0.00
+===== 11:29:04 START oracle_p05_base (p=0.5 seed=none steps=120 temp=1.0) =====
+===== 11:45:37 DONE  oracle_p05_base rc=0 =====
+[oracle_p05_base] [evidential] step=0 eval mean_K=0.850  K@p=0.50->0.85  K@p=0.50->0.85  slope(hi-lo)=+0.00
+[oracle_p05_base] [evidential] step=120 eval mean_K=0.000  K@p=0.50->0.00  K@p=0.50->0.00  slope(hi-lo)=+0.00
+===== 11:45:37 ALL DONE =====

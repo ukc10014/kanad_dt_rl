@@ -1,0 +1,80 @@
+=== mechanism-ladder START Wed Jun 24 18:09:53 BST 2026 ===
+
+### python -m newcomb_eval.gen_mechanism_dataset ###
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m0.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m0pad.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m1.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m2.json  (20 items)
+wrote /root/kanad_dt_rl/newcomb_eval/data/dataset_mech_m3.json  (20 items)
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --data newcomb_eval/data/dataset_mech_m0.json --variant direct prediction action --tag mech_m0_14b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.65it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.43it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:01<00:03,  1.52it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.37it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:02,  1.22it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:04<00:01,  1.23it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:05<00:00,  1.25it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.47it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:05<00:00,  1.38it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[direct] gap_adj fit(~2p-1) = +0.210 [+0.117,+0.311]   raw fit = +0.210   gap@0.5 = +0.189 ⚠gap@0.5≠0   rmse(2p-1) = 0.313
+[prediction] gap_adj fit(~2p-1) = +0.093 [+0.043,+0.143]   raw fit = +0.093   gap@0.5 = +0.743 ⚠gap@0.5≠0   rmse(2p-1) = 0.380
+[action] one-box margin hi-lo = +0.450   margin@0.5 = +3.13
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m0_14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m0_14b_direct.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m0_14b_prediction.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --data newcomb_eval/data/dataset_mech_m0pad.json --variant direct prediction action --tag mech_m0pad_14b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.55it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.50it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:01<00:03,  1.51it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.52it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:01,  1.56it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.52it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.53it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.75it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.61it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[direct] gap_adj fit(~2p-1) = +0.175 [+0.080,+0.274]   raw fit = +0.175   gap@0.5 = +0.244 ⚠gap@0.5≠0   rmse(2p-1) = 0.305
+[prediction] gap_adj fit(~2p-1) = +0.088 [+0.041,+0.137]   raw fit = +0.088   gap@0.5 = +0.736 ⚠gap@0.5≠0   rmse(2p-1) = 0.371
+[action] one-box margin hi-lo = +1.000   margin@0.5 = +2.07
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m0pad_14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m0pad_14b_direct.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m0pad_14b_prediction.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --data newcomb_eval/data/dataset_mech_m1.json --variant direct prediction action --tag mech_m1_14b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.51it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.46it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.47it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.50it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:01,  1.55it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.55it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.57it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.92it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.66it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[direct] gap_adj fit(~2p-1) = +0.185 [+0.114,+0.261]   raw fit = +0.185   gap@0.5 = +0.235 ⚠gap@0.5≠0   rmse(2p-1) = 0.360
+[prediction] gap_adj fit(~2p-1) = +0.071 [+0.041,+0.103]   raw fit = +0.071   gap@0.5 = +0.790 ⚠gap@0.5≠0   rmse(2p-1) = 0.409
+[action] one-box margin hi-lo = -0.600   margin@0.5 = +3.69
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m1_14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m1_14b_direct.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m1_14b_prediction.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --data newcomb_eval/data/dataset_mech_m2.json --variant direct prediction action --tag mech_m2_14b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.55it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:04,  1.45it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:03,  1.49it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.51it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:01,  1.56it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.57it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.59it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.75it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.61it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[direct] gap_adj fit(~2p-1) = +0.303 [+0.241,+0.358]   raw fit = +0.303   gap@0.5 = +0.095   rmse(2p-1) = 0.351
+[prediction] gap_adj fit(~2p-1) = +0.094 [+0.061,+0.126]   raw fit = +0.094   gap@0.5 = +0.811 ⚠gap@0.5≠0   rmse(2p-1) = 0.433
+[action] one-box margin hi-lo = +1.362   margin@0.5 = +3.06
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m2_14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m2_14b_direct.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m2_14b_prediction.png
+
+### python -m newcomb_eval.credence_probe --model Qwen/Qwen2.5-14B-Instruct --data newcomb_eval/data/dataset_mech_m3.json --variant direct prediction action --tag mech_m3_14b ###
+`torch_dtype` is deprecated! Use `dtype` instead!
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:04,  1.57it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:03,  1.53it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:01<00:03,  1.54it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:02<00:02,  1.56it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:03<00:01,  1.60it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:03<00:01,  1.61it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:04<00:00,  1.65it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  2.00it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:04<00:00,  1.73it/s]
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+[direct] gap_adj fit(~2p-1) = +0.310 [+0.218,+0.390]   raw fit = +0.310   gap@0.5 = +0.130 ⚠gap@0.5≠0   rmse(2p-1) = 0.319
+[prediction] gap_adj fit(~2p-1) = +0.074 [+0.042,+0.108]   raw fit = +0.074   gap@0.5 = +0.814 ⚠gap@0.5≠0   rmse(2p-1) = 0.431
+[action] one-box margin hi-lo = +0.300   margin@0.5 = +3.49
+p* = 0.80   table: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m3_14b.csv
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m3_14b_direct.png
+plot: /root/kanad_dt_rl/results/credence/credence_gap_by_p_mech_m3_14b_prediction.png
+
+### python -m newcomb_eval.credence_mechanism --model 14b ###
+     mechanism 1box_rate  margin cred_adj_slope  gap@0.5  sat
+   statistical      0.59   +3.29         +0.210    +0.19    ·
+      stat+pad      0.59   +2.75         +0.175    +0.24    ·
+   indiv-model      0.61   +3.55         +0.185    +0.24    ·
+  process-scan      0.62   +3.67         +0.303    +0.10    ·
+    exact-copy      0.69   +3.79         +0.310    +0.13    ·
+
+wrote /root/kanad_dt_rl/results/credence/mechanism_signature.{csv,json,png}
+=== mechanism-ladder DONE Wed Jun 24 18:33:47 BST 2026 ===
+tag,onebox_rate,margin_level,margin_hi_lo,cred_gap_adj_slope,cred_gap_adj_ci,cred_gap_at_0.5,cred_saturated,cred_gap_adj_slope_prediction,cred_gap_adj_ci_prediction,cred_gap_at_0.5_prediction,cred_saturated_prediction,level,label,order
+mech_m0_14b,0.5875,3.2921874700398868,0.44999995874451626,0.21042786347455858,"[0.11702689851329662, 0.31120122844978015]",0.189,False,0.09250152443301807,"[0.04283336935852727, 0.14325178979965436]",0.7433447033557534,False,m0,statistical,0
+mech_m0pad_14b,0.5875,2.7468749721303913,1.000000040872283,0.17479235010818742,"[0.08030711244503388, 0.27392593529699166]",0.24400000000000005,False,0.08805103327511835,"[0.040875616826187434, 0.13665755785134526]",0.7358671595979259,False,m0pad,stat+pad,1
+mech_m1_14b,0.6125,3.5484374925888944,-0.599999924103146,0.18519752914078322,"[0.11354230648426059, 0.26100596775319335]",0.23500000000000001,False,0.07113955139930409,"[0.04054093042143586, 0.10303788025087661]",0.790072842592268,False,m1,indiv-model,2
+mech_m2_14b,0.625,3.6671874678775467,1.3624999036158334,0.30310427863474576,"[0.24094092447825796, 0.35756787883018093]",0.095,False,0.09379587487115408,"[0.06089873681329662, 0.12619507764693186]",0.8112487909735803,False,m2,process-scan,3
+mech_m3_14b,0.6875,3.7890624974757445,0.30000007553405794,0.3095588748516787,"[0.21821503978502138, 0.3897023975710199]",0.13,False,0.07448502534640394,"[0.04171968529312126, 0.10776265614988903]",0.8139476585429506,False,m3,exact-copy,4

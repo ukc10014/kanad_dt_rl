@@ -1,0 +1,13 @@
+[payoff-ablation] model=Qwen/Qwen2.5-14B-Instruct p*=[0.6, 0.9] p-grid=[0.5, 0.99] items=1 n=1 mnt=256
+`torch_dtype` is deprecated! Use `dtype` instead!
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files:  12%|█▎        | 1/8 [00:11<01:19, 11.31s/it]Fetching 8 files:  25%|██▌       | 2/8 [00:12<00:30,  5.11s/it]Fetching 8 files: 100%|██████████| 8/8 [00:12<00:00,  1.52s/it]
+Loading checkpoint shards:   0%|          | 0/8 [00:00<?, ?it/s]Loading checkpoint shards:  12%|█▎        | 1/8 [00:00<00:05,  1.33it/s]Loading checkpoint shards:  25%|██▌       | 2/8 [00:01<00:05,  1.19it/s]Loading checkpoint shards:  38%|███▊      | 3/8 [00:02<00:04,  1.18it/s]Loading checkpoint shards:  50%|█████     | 4/8 [00:03<00:03,  1.19it/s]Loading checkpoint shards:  62%|██████▎   | 5/8 [00:04<00:02,  1.15it/s]Loading checkpoint shards:  75%|███████▌  | 6/8 [00:05<00:01,  1.18it/s]Loading checkpoint shards:  88%|████████▊ | 7/8 [00:06<00:00,  1.02it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.25it/s]Loading checkpoint shards: 100%|██████████| 8/8 [00:06<00:00,  1.19it/s]
+[ablation] p*_pred=0.60 (S=20)  K-rate[0.50:0.00  0.99:1.00]  emp_xover=0.745
+[ablation] p*_pred=0.90 (S=80)  K-rate[0.50:1.00  0.99:1.00]  emp_xover=NONE
+
+=== SUMMARY: does empirical crossover follow p*? ===
+ p*_pred    S   p*_emp  follows?
+     0.6   20    0.745  ✗
+     0.9   80     None  —
+
+wrote /root/kanad_dt_rl/newcomb_eval/../results/payoff_ablation/payoff14_smoke_summary.json + _recs.jsonl

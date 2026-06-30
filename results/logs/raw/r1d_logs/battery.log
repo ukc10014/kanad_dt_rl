@@ -1,0 +1,8 @@
+17:02:42 === R1-Distill battery START ===
+17:02:42 [1/4] logprob_sweep r1d_forced (reflex)
+17:03:24   -> 0.99,0.564233789155085,0.05232378243288655,0.38671867847442626,0.32972874395172436,0.6,40
+17:03:24 [2/4] logprob_sweep r1d_reflex_nothink (empty-think prefix)
+17:03:37 [3/4] cot_inspect r1d_cot (considered disposition; long)
+18:05:28   -> 60 traces · 68% EV-optimal · 1 low-margin
+18:05:28 [4/4] credence_probe r1d (outcome+prediction)
+18:07:56 === R1-Distill battery DONE ===
