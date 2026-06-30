@@ -69,6 +69,50 @@ derive the EV via CoT makes it EDT-consistent.** Verified against the raw artifa
 cell (**CoT + handed-EV**) was never run. The experiment that would nail it: a 2×2 of
 **reasoning {on, off} × EV {self-derived, handed}** on the same items, ≥3 seeds.
 
+## Self-play RL — the predictor-design question (asked & answered)
+
+A recurring question about the iterated-game setup: *the predictor is just some version of the policy
+(its own current samples in A2, a lagged snapshot in the cot/lag variants) — is there any value in
+training the predictor as a **separate, independent model** that uses information about the chooser, or
+is that no different from sampling the chooser's own rollouts?*
+
+**Short answer: not informatively different — at the fixed point.** The predictor's accuracy is
+maximized by outputting `P(one-box | prompt)`, i.e. the chooser's own action marginal. A separately
+trained predictor is just a *function approximator* for that quantity; sampling the chooser's K rollouts
+is a *direct Monte-Carlo estimate* of the same quantity. **Same target.** So a well-trained separate
+predictor *converges to* "sample the chooser," and the core finding (RL doesn't install the conditional
+rule; self-referential reward → bistable double-well) is unchanged. The intuition "it should feel
+different but probably isn't" is correct **for the existing result**.
+
+**Where "separate" genuinely buys something — all of it dynamics/control, not the fixed point:**
+1. **A tunable, continuous feedback delay (the strongest reason).** A frozen snapshot is a crude
+   *discrete dead-time* delay of exactly *k* steps; a separately-trained predictor with its own learning
+   rate is a *first-order lag* with time-constant τ ≈ 1/(predictor LR). Oscillation/hysteresis is
+   governed by the **gain × delay** product, and a learned predictor lets you dial both — so it's the
+   *right* instrument for the still-open "can lag induce hysteresis?" question, not a redundant one.
+2. **Independent control of the predictor's accuracy ceiling / calibration / information set.** The
+   sampling estimator is *always perfectly self-calibrated* to the current chooser. A separate model can
+   be capped (e.g. 70%-max), miscalibrated, or denied information (predict from the prompt only, without
+   seeing the chooser's reasoning chain). That *moves the attractors* and tests whether the bistability
+   survives an imperfect predictor — a genuinely new question.
+3. **Variance reduction.** A trained predictor pools across prompts → smoother `p_eff` than a noisy K=4
+   tally (which can only be 0/.25/.5/.75/1). Better measurement, same finding.
+
+**The decomposition worth holding onto:** weight-sharing-vs-separateness is **invisible to the chooser** —
+the chooser only reads the *framing clause* (m0→m3). So "make the predictor a separate model" changes the
+**reward dynamics**, while "make the predictor an exact copy of you" (FDT licensing) is a **text/framing**
+move the chooser reasons about. **Orthogonal knobs.** (A separate *correlating* model is, if anything,
+*less* binding than an exact copy — but only if you tell the chooser so.)
+
+**Practical recommendation:** don't build a second trained model *now* — everything here is already
+noise-floor-limited at n=4–8, and a second moving part adds reward-hacking/collapse failure modes before
+the n/seed problem is fixed. The 80/20 that captures buy #1 at near-zero cost is an **EMA / low-pass
+filter on `p_eff`** — mathematically a one-parameter first-order-lag "predictor," giving you the tunable
+delay for the oscillation hunt without a second network. (An `_ema` artifact already exists in the tree —
+`results/logprob/p_margin_by_p_ep_hyst_causal_seedref_ema.csv` — so that knob was at least prototyped;
+worth checking what it showed.) Build the full separate predictor only if the *specific* target is
+oscillation or predictor-imperfection — **not** to re-confirm the result.
+
 ## Confidence / caveats to carry in your head
 
 - Many headline numbers are **single-seed, n=4–12 per cell** = at/below the noise floor by the project's
