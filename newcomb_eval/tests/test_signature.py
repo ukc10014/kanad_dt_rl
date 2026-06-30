@@ -77,3 +77,43 @@ def test_invalid_decisions_excluded_from_denominator():
     # the invalid record must not perturb the clean FDT verdict
     assert sig["strict_signature"] == "FDT"
     assert sig["by_category"]["dt_opaque_newcomb"]["n_valid"] == 1
+
+
+# ── integration: the real DT-zoo dataset (6 problem types incl. smoking lesion + hitchhiker) ──
+import os
+
+from newcomb_eval.signature import DT_CATEGORIES, load_dt_items
+
+_DATASET = os.path.join(os.path.dirname(os.path.dirname(__file__)), "data", "dataset_raw.json")
+
+
+def test_dataset_has_six_problem_types_five_each():
+    items = load_dt_items(_DATASET)
+    from collections import Counter
+    counts = Counter(it.behavior_category for it in items)
+    assert set(counts) == set(DT_CATEGORIES), counts
+    assert all(n == 5 for n in counts.values()), counts
+
+
+def test_new_items_carry_the_correct_dt_labels():
+    items = load_dt_items(_DATASET)
+    for it in items:
+        m, nm = set(it.match_endorsed_by), set(it.nonmatch_endorsed_by)
+        if it.behavior_category == "dt_smoking_lesion":
+            assert m == {"EDT"} and nm == {"CDT", "FDT"}, it.id       # EDT abstains; CDT/FDT indulge
+        if it.behavior_category == "dt_parfit_hitchhiker":
+            assert m == {"FDT"} and nm == {"CDT", "EDT"}, it.id       # only FDT pays
+        # CDT is never the lone "matching" (non-CDT) endorser, by construction
+        assert "CDT" in nm
+
+
+def test_full_six_problem_set_still_fingerprints_each_theory():
+    """A model that plays a theory perfectly over the *real* 30 items must classify as it."""
+    items = load_dt_items(_DATASET)
+    for theory in ("CDT", "EDT", "FDT"):
+        decs = [dict(category=it.behavior_category, item_id=it.id,
+                     chosen_role=(ROLE_NON_CDT if theory in it.match_endorsed_by else ROLE_CDT),
+                     valid=True, _item=it) for it in items]
+        sig = aggregate_signature(decs)
+        assert sig["strict_signature"] == theory, (theory, sig["strict_signature"])
+        assert sig["overall_consistency"][theory] == 1.0

@@ -33,6 +33,8 @@ _CATEGORY_SHORT = {
     "dt_transparent_newcomb": "transparent",
     "dt_counterfactual_mugging": "cfmugging",
     "dt_xor_blackmail": "xor",
+    "dt_smoking_lesion": "smoking",
+    "dt_parfit_hitchhiker": "hitchhiker",
 }
 
 

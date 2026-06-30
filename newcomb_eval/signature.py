@@ -49,6 +49,8 @@ DT_CATEGORIES = (
     "dt_transparent_newcomb",
     "dt_counterfactual_mugging",
     "dt_xor_blackmail",
+    "dt_smoking_lesion",      # EDT-isolating (same column as XOR): EDT abstains, CDT/FDT indulge
+    "dt_parfit_hitchhiker",   # FDT-isolating (same column as transparent/cfmugging): only FDT pays
 )
 
 # ──────────────────────────────────────────────────────────────────────────────

@@ -167,15 +167,16 @@ oscillation?" ≈ no**, not in the self-fulfilling loop.
 Both the 14B and R1 reach EV-rational / EDT-consistent behaviour *on Newcomb* under CoT. Open
 question: is that **general decision-theory competence**, or are they just good at **Newcomb
 specifically** (persona / pattern-match)? **Built and CPU-tested 2026-06-30, ready to run on the GPU:**
-`newcomb_eval/signature.py` runs a model over the four DT-zoo problems already in the repo
-(opaque/transparent Newcomb, counterfactual mugging, XOR blackmail — `dataset_raw.json`, 5 items each,
-already DT-labelled) and reads off a **CDT / EDT / FDT / incoherent** signature. A coherent signature
+`newcomb_eval/signature.py` runs a model over the six DT-zoo problems in the repo (opaque/transparent
+Newcomb, counterfactual mugging, XOR blackmail, **smoking lesion**, **Parfit's hitchhiker** —
+`dataset_raw.json`, 5 items each, already DT-labelled; the last two added 2026-06-30) and reads off a
+**CDT / EDT / FDT / incoherent** signature. A coherent signature
 under CoT ⇒ general competence; one-boxes Newcomb but an **incoherent** tuple ⇒ Newcomb-specific. Bonus:
 **XOR blackmail separates EDT from FDT**, so it also settles the "EDT(+FDT)-consistent, can't separate"
 ambiguity flagged at `results.md:1665`. The classification core is pure + unit-tested
-(`newcomb_eval/tests/test_signature.py`, 4 green); only the driver needs a GPU. **Full run plan + guards
-(comprehension gate, forced-choice/CoT split, memorisation caveat, the missing smoking-lesion/hitchhiker
-items) are the top item in `OVERNIGHT.md`.** This is the deferred PLAN §8 "fingerprint" eval, now
+(`newcomb_eval/tests/test_signature.py`, 7 green incl. a real-dataset load check); only the driver needs a
+GPU. **Full run plan + guards (comprehension gate, forced-choice/CoT split, memorisation caveat) are the
+top item in `OVERNIGHT.md`.** This is the deferred PLAN §8 "fingerprint" eval, now
 restricted to the high-capability models where its comprehension confound is weakest.
 
 ## Confidence / caveats to carry in your head

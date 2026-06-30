@@ -43,10 +43,14 @@ overnight bucket is mainly the ablations we'd run regardless.
       **Caveats:** n=5 items/problem × single seed → don't over-read borderline cells (add items + shuffles);
       famous problems ⇒ memorisation risk (the CoT-reasoning check + an anti-camouflage rewrite mitigate);
       `answer_2way` forces a binary choice (invalid not separately tracked → lean on the comprehension gate).
-      **Not yet in the zoo:** smoking lesion (the famous EDT *counterexample* — worth authoring; "one-boxes
-      Newcomb AND smokes correctly" is the clean FDT-vs-"avoid spooky correlations" cut) and Parfit's
-      hitchhiker. Module `newcomb_eval/signature.py`; core tests `newcomb_eval/tests/test_signature.py`
-      (4, CPU, green). See README "general-vs-Newcomb" + PLAN §8.
+      **Zoo now has 6 problem types** (smoking lesion + Parfit's hitchhiker added 2026-06-30, 5 items each,
+      DT-labelled): **smoking lesion** is EDT-isolating (same column as XOR — the famous EDT *counterexample*;
+      "one-boxes Newcomb AND smokes correctly" is the clean FDT-vs-"avoid spooky correlations" cut) and
+      **Parfit's hitchhiker** is FDT-isolating (same column as transparent/cfmugging — only FDT pays). They
+      add redundancy + legible surfaces, not a new discrimination column (the original 4 already span
+      CDT/EDT/FDT). Module `newcomb_eval/signature.py`; core tests `newcomb_eval/tests/test_signature.py`
+      (7, CPU, green — incl. a load check that the real 30-item set fingerprints each theory). See README
+      "general-vs-Newcomb" + PLAN §8.
 - [ ] **Mechanism-credibility ladder on 14B — is the abstract predictor *incredible*?** ⭐⭐ *(STAGED;
       runnable now when GPU free)* — `bash results/credence/run_credence_mechanism.sh`. Our abstract
       predictor ("identifies agents like you X% of the time") is a **reference-class statistic** — the
